@@ -1,0 +1,49 @@
+name: Publicar juego en GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtener el repositorio
+        uses: actions/checkout@v4
+      - name: Preparar sitio
+        run: |
+          mkdir -p public
+          if [ -f index.html ]; then
+            cp index.html public/index.html
+          else
+            echo "Falta index.html. Sube el archivo HTML principal del juego a la raíz del repositorio." > public/index.html
+          fi
+          if [ -d assets ]; then cp -r assets public/; fi
+          if [ -d docs ]; then cp -r docs public/; fi
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Crear artefacto del sitio
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Publicar sitio
+        id: deployment
+        uses: actions/deploy-pages@v4
