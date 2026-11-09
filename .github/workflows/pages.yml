@@ -23,11 +23,8 @@ jobs:
       - name: Preparar sitio
         run: |
           mkdir -p public
-          if [ -f index.html ]; then
-            cp index.html public/index.html
-          else
-            echo "Falta index.html. Sube el archivo HTML principal del juego a la raíz del repositorio." > public/index.html
-          fi
+          test -f index.html || { echo "ERROR: falta index.html en la raíz del repositorio."; exit 1; }
+          cp index.html public/index.html
           if [ -d assets ]; then cp -r assets public/; fi
           if [ -d docs ]; then cp -r docs public/; fi
       - name: Configurar GitHub Pages
