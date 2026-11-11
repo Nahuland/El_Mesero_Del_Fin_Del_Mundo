@@ -1,0 +1,9 @@
+EL MESERO DEL FIN DEL MUNDO — 3.19 QA INTEGRAL
+
+Archivo jugable: El_Mesero_del_Fin_del_Mundo_3.19_QA_Integral.html
+Abrir el HTML en un navegador moderno. La partida usa localStorage con clave mesero30save.
+
+Incluye documento maestro, atlas, plano, guion, coordenadas CSV e informe QA.
+Versión de guardado: 48. Los guardados previos compatibles se conservan.
+
+Nota: la validación automatizada de esta entrega es estática; falta recorrido manual visual en navegador y móvil físico.

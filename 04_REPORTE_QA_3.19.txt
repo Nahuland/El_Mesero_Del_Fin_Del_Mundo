@@ -1,0 +1,41 @@
+EL MESERO DEL FIN DEL MUNDO — INFORME QA 3.19
+
+RESULTADO: CORRECCIONES DE PROGRESIÓN Y GUARDADO APLICADAS; VALIDACIÓN ESTÁTICA APROBADA.
+
+HALLAZGOS CRÍTICOS CORREGIDOS
+1. Continuar partida: `started:false` del objeto serializado anulaba el estado activo después de `Object.assign`; se restablece `state.started=true` tras cargar.
+2. Santuario: la aparición interior coincidía con el objeto de salida (367,207); ahora aparece en (369,207), con el retorno exterior original intacto.
+3. Metadato regional: los interiores ahora se guardan bajo su región de origen R2/R3/R5.
+4. Cartografía: Paso del bosque se limita a Y=110–134 en R3; el umbral operativo (309,139) pertenece a R5, frontera lógica Y=135.
+5. Guardado defensivo: valida instancia interior, retorno y posición; una instancia desconocida o sin retorno válido se descarta de forma segura.
+6. Versión: menú 3.19 y saveVersion 48; se conserva la clave `mesero30save` y compatibilidad con saves previos.
+
+PRUEBAS / CONTROLES
+[OK] Sintaxis JavaScript inline — node --check ejecutado por separado
+[OK] Etiqueta del menú 3.19
+[OK] saveVersion 48
+[OK] Restablece started tras cargar
+[OK] Validación de interiores permitidos
+[OK] Validación de returnPoint
+[OK] Santuario spawn separado
+[OK] Entrada Catacumbas sin argumento de retorno obsoleto
+[OK] Región de interiores en guardado
+[OK] Paso bosque limitado al norte de frontera
+[OK] R4 sigue bloqueado
+[OK] Accesos de interiores mapeados
+[OK] Salidas interiores mapeadas
+[OK] Nueve pares acceso/salida revisados — depotdoor→depotreturn, patiodoor→patioreturn, mallDoor→mallReturn, metroDoor→metroReturn, hospitalDoor→hospitalReturn, nestDoor→nestReturn, cultCatacombsAccess→catacombsExit, cultTempleAccess→templeReturn, cultSanctuaryAccess→sanctuaryReturn
+[OK] Persistencia de returnPoint
+[OK] IDs DOM únicos
+[OK] 132 filas y coordenadas maestras intactas — 132 filas; mismas tuplas región/lugar/x/y
+[OK] Seis corredores R3/R5 sin colisiones de huella/árbol — [('R3–Umbral', [], []), ('Umbral–Aldea', [], []), ('Aldea–Mercado', [], []), ('Aldea–Catacumbas', [], []), ('Catacumbas–Escalinata–Templo', [], []), ('Escalinata–Santuario', [], [])]
+[OK] No hay nuevas coordenadas/puertas/huellas — Solo se ajusta aparición interior del Santuario; no es coordenada maestra exterior
+
+RECORRIDO LÓGICO AUDITADO
+R2: Túnel de Servicio → compuerta oriental (requiere señal) → salida a R3.
+R3: Puerta de Ciudad → Barrio/Parque/Metro/Hospital/Nido → Paso del bosque → Umbral R5.
+R5: Umbral → Sendero → Aldea → ramales Mercado/Catacumbas → Escalinata → Templo/Santuario.
+Interiores: nueve pares de acceso/salida revisados (Depósito, Patio, Centro Comercial, Metro, Hospital, Nido, Catacumbas, Templo y Santuario); los tres interiores R5 conservan captura de coordenada exterior y retorno dinámico.
+
+LÍMITES
+No se pudo ejecutar una partida interactiva real en Chromium: el entorno bloqueó la navegación local con ERR_BLOCKED_BY_ADMINISTRATOR. Por tanto, las transiciones se verificaron por inspección estática de handlers, coordenadas y colisiones; no se declara prueba manual de juego ni validación visual. La prueba en móvil físico permanece pendiente.
