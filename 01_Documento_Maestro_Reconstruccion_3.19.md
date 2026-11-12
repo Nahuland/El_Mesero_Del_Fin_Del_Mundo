@@ -504,3 +504,8 @@ Se conserva la clave `mesero30save` y se acepta el estado previo 3.18/`saveVersi
 
 ### Límites de validación
 La sintaxis, referencias, metadatos, tablas de coordenadas y geometría de corredores se verifican de forma automatizada/estática. El navegador de pruebas de esta sesión bloqueó la navegación local por política del entorno; por ello no se declara una partida manual completa ni una prueba visual real. La prueba en móvil físico sigue pendiente.
+
+
+## Actualización de producción — Versión 3.20: expansión ambiental de R5
+
+Se incorporan seis puntos de inspección ambiental en el Territorio del Culto y ramales visuales secundarios conectados con los caminos existentes. La expansión no incorpora NPC, misiones, doctrinas, facciones activas ni revelaciones. Las coordenadas maestras y huellas anteriores permanecen intactas; no se agregan colisiones. Catacumbas, Templo y Santuario conservan sus accesos y retornos. R4 sigue cerrado. El guardado mantiene la clave `mesero30save` y migra de forma aditiva a `saveVersion:49`. La validación estática se documenta en `REPORTE_QA_3.20_R5.txt`; la revisión visual y móvil debe repetirse sobre esta versión.
