@@ -1,0 +1,26 @@
+EL MESERO DEL FIN DEL MUNDO — QA 3.22
+Alcance: auditoría de canon y planificación del desarrollo narrativo militar R4.
+
+[OK] Guion Maestro Fase 4 leído como fuente narrativa principal.
+[OK] Acto IV y sus siete hitos de ruta identificados.
+[OK] Mecánica, Piloto, General Acorazado, Vuelo 9, recetario y llave inglesa vinculados solo a hechos explícitos de la fuente.
+[OK] Correspondencia funcional con los nueve hitos cartográficos R4 3.21 documentada.
+[OK] Vacíos de canon y diseño enumerados; no se completan mediante invención.
+[OK] Variables narrativas propuestas por el Guion Maestro registradas como destino de diseño, no implementadas.
+[OK] Se conserva la distinción entre destruir autoridad, exponer verdad y permitir rendición.
+[OK] Se mantiene la compatibilidad como requisito: mesero30save y migración aditiva.
+
+NO MODIFICADO
+- index.html y juego ejecutable.
+- saveVersion:49 y mesero30save.
+- Coordenadas, huellas, accesos, colisiones y CSV maestro.
+- Estado de bloqueo regional R4.
+- Diálogos, NPC, misiones, interiores y decisiones militares.
+
+PENDIENTE ANTES DE LA IMPLEMENTACIÓN JUGABLE
+- Resolver los diez vacíos enumerados en 08_Plan_3.22_Desarrollo_Faccion_Militar.md.
+- Después, implementar y probar encuentros, evidencia, sabotaje y resoluciones del General.
+- Prueba estática, manual/visual en navegador y móvil físico sobre la versión jugable resultante.
+
+RESULTADO
+Auditoría documental aprobada. No es una entrega jugable y no certifica funcionamiento visual o móvil.
