@@ -509,3 +509,12 @@ La sintaxis, referencias, metadatos, tablas de coordenadas y geometría de corre
 ## Actualización de producción — Versión 3.20: expansión ambiental de R5
 
 Se incorporan seis puntos de inspección ambiental en el Territorio del Culto y ramales visuales secundarios conectados con los caminos existentes. La expansión no incorpora NPC, misiones, doctrinas, facciones activas ni revelaciones. Las coordenadas maestras y huellas anteriores permanecen intactas; no se agregan colisiones. Catacumbas, Templo y Santuario conservan sus accesos y retornos. R4 sigue cerrado. El guardado mantiene la clave `mesero30save` y migra de forma aditiva a `saveVersion:49`. La validación estática se documenta en `REPORTE_QA_3.20_R5.txt`; la revisión visual y móvil debe repetirse sobre esta versión.
+
+
+## Actualización de producción — Versión 3.21: geografía exterior de R4
+
+Se incorpora la primera capa física del Territorio Militar usando exclusivamente los hitos y coordenadas ya aprobados como reserva cartográfica. Se representan Control del puente, Trincheras norte, Cuartel avanzado, Puerto, Muelle, Hangar, Aeródromo, Fortaleza y Puesto de radio. Se agregan estructuras exteriores, parapetos, muelle visual, pista y señalización territorial. No se añaden NPC, unidades, insignias, órdenes, mensajes, misiones, interiores ni hechos narrativos militares.
+
+La frontera R4 permanece cerrada para entradas desde otras regiones. Las partidas antiguas que ya estuvieran dentro conservan la posibilidad de salir. Los edificios nuevos tienen colisiones exteriores con puntos de inspección y aproximaciones libres; sus puertas permanecen cerradas. No se crean banderas nuevas ni cambia `saveVersion:49`; se conserva `mesero30save`.
+
+La validación de esta entrega es estática y de sintaxis. La inspección visual/manual y móvil de 3.21 queda pendiente.
