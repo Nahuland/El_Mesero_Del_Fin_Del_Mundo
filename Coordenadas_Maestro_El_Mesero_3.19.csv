@@ -131,9 +131,9 @@ R3,Caja de mantenimiento del tranvía,237,61,—,—,Recurso opcional civil,Nuev
 R3,Armario de servicio del parque,214,100,—,—,Recurso opcional civil,Nuevo 3.16,,,,,,,,,Recuperar una pieza; una sola vez,state.city.civicCaches.cityCachePark,Sin cambios de coordenadas en 3.17,Sin cambios de coordenadas ni huellas.
 R3,Caja de herramientas del cementerio,285,96,—,—,Recurso opcional civil,Nuevo 3.16,,,,,,,,,Recuperar una pieza; una sola vez,state.city.civicCaches.cityCacheCemetery,Sin cambios de coordenadas en 3.17,Sin cambios de coordenadas ni huellas.
 R3,Banco de reparación civil,225,53,—,—,Servicio opcional de reparación,Nuevo 3.16,,,,,,,,,Reparar 30 puntos por 2 piezas; requiere inventario civil 3/3,state.city.civicCachesComplete (condición de acceso),Sin cambios de coordenadas en 3.17,Sin cambios de coordenadas ni huellas.
-R5,Tronco caído,316,168,—,—,Inspección ambiental,Nuevo 3.20,,,,,,,,,,,,,Inspección ambiental sin cambio de canon
-R5,Claro pedregoso,326,163,—,—,Inspección ambiental,Nuevo 3.20,,,,,,,,,,,,,Inspección ambiental sin cambio de canon
-R5,Muro derrumbado,329,190,—,—,Inspección ambiental,Nuevo 3.20,,,,,,,,,,,,,Inspección ambiental sin cambio de canon
-R5,Fuente seca,321,222,—,—,Inspección ambiental,Nuevo 3.20,,,,,,,,,,,,,Inspección ambiental sin cambio de canon
-R5,Patio de puestos,342,218,—,—,Inspección ambiental,Nuevo 3.20,,,,,,,,,,,,,Inspección ambiental sin cambio de canon
-R5,Descanso de la escalinata,372,239,—,—,Inspección ambiental,Nuevo 3.20,,,,,,,,,,,,,Inspección ambiental sin cambio de canon
+R5,Tronco caído,316,168,—,—,Inspección ambiental,Nuevo 3.20,,,,,,,,,,,,Inspección ambiental sin cambio de canon
+R5,Claro pedregoso,326,163,—,—,Inspección ambiental,Nuevo 3.20,,,,,,,,,,,,Inspección ambiental sin cambio de canon
+R5,Muro derrumbado,329,190,—,—,Inspección ambiental,Nuevo 3.20,,,,,,,,,,,,Inspección ambiental sin cambio de canon
+R5,Fuente seca,321,222,—,—,Inspección ambiental,Nuevo 3.20,,,,,,,,,,,,Inspección ambiental sin cambio de canon
+R5,Patio de puestos,342,218,—,—,Inspección ambiental,Nuevo 3.20,,,,,,,,,,,,Inspección ambiental sin cambio de canon
+R5,Descanso de la escalinata,372,239,—,—,Inspección ambiental,Nuevo 3.20,,,,,,,,,,,,Inspección ambiental sin cambio de canon
