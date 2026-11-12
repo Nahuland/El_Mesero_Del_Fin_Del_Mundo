@@ -27,3 +27,14 @@ La versión de referencia preparada localmente es **3.19**. El informe de QA dis
 - [Actualización 3.20](06_Actualizacion_3.20_R5.md)
 - [Coordenadas maestras 3.20](Coordenadas_Maestro_El_Mesero_3.20.csv)
 - [Informe QA 3.20](REPORTE_QA_3.20_R5.txt)
+
+
+## Versión actual: 3.21 — Geografía exterior de R4
+
+- [Abrir juego 3.21](https://nahuland.github.io/El_Mesero_Del_Fin_Del_Mundo/)
+- [HTML 3.21](El_Mesero_del_Fin_del_Mundo_3.21_R4_Geografia.html)
+- [Actualización 3.21](07_Actualizacion_3.21_R4_Geografia.md)
+- [Coordenadas maestras 3.21](Coordenadas_Maestro_El_Mesero_3.21.csv)
+- [Informe QA 3.21](REPORTE_QA_3.21_R4_Geografia.txt)
+
+R4 conserva el bloqueo de acceso. Esta entrega completa únicamente su primera capa geográfica exterior; la facción y la historia militar siguen pendientes.
