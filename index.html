@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>El Mesero del Fin del Mundo — 3.19 · QA integral R3–R5</title>
+<title>El Mesero del Fin del Mundo — 3.20 · EXPANSIÓN AMBIENTAL R5</title>
 <style>
 :root{--ink:#e9e4d8;--muted:#a9b8bc;--gold:#f0c58b;--cyan:#8ad8e8;--panel:#081522ed;--line:#477286}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#07111b;color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
@@ -56,7 +56,7 @@ h1{font:clamp(28px,5vw,48px)/1.05 Georgia,serif;color:#f2d2a2;margin:12px 0;text
 <body>
 <div id="game">
 <canvas id="world" aria-label="Mundo isométrico explorable"></canvas>
-<div id="topbar"><div class="brand">EL MESERO DEL FIN DEL MUNDO <span style="color:#7eb9c7">· 3.19 · QA INTEGRAL</span></div><div id="zone">LA ESTRELLA</div></div>
+<div id="topbar"><div class="brand">EL MESERO DEL FIN DEL MUNDO <span style="color:#7eb9c7">· 3.20 · R5 EXPANSIÓN</span></div><div id="zone">LA ESTRELLA</div></div>
 <div id="hud"><div class="chip">S-07 <b>SIETE</b></div><div class="chip">Integridad <b id="hp">100%</b></div><div class="chip">Chatarra <b id="scrap">0</b></div><div class="chip">Amenaza <b id="bossStatus">Activa</b></div></div>
 <div id="hint">Mover: WASD / flechas · Interactuar: E · Diario: J · Guardar: F5</div>
 <div id="interact">E · Interactuar</div>
@@ -71,7 +71,7 @@ h1{font:clamp(28px,5vw,48px)/1.05 Georgia,serif;color:#f2d2a2;margin:12px 0;text
  </div>
  <button class="act" id="mobileAct">INTERACTUAR</button>
 </div>
-<div id="menu"><div class="menu-card"><div class="eyebrow">Una historia sobre lo que queda después del fin</div><h1>La última mesa</h1><p class="subtitle">Veintiséis años después de la guerra, la unidad S-07 despierta en un restaurante olvidado. Afuera, el mundo sigue esperando una respuesta.</p><div class="menu-actions"><button id="newGame">COMENZAR RECONSTRUCCIÓN</button><button id="continueGame" class="secondary">CONTINUAR PARTIDA</button></div><p style="font-size:10px;color:#809ba7;margin-top:18px">Versión 3.19 · QA integral de progresión · R3–R5</p></div></div>
+<div id="menu"><div class="menu-card"><div class="eyebrow">Una historia sobre lo que queda después del fin</div><h1>La última mesa</h1><p class="subtitle">Veintiséis años después de la guerra, la unidad S-07 despierta en un restaurante olvidado. Afuera, el mundo sigue esperando una respuesta.</p><div class="menu-actions"><button id="newGame">COMENZAR RECONSTRUCCIÓN</button><button id="continueGame" class="secondary">CONTINUAR PARTIDA</button></div><p style="font-size:10px;color:#809ba7;margin-top:18px">Versión 3.20 · Exploración ambiental de R5</p></div></div>
 </div>
 <script>
 (()=>{
@@ -291,6 +291,14 @@ const cultTrees=[
  {x:372,y:258},{x:405,y:245},{x:411,y:265},{x:411,y:289},
  {x:365,y:286},{x:331,y:232},{x:397,y:219},{x:317,y:184}
 ];
+props.push(
+ {id:'cultPoi_fallenTree',x:316,y:168,type:'landmark',name:'Tronco caído',emoji:'🌳',description:'Un tronco viejo yace junto al sendero. La madera está oscurecida por la humedad y cubierta de musgo. No hay marcas legibles ni señales que permitan fechar su caída.'},
+ {id:'cultPoi_stoneClearing',x:326,y:163,type:'landmark',name:'Claro pedregoso',emoji:'🪨',description:'El suelo se abre en un claro irregular. Piedras pequeñas y tierra compactada forman una superficie desnivelada; no hay objetos que permitan atribuirle un uso concreto.'},
+ {id:'cultPoi_ruinWall',x:329,y:190,type:'landmark',name:'Muro derrumbado',emoji:'🧱',description:'Un tramo bajo de mampostería se interrumpe entre raíces y maleza. Las piedras están demasiado erosionadas para reconocer una inscripción o determinar qué estructura delimitaban.'},
+ {id:'cultPoi_dryBasin',x:321,y:222,type:'landmark',name:'Fuente seca',emoji:'⛲',description:'Una pileta de piedra conserva sedimentos y grietas en el fondo. No queda agua ni mecanismo visible en funcionamiento.'},
+ {id:'cultPoi_marketRemains',x:342,y:218,type:'landmark',name:'Patio de puestos',emoji:'🪵',description:'Detrás de los puestos quedan tablones, soportes torcidos y fragmentos de lona. El espacio puede recorrerse sin atravesar las estructuras del mercado.'},
+ {id:'cultPoi_stairRest',x:372,y:239,type:'landmark',name:'Descanso de la escalinata',emoji:'🪜',description:'Un rellano lateral conserva dos peldaños rotos y un borde desgastado. Desde aquí se distinguen la subida y la terraza, sin que aparezca una ruta nueva.'}
+);
 function resize(){dpr=Math.min(devicePixelRatio||1,2);W=canvas.clientWidth;H=canvas.clientHeight;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
 addEventListener('resize',resize);resize();
 function iso(x,y){return {x:(x-y)*TILE_W/2,y:(x+y)*TILE_H/2}}
@@ -492,6 +500,13 @@ function drawGround(){
  road([[354,220],[366,224],[380,232],[380,245],[352,247]],1.8);
  // El Santuario se alcanza por una vereda occidental independiente, sin atravesar su huella.
  road([[380,245],[381,257],[382,268],[384,276]],1.5);
+ // 3.20 · ramales peatonales cortos hacia puntos de observación; no cambian accesos.
+ road([[322,150],[326,163]],1.0);
+ road([[329,160],[316,168]],1.0);
+ road([[337,183],[329,190]],1.0);
+ road([[325,211],[321,222]],1.0);
+ road([[353,210],[342,218]],1.0);
+ road([[380,232],[372,239]],1.0);
 }
 function drawBuildings(){
  // La Estrella shell
@@ -748,6 +763,14 @@ function drawRegionLabels(){
 }
 // Hitos geográficos R1/R2 del plano maestro. Son ambientales: no añaden
 // misiones, NPC ni revelaciones y no alteran la progresión ya existente.
+const cultExplorationSites=[
+ {x:316,y:168,name:'TRONCO CAÍDO',kind:'fallenTree'},
+ {x:326,y:163,name:'CLARO PEDREGOSO',kind:'clearing'},
+ {x:329,y:190,name:'MURO DERRUMBADO',kind:'ruinWall'},
+ {x:321,y:222,name:'FUENTE SECA',kind:'basin'},
+ {x:342,y:218,name:'PATIO DE PUESTOS',kind:'marketRemains'},
+ {x:372,y:239,name:'DESCANSO DE LA ESCALINATA',kind:'stairRest'}
+];
 const explorationSites=[
  {x:25,y:61,name:'ESTACIÓN DE BOMBEO',icon:'💧',kind:'pump'},
  {x:18,y:88,name:'PUESTO DE VIGÍA',icon:'🗼',kind:'lookout'},
@@ -800,6 +823,33 @@ function drawExplorationSites(){
   ctx.restore();
  }
 }
+function drawCultExplorationSites(){
+ if(state.currentInterior)return;
+ const visible=cultExplorationSites.filter(o=>Math.abs(o.x-player.x)<24&&Math.abs(o.y-player.y)<22);
+ for(const o of visible){
+  const p=screen(o.x,o.y);ctx.save();ctx.textAlign='center';
+  if(o.kind==='fallenTree'){
+   ctx.strokeStyle='#514333';ctx.lineWidth=10;ctx.beginPath();ctx.moveTo(p.x-24,p.y-8);ctx.lineTo(p.x+22,p.y+5);ctx.stroke();
+   for(const dx of [-16,2,17]){ctx.fillStyle='#53694a';ctx.beginPath();ctx.arc(p.x+dx,p.y-5,8,0,Math.PI*2);ctx.fill()}
+  }else if(o.kind==='clearing'){
+   ctx.fillStyle='#77715b';ctx.beginPath();ctx.ellipse(p.x,p.y,25,10,-.18,0,Math.PI*2);ctx.fill();
+   for(const [dx,dy] of [[-17,-4],[12,-7],[20,4],[-8,7]]){ctx.fillStyle='#aaa083';ctx.beginPath();ctx.arc(p.x+dx,p.y+dy,4,0,Math.PI*2);ctx.fill()}
+  }else if(o.kind==='ruinWall'){
+   boxIso(o.x-2,o.y-1,3.5,1.0,12,'#77715e','#494638');boxIso(o.x+2,o.y+.5,1.4,1.0,7,'#8a8269','#4c493c');
+  }else if(o.kind==='basin'){
+   const q=screen(o.x,o.y);ctx.fillStyle='#77745f';ctx.beginPath();ctx.ellipse(q.x,q.y,20,12,0,0,Math.PI*2);ctx.fill();
+   ctx.fillStyle='#41483f';ctx.beginPath();ctx.ellipse(q.x,q.y-2,13,7,0,0,Math.PI*2);ctx.fill();
+   ctx.strokeStyle='#a59a79';ctx.lineWidth=2;ctx.stroke();
+  }else if(o.kind==='marketRemains'){
+   boxIso(o.x-2.5,o.y-1.5,3.8,.7,9,'#765b42','#46382e');
+   const q=screen(o.x+1,o.y-1);ctx.strokeStyle='#8a7557';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(q.x-8,q.y-22);ctx.lineTo(q.x+10,q.y-5);ctx.moveTo(q.x+8,q.y-22);ctx.lineTo(q.x-8,q.y-5);ctx.stroke();
+  }else if(o.kind==='stairRest'){
+   for(let i=0;i<3;i++)boxIso(o.x-2.5+i*1.4,o.y-1.2+i*.4,1.25,1.1,4,'#89836a','#4d4d40');
+  }
+  ctx.fillStyle='#071018';ctx.font='700 9px system-ui';ctx.fillText(o.name,p.x+1,p.y-43+1);
+  ctx.fillStyle='#d8c8a6';ctx.fillText(o.name,p.x,p.y-43);ctx.restore();
+ }
+}
 function drawPlayer(){
  const p=screen(player.x,player.y);
  ctx.fillStyle='#0008';ctx.beginPath();ctx.ellipse(p.x,p.y-1,14,6,0,0,Math.PI*2);ctx.fill();
@@ -817,7 +867,7 @@ function drawAtmosphere(){
 function render(){
  ctx.clearRect(0,0,W,H);
  const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#172c39');g.addColorStop(1,'#0b171f');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
- drawGround();drawBuildings();drawReservedBoundary();drawRegionLabels();drawExplorationSites();
+ drawGround();drawBuildings();drawReservedBoundary();drawRegionLabels();drawExplorationSites();drawCultExplorationSites();
  props.filter(o=>(o.id!=='robotguest'||state.chapterComplete)&&(state.currentInterior?o.interior===state.currentInterior:!o.interior)).slice().sort((a,b)=>a.x+a.y-(b.x+b.y)).forEach(drawProp);
  drawPlayer();drawAtmosphere();
 }
@@ -955,9 +1005,10 @@ function cityMemoryText(){
 function updateHUD(){
  $('hp').textContent=player.hp+'%';$('scrap').textContent=player.scrap;$('zone').textContent=zoneAt(player.x,player.y);$('objective').textContent='Objetivo: '+state.objective;$('bossStatus').textContent=state.chapterComplete?'Capítulo I':(state.bossDefeated?(state.bossPeace?'Aliado':'Derrotado'):'Activo');
  const poiCount=Object.values(state.flags.poiExplored||{}).filter(Boolean).length;
+ const cultPoiCount=Object.values(state.flags.cultPoiExplored||{}).filter(Boolean).length;
  const cityPoiCount=Object.values(state.flags.cityPoiExplored||{}).filter(Boolean).length;
  const civicCacheCount=Object.values(state.city?.civicCaches||{}).filter(Boolean).length;
- $('journalText').textContent=(state.city?.resolution||state.city?.suppliesChoice||state.city?.broadcast||state.city?.tomasTrust||state.city?.infectedSpared!==undefined?cityMemoryText():(state.chapterComplete?'Capítulo I cerrado. La Estrella es ahora un refugio para quienes eligieron dejar de obedecer la señal.':state.bossDefeated?'La fábrica está abierta. Recuperá los registros de Siesta y rastreá la señal en el túnel.':state.survivorTalk?'El Superviviente conoce el sistema de control del Capataz. Buscá pruebas antes de decidir cómo enfrentarlo.':(state.flags.depotManifest||state.flags.patioInspection?'Los registros del Depósito y el Patio pueden cambiar la forma de resolver el conflicto con el Capataz.':'Reuní recuerdos en La Estrella, escuchá al Desertor y descubrí qué controla el Capataz.')))+(poiCount?' · Hitos R1/R2 revisados: '+poiCount+'/10':'')+(cityPoiCount?' · Ciudad Enferma revisada: '+cityPoiCount+'/7':'')+(state.city?.resolution?' · Corredor sur: '+Object.values(state.city?.southSurvey||{}).filter(Boolean).length+'/3':'')+(state.city?.southApproachPrepared?' · Acceso urbano preparado':'')+(state.flags?.cityGateOpen?' · Recursos civiles: '+civicCacheCount+'/3':'')+(state.city?.resolution?' · Seguimiento civil: '+[state.city?.maraFollowup,state.city?.tomasFollowup,state.city?.ibarraFollowup].filter(Boolean).length+'/3':'');
+ $('journalText').textContent=(state.city?.resolution||state.city?.suppliesChoice||state.city?.broadcast||state.city?.tomasTrust||state.city?.infectedSpared!==undefined?cityMemoryText():(state.chapterComplete?'Capítulo I cerrado. La Estrella es ahora un refugio para quienes eligieron dejar de obedecer la señal.':state.bossDefeated?'La fábrica está abierta. Recuperá los registros de Siesta y rastreá la señal en el túnel.':state.survivorTalk?'El Superviviente conoce el sistema de control del Capataz. Buscá pruebas antes de decidir cómo enfrentarlo.':(state.flags.depotManifest||state.flags.patioInspection?'Los registros del Depósito y el Patio pueden cambiar la forma de resolver el conflicto con el Capataz.':'Reuní recuerdos en La Estrella, escuchá al Desertor y descubrí qué controla el Capataz.')))+(poiCount?' · Hitos R1/R2 revisados: '+poiCount+'/10':'')+(cityPoiCount?' · Ciudad Enferma revisada: '+cityPoiCount+'/7':'')+(state.city?.resolution?' · Corredor sur: '+Object.values(state.city?.southSurvey||{}).filter(Boolean).length+'/3':'')+(state.city?.southApproachPrepared?' · Acceso urbano preparado':'')+(state.flags?.cityGateOpen?' · Recursos civiles: '+civicCacheCount+'/3':'')+(state.city?.resolution?' · Seguimiento civil: '+[state.city?.maraFollowup,state.city?.tomasFollowup,state.city?.ibarraFollowup].filter(Boolean).length+'/3':'')+(cultPoiCount?' · R5 ambiental: '+cultPoiCount+'/6':'');
 }
 function openDialogue(speaker,portrait,text,choices){
  dialogue={speaker,portrait,text,choices:choices||[]};
@@ -1296,7 +1347,8 @@ function interact(){
   openDialogue('Unidad de servicio','🤖','La unidad está apagada. Su memoria local conserva una última petición: “Si alguien encuentra esto, que no vuelva a convertir una orden en una cadena”.');break;
  default:
   if(near.type==='landmark'&&near.description){
-   openDialogue(near.name,near.emoji,near.description);
+   if(near.id&&near.id.startsWith('cultPoi_')){state.flags.cultPoiExplored=state.flags.cultPoiExplored||{};state.flags.cultPoiExplored[near.id]=true;}
+   openDialogue(near.name,near.emoji,near.description);updateHUD();
   }
   break;
  case'homecoming':
@@ -1381,6 +1433,7 @@ function startGame(load){
  $('menu').classList.add('hidden');state.started=true;
  if(load){const raw=localStorage.getItem('mesero30save');if(raw){try{const s=JSON.parse(raw);Object.assign(state,s.state||{});Object.assign(player,s.player||{});state.consoles=Object.assign({one:false,two:false,three:false},state.consoles||{});state.flags=state.flags||{};state.flags.poiExplored=state.flags.poiExplored||{};state.city=state.city||{};state.city.southSurvey=state.city.southSurvey||{};state.city.maraFollowup=!!state.city.maraFollowup;state.city.tomasFollowup=!!state.city.tomasFollowup;state.city.ibarraFollowup=!!state.city.ibarraFollowup;state.city.civicCaches=state.city.civicCaches||{};state.records=Object.assign({siesta:false,signal:false},state.records||{});if(state.bossHP===100&&!state.bossDefeated&&!state.bossTurnCount)state.bossHP=180;if(state.city.guardianStarted&&state.city.guardianHP==null)state.city.guardianHP=120;state.factoryWingOpen=!!state.factoryWingOpen;state.survivorDebrief=!!state.survivorDebrief;state.chapterComplete=!!state.chapterComplete;state.currentInterior=state.currentInterior||null;state.returnPoint=state.returnPoint||null;state.flags=state.flags||{};
  const validInteriors=['depot','patio','mall','metro','hospital','nest','catacombs','temple','sanctuary'];
+ state.flags.cultPoiExplored=state.flags.cultPoiExplored||{};
  const validPoint=p=>p&&Number.isFinite(Number(p.x))&&Number.isFinite(Number(p.y))&&Number(p.x)>=0&&Number(p.x)<=420&&Number(p.y)>=0&&Number(p.y)<=300;
  if(state.currentInterior&&!validInteriors.includes(state.currentInterior)){state.currentInterior=null;state.returnPoint=null;player.x=8.2;player.y=11.2;}
  if(state.currentInterior&&!validPoint(state.returnPoint)){state.currentInterior=null;state.returnPoint=null;player.x=8.2;player.y=11.2;}
@@ -1393,7 +1446,7 @@ function startGame(load){
  updateHUD();
  if(!state.intro){state.intro=true;openDialogue('Siete','🤖','Sistema reiniciado. Unidad S-07 operativa… ¿Dónde está Estrella? ¿Cuánto tiempo ha pasado?');}
 }
-function savePayload(){return {saveVersion:48,region:regionAt(player.x,player.y),state:{...state,started:false,city:{...(state.city||{})},flags:{...(state.flags||{}),cityPoiExplored:{...(state.flags?.cityPoiExplored||{})}},consoles:{...(state.consoles||{})},records:{...(state.records||{})}},player:{x:player.x,y:player.y,hp:player.hp,scrap:player.scrap}}}
+function savePayload(){return {saveVersion:49,region:regionAt(player.x,player.y),state:{...state,started:false,city:{...(state.city||{})},flags:{...(state.flags||{}),cityPoiExplored:{...(state.flags?.cityPoiExplored||{})},cultPoiExplored:{...(state.flags?.cultPoiExplored||{})}},consoles:{...(state.consoles||{})},records:{...(state.records||{})}},player:{x:player.x,y:player.y,hp:player.hp,scrap:player.scrap}}}
 function persistSave(silent=false){try{localStorage.setItem('mesero30save',JSON.stringify(savePayload()));if(!silent)setToast('Partida guardada.');return true}catch(e){if(!silent)setToast('No se pudo guardar. Comprueba el espacio y los permisos del navegador.');return false}}
 function save(){persistSave(false)}
 $('newGame').onclick=()=>startGame(false);$('continueGame').onclick=()=>startGame(true);
