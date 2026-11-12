@@ -52,4 +52,4 @@ La 3.22 es una auditoría de canon y planificación; no es una versión jugable.
 
 - [Acto IV: facción, nombres, jerarquía y General como jefe final](09_Propuestas_3.22_Acto_IV_General_Jefe_Final.md)
 
-La propuesta establece al General como villano irredimible y jefe final obligatorio. Los nombres y ampliaciones narrativas todavía no son canon ni están implementados.
+El diseño narrativo fue aprobado por el usuario: la facción se llama Ejército de Salvación y el General Acorazado es Richars Octavio, jefe final irredimible. El resto de la propuesta también está aprobado, pero aún no está implementado.
