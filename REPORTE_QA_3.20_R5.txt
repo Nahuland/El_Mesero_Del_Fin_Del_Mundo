@@ -1,0 +1,37 @@
+EL MESERO DEL FIN DEL MUNDO — INFORME QA 3.20
+Alcance: expansión ambiental de R5 sobre la base 3.19.
+
+CAMBIOS
+- Seis puntos de interés ambiental inspeccionables en R5:
+  - Tronco caído (316,168)
+  - Claro pedregoso (326,163)
+  - Muro derrumbado (329,190)
+  - Fuente seca (321,222)
+  - Patio de puestos (342,218)
+  - Descanso de la escalinata (372,239)
+- Se añadieron ramales visuales cortos conectados a los corredores existentes.
+- Las inspecciones quedan registradas en state.flags.cultPoiExplored.
+- El diario muestra el progreso R5 ambiental (n/6).
+- saveVersion sube de 48 a 49; se conserva mesero30save y la migración aditiva de partidas previas.
+
+VALIDACIÓN ESTÁTICA EJECUTADA
+[OK] Compilación sintáctica del JavaScript inline mediante constructor de función (sin ejecutar el juego).
+[OK] Título y etiquetas de versión 3.20.
+[OK] saveVersion 49.
+[OK] Clave de guardado mesero30save conservada.
+[OK] Lista de nueve interiores permitidos conservada.
+[OK] Seis IDs ambientales nuevos presentes.
+[OK] Persistencia de cultPoiExplored en el payload de guardado.
+[OK] Renderizador de nuevos hitos conectado al ciclo de dibujo.
+[OK] Regla de bloqueo de entrada a R4 conservada.
+[OK] Accesos Catacumbas, Templo y Santuario conservados en el código.
+[OK] Sin cambios deliberados a las coordenadas maestras existentes.
+
+NO VALIDADO EN ESTA ENTREGA
+- No se ejecutó una partida manual en navegador para 3.20.
+- No se repitió la prueba visual ni la prueba en móvil físico de 3.20.
+- No se midió rendimiento en dispositivos reales.
+La validación visual y móvil de 3.19 aportada por el usuario no se presenta como validación de esta nueva versión.
+
+RESULTADO
+Validación estática aprobada para los cambios descritos. 3.20 queda lista para revisión visual y móvil de esta expansión.
