@@ -509,3 +509,8 @@ La frontera regional del corredor se resuelve en Y=135: el Paso del bosque (R3) 
 La secuencia de interiores R5 queda documentada así: acceso exterior Catacumbas (354,220) → instancia (329–361,91–125) → salida al punto de entrada; acceso norte del Templo (352,247) → instancia (329–361,132–166) → retorno al punto de entrada; acceso occidental del Santuario (384,276) → instancia (365–397,190–224) → retorno al punto de entrada. La aparición interior del Santuario se separa del marcador de salida.
 
 La continuación de partidas restaura el estado activo y conserva `currentInterior`/`returnPoint`. La clasificación regional de los interiores se mantiene vinculada a su región exterior de origen.
+
+
+## Addendum 3.20 — R5, exploración ambiental
+
+Se agregan seis puntos de observación sin función narrativa nueva: Tronco caído (316,168), Claro pedregoso (326,163), Muro derrumbado (329,190), Fuente seca (321,222), Patio de puestos (342,218) y Descanso de la escalinata (372,239). Los ramales son senderos de lectura visual; no habilitan accesos ni modifican la organización regional. La Aldea, Mercado, Catacumbas, Templo y Santuario conservan su distribución. R4 continúa reservado.
