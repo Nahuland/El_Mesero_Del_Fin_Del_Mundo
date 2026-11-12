@@ -722,3 +722,17 @@ Las etiquetas de subzona se ajustan para que (309,133)–(309,139) se lea como P
 | Santuario (384,276) | (369,207) | (367,207) | Punto de entrada guardado | Aparición separada 2 unidades del marcador de salida; acceso occidental despejado |
 
 La coordenada exterior de retorno se captura al entrar y no se sustituye por un punto fijo. Se corrige además la clasificación de los interiores para que sus metadatos de guardado indiquen R2/R3/R5 según la región de origen, no según el rectángulo artificial de la instancia. No se mueven coordenadas del CSV maestro.
+
+
+## Addendum 3.20 — puntos ambientales R5
+
+| Hito | Coordenada | Interacción | Restricción |
+|---|---:|---|---|
+| Tronco caído | (316,168) | Inspección ambiental | Sin colisión; fuera del eje de acceso |
+| Claro pedregoso | (326,163) | Inspección ambiental | Sin colisión; ramal corto desde el sendero |
+| Muro derrumbado | (329,190) | Inspección ambiental | Sin colisión; no modifica huellas de Aldea |
+| Fuente seca | (321,222) | Inspección ambiental | Sin colisión; no altera el corredor del Mercado |
+| Patio de puestos | (342,218) | Inspección ambiental | Sin colisión; no modifica puestos existentes |
+| Descanso de la escalinata | (372,239) | Inspección ambiental | Sin colisión; no cambia el acceso al Templo |
+
+Los seis puntos son adiciones 3.20; no desplazan coordenadas 3.19. Los accesos Catacumbas (354,220), Templo (352,247) y Santuario (384,276), sus apariciones y retornos permanecen intactos. No se modifica el límite de R4.
