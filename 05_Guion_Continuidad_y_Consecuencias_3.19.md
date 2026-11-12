@@ -116,3 +116,10 @@ Los seis puntos nuevos describen únicamente elementos físicos observables: mad
 ## Nota editorial 3.21 — R4, geografía sin facción
 
 La versión 3.21 representa instalaciones y terreno usando solo los nombres y funciones cartográficas ya registrados. Los espacios están vacíos y no incluyen insignias, soldados, mandos, órdenes, transmisiones, archivos legibles, misiones ni diálogos de facción. No se establecen bandos, motivaciones, estructura jerárquica, hechos históricos ni relaciones con personajes existentes. La frontera continúa cerrada. La historia militar y la identidad de la facción quedan reservadas para la etapa narrativa posterior.
+
+
+## Nota editorial 3.22 — auditoría del canon militar
+
+El Guion Maestro Fase 4 define el Acto IV como una confrontación con el costo del orden: la Mecánica y el Piloto revelan la logística del ejército; el Aeródromo aporta pruebas sobre la cápsula del Vuelo 9 y la cadena de mando que ocultó su transporte; el recetario de Don Aurelio conecta el pasado del General con la petición de clemencia por los robots; la llave inglesa permite sabotear las lanchas si Siete ayudó a la Mecánica. El General Acorazado debe conservar su complejidad: sostuvo el orden por la fuerza y encubrió información, pero no creó por sí solo todos los males; teme que el vacío de autoridad repita la guerra, sin que ese temor lo absuelva.
+
+La fuente no fija nombres propios para Mecánica y Piloto, coordenadas de sus encuentros, contenido exacto de las pruebas y del recetario, umbrales de rendición ni el mecanismo de ayuda a la Mecánica. Esos puntos quedan abiertos y no se inventan en esta etapa. La versión 3.22 es documental; no incorpora escenas ni cambia el juego ejecutable.
