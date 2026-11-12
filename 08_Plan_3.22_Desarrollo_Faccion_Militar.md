@@ -1,7 +1,7 @@
 # Versión 3.22 — Auditoría de canon y plan de desarrollo de la facción militar R4
 
 ## Estado
-**Etapa de propuestas narrativas.** La decisión del usuario establece que el General Acorazado será un villano irredimible y jefe final obligatorio, sin rendición ni negociación. Los nombres, jerarquías y ampliaciones de historia se presentan en el documento de propuestas y requieren aprobación antes de pasar a canon o implementación.
+**Etapa de propuestas narrativas.** La decisión del usuario establece que el General Acorazado será un villano irredimible y jefe final obligatorio, sin rendición ni negociación. Los nombres, jerarquías y ampliaciones de historia fueron aprobados por el usuario el 12-11-2026. La implementación jugable sigue pendiente.
 
 ## Fuentes rectoras
 - Guion Maestro y Biblia Narrativa — Fase 4, especialmente secciones 2, 3 (Acto IV), 5, 6, 8, 9 y 10.
@@ -99,7 +99,7 @@ Una vez resueltos los vacíos anteriores:
 7. Reflejar consecuencias en La Estrella, diario y estado de facción.
 8. Validar sintaxis, regresión, colisiones, accesos, transiciones, guardado/carga y rutas alternativas.
 
-## 7. Cambio de dirección aprobado por el usuario\n\nEl General Acorazado es malvado y será el jefe final de R4. No hay redención, rendición, negociación ni salida pacífica, aunque se reúnan todas las pruebas o vínculos. Las pruebas alteran la exposición de la verdad y la dificultad/preparación del enfrentamiento, no la culpabilidad ni el destino del General. Esta decisión reemplaza únicamente la opción de rendición del General descrita en el Guion Maestro; el resto del canon se conserva salvo aprobación posterior.\n\nLas propuestas de nombre de facción, nombres propios, jerarquía, vínculos biográficos, cadena de pruebas y combate se desarrollan por separado en `09_Propuestas_3.22_Acto_IV_General_Jefe_Final.md`.\n\n## 8. Límites de esta entrega
+## 7. Cambio de dirección aprobado por el usuario\n\nEl General Acorazado es malvado y será el jefe final de R4. No hay redención, rendición, negociación ni salida pacífica, aunque se reúnan todas las pruebas o vínculos. Las pruebas alteran la exposición de la verdad y la dificultad/preparación del enfrentamiento, no la culpabilidad ni el destino del General. Esta decisión reemplaza únicamente la opción de rendición del General descrita en el Guion Maestro; el resto del canon se conserva salvo aprobación posterior.\n\nLas propuestas de nombre de facción, nombres propios, jerarquía, vínculos biográficos, cadena de pruebas y combate se desarrollan por separado en `09_Propuestas_3.22_Acto_IV_General_Jefe_Final.md`.\n\n## 8. Aprobación posterior del diseño\n\nEl usuario aprobó las propuestas narrativas con estos nombres definitivos: **Ejército de Salvación** como facción y **Richars Octavio** como identidad del General Acorazado. También aprobó el resto del diseño de `09_Propuestas_3.22_Acto_IV_General_Jefe_Final.md`: jerarquía, personajes, historia, pruebas, encuentros, sabotaje y combate final obligatorio en tres fases, sin redención ni rendición. Esta aprobación convierte el diseño propuesto en dirección narrativa aprobada, pero no implica que esté implementado ni probado en el juego.\n\n## 9. Límites de esta entrega
 
 - R4 conserva el bloqueo de ingreso desde otras regiones hasta que la progresión narrativa y sus accesos estén preparados.
 - No se añaden soldados, enemigos, emblemas, rangos, doctrinas, mensajes, archivos legibles ni diálogos.
