@@ -1,0 +1,1495 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>El Mesero del Fin del Mundo — 3.20 · EXPANSIÓN AMBIENTAL R5</title>
+<style>
+:root{--ink:#e9e4d8;--muted:#a9b8bc;--gold:#f0c58b;--cyan:#8ad8e8;--panel:#081522ed;--line:#477286}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#07111b;color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+#game{position:fixed;inset:0;background:#0a1721}
+#game:after{content:'';position:absolute;inset:0;background:#02091299;opacity:0;pointer-events:none;z-index:7;transition:opacity .16s ease}
+body.dialogue-open #game:after{opacity:1}
+canvas{display:block;width:100%;height:100%;image-rendering:pixelated}
+#topbar{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;pointer-events:none;background:linear-gradient(#07111bd9,transparent)}
+.brand{font:700 13px Georgia,serif;letter-spacing:.12em;color:#f3d4a6;text-shadow:0 2px 8px #000}
+#zone{font-size:11px;color:#b7d4d9;letter-spacing:.16em;text-transform:uppercase}
+#hud{position:absolute;left:16px;bottom:16px;display:flex;gap:8px;pointer-events:none}
+.chip{padding:8px 11px;border:1px solid #45677a;background:#091a28df;border-radius:7px;box-shadow:0 4px 16px #0006;font-size:11px}
+.chip b{color:#f2c98e}
+#hint{position:absolute;right:16px;bottom:16px;max-width:310px;padding:9px 12px;border:1px solid #36566a;border-radius:7px;background:#091a28df;color:#c5d6d8;font-size:11px;text-align:right}
+#interact{position:absolute;left:50%;bottom:82px;transform:translateX(-50%);padding:8px 14px;border:1px solid #8ab9c3;border-radius:6px;background:#102b3beF;color:#eaf7f4;font-weight:700;font-size:12px;display:none}
+#dialogue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);width:min(920px,calc(100% - 28px));min-height:174px;padding:16px 18px 14px 156px;border:1px solid #83b7c5;border-radius:12px;background:linear-gradient(125deg,#071521f5,#102b3bed);box-shadow:0 16px 50px #000b;display:none;z-index:8}
+#dialogue.show{display:block;animation:rise .2s ease-out}
+#portrait{position:absolute;left:14px;bottom:0;width:126px;height:154px;display:flex;align-items:flex-end;justify-content:center;font-size:88px;filter:drop-shadow(0 7px 6px #0009)}
+#speaker{color:#8ed9e8;font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:800;margin-bottom:6px}
+#say{font:16px/1.55 Georgia,serif;color:#f4ead9;min-height:52px}
+#choices{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+#choices button,.action{border:1px solid #547e90;border-radius:6px;background:#15374a;color:#edf6f2;padding:8px 11px;font-size:12px;cursor:pointer}
+#choices button:hover,.action:hover{background:#24536a}
+#dialogueFooter{position:absolute;right:16px;bottom:10px;color:#85a7b4;font-size:9px;letter-spacing:.12em}
+#menu{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 40%,#21394a88,#050d16f2 70%);z-index:20}
+#menu.hidden{display:none}
+.menu-card{width:min(650px,calc(100% - 30px));padding:28px;border:1px solid #64899a;border-radius:15px;background:linear-gradient(145deg,#102536f5,#08131ff5);box-shadow:0 25px 90px #000b;text-align:center}
+.eyebrow{font-size:10px;letter-spacing:.28em;color:#8bd4e1;text-transform:uppercase}
+h1{font:clamp(28px,5vw,48px)/1.05 Georgia,serif;color:#f2d2a2;margin:12px 0;text-shadow:0 5px 25px #000}
+.subtitle{max-width:500px;margin:0 auto 20px;color:#bacbd0;font:14px/1.6 Georgia,serif}
+.menu-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.menu-actions button{padding:12px 20px;border:1px solid #d2a875;border-radius:7px;background:linear-gradient(#f4d2a1,#bc875b);color:#18232a;font-weight:800;cursor:pointer}
+.menu-actions button.secondary{background:#132f42;color:#e6f2ef;border-color:#52798a}
+#mobileControls{position:absolute;inset:auto 12px 12px auto;display:none;z-index:5;gap:12px;align-items:end;touch-action:none;user-select:none}
+#mobileControls .pad{display:grid;grid-template-columns:repeat(3,42px);grid-template-rows:repeat(3,42px);gap:3px}
+#mobileControls button{background:#0a1b2bcc;border:1px solid #668797;color:#fff;border-radius:7px;font-size:17px}
+#mobileControls .act{height:42px;padding:0 14px;font-size:11px;font-weight:800}
+#journal{position:absolute;top:58px;right:14px;width:min(320px,calc(100% - 28px));padding:13px;border:1px solid #52798b;border-radius:8px;background:#081725ed;display:none;z-index:6}
+#journal.show{display:block}
+#journal h3{margin:0 0 7px;color:#f0c58b;font:16px Georgia,serif}
+#journal p{margin:5px 0;color:#c5d4d5;font-size:12px;line-height:1.5}
+#toast{position:absolute;left:50%;top:66px;transform:translateX(-50%);padding:8px 13px;border:1px solid #8bafad;border-radius:7px;background:#0b202ceF;color:#e7f1e9;font-size:12px;display:none;z-index:9}
+@keyframes rise{from{opacity:0;transform:translate(-50%,12px)}to{opacity:1;transform:translate(-50%,0)}}
+@media(pointer:coarse){#mobileControls{display:flex}#hint{display:none}#hud{bottom:100px}}
+@media(pointer:fine){#mobileControls{display:none!important}}
+@media(max-width:600px){#dialogue{padding:12px 12px 14px 95px;min-height:155px;bottom:10px}#portrait{left:5px;width:82px;height:130px;font-size:62px}#say{font-size:14px}#dialogueFooter{display:none}#hud{left:8px;bottom:94px}.chip{font-size:10px;padding:6px 8px}#zone{font-size:9px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="game">
+<canvas id="world" aria-label="Mundo isométrico explorable"></canvas>
+<div id="topbar"><div class="brand">EL MESERO DEL FIN DEL MUNDO <span style="color:#7eb9c7">· 3.20 · R5 EXPANSIÓN</span></div><div id="zone">LA ESTRELLA</div></div>
+<div id="hud"><div class="chip">S-07 <b>SIETE</b></div><div class="chip">Integridad <b id="hp">100%</b></div><div class="chip">Chatarra <b id="scrap">0</b></div><div class="chip">Amenaza <b id="bossStatus">Activa</b></div></div>
+<div id="hint">Mover: WASD / flechas · Interactuar: E · Diario: J · Guardar: F5</div>
+<div id="interact">E · Interactuar</div>
+<div id="toast"></div>
+<div id="journal"><h3>Diario de Siete</h3><p id="objective">Objetivo: despierta en La Estrella y averigua qué ocurrió.</p><p id="journalText">Las decisiones dejan consecuencias. Investiga antes de elegir.</p></div>
+<div id="dialogue"><div id="portrait">🤖</div><div id="speaker">Siete</div><div id="say"></div><div id="choices"></div><div id="dialogueFooter">E / ESPACIO PARA CONTINUAR</div></div>
+<div id="mobileControls">
+ <div class="pad">
+  <button data-dir="up-left">↖</button><button data-dir="up">▲</button><button data-dir="up-right">↗</button>
+  <button data-dir="left">◀</button><span></span><button data-dir="right">▶</button>
+  <button data-dir="down-left">↙</button><button data-dir="down">▼</button><button data-dir="down-right">↘</button>
+ </div>
+ <button class="act" id="mobileAct">INTERACTUAR</button>
+</div>
+<div id="menu"><div class="menu-card"><div class="eyebrow">Una historia sobre lo que queda después del fin</div><h1>La última mesa</h1><p class="subtitle">Veintiséis años después de la guerra, la unidad S-07 despierta en un restaurante olvidado. Afuera, el mundo sigue esperando una respuesta.</p><div class="menu-actions"><button id="newGame">COMENZAR RECONSTRUCCIÓN</button><button id="continueGame" class="secondary">CONTINUAR PARTIDA</button></div><p style="font-size:10px;color:#809ba7;margin-top:18px">Versión 3.20 · Exploración ambiental de R5</p></div></div>
+</div>
+<script>
+(()=>{
+'use strict';
+const canvas=document.getElementById('world'),ctx=canvas.getContext('2d');
+const $=id=>document.getElementById(id);
+let W=0,H=0,dpr=1,last=0,keys={},dialogue=null,near=null,toastTimer=0;
+const TILE_W=64,TILE_H=32;
+const world={w:420,h:300};
+const player={x:8.2,y:11.2,z:0,face:1,speed:3.15,hp:100,scrap:0};
+const camera={x:0,y:0};
+const state={started:false,seen:{bell:false,photo:false,terminal:false},intro:false,deserterTalk:false,doorOpen:false,objective:'Despierta en La Estrella y averigua qué ocurrió.',flags:{},scrap:0,consoles:{one:false,two:false,three:false},factoryGateOpen:false,bossDefeated:false,bossPeace:false,bossHP:100,survivorTalk:false,factoryWingOpen:false,records:{siesta:false,signal:false},survivorDebrief:false,chapterComplete:false,currentInterior:null,returnPoint:null,city:{}};
+const areas=[
+ {name:'La Estrella y sus alrededores',x1:0,x2:19,y1:0,y2:28},
+ {name:'Calle Oxidada',x1:12,x2:69,y1:0,y2:82},
+ {name:'Depósito de Chatarra',x1:24,x2:119,y1:8,y2:95}
+];
+const props=[
+ {id:'counter',x:3.5,y:5.2,type:'counter'},
+ {id:'bell',x:5.7,y:5.7,type:'bell',name:'Campanilla',emoji:'🔔'},
+ {id:'photo',x:11.3,y:5.5,type:'photo',name:'Fotografía',emoji:'🖼️'},
+ {id:'terminal',x:11.5,y:9.5,type:'terminal',name:'Terminal',emoji:'💻'},
+ {id:'door',x:19.35,y:10.2,type:'door',name:'Puerta de La Estrella',emoji:'🚪'},
+ {id:'wreck1',x:15.5,y:7.5,type:'wreck'},
+ {id:'lamp',x:18.3,y:10.2,type:'lamp'},
+ {id:'scrap1',x:27.3,y:8.4,type:'scrap',name:'Montón de chatarra',emoji:'⚙️'},
+ {id:'deserter',x:30.2,y:13.2,type:'npc',name:'Desertor',emoji:'🦾'},
+ {id:'gate',x:36.2,y:17.5,type:'gate',name:'Compuerta del patio industrial',emoji:'⛔'},
+ {id:'survivor',x:42.5,y:25.5,type:'survivor',name:'Superviviente',emoji:'🧑‍🔧'},
+ {id:'console1',x:49,y:19,type:'console',name:'Consola de alimentación',emoji:'▣',num:'I'},
+ {id:'console2',x:57,y:30,type:'console',name:'Consola de ensamblaje',emoji:'▣',num:'II'},
+ {id:'console3',x:69,y:20,type:'console',name:'Consola de seguridad',emoji:'▣',num:'III'},
+ {id:'capataz',x:87,y:33,type:'boss',name:'Capataz',emoji:'🤖'},
+ {id:'factoryexit',x:97.8,y:33,type:'factory',name:'Acceso a Línea de Montaje',emoji:'🚪'},
+ {id:'siestalog',x:108.5,y:30.2,type:'record',name:'Registro del Protocolo Siesta',emoji:'📄'},
+ {id:'assemblyterminal',x:114.5,y:30.2,type:'record',name:'Registro de órdenes',emoji:'💾'},
+ {id:'tunneldoor',x:121.8,y:30.2,type:'factory',name:'Túnel de Servicio',emoji:'🚪'},
+ {id:'signalrecord',x:145.5,y:30.2,type:'record',name:'Núcleo de comunicaciones',emoji:'📡'},
+ {id:'cellrobot',x:135.5,y:33,type:'landmark',name:'Unidad de servicio apagada',emoji:'🤖'},
+ {id:'homecoming',x:6.2,y:10.0,type:'homecoming',name:'La última mesa',emoji:'🍽️'},
+ {id:'robotguest',x:15.4,y:12.8,type:'guest',name:'Robot refugiado',emoji:'🦾'},
+ {id:'watertower',x:53,y:22,type:'landmark',name:'Torre de agua',emoji:'🛢️'},
+ {id:'bus',x:69,y:38,type:'landmark',name:'Autobús abandonado',emoji:'🚌'},
+ {id:'radio',x:91,y:18,type:'landmark',name:'Antena de radio',emoji:'📡'},
+ {id:'camp',x:82,y:67,type:'landmark',name:'Campamento vacío',emoji:'🔥'},
+ {id:'bridge',x:42,y:73,type:'landmark',name:'Puente derrumbado',emoji:'🌉'},
+ {id:'crater',x:108,y:78,type:'landmark',name:'Cráter de impacto',emoji:'☄️'},
+ {id:'depotdoor',x:34.2,y:22.5,type:'roomdoor',name:'Nave de clasificación',emoji:'🚪'},
+ {id:'patiodoor',x:52.5,y:39.5,type:'roomdoor',name:'Taller del Patio',emoji:'🚪'},
+ {id:'depotreturn',x:160.8,y:25.5,type:'roomdoor',name:'Salida al Depósito',emoji:'🚪',interior:'depot'},
+ {id:'depotlog',x:173,y:15,type:'inspect',name:'Manifiesto de clasificación',emoji:'📋',interior:'depot'},
+ {id:'depotcrane',x:183,y:28,type:'inspect',name:'Grúa de carga',emoji:'🏗️',interior:'depot'},
+ {id:'depotcache',x:171,y:36,type:'cache',name:'Contenedor de repuestos',emoji:'⚙️',interior:'depot'},
+ {id:'patioreturn',x:160.8,y:87.5,type:'roomdoor',name:'Salida al Patio',emoji:'🚪',interior:'patio'},
+ {id:'patioledger',x:174,y:77,type:'inspect',name:'Cuaderno de mantenimiento',emoji:'📓',interior:'patio'},
+ {id:'patiocore',x:188,y:88,type:'relay',name:'Núcleo auxiliar',emoji:'🔋',interior:'patio'},
+ {id:'patioworkbench',x:180,y:103,type:'bench',name:'Banco de reparación',emoji:'🛠️',interior:'patio'}
+];
+props.push(
+ {id:'cultUmbralAccess',x:309,y:139,type:'landmark',name:'Umbral del bosque',emoji:'🌲',description:'El camino deja atrás el asfalto de Ciudad Enferma. Dos pilares de piedra marcan el comienzo del territorio de la Secta del Sol y la Luna. La entrada está trazada en el mapa, pero todavía no hay nadie que explique sus reglas.'},
+ {id:'cultTrailAccess',x:322,y:150,type:'landmark',name:'Sendero de los símbolos',emoji:'🪧',description:'Piedras talladas acompañan el sendero. La erosión borró parte de los signos; no alcanza para interpretar su significado ni para saber quién los colocó.'},
+ {id:'cultVillageAccess',x:337,y:183,type:'landmark',name:'Aldea',emoji:'🏘️',description:'Un conjunto de viviendas se agrupa alrededor de un camino de tierra. Hay señales de vida cotidiana, pero por ahora no se han incorporado habitantes ni actividades.'},
+ {id:'cultMarketAccess',x:325,y:201,type:'landmark',name:'Mercado',emoji:'🧺',description:'Los puestos conservan toldos, balanzas y espacios de intercambio. El lugar está preparado como núcleo comercial; sus vendedores, rumores y misiones quedan pendientes.'},
+ {id:'cultCatacombsAccess',x:354,y:220,type:'roomdoor',name:'Entrada a las Catacumbas',emoji:'🕯️',description:'Una entrada de piedra desciende bajo la ladera.'},
+ {id:'cultStairAccess',x:380,y:232,type:'landmark',name:'Escalinata ceremonial',emoji:'🪜',description:'Una escalinata ancha asciende hacia la terraza del templo. Su trazado permite ver el siguiente nivel desde el camino inferior.'},
+ {id:'cultTempleAccess',x:352,y:247,type:'roomdoor',name:'Entrada del Templo',emoji:'🚪',description:'Acceso norte del edificio principal.'},
+ {id:'cultSanctuaryAccess',x:384,y:276,type:'roomdoor',name:'Entrada del Santuario',emoji:'🚪',description:'Una entrada occidental conduce a una sala apartada. No hay indicios que permitan determinar su función.'},
+ {id:'sanctuaryReturn',x:367,y:207,type:'roomdoor',name:'Salida del Santuario',emoji:'🚪',interior:'sanctuary'},
+ {id:'sanctuaryThreshold',x:374,y:207,type:'inspect',name:'Umbral de piedra',emoji:'🪨',interior:'sanctuary'},
+ {id:'sanctuaryLedge',x:389,y:198,type:'inspect',name:'Repisa cubierta de polvo',emoji:'🪵',interior:'sanctuary'},
+ {id:'sanctuaryLight',x:389,y:216,type:'inspect',name:'Filtración de luz',emoji:'☀️',interior:'sanctuary'},
+ {id:'catacombsExit',x:345,y:122.2,type:'roomdoor',name:'Subida a la superficie',emoji:'🚪',interior:'catacombs'},
+ {id:'catacombsInscription',x:338.5,y:112,type:'inspect',name:'Inscripción erosionada',emoji:'🪨',interior:'catacombs'},
+ {id:'catacombsDrain',x:351.5,y:108,type:'inspect',name:'Canal de filtración',emoji:'💧',interior:'catacombs'},
+ {id:'catacombsNiche',x:345,y:96.5,type:'inspect',name:'Nicho de piedra',emoji:'🕯️',interior:'catacombs'},
+ {id:'catacombsCache',x:352,y:116.5,type:'cache',name:'Caja de herramientas húmeda',emoji:'🧰',interior:'catacombs'},
+ {id:'templeReturn',x:345,y:164.2,type:'roomdoor',name:'Salida del Templo',emoji:'🚪',interior:'temple'},
+ {id:'templeFloorMarks',x:345,y:150,type:'inspect',name:'Marcas del pavimento',emoji:'🪨',interior:'temple'},
+ {id:'templeWater',x:345,y:158,type:'inspect',name:'Grieta de filtración',emoji:'💧',interior:'temple'},
+ {id:'templeNiche',x:345,y:141.5,type:'inspect',name:'Nicho vacío',emoji:'🕯️',interior:'temple'}
+);
+props.push(
+{"id":"cityGate","x":149.7,"y":31.0,"type":"door","name":"Compuerta exterior del Túnel","emoji":"🚧","description":"Acceso regional bloqueado hasta recuperar la traza de comunicaciones."},
+ {"id":"poi_crucedelcinturon","x":54.0,"y":52.0,"type":"landmark","name":"Cruce del cinturón","emoji":"🛣️","description":"Función prevista en el atlas: Distribuidor de rutas. Coordenada de diseño: (54, 52)."},
+ {"id":"poi_patiodevehiculos","x":72.0,"y":42.0,"type":"landmark","name":"Patio de vehículos","emoji":"🚙","description":"Función prevista en el atlas: Exploración y recursos. Coordenada de diseño: (72, 42)."},
+ {"id":"poi_estaciondebombeo","x":25.0,"y":61.0,"type":"landmark","name":"Estación de bombeo","emoji":"💧","description":"Función prevista en el atlas: Pista y recurso. Coordenada de diseño: (25, 61)."},
+ {"id":"poi_puestodevigiaderruido","x":18.0,"y":88.0,"type":"landmark","name":"Puesto de vigía derruido","emoji":"🗼","description":"Función prevista en el atlas: Vista hacia zona militar. Coordenada de diseño: (18, 88)."},
+ {"id":"poi_pasodelpuenteviejo","x":52.0,"y":96.0,"type":"landmark","name":"Paso del puente viejo","emoji":"🌉","description":"Función prevista en el atlas: Futuro corredor sur. Coordenada de diseño: (52, 96)."},
+ {"id":"poi_refugiodecaminantes","x":75.0,"y":82.0,"type":"landmark","name":"Refugio de caminantes","emoji":"🏕️","description":"Función prevista en el atlas: Encuentro opcional. Coordenada de diseño: (75, 82)."},
+ {"id":"poi_patiodecontenedores","x":58.0,"y":53.0,"type":"landmark","name":"Patio de contenedores","emoji":"📦","description":"Función prevista en el atlas: Ramal sur. Coordenada de diseño: (58, 53)."},
+ {"id":"poi_tallerdedesguace","x":82.0,"y":83.0,"type":"landmark","name":"Taller de desguace","emoji":"🛠️","description":"Función prevista en el atlas: Reparación y piezas. Coordenada de diseño: (82, 83)."},
+ {"id":"poi_almacenbloqueado","x":112.0,"y":62.0,"type":"landmark","name":"Almacén bloqueado","emoji":"🔒","description":"Función prevista en el atlas: Atajo tras energía. Coordenada de diseño: (112, 62)."},
+ {"id":"poi_subestacion","x":139.0,"y":59.0,"type":"landmark","name":"Subestación","emoji":"⚡","description":"Función prevista en el atlas: Energía. Coordenada de diseño: (139, 59)."},
+ {"id":"poi_salidaexteriordeltunel","x":164.0,"y":31.0,"type":"landmark","name":"Salida exterior del túnel","emoji":"🚪","description":"Función prevista en el atlas: Portal a Ciudad. Coordenada de diseño: (164, 31)."},
+ {"id":"poi_puertadelaciudad","x":184.0,"y":34.0,"type":"landmark","name":"Puerta de la ciudad","emoji":"🚧","description":"Función prevista en el atlas: Entrada desde túnel. Coordenada de diseño: (184, 34)."},
+ {"id":"poi_barrioresidencial","x":211.0,"y":38.0,"type":"landmark","name":"Barrio residencial","emoji":"🏚️","description":"Función prevista en el atlas: Primera zona urbana. Coordenada de diseño: (211, 38)."},
+ {"id":"poi_plazadeltranvia","x":232.0,"y":58.0,"type":"landmark","name":"Plaza del tranvía","emoji":"🚋","description":"Función prevista en el atlas: Cruce principal. Coordenada de diseño: (232, 58)."},
+ {"id":"poi_parquemunicipal","x":205.0,"y":91.0,"type":"landmark","name":"Parque municipal","emoji":"🌳","description":"Función prevista en el atlas: Zona abierta. Coordenada de diseño: (205, 91)."},
+ {"id":"poi_centrocomercial","x":258.0,"y":43.0,"type":"landmark","name":"Centro Comercial","emoji":"🏬","description":"Función prevista en el atlas: Refugio y recursos. Coordenada de diseño: (258, 43)."},
+ {"id":"poi_estacionmetronorte","x":244.0,"y":76.0,"type":"landmark","name":"Estación Metro norte","emoji":"🚇","description":"Función prevista en el atlas: Acceso subterráneo. Coordenada de diseño: (244, 76)."},
+ {"id":"poi_cementerio","x":278.0,"y":88.0,"type":"landmark","name":"Cementerio","emoji":"🪦","description":"Función prevista en el atlas: Memoria. Coordenada de diseño: (278, 88)."},
+ {"id":"poi_hospital","x":279.0,"y":119.0,"type":"landmark","name":"Hospital","emoji":"🏥","description":"Función prevista en el atlas: Investigación. Coordenada de diseño: (279, 119)."},
+ {"id":"poi_nido","x":300.0,"y":68.0,"type":"landmark","name":"Nido","emoji":"🕸️","description":"Función prevista en el atlas: Núcleo amenaza. Coordenada de diseño: (300, 68)."},
+ {"id":"poi_salidasururbana","x":218.0,"y":139.0,"type":"landmark","name":"Salida sur urbana","emoji":"🛣️","description":"Función prevista en el atlas: Conexión militar. Coordenada de diseño: (218, 139)."},
+ {"id":"poi_pasodelbosque","x":309.0,"y":133.0,"type":"landmark","name":"Paso del bosque","emoji":"🌲","description":"Función prevista en el atlas: Conexión culto. Coordenada de diseño: (309, 133)."},
+ // Ciudad Enferma: puertas e interiores instanciados, habitantes y puntos de misión.
+ {id:'cityMara',x:218,y:47,type:'citynpc',name:'Mara, vecina del Barrio',emoji:'🧑‍🦱'},
+ {id:'cityTomas',x:238,y:88,type:'citynpc',name:'Tomás, guardaparque',emoji:'🧔'},
+ {id:'cityDoctor',x:279,y:103,type:'citynpc',name:'Doctora Ibarra',emoji:'👩‍⚕️'},
+ {id:'cityInfected',x:286,y:82,type:'infected',name:'Infectado errante',emoji:'🧟'},
+ {id:'mallDoor',x:252,y:44,type:'roomdoor',name:'Entrada del Centro Comercial',emoji:'🚪'},
+ {id:'metroDoor',x:245.3,y:77.1,type:'roomdoor',name:'Estación de Metro norte',emoji:'🚇'},
+ {id:'hospitalDoor',x:279,y:107,type:'roomdoor',name:'Entrada norte del Hospital',emoji:'🏥'},
+ {id:'hospitalSouthDoor',x:279,y:122,type:'roomdoor',name:'Salida de emergencia del Hospital',emoji:'🚪'},
+ {id:'nestDoor',x:288,y:68,type:'roomdoor',name:'Acceso al Nido',emoji:'🕸️'},
+ {id:'mallSupplies',x:337,y:23,type:'inspect',name:'Depósito de suministros',emoji:'🧰',interior:'mall'},
+ {id:'mallRadio',x:350,y:17,type:'inspect',name:'Radio de emergencias',emoji:'📻',interior:'mall'},
+ {id:'mallReturn',x:345,y:39,type:'roomdoor',name:'Salida del Centro Comercial',emoji:'🚪',interior:'mall'},
+ {id:'metroPanel',x:374,y:24,type:'relay',name:'Panel de señalización',emoji:'🚦',interior:'metro'},
+ {id:'metroCache',x:386,y:33,type:'cache',name:'Armario de mantenimiento',emoji:'🧰',interior:'metro'},
+ {id:'metroReturn',x:380,y:39,type:'roomdoor',name:'Salida de la estación',emoji:'🚪',interior:'metro'},
+ {id:'metroSouthExit',x:390,y:22,type:'roomdoor',name:'Conexión sur del Metro',emoji:'🚇',interior:'metro'},
+ {id:'hospitalRecords',x:337,y:62,type:'inspect',name:'Archivo epidemiológico',emoji:'📁',interior:'hospital'},
+ {id:'hospitalSample',x:350,y:72,type:'cache',name:'Muestra sellada de Fiebre Gris',emoji:'🧪',interior:'hospital'},
+ {id:'hospitalReturn',x:345,y:84,type:'roomdoor',name:'Salida del Hospital',emoji:'🚪',interior:'hospital'},
+ {id:'nestCore',x:379,y:63,type:'relay',name:'Núcleo del Nido',emoji:'🕸️',interior:'nest'},
+ {id:'nestGuardian',x:387,y:65,type:'nestboss',name:'El Coro',emoji:'🫀',interior:'nest'},
+ {id:'nestVictim',x:390,y:76,type:'inspect',name:'Registro de evacuación',emoji:'📓',interior:'nest'},
+ {id:'nestReturn',x:380,y:84,type:'roomdoor',name:'Retirada del Nido',emoji:'🚪',interior:'nest'},
+ {"id":"poi_controldelpuente","x":112.0,"y":160.0,"type":"landmark","name":"Control del puente","emoji":"🛡️","description":"Función prevista en el atlas: Puesto control. Coordenada de diseño: (112, 160)."},
+ {"id":"poi_trincherasnorte","x":91.0,"y":185.0,"type":"landmark","name":"Trincheras norte","emoji":"🪖","description":"Función prevista en el atlas: Defensa. Coordenada de diseño: (91, 185)."},
+ {"id":"poi_cuartelavanzado","x":139.0,"y":188.0,"type":"landmark","name":"Cuartel avanzado","emoji":"🏢","description":"Función prevista en el atlas: Logística. Coordenada de diseño: (139, 188)."},
+ {"id":"poi_puerto","x":65.0,"y":225.0,"type":"landmark","name":"Puerto","emoji":"⚓","description":"Función prevista en el atlas: Carga. Coordenada de diseño: (65, 225)."},
+ {"id":"poi_muelle","x":44.0,"y":247.0,"type":"landmark","name":"Muelle","emoji":"🚢","description":"Función prevista en el atlas: Embarcaciones. Coordenada de diseño: (44, 247)."},
+ {"id":"poi_hangar","x":145.0,"y":230.0,"type":"landmark","name":"Hangar","emoji":"✈️","description":"Función prevista en el atlas: Vehículos y archivos. Coordenada de diseño: (145, 230)."},
+ {"id":"poi_aerodromo","x":180.0,"y":250.0,"type":"landmark","name":"Aeródromo","emoji":"🛫","description":"Función prevista en el atlas: Pista. Coordenada de diseño: (180, 250)."},
+ {"id":"poi_fortaleza","x":133.0,"y":276.0,"type":"landmark","name":"Fortaleza","emoji":"🏰","description":"Función prevista en el atlas: Centro de mando. Coordenada de diseño: (133, 276)."},
+ {"id":"poi_puestoderadio","x":192.0,"y":192.0,"type":"landmark","name":"Puesto de radio","emoji":"📻","description":"Función prevista en el atlas: Vigilancia. Coordenada de diseño: (192, 192)."},
+ {"id":"poi_umbraldelbosque","x":316.0,"y":145.0,"type":"landmark","name":"Umbral del bosque","emoji":"🌲","description":"Función prevista en el atlas: Entrada regional. Coordenada de diseño: (316, 145)."},
+ {"id":"poi_senderodelossimbolos","x":333.0,"y":164.0,"type":"landmark","name":"Sendero de los símbolos","emoji":"🪧","description":"Función prevista en el atlas: Ruta bosque. Coordenada de diseño: (333, 164)."},
+ {"id":"poi_aldea","x":350.0,"y":183.0,"type":"landmark","name":"Aldea","emoji":"🏘️","description":"Función prevista en el atlas: Comunidad. Coordenada de diseño: (350, 183)."},
+ {"id":"poi_mercado","x":325.0,"y":211.0,"type":"landmark","name":"Mercado","emoji":"🧺","description":"Función prevista en el atlas: Intercambio. Coordenada de diseño: (325, 211)."},
+ {"id":"poi_catacumbas","x":365.0,"y":220.0,"type":"landmark","name":"Catacumbas","emoji":"🕯️","description":"Función prevista en el atlas: Subterráneo. Coordenada de diseño: (365, 220)."},
+ {"id":"poi_escalinata","x":380.0,"y":245.0,"type":"landmark","name":"Escalinata","emoji":"🪜","description":"Función prevista en el atlas: Ascenso. Coordenada de diseño: (380, 245)."},
+ {"id":"poi_templo","x":352.0,"y":259.0,"type":"landmark","name":"Templo","emoji":"⛩️","description":"Función prevista en el atlas: Centro religioso. Coordenada de diseño: (352, 259)."},
+ {"id":"poi_santuario","x":395.0,"y":276.0,"type":"landmark","name":"Santuario","emoji":"🔱","description":"Función prevista en el atlas: Enclave final. Coordenada de diseño: (395, 276)."}
+
+);
+props.push({id:'warehouseGate',x:112,y:54,type:'roomdoor',name:'Acceso del almacén',emoji:'🚪'});
+// 3.16 · Recursos civiles opcionales de R3. No alteran la historia ni el acceso regional.
+props.push(
+ {id:'cityCachePlaza',x:237,y:61,type:'cache',name:'Caja de mantenimiento del tranvía',emoji:'🧰'},
+ {id:'cityCachePark',x:214,y:100,type:'cache',name:'Armario de servicio del parque',emoji:'🧰'},
+ {id:'cityCacheCemetery',x:285,y:96,type:'cache',name:'Caja de herramientas del cementerio',emoji:'🧰'},
+ {id:'cityServiceBench',x:225,y:53,type:'bench',name:'Banco de reparación civil',emoji:'🛠️'}
+);
+// 3.14 · Rastreo civil del corredor sur: hitos de orientación, no accesos a R4.
+props.push(
+ {id:'southSurveySign',x:221,y:128,type:'inspect',name:'Señal urbana caída',emoji:'🪧'},
+ {id:'southSurveyDrain',x:233,y:131,type:'inspect',name:'Canal de desagüe',emoji:'💧'},
+ {id:'southSurveyMarker',x:214,y:136,type:'inspect',name:'Mojón de evacuación',emoji:'📍'}
+);
+const obstacles=[
+ {x:13,y:3,w:2,h:2},{x:18,y:4,w:2.4,h:1.4},
+ {x:21,y:12,w:1.3,h:4},{x:25,y:3,w:2,h:2},{x:33,y:4,w:3,h:1.4},
+ {x:25,y:19,w:4,h:1.5}
+];
+// Colisiones de hitos R1/R2 (3.10). Las entradas respetan los accesos del plano maestro.
+const explorationColliders=[
+ {id:'pump',x:22.6,y:58.7,w:4.4,h:6.1},
+ {id:'lookout',x:18,y:88,r:1.35,circle:true},
+ {id:'bridge',x:45,y:93,w:14,h:6},
+ {id:'refuge',x:73.2,y:80.5,w:3.6,h:3.0},
+ {id:'vehicleA',x:67.5,y:39.5,w:4.3,h:3.3},
+ {id:'vehicleB',x:73,y:38.5,w:3.5,h:3.0},
+ {id:'containerA',x:55.2,y:50,w:3.4,h:2.3},
+ {id:'containerB',x:59.2,y:50,w:3.4,h:2.3},
+ {id:'containerC',x:55.2,y:53,w:3.4,h:2.3},
+ {id:'containerD',x:59.2,y:53,w:3.4,h:2.3},
+ {id:'workshop',x:78,y:80,w:7,h:8},
+ {id:'warehouse',x:107,y:57,w:10,h:10},
+ {id:'substation',x:136,y:56,w:6,h:8}
+];
+// Huellas urbanas: las puertas son aperturas reales de colisión, no decoración.
+const cityStructures=[
+ {id:'houseA',x:196,y:26,w:8,h:7,hgt:42,c:'#625b53',door:200,edge:'south'},
+ {id:'houseB',x:207,y:25,w:7,h:8,hgt:48,c:'#665b50',door:210,edge:'south'},
+ {id:'houseC',x:218,y:29,w:8,h:7,hgt:44,c:'#5c5b55',door:222,edge:'south'},
+ {id:'houseD',x:195,y:49,w:9,h:7,hgt:38,c:'#63594e',door:199,edge:'north'},
+ {id:'shopA',x:228,y:35,w:7,h:8,hgt:40,c:'#6a5e4d',door:231,edge:'south'},
+ {id:'mall',x:249,y:31,w:17,h:13,hgt:76,c:'#626c6b',door:253,edge:'south'},
+ {id:'clinic',x:269,y:107,w:19,h:15,hgt:78,c:'#66716d',door:279,edge:'north'},
+ {id:'nest',x:290,y:57,w:19,h:21,hgt:66,c:'#4d5550',door:290,edge:'west'}
+];
+const cityTrees=[{x:197,y:82},{x:202,y:87},{x:210,y:96},{x:218,y:85},{x:226,y:97},{x:198,y:105},{x:215,y:108}];
+// R5 · Arquitectura exterior de la Secta del Sol y la Luna. Son huellas
+// de edificios y no interiores jugables: la progresión narrativa queda pendiente.
+const cultStructures=[
+ {id:'villageHall',x:343,y:172,w:8,h:5,hgt:38,c:'#756b52'},
+ {id:'villageHouseA',x:354,y:173,w:6,h:5,hgt:31,c:'#665d49'},
+ {id:'villageHouseB',x:366,y:184,w:5,h:6,hgt:34,c:'#71654d'},
+ {id:'villageHouseC',x:342,y:190,w:7,h:4,hgt:28,c:'#5d604b'},
+ {id:'marketStallA',x:313,y:205,w:5,h:5,hgt:24,c:'#826b4d'},
+ {id:'marketStallB',x:332,y:205,w:5,h:5,hgt:24,c:'#826b4d'},
+ {id:'marketStallC',x:316,y:214,w:5,h:4,hgt:20,c:'#756044'},
+ {id:'marketStallD',x:329,y:214,w:5,h:4,hgt:20,c:'#756044'},
+ // La fachada de las Catacumbas queda al norte del corredor; la aproximación sur permanece libre.
+ {id:'catacombHouse',x:358,y:208,w:12,h:10,hgt:52,c:'#55594b'},
+ {id:'temple',x:337,y:248,w:30,h:22,hgt:88,c:'#77735d'},
+ // El Santuario se desplaza al este para que su acceso occidental no atraviese el edificio.
+ {id:'sanctuary',x:388,y:267,w:18,h:18,hgt:74,c:'#656b57'}
+];
+const cultTrees=[
+ // Árboles de borde reubicados fuera de las rutas principales y de los accesos.
+ {x:305,y:160},{x:306,y:181},{x:308,y:201},{x:313,y:228},
+ {x:342,y:160},{x:374,y:178},{x:378,y:207},{x:371,y:239},
+ {x:372,y:258},{x:405,y:245},{x:411,y:265},{x:411,y:289},
+ {x:365,y:286},{x:331,y:232},{x:397,y:219},{x:317,y:184}
+];
+props.push(
+ {id:'cultPoi_fallenTree',x:316,y:168,type:'landmark',name:'Tronco caído',emoji:'🌳',description:'Un tronco viejo yace junto al sendero. La madera está oscurecida por la humedad y cubierta de musgo. No hay marcas legibles ni señales que permitan fechar su caída.'},
+ {id:'cultPoi_stoneClearing',x:326,y:163,type:'landmark',name:'Claro pedregoso',emoji:'🪨',description:'El suelo se abre en un claro irregular. Piedras pequeñas y tierra compactada forman una superficie desnivelada; no hay objetos que permitan atribuirle un uso concreto.'},
+ {id:'cultPoi_ruinWall',x:329,y:190,type:'landmark',name:'Muro derrumbado',emoji:'🧱',description:'Un tramo bajo de mampostería se interrumpe entre raíces y maleza. Las piedras están demasiado erosionadas para reconocer una inscripción o determinar qué estructura delimitaban.'},
+ {id:'cultPoi_dryBasin',x:321,y:222,type:'landmark',name:'Fuente seca',emoji:'⛲',description:'Una pileta de piedra conserva sedimentos y grietas en el fondo. No queda agua ni mecanismo visible en funcionamiento.'},
+ {id:'cultPoi_marketRemains',x:342,y:218,type:'landmark',name:'Patio de puestos',emoji:'🪵',description:'Detrás de los puestos quedan tablones, soportes torcidos y fragmentos de lona. El espacio puede recorrerse sin atravesar las estructuras del mercado.'},
+ {id:'cultPoi_stairRest',x:372,y:239,type:'landmark',name:'Descanso de la escalinata',emoji:'🪜',description:'Un rellano lateral conserva dos peldaños rotos y un borde desgastado. Desde aquí se distinguen la subida y la terraza, sin que aparezca una ruta nueva.'}
+);
+function resize(){dpr=Math.min(devicePixelRatio||1,2);W=canvas.clientWidth;H=canvas.clientHeight;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
+addEventListener('resize',resize);resize();
+function iso(x,y){return {x:(x-y)*TILE_W/2,y:(x+y)*TILE_H/2}}
+function screen(x,y){const p=iso(x,y);return {x:p.x-camera.x+W/2,y:p.y-camera.y+H/2}}
+function regionAt(x,y){
+ // Las instancias interiores conservan la región exterior de pertenencia.
+ if(state.currentInterior){
+  if(['depot','patio'].includes(state.currentInterior))return 'R2';
+  if(['mall','metro','hospital','nest'].includes(state.currentInterior))return 'R3';
+  if(['catacombs','temple','sanctuary'].includes(state.currentInterior))return 'R5';
+ }
+ // Rectángulos maestros 420×300. R1/R2 se solapan por diseño;
+ // R5 tiene prioridad desde Y=135; el extremo terminal de R3 queda al norte de esa línea.
+ // El cinturón occidental se etiqueta R1 y el núcleo industrial R2.
+ if(x>=235&&y>=135)return 'R5';
+ if(x>=35&&x<225&&y>=145)return 'R4';
+ if(x>=225&&x<235&&y>=135)return 'CORREDOR_SUR';
+ if(x>=170&&x<315&&y<150)return 'R3';
+ if(x>=45&&x<170&&y<125)return 'R2';
+ if(x<45&&y<125)return 'R1';
+ return 'FRONTERA';
+}
+function zoneAt(x,y){
+ if(state.currentInterior==='depot')return 'Depósito · Nave de Clasificación';
+ if(state.currentInterior==='patio')return 'Patio · Taller de Mantenimiento';
+ if(state.currentInterior==='mall')return 'Ciudad Enferma · Centro Comercial';
+ if(state.currentInterior==='metro')return 'Ciudad Enferma · Metro';
+ if(state.currentInterior==='hospital')return 'Ciudad Enferma · Hospital';
+ if(state.currentInterior==='nest')return 'Ciudad Enferma · Nido';
+ if(state.currentInterior==='catacombs')return 'Secta del Sol y la Luna · Catacumbas';
+ if(state.currentInterior==='temple')return 'Secta del Sol y la Luna · Templo';
+ if(state.currentInterior==='sanctuary')return 'Secta del Sol y la Luna · Santuario';
+ const r=regionAt(x,y);
+ if(r==='R5'){
+  if(x>=380&&y>=265)return 'Secta del Sol y la Luna · Santuario';
+  if(x>=300&&x<320&&y>=135&&y<153)return 'Secta del Sol y la Luna · Umbral del bosque';
+  if(x>=320&&x<340&&y>=148&&y<178)return 'Secta del Sol y la Luna · Sendero de los símbolos';
+  if(x>=374&&x<390&&y>=228&&y<265)return 'Secta del Sol y la Luna · Escalinata';
+  if(x>=335&&x<375&&y>=245)return 'Secta del Sol y la Luna · Templo';
+  if(x>=350&&y>=200&&y<245)return 'Secta del Sol y la Luna · Catacumbas';
+  if(x>=315&&x<350&&y>=200&&y<245)return 'Secta del Sol y la Luna · Mercado';
+  if(x>=330&&x<375&&y>=170&&y<200)return 'Secta del Sol y la Luna · Aldea';
+  return 'Secta del Sol y la Luna · Bosque';
+ }
+ if(r==='R4')return 'Territorio Militar · Frontera sur';
+ if(r==='R3'){
+  if(x>=300&&y>=110&&y<135)return 'Ciudad Enferma · Paso del bosque';
+  if(x>=285&&y>=55&&y<82)return 'Ciudad Enferma · Nido';
+  if(x>=265&&y>=100)return 'Ciudad Enferma · Hospital';
+  if(x>=265&&y>=80)return 'Ciudad Enferma · Cementerio';
+  if(x>=235&&y>=65)return 'Ciudad Enferma · Parque y Metro';
+  if(x>=245&&y<65)return 'Ciudad Enferma · Centro Comercial';
+  if(x>=195)return 'Ciudad Enferma · Barrio';
+  return 'Ciudad Enferma · Acceso occidental';
+ }
+ if(r==='R2'){
+  if(x<76)return 'Territorio de las máquinas · Patio de Máquinas';
+  if(x<100)return 'Territorio de las máquinas · Fábrica del Capataz';
+  if(x<121)return 'Territorio de las máquinas · Línea de Montaje';
+  if(x<153)return 'Territorio de las máquinas · Túnel de Servicio';
+  return 'Territorio de las máquinas · Salida oriental';
+ }
+ if(r==='R1'){
+  if(x<20&&y<19)return 'La Estrella';
+  if(x<24)return 'Calle Oxidada';
+  if(x<45)return 'Cinturón exterior · Depósito';
+  return 'La Estrella y cinturón exterior';
+ }
+ if(r==='CORREDOR_SUR')return 'Corredor sur · Conexión regional';
+ return 'Tierras de transición';
+}
+function poly(points,fill,stroke){ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1;ctx.stroke()}}
+function diamond(x,y,color){const p=screen(x,y);poly([{x:p.x,y:p.y-TILE_H/2},{x:p.x+TILE_W/2,y:p.y},{x:p.x,y:p.y+TILE_H/2},{x:p.x-TILE_W/2,y:p.y}],color)}
+function boxIso(x,y,w,h,height,color,side){const p=screen(x,y),q=screen(x+w,y),r=screen(x+w,y+h),s=screen(x,y+h),lift=height;
+ poly([{x:p.x,y:p.y},{x:q.x,y:q.y},{x:r.x,y:r.y},{x:s.x,y:s.y}],color);
+ poly([{x:p.x,y:p.y},{x:q.x,y:q.y},{x:q.x,y:q.y-lift},{x:p.x,y:p.y-lift}],side||'#263a43');
+ poly([{x:q.x,y:q.y},{x:r.x,y:r.y},{x:r.x,y:r.y-lift},{x:q.x,y:q.y-lift}],shade(color,.68));
+}
+function shade(hex,k){let c=hex.replace('#','');let n=parseInt(c,16);let r=Math.max(0,Math.min(255,((n>>16)&255)*k)),g=Math.max(0,Math.min(255,((n>>8)&255)*k)),b=Math.max(0,Math.min(255,(n&255)*k));return `rgb(${r|0},${g|0},${b|0})`}
+function drawGround(){
+ const minX=Math.max(0,Math.floor(player.x-27)),maxX=Math.min(world.w,Math.ceil(player.x+27));
+ const minY=Math.max(0,Math.floor(player.y-27)),maxY=Math.min(world.h,Math.ceil(player.y+27));
+ for(let y=minY;y<maxY;y++)for(let x=minX;x<maxX;x++){
+  let c='#263b3b';
+  const depotFloor=state.currentInterior==='depot'&&x>=158&&x<=189&&y>=9&&y<=42;
+  const patioFloor=state.currentInterior==='patio'&&x>=158&&x<=196&&y>=67&&y<=108;
+  const catacombsFloor=state.currentInterior==='catacombs'&&x>=329&&x<=361&&y>=91&&y<=125;
+   const templeFloor=state.currentInterior==='temple'&&x>=329&&x<=361&&y>=132&&y<=166;
+  const sanctuaryFloor=state.currentInterior==='sanctuary'&&x>=365&&x<=397&&y>=190&&y<=224;
+  const cityInteriorFloor=!!state.currentInterior&&(
+   (state.currentInterior==='catacombs'&&x>=329&&x<=361&&y>=91&&y<=125)||
+    (state.currentInterior==='temple'&&x>=329&&x<=361&&y>=132&&y<=166)||
+   (state.currentInterior==='sanctuary'&&x>=365&&x<=397&&y>=190&&y<=224)||
+   (state.currentInterior==='mall'&&x>=329&&x<=361&&y>=9&&y<=41)||
+   (state.currentInterior==='metro'&&x>=364&&x<=397&&y>=9&&y<=42)||
+   (state.currentInterior==='hospital'&&x>=329&&x<=361&&y>=49&&y<=86)||
+   (state.currentInterior==='nest'&&x>=364&&x<=397&&y>=49&&y<=86));
+  if(state.currentInterior==='catacombs'&&catacombsFloor)c=((x+y)%2?'#454940':'#4e5248');
+   else if(state.currentInterior==='temple'&&templeFloor)c=((x+y)%2?'#625f53':'#6b6759');
+  else if(state.currentInterior==='sanctuary'&&sanctuaryFloor)c=((x+y)%2?'#57594f':'#606256');
+  else if(cityInteriorFloor)c=((x+y)%2?'#65645a':'#716f62');
+  else if(depotFloor)c=((x+y)%2?'#625b4d':'#6b6252');
+  else if(patioFloor)c=((x+y)%2?'#53605b':'#5c6962');
+  else if(x>=235&&y>=135)c=((x+y)%2?'#34483b':'#3d5142');       // R5 · bosque y culto
+  else if(x<225&&y>=145)c=((x+y)%2?'#4b5040':'#555a45');       // R4 · territorio militar
+  else if(x>=170&&y<=150)c=((x+y)%2?'#41494a':'#4a5354');      // R3 · ciudad
+  else if(x<20&&y<18)c=((x+y)%2?'#4b5146':'#555849');
+  else if(x<24)c=((x+y)%2?'#3d4848':'#424b4a');
+  else if(x<65)c=((x+y)%2?'#51483d':'#5a4c3d');
+  else if(x<170)c=((x+y)%2?'#454b43':'#505246');               // R2 · máquinas
+  else c=((x+y)%2?'#454b43':'#505246');
+  // Manchas de suelo deterministas: dan escala y evitan que el exterior parezca una pantalla vacía.
+  const coastWater=(x<36&&y>=207&&y<=276);
+  if(coastWater)c=((x+y)%2?'#294b57':'#315865');
+  const n=(x*92821+y*68917)%97;
+  if(!depotFloor&&!patioFloor&&!catacombsFloor&&!templeFloor&&!coastWater){if(n<5)c='#343d38'; else if(n>91)c='#65604c';}
+  diamond(x,y,c);
+ }
+ // Camino principal y ramales; el resto del mapa queda libre para futuras expansiones.
+ for(let x=Math.max(10,minX);x<Math.min(46,maxX);x++)for(let y=Math.max(8,minY);y<Math.min(15,maxY);y++){
+  if(Math.abs(y-(10+Math.sin(x*.42)*1.5))<1.45)diamond(x,y,(x%2?'#77715d':'#827963'));
+ }
+ // Caminos de exploración largos hacia las zonas todavía no desarrolladas.
+ for(let y=Math.max(10,minY);y<Math.min(80,maxY);y++)for(let x=Math.max(35,minX);x<Math.min(44,maxX);x++){
+  if(Math.abs(x-(40+Math.sin(y*.11)*2.8))<1.2)diamond(x,y,'#6b6655');
+ }
+ // Red de caminos del Capítulo I: une el sendero de Calle Oxidada,
+ // los accesos laterales y las tres consolas con la entrada sur de la fábrica.
+ const road=(points,width=2.1)=>{
+  for(let i=0;i<points.length-1;i++){
+   const [ax,ay]=points[i],[bx,by]=points[i+1],dx=bx-ax,dy=by-ay;
+   const len=Math.hypot(dx,dy),steps=Math.ceil(len*2),nx=-dy/(len||1),ny=dx/(len||1);
+   for(let k=0;k<=steps;k++){
+    const t=k/steps,cx=ax+dx*t,cy=ay+dy*t;
+    for(let o=-width;o<=width;o+=1){
+     const x=Math.round(cx+nx*o),y=Math.round(cy+ny*o);
+     if(x>=minX&&x<maxX&&y>=minY&&y<maxY&&Math.abs(o)<=width)diamond(x,y,(x+y)%2?'#77715d':'#827963');
+    }
+   }
+  }
+ };
+ road([[40,14],[40,24],[48,25],[57,30],[69,31],[78,38],[87,46]],2.0);
+ road([[40,24],[34,22]],1.5);       // Depósito de Chatarra
+ road([[48,25],[49,19]],1.4);       // Consola I
+ road([[57,30],[52.5,39.5]],1.4);   // Taller del Patio
+ road([[69,31],[69,20]],1.4);       // Consola III
+ road([[69,31],[69,38]],1.4);       // Autobús abandonado
+
+ // R1/R2: cinturón exterior y ramales. Los trazados terminan en los accesos
+ // definidos por el plano y rodean las huellas sólidas de cada hito.
+ road([[40,24],[54,52]],2.0);
+ road([[54,52],[43,56],[31,61]],1.5);                 // Estación de bombeo · acceso este
+ road([[54,52],[42,73],[52,90]],1.8);                // Puente viejo · acceso norte
+ road([[52,96],[58,112],[70,126],[78,141]],1.55);    // corredor visible tras el paso derrumbado
+ road([[42,73],[28,81],[22,84]],1.4);                // Puesto de vigía · acceso este
+ road([[54,52],[51,57],[64,70],[69,82]],1.4);     // Refugio · acceso oeste
+ road([[54,52],[50,47],[50,44],[58,44]],1.5);       // Patio de contenedores · acceso norte
+ road([[58,44],[63,42],[85,52],[100,54],[112,54]],1.6); // Patio de vehículos → almacén
+ road([[63,42],[70,60],[82,76]],1.6);                // Taller de desguace · acceso norte
+ road([[112,54],[124,60],[132,59]],1.5);            // Almacén → acceso oeste de subestación
+ if(state.flags?.warehouseShortcut){
+  road([[112,54],[112,70],[120,72],[132,59]],1.65); // atajo de mantenimiento desbloqueado
+ }
+
+ // R2 → R3: salida oriental del túnel y bulevar de la Ciudad Enferma.
+ road([[145,30],[164,31],[178,34],[184,34],[198,42],[211,38],[232,58]],2.2);
+ road([[211,38],[245,50],[258,43]],1.7);
+ road([[232,58],[244,76],[205,79],[205,91]],1.7);
+ road([[244,76],[267,88],[278,88],[279,107]],1.7);
+ road([[252,44],[275,54],[288,68]],1.5);
+ road([[279,122],[260,129],[218,139],[218,145]],1.8);
+ road([[278,88],[292,95],[309,133],[309,139]],1.7);
+ // Calles internas de Ciudad Enferma: bulevar, calles de barrio y acceso a edificios.
+ road([[184,34],[198,42],[211,38],[232,58]],2.3);
+ road([[232,58],[245,50],[252,44]],1.7);
+ road([[232,58],[244,76],[267,88],[279,107]],1.7);
+ road([[244,76],[244,92],[226,104],[205,91]],1.5);
+ road([[267,88],[278,88],[288,68]],1.4);
+ road([[279,107],[279,119]],1.7);
+
+ // R3 → R4: corredor sur y acceso al puente militar.
+ road([[218,145],[112,153],[112,160],[91,174],[91,185]],2.0);
+ road([[112,160],[139,179],[139,188]],1.6);
+ road([[91,185],[65,225],[82,225],[65,225],[55,247],[44,247]],1.8);
+ road([[139,188],[145,218],[145,230],[180,236],[180,250]],1.8);
+ road([[139,188],[186,192],[192,192]],1.5);
+ road([[145,230],[133,265],[133,276]],1.6);
+ // R1 · corredor del puente viejo: termina en un paso derrumbado; no abre aún la región militar.
+ road([[52,96],[58,112],[70,126],[78,141]],1.55);
+
+ // R3 → R5: umbral del bosque, aldea, mercado y ascenso ceremonial.
+ road([[309,139],[316,145],[322,150],[329,160],[334,170],[337,183],[350,183]],2.0);
+ // Desde la aldea, el corredor del mercado pasa entre los puestos sin cruzarlos.
+ road([[350,183],[337,183],[325,201],[325,211]],1.7);
+ // La ruta a Catacumbas llega por el oeste; el paso hacia la Escalinata bordea su fachada por el sur.
+ road([[350,183],[352,198],[353,210],[354,220]],1.6);
+ // El corredor termina en el umbral norte del Templo; no dibuja una ruta
+ // transitable dentro de la huella sólida del edificio.
+ road([[354,220],[366,224],[380,232],[380,245],[352,247]],1.8);
+ // El Santuario se alcanza por una vereda occidental independiente, sin atravesar su huella.
+ road([[380,245],[381,257],[382,268],[384,276]],1.5);
+ // 3.20 · ramales peatonales cortos hacia puntos de observación; no cambian accesos.
+ road([[322,150],[326,163]],1.0);
+ road([[329,160],[316,168]],1.0);
+ road([[337,183],[329,190]],1.0);
+ road([[325,211],[321,222]],1.0);
+ road([[353,210],[342,218]],1.0);
+ road([[380,232],[372,239]],1.0);
+}
+function drawBuildings(){
+ // La Estrella shell
+ boxIso(1.3,2.2,18.8,1.2,100,'#665144','#392f2b');
+ boxIso(1.3,2.2,1.1,15.8,100,'#5a4a3e','#302c29');
+ boxIso(19.1,2.2,1.1,6.8,100,'#59473b','#302b28');
+ boxIso(19.1,11.2,1.1,6.8,100,'#59473b','#302b28');
+ boxIso(1.3,17.8,18.8,1.1,100,'#59473b','#302b28');
+ // Sala ampliada: comedor, barra, mesas y espacio de memoria.
+ let a=screen(10.2,2.35);ctx.fillStyle='#a64f3f';ctx.fillRect(a.x-58,a.y-116,116,10);ctx.fillStyle='#f1c58a';ctx.font='bold 12px Georgia';ctx.textAlign='center';ctx.fillText('LA ESTRELLA',a.x,a.y-126);
+ boxIso(3.1,7.1,4.6,.8,25,'#8d6344','#5d4030');
+ boxIso(11.8,6.8,2.8,1.5,18,'#765a43','#4a3b31');
+ boxIso(5.2,13.4,2.4,1.4,16,'#765a43','#4a3b31');
+ boxIso(13.2,13.2,2.8,1.4,16,'#765a43','#4a3b31');
+ // Gran nave de la Fábrica del Capataz: arena amplia con accesos físicos.
+ boxIso(76,20,22,1.3,104,'#4b5150','#30383a');
+ boxIso(76,20,1.3,27,104,'#505653','#30383a');
+ boxIso(96.7,20,1.3,10,104,'#505653','#30383a');
+ boxIso(96.7,36,1.3,11,104,'#505653','#30383a');
+ boxIso(76,45.7,8,1.3,104,'#454d4c','#30383a');
+ boxIso(90,45.7,8,1.3,104,'#454d4c','#30383a');
+ let sign=screen(87,20.7);ctx.fillStyle='#d7a36d';ctx.font='bold 12px Georgia';ctx.textAlign='center';ctx.fillText('FÁBRICA · NAVE DEL CAPATAZ',sign.x,sign.y-112);
+ // Columnas, fosos de mantenimiento y marcas de seguridad en la arena.
+ for(const q of [[80,25],[94,25],[80,41],[94,41]])boxIso(q[0],q[1],1.4,1.4,34,'#5b625d','#343c3b');
+ boxIso(83,38.5,7,1.2,10,'#343f40','#252f32');
+ // Nave de montaje ampliada, conectada al este de la fábrica.
+ boxIso(100,21.5,20,19,66,'#555b55','#303a3b');
+ boxIso(100,21.5,20,1.1,82,'#68706a','#303a3b');
+ boxIso(100,39.5,20,1.1,82,'#68706a','#303a3b');
+ boxIso(100,21.5,1.1,6.5,82,'#68706a','#303a3b');
+ boxIso(100,34,1.1,6.5,82,'#68706a','#303a3b');
+ boxIso(119,21.5,1.1,6.5,82,'#68706a','#303a3b');
+ boxIso(119,34,1.1,6.5,82,'#68706a','#303a3b');
+ let assemblySign=screen(110,22);ctx.fillStyle='#d7a36d';ctx.font='bold 11px Georgia';ctx.textAlign='center';ctx.fillText('LÍNEA DE MONTAJE',assemblySign.x,assemblySign.y-108);
+ // Túnel de servicio más ancho, con áreas laterales de mantenimiento.
+ boxIso(121,25,30,12,42,'#394b4d','#263438');
+ boxIso(121,25,30,1,62,'#536164','#29373b');
+ boxIso(121,36,30,1,62,'#536164','#29373b');
+ for(let tx=125;tx<148;tx+=5){let q=screen(tx,26);ctx.fillStyle='#c18d58';ctx.fillRect(q.x-3,q.y-48,6,6);ctx.fillStyle='#d7a36d33';ctx.beginPath();ctx.arc(q.x,q.y-45,21,0,Math.PI*2);ctx.fill()}
+ // Transportadores separados y plataformas amplias de trabajo.
+ for(let tx=104;tx<117;tx+=6){boxIso(tx,25,2.8,2.5,18,'#6b6558','#383b38');boxIso(tx,35,2.8,2.2,14,'#71614e','#393a36')}
+ let tunnelSign=screen(135,25.5);ctx.fillStyle='#d7a36d';ctx.font='bold 10px Georgia';ctx.textAlign='center';ctx.fillText('TÚNEL DE SERVICIO',tunnelSign.x,tunnelSign.y-68);
+ if(state.currentInterior==='depot'){
+ // Interiores adicionales: nave de clasificación del Depósito.
+ boxIso(157,8,34,1.2,76,'#655b4d','#393b35');
+ boxIso(157,8,1.2,15.5,76,'#655b4d','#393b35');
+ boxIso(157,27.5,1.2,16.5,76,'#655b4d','#393b35');
+ boxIso(157,42.8,34,1.2,76,'#655b4d','#393b35');
+ boxIso(189.8,8,1.2,36,76,'#655b4d','#393b35');
+ let depotSign=screen(174,8.8);ctx.fillStyle='#e1bd83';ctx.font='bold 11px Georgia';ctx.textAlign='center';ctx.fillText('DEPÓSITO · CLASIFICACIÓN',depotSign.x,depotSign.y-82);
+ // Estanterías, grúa puente y contenedores separados para que la nave se sienta extensa.
+ for(let yy=14;yy<=36;yy+=10){boxIso(163,yy,1.8,6,25,'#555d59','#333c3a');boxIso(187,yy,2.1,6,25,'#555d59','#333c3a')}
+ boxIso(169,18,8,1.4,20,'#78634b','#4a4035');boxIso(174,31,7,1.5,18,'#6c5946','#443a32');
+ }
+ if(state.currentInterior==='patio'){
+ // Taller del Patio de Máquinas: sala de reparaciones amplia y abierta.
+ boxIso(157,66,41,1.2,82,'#52605d','#303a38');
+ boxIso(157,66,1.2,19.5,82,'#52605d','#303a38');
+ boxIso(157,89.5,1.2,20.5,82,'#52605d','#303a38');
+ boxIso(157,108.8,41,1.2,82,'#52605d','#303a38');
+ boxIso(196.8,66,1.2,44,82,'#52605d','#303a38');
+ let patioSign=screen(177,66.8);ctx.fillStyle='#e1bd83';ctx.font='bold 11px Georgia';ctx.textAlign='center';ctx.fillText('PATIO · TALLER DE MANTENIMIENTO',patioSign.x,patioSign.y-88);
+ boxIso(166,74,5,2.2,24,'#6c6959','#3e433e');boxIso(184,77,7,2.2,28,'#596764','#35413f');
+ boxIso(168,98,8,2.4,22,'#80684c','#4d4034');boxIso(184,98,6,2.4,22,'#80684c','#4d4034');
+ for(let tx=165;tx<194;tx+=7){let q=screen(tx,69);ctx.strokeStyle='#697d79';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(q.x,q.y-48);ctx.lineTo(q.x,q.y-5);ctx.stroke()}
+ }
+ if(state.currentInterior==='catacombs'){
+ // Instancia subterránea de Catacumbas: corredor de piedra y cámaras laterales.
+ // La abertura sur coincide con la posición de retorno al exterior.
+ boxIso(329,91,32,1.2,68,'#55584d','#30352f');
+ boxIso(329,91,1.2,34,68,'#55584d','#30352f');
+ boxIso(359.8,91,1.2,34,68,'#55584d','#30352f');
+ boxIso(329,124.8,13.5,1.2,68,'#55584d','#30352f');
+ boxIso(347.5,124.8,13.5,1.2,68,'#55584d','#30352f');
+ let catTitle=screen(345,92.5);ctx.fillStyle='#d5c7a5';ctx.font='bold 11px Georgia';ctx.textAlign='center';ctx.fillText('CATACUMBAS · NIVEL SUPERIOR',catTitle.x,catTitle.y-73);
+ // Arcos bajos, pilares y sarcófagos vacíos; se conserva un eje central despejado.
+ for(const [x,y] of [[332,98],[356,98],[332,119],[356,119]])boxIso(x,y,1.4,1.4,32,'#777765','#41453c');
+ boxIso(333.5,103,4.2,2.5,15,'#666454','#3d4038');
+ boxIso(352.3,102,4.2,2.5,15,'#666454','#3d4038');
+ boxIso(333.5,114,4.2,2.5,15,'#666454','#3d4038');
+ boxIso(352.3,113,4.2,2.5,15,'#666454','#3d4038');
+ // Filtraciones y depósitos minerales, sin símbolos doctrinales ni inscripciones legibles.
+ for(const [x,y] of [[335,96],[355,110],[335,121]]){const q=screen(x,y);ctx.fillStyle='#78918a';ctx.globalAlpha=.55;ctx.beginPath();ctx.ellipse(q.x,q.y-7,7,3,0,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1}
+ }
+
+ if(state.currentInterior==='temple'){
+  // Nave pública de piedra; no se añade iconografía ni doctrina.
+  boxIso(329,132,32,1.2,76,'#77715e','#403f36');
+  boxIso(329,132,1.2,34,76,'#77715e','#403f36');
+  boxIso(359.8,132,1.2,34,76,'#77715e','#403f36');
+  boxIso(329,164.8,13.5,1.2,76,'#77715e','#403f36');
+  boxIso(347.5,164.8,13.5,1.2,76,'#77715e','#403f36');
+  let templeInteriorTitle=screen(345,133.5);ctx.fillStyle='#e0d2b2';ctx.font='bold 11px Georgia';ctx.textAlign='center';ctx.fillText('TEMPLO · NAVE PRINCIPAL',templeInteriorTitle.x,templeInteriorTitle.y-82);
+  for(const [x,y] of [[332,139],[358,139],[332,157],[358,157]])boxIso(x,y,1.4,1.4,42,'#91866c','#4a493e');
+  boxIso(333.5,145,4.2,1.8,16,'#827963','#49473c');boxIso(352.3,145,4.2,1.8,16,'#827963','#49473c');
+  boxIso(333.5,153,4.2,1.8,16,'#827963','#49473c');boxIso(352.3,153,4.2,1.8,16,'#827963','#49473c');
+  boxIso(341,136,8,2.2,12,'#887d65','#4a493e');
+  for(const [x,y] of [[336,140],[354,159]]){const q=screen(x,y);ctx.fillStyle='#82918a';ctx.globalAlpha=.42;ctx.beginPath();ctx.ellipse(q.x,q.y-5,8,3,0,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1}
+ }
+
+
+ if(state.currentInterior==='sanctuary'){
+  // Sala interior sobria; no incorpora iconografía, doctrina ni revelaciones.
+  // La abertura occidental conecta con la salida y mantiene libre el eje central.
+  boxIso(365,190,32,1.2,78,'#686b5d','#363b35');
+  boxIso(365,190,1.2,15,78,'#686b5d','#363b35');
+  boxIso(365,209,1.2,15,78,'#686b5d','#363b35');
+  boxIso(396,190,1.2,34,78,'#686b5d','#363b35');
+  boxIso(365,223,32,1.2,78,'#686b5d','#363b35');
+  let sanctuaryTitle=screen(381,191.5);ctx.fillStyle='#ddd2b6';ctx.font='bold 11px Georgia';ctx.textAlign='center';ctx.fillText('SANTUARIO · SALA INTERIOR',sanctuaryTitle.x,sanctuaryTitle.y-82);
+  // Columnas periféricas y bancos bajos; el corredor oeste-centro permanece despejado.
+  for(const [x,y] of [[370,194],[393,194],[370,219],[393,219]])boxIso(x,y,1.3,1.3,38,'#85816c','#44473e');
+  boxIso(376,194,5,1.8,13,'#777765','#41453c');
+  boxIso(384,218,5,1.8,13,'#777765','#41453c');
+  // Una plataforma desnuda, sin objeto central ni marcas interpretables.
+  boxIso(382,204,4,3,9,'#777563','#41443a');
+  for(const [x,y] of [[375,198],[390,216]]){const q=screen(x,y);ctx.fillStyle='#82918a';ctx.globalAlpha=.38;ctx.beginPath();ctx.ellipse(q.x,q.y-4,7,2.8,0,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1}
+ }
+
+ // CIUDAD ENFERMA: manzanas residenciales, comercio, hospital y Nido.
+ for(const b of cityStructures){
+  boxIso(b.x,b.y,b.w,b.h,b.hgt,b.c,'#303b3e');
+  const d=screen(b.door,b.edge==='north'?b.y:b.edge==='south'?b.y+b.h:b.y+b.h/2);
+  ctx.fillStyle='#17282c';ctx.fillRect(d.x-9,d.y-b.hgt+7,18,b.hgt-7);
+  ctx.strokeStyle='#b68e65';ctx.lineWidth=2;ctx.strokeRect(d.x-9,d.y-b.hgt+7,18,b.hgt-7);
+  if(b.id==='clinic'){const sd=screen(b.door,b.y+b.h);ctx.fillStyle='#17282c';ctx.fillRect(sd.x-9,sd.y-b.hgt+7,18,b.hgt-7);ctx.strokeStyle='#b68e65';ctx.strokeRect(sd.x-9,sd.y-b.hgt+7,18,b.hgt-7)}
+ }
+ const templeDoorPoint=screen(352,248);ctx.fillStyle='#17231f';ctx.fillRect(templeDoorPoint.x-13,templeDoorPoint.y-89,26,48);ctx.strokeStyle='#c5a879';ctx.lineWidth=2;ctx.strokeRect(templeDoorPoint.x-13,templeDoorPoint.y-89,26,48);
+ // Cartelería urbana y detalles legibles desde los caminos.
+ for(const [x,y,t] of [[211,27,'BARRIO'],[257,31,'CENTRO COMERCIAL'],[278,103,'HOSPITAL'],[299,56,'NIDO']]){
+  const q=screen(x,y);ctx.fillStyle='#d5c5a6';ctx.font='bold 10px system-ui';ctx.textAlign='center';ctx.fillText(t,q.x,q.y-82);
+ }
+ // Parque municipal: árboles separados del camino para dejar corredores transitables.
+ for(const tr of cityTrees){const q=screen(tr.x,tr.y);ctx.fillStyle='#263c35';ctx.beginPath();ctx.arc(q.x,q.y-23,13,0,Math.PI*2);ctx.fill();ctx.fillStyle='#506d51';ctx.beginPath();ctx.arc(q.x-3,q.y-28,9,0,Math.PI*2);ctx.fill();ctx.fillStyle='#4c4032';ctx.fillRect(q.x-3,q.y-12,6,14)}
+ // Cementerio: cercado bajo y lápidas; la senda central queda libre.
+ for(let gx=271;gx<=283;gx+=4)for(let gy=83;gy<=95;gy+=4){const q=screen(gx,gy);ctx.fillStyle='#a6aaa0';ctx.fillRect(q.x-3,q.y-18,6,15);ctx.fillStyle='#d5d0bd';ctx.fillRect(q.x-2,q.y-18,4,3)}
+ // Nido: biomasa y estructuras orgánicas alrededor de una entrada occidental.
+ for(let i=0;i<7;i++){const q=screen(294+(i%3)*4,60+Math.floor(i/3)*6);ctx.strokeStyle='#7d8875';ctx.lineWidth=3;ctx.beginPath();ctx.arc(q.x,q.y-23,11+i%2*4,.2,Math.PI*1.8);ctx.stroke()}
+ // R5 · TERRITORIO DE LA SECTA DEL SOL Y LA LUNA.
+ // Umbral de piedra: dos pilares flanquean el camino sin cerrar el corredor.
+ boxIso(312.2,142.8,1.2,2.4,52,'#77745e','#424638');
+ boxIso(319.8,142.8,1.2,2.4,52,'#77745e','#424638');
+ boxIso(312.2,142.8,8.8,1.0,48,'#827c61','#494a3d');
+ let um=screen(316.5,143);ctx.fillStyle='#d8c99c';ctx.font='bold 10px Georgia';ctx.textAlign='center';ctx.fillText('UMBRAL DEL BOSQUE',um.x,um.y-59);
+ // Marcas de piedra a los lados del sendero; la franja central queda libre.
+ for(const [x,y,h] of [[328,158,24],[337,168,30],[345,177,22],[330,173,18]]){
+  boxIso(x,y,1.1,1.0,h,'#777963','#454a3d');
+  const q=screen(x+.55,y+.5);ctx.strokeStyle='#c9b98c';ctx.lineWidth=2;ctx.beginPath();ctx.arc(q.x,q.y-h*.55,4,0,Math.PI*1.5);ctx.stroke();
+ }
+ // Aldea: edificios bajos separados para conservar el camino central y sus accesos.
+ for(const b of cultStructures.filter(b=>b.id.startsWith('village'))){
+  boxIso(b.x,b.y,b.w,b.h,b.hgt,b.c,'#3f4639');
+  const q=screen(b.x+b.w/2,b.y+b.h);ctx.fillStyle='#302f27';ctx.fillRect(q.x-5,q.y-b.hgt+7,10,b.hgt-7);
+ }
+ let villageSign=screen(350,171);ctx.fillStyle='#e0d0a6';ctx.font='bold 11px Georgia';ctx.textAlign='center';ctx.fillText('ALDEA',villageSign.x,villageSign.y-48);
+ // Mercado: cuatro puestos, lonas envejecidas y un corredor central transitable.
+ for(const b of cultStructures.filter(b=>b.id.startsWith('market'))){
+  boxIso(b.x,b.y,b.w,b.h,b.hgt,b.c,'#493d31');
+  const q=screen(b.x+b.w/2,b.y+b.h/2);ctx.fillStyle='#b38b62';ctx.beginPath();ctx.moveTo(q.x-13,q.y-b.hgt-5);ctx.lineTo(q.x+13,q.y-b.hgt-5);ctx.lineTo(q.x+9,q.y-b.hgt+2);ctx.lineTo(q.x-9,q.y-b.hgt+2);ctx.closePath();ctx.fill();
+ }
+ let marketSign=screen(325,203);ctx.fillStyle='#e1c99c';ctx.font='bold 10px Georgia';ctx.textAlign='center';ctx.fillText('MERCADO',marketSign.x,marketSign.y-39);
+ // Catacumbas: edificio de acceso y boca descendente visible desde el sendero.
+ const cat=cultStructures.find(b=>b.id==='catacombHouse');boxIso(cat.x,cat.y,cat.w,cat.h,cat.hgt,cat.c,'#30372f');
+ boxIso(359.0,214.0,1.8,4.0,12,'#292f2b','#181f1e');
+ let catSign=screen(365,211);ctx.fillStyle='#d0c5a6';ctx.font='bold 10px Georgia';ctx.textAlign='center';ctx.fillText('CATACUMBAS',catSign.x,catSign.y-59);
+ // Escalinata ascendente: peldaños anchos sobre el eje del acceso al templo.
+ for(let i=0;i<8;i++){
+  const x=376.6+(i%2)*.35,y=232+i*1.65;boxIso(x,y,7.0,1.05,5+i*1.6,'#89836a','#4d4d40');
+ }
+ // Templo en terraza: zócalo elevado, pórtico frontal y dos columnas.
+ boxIso(335.5,246.5,33,25,12,'#8b8468','#555541');
+ const temple=cultStructures.find(b=>b.id==='temple');boxIso(temple.x,temple.y,temple.w,temple.h,temple.hgt,temple.c,'#3d4438');
+ boxIso(349.2,247.7,5.6,1.0,64,'#b09a70','#5a503c');
+ boxIso(344,247.6,1.1,1.2,48,'#a99a73','#5b533f');boxIso(359,247.6,1.1,1.2,48,'#a99a73','#5b533f');
+ let templeSign=screen(352,248);ctx.fillStyle='#e4d4aa';ctx.font='bold 12px Georgia';ctx.textAlign='center';ctx.fillText('TEMPLO',templeSign.x,templeSign.y-100);
+ // Santuario separado en una terraza oriental, con acceso occidental despejado.
+ boxIso(386,265,22,22,14,'#777c61','#484d3d');
+ const sanct=cultStructures.find(b=>b.id==='sanctuary');boxIso(sanct.x,sanct.y,sanct.w,sanct.h,sanct.hgt,sanct.c,'#343e36');
+ const sanctuaryDoorPoint=screen(388,276);ctx.fillStyle='#17231f';ctx.fillRect(sanctuaryDoorPoint.x-14,sanctuaryDoorPoint.y-75,25,43);ctx.strokeStyle='#c5a879';ctx.lineWidth=2;ctx.strokeRect(sanctuaryDoorPoint.x-14,sanctuaryDoorPoint.y-75,25,43);
+ boxIso(388.3,274.3,1.1,3.5,38,'#aaa17a','#595640');
+ let sanctSign=screen(397,267);ctx.fillStyle='#e3d5ad';ctx.font='bold 11px Georgia';ctx.textAlign='center';ctx.fillText('SANTUARIO',sanctSign.x,sanctSign.y-85);
+ // Árboles de borde y claros. No se colocan sobre las rutas principales.
+ for(const tr of cultTrees){const q=screen(tr.x,tr.y);ctx.fillStyle='#243a31';ctx.beginPath();ctx.arc(q.x,q.y-22,15,0,Math.PI*2);ctx.fill();ctx.fillStyle='#52694a';ctx.beginPath();ctx.arc(q.x-4,q.y-29,10,0,Math.PI*2);ctx.fill();ctx.fillStyle='#493f30';ctx.fillRect(q.x-3,q.y-12,6,13)}
+
+ // Interiores instanciados de la ciudad. Se encuentran fuera de la huella exterior R3.
+ const room=(x,y,w,h,height,color)=>{
+  boxIso(x,y,w,1,height,color,'#303a3b');boxIso(x,y,1,h,height,color,'#303a3b');
+  boxIso(x+w-1,y,1,h,height,color,'#303a3b');boxIso(x,y+h-1,w,1,height,color,'#303a3b');
+ };
+ room(329,9,32,32,54,'#62635b');let m=screen(345,10);ctx.fillStyle='#e1bd83';ctx.font='bold 10px Georgia';ctx.textAlign='center';ctx.fillText('CENTRO COMERCIAL · REFUGIO',m.x,m.y-60);
+ boxIso(333,15,5,2,18,'#78654e','#493d32');boxIso(350,15,6,2,18,'#78654e','#493d32');boxIso(338,30,9,2,14,'#59645e','#38423f');
+ room(364,9,33,33,54,'#4d5b61');let mt=screen(380,10);ctx.fillStyle='#c6d6d4';ctx.fillText('ESTACIÓN DE METRO',mt.x,mt.y-60);
+ for(let x=370;x<393;x+=7)boxIso(x,18,2,12,22,'#3b484d','#263337');
+ room(329,49,32,37,58,'#68706b');let hsp=screen(345,50);ctx.fillStyle='#e1bdc0';ctx.fillText('HOSPITAL · ARCHIVO Y LABORATORIO',hsp.x,hsp.y-64);
+ boxIso(333,57,6,3,16,'#8c8e83','#4e5551');boxIso(347,57,7,3,16,'#8c8e83','#4e5551');boxIso(338,74,12,3,12,'#657b78','#3c4b49');
+ room(364,49,33,37,58,'#4f5b50');let ns=screen(380,50);ctx.fillStyle='#c4cdb1';ctx.fillText('NIDO · CÁMARA CENTRAL',ns.x,ns.y-64);
+ for(let i=0;i<6;i++){let q=screen(371+(i%3)*7,59+Math.floor(i/3)*12);ctx.strokeStyle='#9aa48b';ctx.lineWidth=3;ctx.beginPath();ctx.arc(q.x,q.y-20,8,0,Math.PI*2);ctx.stroke()}
+
+ // street wrecks
+ boxIso(14.2,6.1,2.2,1.5,30,'#566064','#303b40');
+ boxIso(19.2,4.2,2.5,1.4,24,'#5c5148','#34312e');
+ // scrapyard heaps and fence
+ for(let i=0;i<6;i++){let x=25+(i%3)*3.4,y=5+Math.floor(i/3)*4;boxIso(x,y,1.6,1.4,24+(i%2)*12,['#62615a','#685747','#4f5d5b'][i%3],'#303b3b')}
+ for(let y=2;y<21;y+=2.2){let p=screen(36,y);ctx.fillStyle='#343b3b';ctx.fillRect(p.x-2,p.y-46,4,46)}
+}
+function drawProp(o){
+ if(o.id&&o.id.startsWith('poi_')&&o.x>=300&&o.y>=139)return;
+ const p=screen(o.x,o.y);
+ if(o.type==='bell'){ctx.fillStyle='#e8b75f';ctx.beginPath();ctx.arc(p.x,p.y-16,7,Math.PI,0);ctx.lineTo(p.x+8,p.y-7);ctx.lineTo(p.x-8,p.y-7);ctx.fill();ctx.fillStyle='#ffe2a1';ctx.fillRect(p.x-2,p.y-23,4,4)}
+ if(o.type==='photo'){ctx.fillStyle='#9a7954';ctx.fillRect(p.x-12,p.y-27,24,20);ctx.fillStyle='#d7c59c';ctx.fillRect(p.x-9,p.y-24,18,14);ctx.fillStyle='#526b6d';ctx.fillRect(p.x-6,p.y-21,6,7)}
+ if(o.type==='terminal'){ctx.fillStyle='#263b43';ctx.fillRect(p.x-14,p.y-30,28,23);ctx.fillStyle='#73c8c4';ctx.fillRect(p.x-10,p.y-26,20,14);ctx.fillStyle='#9c8a6c';ctx.fillRect(p.x-7,p.y-7,14,4)}
+ if(o.type==='door'||o.type==='roomdoor'){
+  const isOpen=o.id==='cityGate'?!!state.flags.cityGateOpen:o.id==='warehouseGate'?!!state.flags.warehouseShortcut:((o.id==='door'||o.id==='depotdoor'||o.id==='patiodoor')?state.doorOpen:true);
+  ctx.fillStyle=isOpen?'#6e8d78':'#45352e';ctx.fillRect(p.x-17,p.y-62,34,62);ctx.strokeStyle='#c89a69';ctx.lineWidth=3;ctx.strokeRect(p.x-17,p.y-62,34,62);ctx.fillStyle='#d5b17d';ctx.fillRect(p.x+8,p.y-31,4,4)
+ }
+ if(o.type==='inspect'||o.type==='relay'||o.type==='bench'||o.type==='cache'){ctx.save();ctx.textAlign='center';ctx.font=o.type==='inspect'?'25px sans-serif':'28px sans-serif';ctx.fillText(o.emoji,p.x,p.y-10);ctx.fillStyle='#e2d1ad';ctx.font='9px system-ui';ctx.fillText(o.name.toUpperCase(),p.x,p.y-39);ctx.restore()}
+ if(o.type==='scrap'){ctx.fillStyle='#b77e4e';ctx.font='22px sans-serif';ctx.fillText('⚙',p.x-12,p.y-6)}
+ if(o.type==='npc'){ctx.font='29px sans-serif';ctx.fillText('🦾',p.x-15,p.y-9);ctx.fillStyle='#d8c49e';ctx.font='10px system-ui';ctx.textAlign='center';ctx.fillText('DESERTOR',p.x,p.y-39)}
+ if(o.type==='gate'){ctx.fillStyle='#d17c52';ctx.fillRect(p.x-20,p.y-5,40,6);ctx.font='20px sans-serif';ctx.fillText('⛔',p.x-10,p.y-15)}
+ if(o.type==='survivor'){ctx.font='30px sans-serif';ctx.fillText('🧑‍🔧',p.x-15,p.y-8);ctx.fillStyle='#e0d0ae';ctx.font='10px system-ui';ctx.textAlign='center';ctx.fillText('SUPERVIVIENTE',p.x,p.y-39)}
+ if(o.type==='citynpc'){ctx.font='29px sans-serif';ctx.fillText(o.emoji,p.x-15,p.y-8);ctx.fillStyle='#e0d0ae';ctx.font='9px system-ui';ctx.textAlign='center';ctx.fillText(o.name.toUpperCase(),p.x,p.y-39);const follow=o.id==='cityMara'?'maraFollowup':o.id==='cityTomas'?'tomasFollowup':'ibarraFollowup';if(state.city?.[follow]){ctx.fillStyle='#8bd3a8';ctx.font='bold 12px system-ui';ctx.fillText('✓',p.x+18,p.y-49)}}
+ if(o.type==='infected'){ctx.font='30px sans-serif';ctx.fillText(state.city?.infectedCalmed?'🧟‍♂️':'🧟',p.x-15,p.y-8);ctx.fillStyle='#d5a18b';ctx.font='9px system-ui';ctx.textAlign='center';ctx.fillText(state.city?.infectedCalmed?'QUIETO':'INFECTADO',p.x,p.y-39)}
+ if(o.type==='nestboss'){ctx.font='42px sans-serif';ctx.fillText(state.city?.guardianDefeated?'🕸️':'🫀',p.x-22,p.y-12);ctx.fillStyle='#d6b0a0';ctx.font='bold 10px system-ui';ctx.textAlign='center';ctx.fillText(state.city?.guardianDefeated?'NÚCLEO INERTE':'EL CORO',p.x,p.y-48)}
+ if(o.type==='console'){ctx.fillStyle=state.consoles[o.id.replace('console','').replace('1','one').replace('2','two').replace('3','three')]?'#4da58e':'#354e57';ctx.fillRect(p.x-15,p.y-35,30,29);ctx.strokeStyle='#9cc5bb';ctx.strokeRect(p.x-15,p.y-35,30,29);ctx.fillStyle='#b9e8d8';ctx.font='bold 12px system-ui';ctx.textAlign='center';ctx.fillText(o.num,p.x,p.y-17);ctx.fillStyle='#e0d0ae';ctx.font='9px system-ui';ctx.fillText(state.consoles[o.id.slice(-1)==='1'?'one':o.id.slice(-1)==='2'?'two':'three']?'ACTIVA':'CONSOLA',p.x,p.y-42)}
+ if(o.type==='boss'){ctx.font='38px sans-serif';ctx.fillText('🤖',p.x-19,p.y-9);ctx.fillStyle='#e7b68d';ctx.font='10px system-ui';ctx.textAlign='center';ctx.fillText(state.bossDefeated?'CAPATAZ':'CAPATAZ',p.x,p.y-44)}
+ if(o.type==='factory'){ctx.fillStyle=state.bossDefeated?'#668d72':'#493a32';ctx.fillRect(p.x-16,p.y-58,32,58);ctx.strokeStyle='#c89a69';ctx.strokeRect(p.x-16,p.y-58,32,58)}
+ if(o.type==='record'){ctx.fillStyle=state.records?.[o.id==='signalrecord'?'signal':'siesta']?'#4da58e':'#263e48';ctx.fillRect(p.x-13,p.y-31,26,24);ctx.strokeStyle='#b7c9b9';ctx.strokeRect(p.x-13,p.y-31,26,24);ctx.fillStyle='#c9d7cb';ctx.font='bold 9px system-ui';ctx.textAlign='center';ctx.fillText(o.id==='siestalog'?'SIESTA':o.id==='assemblyterminal'?'ÓRDENES':'SEÑAL',p.x,p.y-16)}
+ if(o.type==='homecoming'){ctx.fillStyle='#d2a875';ctx.font='18px sans-serif';ctx.fillText('🍽️',p.x-10,p.y-5)}
+ if(o.type==='guest'&&state.chapterComplete){ctx.font='27px sans-serif';ctx.fillText('🦾',p.x-14,p.y-7);ctx.fillStyle='#d8c49e';ctx.font='9px system-ui';ctx.textAlign='center';ctx.fillText('REFUGIADO',p.x,p.y-34)}
+ if(o.type==='landmark'){
+  ctx.save();ctx.textAlign='center';ctx.font='34px sans-serif';ctx.fillText(o.emoji,p.x,p.y-12);
+  ctx.fillStyle='#e0d0ae';ctx.font='10px system-ui';ctx.fillText(o.name.toUpperCase(),p.x,p.y-43);ctx.restore();
+ }
+ if(o.type==='lamp'){ctx.strokeStyle='#323c3d';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x,p.y-60);ctx.stroke();ctx.fillStyle='#ffc879';ctx.beginPath();ctx.arc(p.x,p.y-63,8,0,Math.PI*2);ctx.fill();ctx.fillStyle='#ffc87922';ctx.beginPath();ctx.arc(p.x,p.y-63,35,0,Math.PI*2);ctx.fill()}
+}
+function drawReservedBoundary(){
+ // R4 conserva su geografía, pero el acceso físico sigue cerrado en esta etapa.
+ const a=screen(35,145),b=screen(225,145);ctx.save();ctx.strokeStyle='#b58d61';ctx.lineWidth=4;ctx.setLineDash([10,7]);
+ ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();ctx.setLineDash([]);
+ for(let x=40;x<=220;x+=12){const p=screen(x,145);ctx.strokeStyle='#4d4940';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(p.x,p.y-7);ctx.lineTo(p.x,p.y+7);ctx.stroke()}
+ ctx.restore();
+}
+function drawRegionLabels(){
+ const labels=[
+  {x:48,y:112,t:'CINTURÓN EXTERIOR',c:'#d4c39a'},
+  {x:115,y:112,t:'TERRITORIO DE LAS MÁQUINAS',c:'#c4c9b7'},
+  {x:250,y:12,t:'CIUDAD ENFERMA',c:'#b6c8c9'},
+  {x:105,y:290,t:'TERRITORIO MILITAR',c:'#d0c49c'},
+  {x:350,y:290,t:'SECTA DEL SOL Y LA LUNA',c:'#c1d0b0'}
+ ];
+ ctx.save();ctx.textAlign='center';ctx.font='700 12px system-ui';ctx.globalAlpha=.62;
+ for(const a of labels){const p=screen(a.x,a.y);ctx.fillStyle='#071018';ctx.fillText(a.t,p.x+1,p.y+1);ctx.fillStyle=a.c;ctx.fillText(a.t,p.x,p.y)}
+ ctx.restore();
+}
+// Hitos geográficos R1/R2 del plano maestro. Son ambientales: no añaden
+// misiones, NPC ni revelaciones y no alteran la progresión ya existente.
+const cultExplorationSites=[
+ {x:316,y:168,name:'TRONCO CAÍDO',kind:'fallenTree'},
+ {x:326,y:163,name:'CLARO PEDREGOSO',kind:'clearing'},
+ {x:329,y:190,name:'MURO DERRUMBADO',kind:'ruinWall'},
+ {x:321,y:222,name:'FUENTE SECA',kind:'basin'},
+ {x:342,y:218,name:'PATIO DE PUESTOS',kind:'marketRemains'},
+ {x:372,y:239,name:'DESCANSO DE LA ESCALINATA',kind:'stairRest'}
+];
+const explorationSites=[
+ {x:25,y:61,name:'ESTACIÓN DE BOMBEO',icon:'💧',kind:'pump'},
+ {x:18,y:88,name:'PUESTO DE VIGÍA',icon:'🗼',kind:'lookout'},
+ {x:52,y:96,name:'PUENTE VIEJO',icon:'🌉',kind:'bridge'},
+ {x:75,y:82,name:'REFUGIO DE CAMINANTES',icon:'⛺',kind:'camp'},
+ {x:72,y:42,name:'PATIO DE VEHÍCULOS',icon:'🚙',kind:'yard'},
+ {x:58,y:53,name:'PATIO DE CONTENEDORES',icon:'📦',kind:'containers'},
+ {x:82,y:83,name:'TALLER DE DESGUACE',icon:'🔧',kind:'workshop'},
+ {x:112,y:62,name:'ALMACÉN BLOQUEADO',icon:'🏚️',kind:'warehouse'},
+ {x:139,y:59,name:'SUBESTACIÓN',icon:'⚡',kind:'substation'}
+];
+function drawExplorationSites(){
+ if(state.currentInterior)return;
+ const visible=explorationSites.filter(o=>Math.abs(o.x-player.x)<24&&Math.abs(o.y-player.y)<22);
+ for(const o of visible){
+  const p=screen(o.x,o.y);
+  ctx.save();ctx.textAlign='center';
+  if(o.kind==='pump'){
+   boxIso(o.x-2.2,o.y-2.1,4.2,3.8,23,'#596c68','#354641');
+   boxIso(o.x-.7,o.y-1.5,1.2,1.4,34,'#84938a','#48554e');
+  }else if(o.kind==='lookout'){
+   boxIso(o.x-.65,o.y-.65,1.3,1.3,39,'#716b58','#454337');
+   const q=screen(o.x,o.y);ctx.strokeStyle='#9b9276';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(q.x,q.y-40);ctx.lineTo(q.x,q.y-59);ctx.stroke();
+  }else if(o.kind==='bridge'){
+   for(let i=0;i<5;i++){const q=screen(o.x-4+i*2,o.y+(i%2)*.35);ctx.fillStyle=i%2?'#665443':'#80654b';ctx.fillRect(q.x-20,q.y-5,39,8)}
+   const q=screen(o.x,o.y);ctx.strokeStyle='#9b7752';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(q.x-42,q.y-7);ctx.lineTo(q.x-20,q.y+7);ctx.moveTo(q.x+20,q.y-7);ctx.lineTo(q.x+42,q.y+7);ctx.stroke();
+  }else if(o.kind==='camp'){
+   const q=screen(o.x,o.y);ctx.fillStyle='#8a6549';ctx.beginPath();ctx.moveTo(q.x-19,q.y-5);ctx.lineTo(q.x,q.y-31);ctx.lineTo(q.x+19,q.y-5);ctx.closePath();ctx.fill();ctx.fillStyle='#c7a276';ctx.fillRect(q.x-2,q.y-7,4,9);
+  }else if(o.kind==='yard'){
+   boxIso(o.x-4,o.y-2,3.5,2.2,12,'#586367','#354247');boxIso(o.x+1,o.y-3,3,2,10,'#6b6253','#413c34');
+   const q=screen(o.x-1,o.y+2);ctx.strokeStyle='#9a8b6a';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(q.x-23,q.y-5);ctx.lineTo(q.x+23,q.y-5);ctx.stroke();
+  }else if(o.kind==='containers'){
+   for(let i=0;i<4;i++)boxIso(o.x-4+(i%2)*4,o.y-3+Math.floor(i/2)*3,3.4,2.3,13+i%2*3,i%2?'#6b5948':'#53636a','#303d41');
+  }else if(o.kind==='workshop'){
+   boxIso(o.x-4,o.y-3,7,5,31,'#665c4b','#3e3b32');boxIso(o.x-1,o.y-3.1,2,1,22,'#8b7657','#4e4538');
+  }else if(o.kind==='warehouse'){
+   // Dos naves laterales dejan un pasillo central de mantenimiento; la reja
+   // solo se abre cuando la alimentación industrial fue restaurada.
+   boxIso(o.x-5,o.y-4,3.5,7,39,'#5b625c','#363f3b');
+   boxIso(o.x+1.5,o.y-4,3.5,7,39,'#5b625c','#363f3b');
+   const gate=screen(o.x,o.y-3.7);ctx.fillStyle=state.flags?.warehouseShortcut?'#6e9a7c':'#a66b4d';
+   ctx.fillRect(gate.x-8,gate.y-18,16,18);ctx.strokeStyle='#d0b184';ctx.lineWidth=2;ctx.strokeRect(gate.x-8,gate.y-18,16,18);
+  }else if(o.kind==='substation'){
+   boxIso(o.x-3,o.y-3,6,5,24,'#56645e','#343f3b');
+   const q=screen(o.x,o.y-2);ctx.strokeStyle='#b5a16d';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(q.x-17,q.y-42);ctx.lineTo(q.x+17,q.y-42);ctx.moveTo(q.x-12,q.y-53);ctx.lineTo(q.x+12,q.y-53);ctx.stroke();
+  }
+  // Nombre corto solo dentro del radio de cámara para orientar sin saturar el mapa.
+  ctx.fillStyle='#071018';ctx.font='700 9px system-ui';ctx.fillText(o.name,p.x+1,p.y-49+1);
+  ctx.fillStyle='#d8c8a6';ctx.fillText(o.name,p.x,p.y-49);
+  ctx.restore();
+ }
+}
+function drawCultExplorationSites(){
+ if(state.currentInterior)return;
+ const visible=cultExplorationSites.filter(o=>Math.abs(o.x-player.x)<24&&Math.abs(o.y-player.y)<22);
+ for(const o of visible){
+  const p=screen(o.x,o.y);ctx.save();ctx.textAlign='center';
+  if(o.kind==='fallenTree'){
+   ctx.strokeStyle='#514333';ctx.lineWidth=10;ctx.beginPath();ctx.moveTo(p.x-24,p.y-8);ctx.lineTo(p.x+22,p.y+5);ctx.stroke();
+   for(const dx of [-16,2,17]){ctx.fillStyle='#53694a';ctx.beginPath();ctx.arc(p.x+dx,p.y-5,8,0,Math.PI*2);ctx.fill()}
+  }else if(o.kind==='clearing'){
+   ctx.fillStyle='#77715b';ctx.beginPath();ctx.ellipse(p.x,p.y,25,10,-.18,0,Math.PI*2);ctx.fill();
+   for(const [dx,dy] of [[-17,-4],[12,-7],[20,4],[-8,7]]){ctx.fillStyle='#aaa083';ctx.beginPath();ctx.arc(p.x+dx,p.y+dy,4,0,Math.PI*2);ctx.fill()}
+  }else if(o.kind==='ruinWall'){
+   boxIso(o.x-2,o.y-1,3.5,1.0,12,'#77715e','#494638');boxIso(o.x+2,o.y+.5,1.4,1.0,7,'#8a8269','#4c493c');
+  }else if(o.kind==='basin'){
+   const q=screen(o.x,o.y);ctx.fillStyle='#77745f';ctx.beginPath();ctx.ellipse(q.x,q.y,20,12,0,0,Math.PI*2);ctx.fill();
+   ctx.fillStyle='#41483f';ctx.beginPath();ctx.ellipse(q.x,q.y-2,13,7,0,0,Math.PI*2);ctx.fill();
+   ctx.strokeStyle='#a59a79';ctx.lineWidth=2;ctx.stroke();
+  }else if(o.kind==='marketRemains'){
+   boxIso(o.x-2.5,o.y-1.5,3.8,.7,9,'#765b42','#46382e');
+   const q=screen(o.x+1,o.y-1);ctx.strokeStyle='#8a7557';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(q.x-8,q.y-22);ctx.lineTo(q.x+10,q.y-5);ctx.moveTo(q.x+8,q.y-22);ctx.lineTo(q.x-8,q.y-5);ctx.stroke();
+  }else if(o.kind==='stairRest'){
+   for(let i=0;i<3;i++)boxIso(o.x-2.5+i*1.4,o.y-1.2+i*.4,1.25,1.1,4,'#89836a','#4d4d40');
+  }
+  ctx.fillStyle='#071018';ctx.font='700 9px system-ui';ctx.fillText(o.name,p.x+1,p.y-43+1);
+  ctx.fillStyle='#d8c8a6';ctx.fillText(o.name,p.x,p.y-43);ctx.restore();
+ }
+}
+function drawPlayer(){
+ const p=screen(player.x,player.y);
+ ctx.fillStyle='#0008';ctx.beginPath();ctx.ellipse(p.x,p.y-1,14,6,0,0,Math.PI*2);ctx.fill();
+ // robot silhouette
+ ctx.fillStyle='#a7b7b5';ctx.fillRect(p.x-9,p.y-34,18,22);ctx.fillStyle='#647d84';ctx.fillRect(p.x-11,p.y-48,22,18);
+ ctx.fillStyle='#7de0e7';ctx.fillRect(p.x-6,p.y-41,12,4);
+ ctx.fillStyle='#d2b48a';ctx.fillRect(p.x-7,p.y-12,5,12);ctx.fillRect(p.x+2,p.y-12,5,12);
+ ctx.strokeStyle='#263b43';ctx.lineWidth=2;ctx.strokeRect(p.x-11,p.y-48,22,18);
+}
+function drawAtmosphere(){
+ // subtle dust / warm lights
+ const t=performance.now()/1000;
+ for(let i=0;i<18;i++){let x=((i*173+t*5)%W),y=(i*79+Math.sin(t+i)*8)%H;ctx.fillStyle=i%3?'#d6c39b22':'#9bd4d322';ctx.fillRect(x,y,2,2)}
+}
+function render(){
+ ctx.clearRect(0,0,W,H);
+ const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#172c39');g.addColorStop(1,'#0b171f');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+ drawGround();drawBuildings();drawReservedBoundary();drawRegionLabels();drawExplorationSites();drawCultExplorationSites();
+ props.filter(o=>(o.id!=='robotguest'||state.chapterComplete)&&(state.currentInterior?o.interior===state.currentInterior:!o.interior)).slice().sort((a,b)=>a.x+a.y-(b.x+b.y)).forEach(drawProp);
+ drawPlayer();drawAtmosphere();
+}
+function blocked(x,y,fromX=player.x,fromY=player.y){
+ if(x<.4||y<.4||x>world.w-.6||y>world.h-.6)return true;
+ // R4 permanece reservado: no se puede entrar desde otra región, pero una partida
+ // antigua que ya estuviera allí puede salir sin perder su posición guardada.
+ if(regionAt(x,y)==='R4'&&regionAt(fromX,fromY)!=='R4')return true;
+ // Colisiones de los nueve hitos R1/R2; el pasillo del almacén requiere energía.
+ for(const b of explorationColliders){
+  if(b.id==='warehouse'&&state.flags?.warehouseShortcut&&x>b.x+3.22&&x<b.x+6.78&&y>b.y-.28&&y<b.y+b.h+.28)continue;
+  if(b.circle){if(Math.hypot(x-b.x,y-b.y)<b.r+.28)return true}
+  else if(x>b.x-.28&&x<b.x+b.w+.28&&y>b.y-.28&&y<b.y+b.h+.28)return true;
+ }
+ // Costa suroeste: el agua no es terreno transitable. El muelle queda al este de la orilla.
+ if(x<36&&y>=207&&y<=276)return true;
+ // Gran arena del Capataz: perímetro amplio, puerta sur y salida lateral.
+ if(x>75.5&&x<98.5&&y>19.5&&y<47.5){
+  const southDoor=state.factoryGateOpen&&x>84&&x<90&&y>45.5;
+  const eastDoor=state.factoryWingOpen&&x>96.5&&y>30&&y<36;
+  if(!southDoor&&!eastDoor&&(y<21.5||x<77.7||x>97.7||y>46.7))return true;
+ }
+ // Línea de Montaje ampliada: entrada desde la fábrica y salida al túnel.
+ if(x>99.5&&x<121&&y>21&&y<41){
+  const westDoor=state.factoryWingOpen&&x<101.8&&y>28&&y<34;
+  const eastDoor=state.records.siesta&&x>119.2&&y>28&&y<34;
+  if(!westDoor&&!eastDoor&&(y<22.2||y>40||x<100.8||x>120))return true;
+ }
+ // Túnel de Servicio amplio, con retorno al área de registros.
+ if(x>120.5&&x<151.8&&y>24.5&&y<37.5){
+  const westDoor=state.records.siesta&&x<122.2&&y>28&&y<34;
+  const eastDoor=state.flags.cityGateOpen&&x>149.5&&y>28&&y<34;
+  if(!westDoor&&!eastDoor&&(y<25.5||y>36||x>150.5))return true;
+ }
+ // Nave interior del Depósito: muros con hueco de entrada/salida oeste.
+ if(state.currentInterior==='depot'&&x>157.5&&x<191.5&&y>7.5&&y<44.5){
+  const door=x<160.5&&y>23.5&&y<27.5;
+  if(!door&&(x<159.2||x>190.2||y<9.2||y>43.2))return true;
+ }
+ // Taller interior del Patio: sala amplia y abierta con acceso oeste.
+ if(state.currentInterior==='patio'&&x>157.5&&x<198.5&&y>65.5&&y<110.5){
+  const door=x<160.5&&y>85.5&&y<89.5;
+  if(!door&&(x<159.2||x>197.2||y<67.2||y>109.2))return true;
+ }
+ // Catacumbas: la instancia queda confinada a su perímetro y a la abertura sur.
+ if(state.currentInterior==='catacombs'&&(x<329.8||x>360.2||y<91.8||y>125.5))return true;
+ if(state.currentInterior==='catacombs'&&x>328.5&&x<361.5&&y>90.5&&y<126){
+  const southDoor=x>343&&x<347&&y>123.0;
+  if(!southDoor&&(x<330.1||x>359.9||y<92.1||y>123.9))return true;
+  // Pilares y sarcófagos dejan un corredor central continuo.
+  for(const b of [{x:332,y:98,w:1.4,h:1.4},{x:356,y:98,w:1.4,h:1.4},{x:332,y:119,w:1.4,h:1.4},{x:356,y:119,w:1.4,h:1.4},{x:333.5,y:103,w:4.2,h:2.5},{x:352.3,y:102,w:4.2,h:2.5},{x:333.5,y:114,w:4.2,h:2.5},{x:352.3,y:113,w:4.2,h:2.5}])if(x>b.x-.25&&x<b.x+b.w+.25&&y>b.y-.25&&y<b.y+b.h+.25)return true;
+ }
+ // Templo: perímetro independiente con una única abertura al sur.
+ if(state.currentInterior==='temple'&&(x<329.8||x>360.2||y<132.8||y>165.5))return true;
+ if(state.currentInterior==='temple'&&x>328.5&&x<361.5&&y>131.5&&y<166){
+  const southDoor=x>343&&x<347&&y>163.0;
+  if(!southDoor&&(x<330.1||x>359.9||y<133.1||y>163.9))return true;
+  for(const b of [{x:332,y:139,w:1.4,h:1.4},{x:358,y:139,w:1.4,h:1.4},{x:332,y:157,w:1.4,h:1.4},{x:358,y:157,w:1.4,h:1.4},{x:333.5,y:145,w:4.2,h:1.8},{x:352.3,y:145,w:4.2,h:1.8},{x:333.5,y:153,w:4.2,h:1.8},{x:352.3,y:153,w:4.2,h:1.8},{x:341,y:136,w:8,h:2.2}])if(x>b.x-.25&&x<b.x+b.w+.25&&y>b.y-.25&&y<b.y+b.h+.25)return true;
+ }
+
+ // Santuario: sala independiente con entrada/salida occidental.
+ if(state.currentInterior==='sanctuary'){
+  const westDoor=x<367.2&&y>205.2&&y<209.0;
+  if((x<365.8&&!westDoor)||x>396.2||y<190.8||y>223.2)return true;
+  if(x>364.5&&x<397.5&&y>189.5&&y<224.5){
+   if(!westDoor&&(x<366.0||x>396.0||y<191.0||y>223.0))return true;
+   const roomBlocks=[
+    {x:370,y:194,w:1.3,h:1.3},{x:393,y:194,w:1.3,h:1.3},
+    {x:370,y:219,w:1.3,h:1.3},{x:393,y:219,w:1.3,h:1.3},
+    {x:376,y:194,w:5,h:1.8},{x:384,y:218,w:5,h:1.8},
+    {x:382,y:204,w:4,h:3}
+   ];
+   for(const b of roomBlocks)if(x>b.x-.25&&x<b.x+b.w+.25&&y>b.y-.25&&y<b.y+b.h+.25)return true;
+  }
+ }
+ // Restaurante ampliado: cuatro muros y una salida física al este.
+ if(x>1&&x<20.5&&y>2&&y<19){
+  if(y<3.1||y>18.4||x<2.1)return true;
+  if(x>19.1 && !(state.doorOpen && y>9.2 && y<11.2))return true;
+ }
+ // Huellas de edificios de Ciudad Enferma: se puede cruzar únicamente por el umbral.
+ for(const b of cityStructures){
+  if(x>b.x-.25&&x<b.x+b.w+.25&&y>b.y-.25&&y<b.y+b.h+.25){
+   const doorPass=(b.id==='mall'&&Math.abs(x-b.door)<1.4&&y>b.y+b.h-.9)||
+    (b.id==='clinic'&&Math.abs(x-b.door)<1.4&&(y<b.y+1.0||y>b.y+b.h-1.0))||
+    (b.id==='nest'&&Math.abs(y-(b.y+b.h/2))<1.4&&x<b.x+1.0);
+   if(!doorPass)return true;
+  }
+ }
+ for(const tr of cityTrees){if(Math.hypot(x-tr.x,y-tr.y)<1.05)return true}
+ // Edificios de la Secta: huellas sólidas. Los accesos de cada sitio están
+ // ubicados fuera de estas huellas para no encerrar al jugador sin interiores.
+ for(const b of cultStructures){if(x>b.x-.3&&x<b.x+b.w+.3&&y>b.y-.3&&y<b.y+b.h+.3){
+   const templeDoor=b.id==='temple'&&Math.abs(x-352)<1.45&&y>b.y-.4&&y<b.y+1.7;
+   const sanctuaryDoor=b.id==='sanctuary'&&x>b.x-.5&&x<b.x+1.9&&y>274.1&&y<278.2;
+   if(!templeDoor&&!sanctuaryDoor)return true;
+  }}
+ for(const tr of cultTrees){if(Math.hypot(x-tr.x,y-tr.y)<1.05)return true}
+ // El umbral se puede atravesar por el camino central; las columnas quedan fuera de él.
+ // Los interiores urbanos tienen perímetros y salidas físicas independientes.
+ const roomBounds={mall:{x1:329,x2:361,y1:9,y2:41,doorX:345,doorY:40},metro:{x1:364,x2:397,y1:9,y2:42,doorX:380,doorY:41},hospital:{x1:329,x2:361,y1:49,y2:86,doorX:345,doorY:85},nest:{x1:364,x2:397,y1:49,y2:86,doorX:380,doorY:85},temple:{x1:329,x2:361,y1:132,y2:166,doorX:345,doorY:165}}[state.currentInterior];
+ if(roomBounds&&x>roomBounds.x1&&x<roomBounds.x2&&y>roomBounds.y1&&y<roomBounds.y2){
+  const inDoor=Math.abs(x-roomBounds.doorX)<1.7&&y>roomBounds.doorY-1.2;
+  if(!inDoor&&(x<roomBounds.x1+1.1||x>roomBounds.x2-1.1||y<roomBounds.y1+1.1||y>roomBounds.y2-1.1))return true;
+ }
+ for(const o of obstacles){if(x>o.x-.35&&x<o.x+o.w+.35&&y>o.y-.35&&y<o.y+o.h+.35)return true}
+ return false;
+}
+function enterInterior(name,x,y){if(state.currentInterior)return;state.returnPoint={x:player.x,y:player.y};state.currentInterior=name;player.x=x;player.y=y;keys={};camera.x=iso(x,y).x;camera.y=iso(x,y).y;updateHUD();const labels={depot:'nave de clasificación',patio:'taller del Patio',mall:'Centro Comercial',metro:'Metro',hospital:'Hospital',nest:'Nido',catacombs:'Catacumbas',temple:'Templo',sanctuary:'Santuario'};setToast('Entraste en '+(labels[name]||'el interior')+'.')}
+function exitInterior(target){const p=target||state.returnPoint||{x:34.2,y:22.5};state.currentInterior=null;player.x=p.x;player.y=p.y;state.returnPoint=null;keys={};camera.x=iso(player.x,player.y).x;camera.y=iso(player.x,player.y).y;updateHUD();setToast('Has regresado al exterior.')}
+function setToast(msg){$('toast').textContent=msg;$('toast').style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').style.display='none',2200)}
+function updateCivicFollowup(){
+ const c=state.city||{};
+ const done=[c.maraFollowup,c.tomasFollowup,c.ibarraFollowup].filter(Boolean).length;
+ c.civicFollowupCount=done;
+ c.civicFollowupComplete=done===3;
+ if(done===3)setToast('Seguimiento civil de R3 completado: 3/3.');
+}
+function cityMemoryText(){
+ const c=state.city||{};
+ const notes=[];
+ if(c.suppliesChoice==='barrio')notes.push('Mara recuerda que priorizaste el refugio; el Hospital quedó con menos recursos.');
+ if(c.suppliesChoice==='hospital')notes.push('Mara recuerda que enviaste insumos al Hospital; parte del Barrio todavía lo cuestiona.');
+ if(c.broadcast==='public')notes.push('La advertencia sigue en el aire: el Barrio sabe que las voces pueden ser falsas.');
+ if(c.broadcast==='private')notes.push('El registro quedó oculto; la gente todavía no sabe por qué las voces imitaban a sus seres queridos.');
+ if(c.tomasTrust==='low')notes.push('Tomás te dio su testimonio, pero no espera que lo perdones.');
+ if(c.tomasTrust==='high')notes.push('Tomás confía en que investigues quién utilizó la clave municipal.');
+ if(c.infectedSpared===true)notes.push('Dejaste con vida al infectado. No sabés si todavía puede recuperarse.');
+ if(c.infectedSpared===false)notes.push('Neutralizaste al infectado. La amenaza terminó, pero también su voz.');
+ if(c.resolution==='destroyed')notes.push('El núcleo fue destruido. La señal cesó, pero se perdió la posibilidad de estudiar el patrón activo.');
+ if(c.resolution==='severed')notes.push('Desincronizaste el Nido. Algunas respuestas individuales regresaron; una parte de la señal escapó.');
+ if(c.resolution==='sealed')notes.push('El Nido quedó sellado. El Barrio ganó tiempo, pero los conectados siguen dentro.');
+ return notes.length?notes.join(' '):'Las decisiones dejan consecuencias. Escuchá a quienes viven en la ciudad antes de dar por cerrado el caso.';
+}
+function updateHUD(){
+ $('hp').textContent=player.hp+'%';$('scrap').textContent=player.scrap;$('zone').textContent=zoneAt(player.x,player.y);$('objective').textContent='Objetivo: '+state.objective;$('bossStatus').textContent=state.chapterComplete?'Capítulo I':(state.bossDefeated?(state.bossPeace?'Aliado':'Derrotado'):'Activo');
+ const poiCount=Object.values(state.flags.poiExplored||{}).filter(Boolean).length;
+ const cultPoiCount=Object.values(state.flags.cultPoiExplored||{}).filter(Boolean).length;
+ const cityPoiCount=Object.values(state.flags.cityPoiExplored||{}).filter(Boolean).length;
+ const civicCacheCount=Object.values(state.city?.civicCaches||{}).filter(Boolean).length;
+ $('journalText').textContent=(state.city?.resolution||state.city?.suppliesChoice||state.city?.broadcast||state.city?.tomasTrust||state.city?.infectedSpared!==undefined?cityMemoryText():(state.chapterComplete?'Capítulo I cerrado. La Estrella es ahora un refugio para quienes eligieron dejar de obedecer la señal.':state.bossDefeated?'La fábrica está abierta. Recuperá los registros de Siesta y rastreá la señal en el túnel.':state.survivorTalk?'El Superviviente conoce el sistema de control del Capataz. Buscá pruebas antes de decidir cómo enfrentarlo.':(state.flags.depotManifest||state.flags.patioInspection?'Los registros del Depósito y el Patio pueden cambiar la forma de resolver el conflicto con el Capataz.':'Reuní recuerdos en La Estrella, escuchá al Desertor y descubrí qué controla el Capataz.')))+(poiCount?' · Hitos R1/R2 revisados: '+poiCount+'/10':'')+(cityPoiCount?' · Ciudad Enferma revisada: '+cityPoiCount+'/7':'')+(state.city?.resolution?' · Corredor sur: '+Object.values(state.city?.southSurvey||{}).filter(Boolean).length+'/3':'')+(state.city?.southApproachPrepared?' · Acceso urbano preparado':'')+(state.flags?.cityGateOpen?' · Recursos civiles: '+civicCacheCount+'/3':'')+(state.city?.resolution?' · Seguimiento civil: '+[state.city?.maraFollowup,state.city?.tomasFollowup,state.city?.ibarraFollowup].filter(Boolean).length+'/3':'')+(cultPoiCount?' · R5 ambiental: '+cultPoiCount+'/6':'');
+}
+function openDialogue(speaker,portrait,text,choices){
+ dialogue={speaker,portrait,text,choices:choices||[]};
+ $('speaker').textContent=speaker;$('portrait').textContent=portrait;$('say').textContent=text;
+ $('choices').innerHTML='';
+ if(choices&&choices.length){choices.forEach((c,i)=>{const b=document.createElement('button');b.textContent=c.label;b.onclick=()=>{const fn=c.run;closeDialogue();fn&&fn()};$('choices').appendChild(b)})}
+ $('dialogue').classList.add('show');
+}
+function closeDialogue(){$('dialogue').classList.remove('show');document.body.classList.remove('dialogue-open');dialogue=null}
+function advance(){if(!dialogue)return;if(dialogue.choices?.length)return;closeDialogue()}
+$('dialogue').addEventListener('click',e=>{if(e.target.tagName!=='BUTTON')advance()});
+function interact(){
+ if(dialogue){advance();return}
+ if(!near)return;
+ // 3.12 · Interacciones de exploración R1/R2. Se registran como hallazgos
+ // ambientales y servicios locales; no añaden facciones ni revelaciones.
+ // 3.14 · Exploración ambiental de R3. Los textos describen el estado visible
+ // y la función cartográfica; no añaden responsables, curas ni hechos de canon.
+ // 3.14 · Reconocimiento civil del corredor sur, disponible tras resolver el Nido.
+ const southSurveyText={
+  southSurveySign:'La señal urbana cayó sobre la cuneta. Al limpiarla distinguís la dirección de la antigua ruta de evacuación, pero el extremo sur sigue bloqueado. No hay insignias ni datos que permitan atribuirla a una fuerza concreta.',
+  southSurveyDrain:'El canal de desagüe cruza bajo el camino y conserva un paso de mantenimiento estrecho. El agua y los derrumbes impiden usarlo como atajo; sirve para entender por qué el corredor necesita una revisión antes de cualquier marcha.',
+  southSurveyMarker:'El mojón conserva una flecha desgastada hacia el sur. La referencia permite alinear el mapa con la salida urbana, pero no revela qué hay después de la frontera.'
+ };
+ if(['southSurveySign','southSurveyDrain','southSurveyMarker'].includes(near.id)){
+  if(!state.city?.resolution){openDialogue('Corredor sur','🧭','Antes de organizar otra salida, hay que resolver lo que ocurre en el Nido. La ciudad no puede abrir un segundo frente mientras la amenaza siga activa.');return}
+  if(!state.city.southSurvey)state.city.southSurvey={};
+  const first=!state.city.southSurvey[near.id];state.city.southSurvey[near.id]=true;
+  const count=Object.values(state.city.southSurvey).filter(Boolean).length;
+  if(count===3&&!state.city.southRouteMapped){
+   state.city.southRouteMapped=true;
+   state.objective='El corredor sur quedó cartografiado. La frontera militar continúa cerrada; prepará la siguiente etapa antes de intentar cruzar.';
+   openDialogue('Reconocimiento completado','🧭',southSurveyText[near.id]+' Los tres puntos ya están registrados. El trazado civil queda cartografiado, aunque la frontera no se ha abierto.');
+  }else{
+   const ending=state.city.resolution==='destroyed'?'El silencio posterior a la destrucción no permite saber qué señales siguen activas más allá del límite.':state.city.resolution==='severed'?'Los ecos intermitentes no permiten seguir el paquete que escapó ni fijar un destino.':'El sellado redujo el ruido en la ciudad, pero no permite conocer el estado del otro lado.';
+   openDialogue(near.name,near.emoji,(first?southSurveyText[near.id]:'Ya registraste este punto. No hay nuevos datos.')+' '+ending+' Progreso del reconocimiento: '+count+'/3.');
+  }
+  updateHUD();return;
+ }
+ const cityPOI={
+  poi_puertadelaciudad:'La compuerta marca el paso entre el túnel y el tejido urbano. Las señales de evacuación están incompletas; el acceso ya recorrido no permite deducir qué ocurrió en cada edificio.',
+  poi_barrioresidencial:'Las viviendas conservan señales de una evacuación interrumpida: puertas abiertas, objetos cotidianos y calles despejadas a medias. No hay indicios suficientes para reconstruir quién salió primero.',
+  poi_plazadeltranvia:'Las vías convergen en la plaza y explican por qué este punto distribuye el tránsito entre el Barrio, el parque y las manzanas comerciales. El tranvía permanece inmóvil.',
+  poi_parquemunicipal:'El parque ofrece un corredor abierto entre las calles. Los bancos y senderos están cubiertos de polvo; no se observan campamentos activos ni suministros seguros.',
+  poi_cementerio:'Las hileras de tumbas y los caminos de servicio permiten orientarse hacia el sector hospitalario. Las inscripciones deterioradas no permiten establecer una relación con la Fiebre Gris.',
+  poi_salidasururbana:'La calle desciende hacia el límite sur de la ciudad, pero el corredor no constituye un paso habilitado. La frontera sigue cerrada y no hay acceso por este lado.',
+  poi_pasodelbosque:'La vegetación comienza a cubrir el pavimento en dirección al territorio del bosque. Es una transición geográfica, no una entrada nueva ni una explicación sobre quienes viven más allá.'
+ };
+ // 3.15 · Preparación civil del acceso sur. No cruza ni abre R4.
+ // 3.16 · Inventario opcional de recursos civiles en R3; sin impacto narrativo.
+ if(near.id==='poi_salidasururbana'){
+  const surveyed=Object.values(state.city?.southSurvey||{}).filter(Boolean).length;
+  if(!state.city?.resolution){openDialogue(near.name,'🛣️','La salida sigue comprometida. Primero hay que resolver el Nido y evitar que la ciudad avance con una amenaza activa.');return}
+  if(surveyed<3){openDialogue(near.name,'🛣️','La ruta todavía no está suficientemente reconocida. Faltan referencias civiles del corredor: '+surveyed+'/3. La frontera permanece cerrada.');return}
+  if(state.city.southApproachPrepared){openDialogue('Puesto de preparación','🧭','El acceso urbano quedó despejado y señalizado para una futura expedición. No hay autorización ni paso abierto al otro lado. La frontera sigue cerrada.');return}
+  state.city.southApproachPrepared=true;
+  state.objective='Preparativos del corredor completados. Reúne información y recursos antes de afrontar la frontera sur.';
+  if(!state.flags.cityPoiExplored)state.flags.cityPoiExplored={};state.flags.cityPoiExplored[near.id]=true;
+  openDialogue('Preparativos del corredor','🧭','Retirás escombros menores, marcas el borde seguro del pavimento y dejas una señal visible para quienes salgan del Barrio. El trazado civil queda preparado para una futura expedición. Más allá, la frontera continúa cerrada: todavía no hay paso, contacto ni información verificable sobre lo que espera al sur.');
+  updateHUD();return;
+ }
+ if(Object.prototype.hasOwnProperty.call(cityPOI,near.id)){
+  if(!state.flags.cityPoiExplored)state.flags.cityPoiExplored={};
+  const seen=!!state.flags.cityPoiExplored[near.id];
+  state.flags.cityPoiExplored[near.id]=true;
+  openDialogue(near.name,near.emoji,seen?'Ya registraste este punto. No hay cambios visibles desde la última visita.':cityPOI[near.id]);
+  updateHUD();return;
+ }
+ if(['poi_crucedelcinturon','poi_patiodevehiculos','poi_estaciondebombeo','poi_puestodevigiaderruido','poi_pasodelpuenteviejo','poi_refugiodecaminantes','poi_patiodecontenedores','poi_tallerdedesguace','poi_almacenbloqueado','poi_subestacion'].includes(near.id)){
+  if(!state.flags.poiExplored)state.flags.poiExplored={};
+  const id=near.id, seen=!!state.flags.poiExplored[id];
+  const inspect=(text)=>{state.flags.poiExplored[id]=true;openDialogue(near.name,near.emoji,text);updateHUD();};
+  switch(id){
+   case'poi_crucedelcinturon':
+    inspect('El cruce distribuye el tránsito entre el cinturón exterior y los ramales industriales. Las marcas del suelo permiten reconocer las salidas, pero no indican destinos nuevos.');break;
+   case'poi_patiodevehiculos':
+    if(!seen){state.flags.poiExplored[id]=true;player.scrap+=2;openDialogue(near.name,'🚙','Entre los vehículos inmóviles encontrás dos piezas reutilizables. Los chasis principales siguen bloqueando el paso; el acceso del patio permanece despejado.');updateHUD();}
+    else openDialogue(near.name,'🚙','Ya revisaste los vehículos aprovechables. Los restos grandes siguen en su lugar.');break;
+   case'poi_estaciondebombeo':
+    inspect('El tablero está apagado y las válvulas permanecen trabadas. La estructura puede servir como punto de referencia y recurso ambiental, pero no hay un circuito operativo que puedas restaurar aquí.');break;
+   case'poi_puestodevigiaderruido':
+    inspect('Desde el puesto se distingue el corredor meridional y el paso derrumbado. La vista confirma la dirección del terreno, no revela instalaciones ni permite cruzar la frontera.');break;
+   case'poi_pasodelpuenteviejo':
+    inspect('El tablero del puente terminó en el vacío. Los restos bloquean el cruce; el camino de aproximación sigue abierto hasta este límite. El territorio militar continúa inaccesible.');break;
+   case'poi_refugiodecaminantes':
+    inspect('La estructura conserva espacio para resguardarse del clima. No hay habitantes ni suministros identificables. El refugio queda registrado como punto opcional de descanso, sin activar una misión.');break;
+   case'poi_patiodecontenedores':
+    inspect('Las pilas de contenedores forman un ramal de carga. Los pasillos laterales permiten rodearlas; las puertas de los contenedores no ceden y no se altera el trazado del camino.');break;
+   case'poi_tallerdedesguace':
+    if(!seen){state.flags.poiExplored[id]=true;player.scrap+=2;openDialogue(near.name,'🛠️','En una bandeja de clasificación encontrás dos piezas aprovechables. El banco del taller puede reparar daños a cambio de piezas.');updateHUD();}
+    else if(player.hp<100&&player.scrap>=2){player.scrap-=2;player.hp=Math.min(100,player.hp+30);openDialogue(near.name,'🛠️','Usás dos piezas en el banco de reparación. La integridad de Siete aumenta treinta puntos.');updateHUD();}
+    else if(player.hp>=100)openDialogue(near.name,'🛠️','El banco está disponible, pero tus sistemas no necesitan reparación.');
+    else openDialogue(near.name,'🛠️','El banco funciona, pero necesitás dos piezas para reparar treinta puntos de integridad.');break;
+   case'poi_almacenbloqueado':
+    if(state.flags.warehouseShortcut)openDialogue(near.name,'🚪','El pasillo central de mantenimiento está habilitado desde la puerta norte. El atajo permanece abierto.');
+    else openDialogue(near.name,'🔒','El almacén sigue cerrado. La puerta de mantenimiento se libera cuando las tres consolas industriales restauran la alimentación.');break;
+   case'poi_subestacion':
+    inspect('El edificio conserva los transformadores principales, pero no se acciona ningún interruptor sin diagnóstico. Estado de consolas industriales: '+Object.values(state.consoles||{}).filter(Boolean).length+'/3. La subestación queda registrada como referencia energética, sin sustituir las consolas.');break;
+  }
+  return;
+ }
+ switch(near.id){
+ case'bell':state.seen.bell=true;openDialogue('Siete','🤖','Una campanilla de latón. Recuerdo el sonido… y una voz que decía que la última mesa debía quedar preparada.');break;
+ case'photo':state.seen.photo=true;openDialogue('Siete','🤖','Una fotografía de Don Aurelio, Estrella y yo. No era una unidad. Era… una familia.');break;
+ case'terminal':state.seen.terminal=true;openDialogue('Terminal','💻','REGISTRO RECUPERADO\\nPROTOCOLO SIESTA: ACTIVACIÓN DE EMERGENCIA.\\nUnidad S-07: batería retirada manualmente. Refugio: La Estrella.',[{label:'Cerrar registro',run:()=>{}}]);break;
+ case'door':
+  if(!state.doorOpen){state.doorOpen=true;state.objective='Sal a la Calle Oxidada y sigue las señales hacia el depósito.';setToast('La puerta de La Estrella se ha abierto.')}
+  else setToast('El camino hacia la calle está despejado.');break;
+ case'scrap':
+  if(!state.flags.scrap){state.flags.scrap=true;player.scrap+=3;updateHUD();setToast('Encontraste 3 piezas de chatarra.')}
+  else setToast('Solo quedan piezas inútiles.');break;
+ case'warehouseGate':
+  if(!state.factoryGateOpen){openDialogue('Acceso del almacén','🔒','El cierre no recibe energía. Primero deben restaurarse las tres consolas industriales.');break}
+  if(!state.flags.warehouseShortcut){state.flags.warehouseShortcut=true;updateHUD();setToast('El pasillo de mantenimiento del almacén quedó habilitado.');openDialogue('Acceso del almacén','🚪','La alimentación auxiliar libera la reja. Ahora puedes atravesar el pasillo central y alcanzar el ramal de mantenimiento sin rodear la nave.');}
+  else openDialogue('Acceso del almacén','🚪','El pasillo de mantenimiento permanece abierto.');
+  break;
+ case'cityGate':
+  if(!state.records.signal){
+   openDialogue('Puerta de la ciudad','🚧','La compuerta exterior del Túnel sigue sellada. El repetidor todavía no ha confirmado el origen de la señal.');
+  }else{
+   state.flags.cityGateOpen=true;
+   state.objective='Cruza la compuerta y explora la entrada de la Ciudad Enferma.';
+   updateHUD();
+   openDialogue('Sistema de acceso','🚧','Señal autenticada. La compuerta exterior se desbloqueó y el camino hacia la Ciudad Enferma quedó abierto.');
+  }
+  break;
+ case'depotdoor':
+  if(!state.doorOpen){openDialogue('Nave de clasificación','🚪','La nave está cerrada desde dentro. Primero debes abrir la puerta principal de La Estrella y salir al camino.');break}
+  enterInterior('depot',163,25.5);break;
+ case'patiodoor':
+  if(!state.doorOpen){openDialogue('Taller del Patio','🚪','El acceso lateral está cubierto de polvo y cables. Abre primero la salida de La Estrella para llegar hasta aquí.');break}
+  enterInterior('patio',163,87.5);break;
+ case'depotreturn':case'patioreturn':case'catacombsExit':case'templeReturn':case'sanctuaryReturn':exitInterior();break;
+ case'cultCatacombsAccess':
+  enterInterior('catacombs',345,120.5);break;
+ case'cultTempleAccess':
+  enterInterior('temple',345,161.5);break;
+ case'cultSanctuaryAccess':
+  enterInterior('sanctuary',369,207);break;
+ case'mallDoor':
+  if(!state.flags.cityGateOpen){openDialogue('Centro Comercial','🚪','El acceso urbano sigue cerrado desde el túnel.');break}
+  enterInterior('mall',332,25);break;
+ case'metroDoor':
+  if(!state.flags.cityGateOpen){openDialogue('Estación de Metro','🚇','La estación está aislada. Primero hay que entrar a la ciudad.');break}
+  enterInterior('metro',367,25);break;
+ case'hospitalDoor':case'hospitalSouthDoor':
+  if(!state.flags.cityGateOpen){openDialogue('Hospital','🏥','La entrada está cubierta por escombros.');break}
+  enterInterior('hospital',332,65);break;
+ case'nestDoor':
+  if(!state.city?.nestOpen){openDialogue('Acceso al Nido','🕸️','La masa orgánica bloquea la entrada. Primero necesitamos entender la Fiebre Gris y encontrar una forma de atravesar la barrera.');break}
+  enterInterior('nest',367,65);break;
+ case'mallReturn':case'metroReturn':case'hospitalReturn':case'nestReturn':exitInterior();break;
+ case'metroSouthExit':
+  if(!state.city?.metroShortcut){openDialogue('Conexión sur del Metro','🚇','El paso hacia el sur está inundado y sin energía. El panel de señalización puede restaurar las bombas.');break}
+  exitInterior({x:218,y:139});break;
+ case'cityMara':
+  if(!state.city)state.city={};
+  if(state.city.resolution){
+   const ending=state.city.resolution==='destroyed'?'Desde que el núcleo cayó, Julián dejó de hablar por la radio. No sé si murió o si por fin descansó.':state.city.resolution==='severed'?'Desde que desincronizaste el Nido, escuché una vez la voz de Julián sin que imitara a mamá. Después la señal escapó. No sé si está vivo, pero ahora tengo una razón para esperarlo.':'Desde que sellaste el Nido, no volvimos a oír a Julián. El Barrio está más seguro, pero cada vez que preguntan por los que quedaron abajo tengo que elegir entre mentir o contarles que los dejamos atrás.';
+   const supplies=state.city.suppliesChoice==='barrio'?'La gente recuerda que priorizaste el refugio. El Hospital tuvo que arreglarse con lo que tenía.':'Algunos todavía discuten que mandáramos suministros al Hospital. Yo sigo pensando que quizá eso nos dé una oportunidad mañana.';
+   const radio=state.city.broadcast==='public'?'La advertencia evitó que siguieran obedeciendo las voces, aunque ahora muchos tienen miedo de sus propios recuerdos.':'La radio quedó en silencio. No sé si hiciste bien en guardar el registro; la gente merece saber qué pasó, pero también necesitaba dormir.';
+   if(!state.city.maraFollowup){openDialogue('Mara · Barrio','🧑‍🦱',ending+' '+supplies+' '+radio+' Quiero dejar un acta para que el refugio recuerde qué decidimos y qué no pudimos resolver. ¿Me ayudás a registrarlo sin convertirlo en una excusa?',[
+    {label:'Registrar las decisiones y sus costes',run:()=>{state.city.maraFollowup=true;updateCivicFollowup();openDialogue('Mara','🧑‍🦱','Entonces va a quedar escrito: a quién llegaron los suministros, qué se transmitió y qué destino tuvo el Nido. No voy a llamar correcta a ninguna decisión. Al menos la próxima persona tendrá algo más que rumores.');updateHUD()}},
+    {label:'Dejar el acta pendiente',run:()=>openDialogue('Mara','🧑‍🦱','Está bien. No quiero que firmes algo que todavía no podés sostener.')}
+   ]);}else openDialogue('Mara · Barrio','🧑‍🦱','El acta quedó guardada. No resolvió el dolor ni trajo a Julián de vuelta, pero nadie tendrá que fingir que todos estuvimos de acuerdo.');break
+  }
+  if(state.city.mallSupplies){
+   if(!state.city.suppliesChoice){openDialogue('Mara · Barrio','🧑‍🦱','No quiero decidir quién merece comer o quién merece una venda. Pero si repartimos todo, quizá no alcance para nadie. ¿Qué hacemos con lo que trajiste?',[
+    {label:'Priorizar el refugio del Barrio',run:()=>{state.city.suppliesChoice='barrio';state.city.maraHelped=true;state.city.barrioStable=true;state.objective='Buscá a la doctora Ibarra y recuperá el archivo y la muestra.';openDialogue('Mara','🧑‍🦱','Entonces esta noche nadie duerme con hambre. No sé si es lo correcto, pero puedo mirar a los chicos a los ojos. El Hospital tendrá que arreglarse con lo que conserve.');updateHUD()}},
+    {label:'Enviar parte de los suministros al Hospital',run:()=>{state.city.suppliesChoice='hospital';state.city.maraHelped=true;state.city.clinicAid=true;state.objective='Buscá a la doctora Ibarra y recuperá el archivo y la muestra.';openDialogue('Mara','🧑‍🦱','Va a doler en el Barrio. Algunos van a pensar que elegimos a desconocidos antes que a los nuestros. Pero si la doctora puede encontrar una forma de frenar esto, quizá no haya que elegir mañana.');updateHUD()}}
+   ]);}
+   else openDialogue('Mara · Barrio','🧑‍🦱',state.city.suppliesChoice==='barrio'?'La gente pudo comer y descansar. No todos están de acuerdo con tu decisión, pero hoy siguen acá.':'Mandamos una parte al Hospital. Hay quienes me lo reprochan; yo todavía no sé si hicimos bien.');
+  }else{state.objective='Entrá al Centro Comercial y buscá suministros para el refugio del Barrio.';openDialogue('Mara · Barrio','🧑‍🦱','Mi hermano Julián salió con la evacuación del Hospital. La última vez que lo vi, estaba convencido de que la voz del altavoz era la de nuestra madre. Ella llevaba años muerta. No te pido que lo encuentres. Te pido que averigües quién habló por ese altavoz. El depósito del Centro Comercial todavía puede tener suministros.',[{label:'Preguntar por qué no se fueron',run:()=>openDialogue('Mara','🧑‍🦱','Porque la gente que se fue siguiendo esa voz no volvió. Y porque alguien tenía que quedarse para abrir la puerta cuando los demás regresaran. No sé si fue valentía o miedo a quedarme sola.')}]);}
+  updateHUD();break;
+ case'cityTomas':
+  if(!state.city)state.city={};
+  if(state.city.resolution&&state.city.tomasConfessed){
+   const end=state.city.resolution==='destroyed'?'Destruiste el núcleo. No voy a decirte que estuvo bien; tampoco voy a fingir que yo habría encontrado otra salida.':state.city.resolution==='severed'?'Intentaste separar a las personas de la señal. Si alguna voz volvió a ser propia, entonces valió la pena asumir el riesgo. Pero esa transmisión que escapó puede repetir lo que hice yo: convertir una orden en una excusa.':'Sellaste el Nido. Entiendo por qué: una ciudad no puede vivir esperando que algo vuelva a llamarla desde abajo. Pero los que quedaron allí no tuvieron la oportunidad de elegir.';
+   const trust=state.city.tomasTrust==='low'?'No espero que confíes en mí después de lo que confesé.':'Me escuchaste antes de decidir qué clase de hombre soy. No sé si merezco esa paciencia.';
+   const radio=state.city.broadcast==='public'?' La gente conoce la verdad sobre la clave municipal. Ahora tendrá que aprender a desconfiar sin dejar de ayudarse.':' La verdad sigue guardada. Si alguien vuelve a emitir una orden con esa clave, no sé si vamos a reconocerla a tiempo.';
+   if(!state.city.tomasFollowup){openDialogue('Tomás · Parque','🧔',end+' '+trust+radio+' El mecanismo del parque no debería volver a depender de una sola orden. Quiero dejar un procedimiento manual y visible. ¿Lo registramos?',[
+    {label:'Registrar un protocolo de apertura manual',run:()=>{state.city.tomasFollowup=true;updateCivicFollowup();openDialogue('Tomás','🧔','Queda asentado: ninguna compuerta se cerrará solo por una transmisión. Harán falta una verificación local y dos personas presentes. Eso no borra lo que hice, pero al menos deja una barrera contra repetirlo.');updateHUD()}},
+    {label:'No intervenir en el mecanismo todavía',run:()=>openDialogue('Tomás','🧔','Lo entiendo. No voy a tocar otra compuerta hasta que el Barrio decida cómo quiere cuidarse.')}
+   ]);}else openDialogue('Tomás · Parque','🧔','El protocolo está escrito junto al mecanismo. No me absuelve; me obliga a recordar quién quedó del otro lado.');break
+  }
+  if(state.city.tomasConfessed){openDialogue('Tomás · Parque','🧔',state.city.tomasTrust==='low'?'No puedo cambiar lo que hice. Te di mi testimonio porque era lo mínimo que debía hacer. El panel del Metro conserva el registro de la señal.':'No puedo cambiar lo que hice. Pero ahora sabés que la clave municipal era auténtica y que el mensaje cambiaba según quién lo escuchara. El panel del Metro conserva el registro.');break}
+  openDialogue('Tomás · Parque','🧔','Yo cerré las compuertas del parque. La orden decía que el Metro era el único refugio seguro. Vi a una mujer volver por su hijo y la dejé afuera. Después escuché la misma orden con la voz de mi hija. Mi hija no estaba en la ciudad. No sé si obedecí a una máquina o si necesitaba creer que alguien todavía me hablaba.',[
+   {label:'Acusarlo: fue responsable de la evacuación',run:()=>{state.city.tomasTrust='low';state.city.tomasConfessed=true;state.city.tomasTestimony=true;openDialogue('Tomás','🧔','Sí. Fui responsable de cerrar la compuerta. No fui quien inventó la orden, pero fui quien la hizo cumplir. Si necesitás mi testimonio, lo vas a tener. No esperes que me perdone.');}},
+   {label:'Preguntarle qué vio antes de obedecer',run:()=>{state.city.tomasTrust='high';state.city.tomasConfessed=true;state.city.tomasTestimony=true;openDialogue('Tomás','🧔','La orden llevaba una clave de emergencia municipal que ya no debía existir. La validé porque era auténtica. Después vi que el mensaje cambiaba según quién lo escuchara. Si querés saber quién la usó, el panel del Metro conserva el registro.');}},
+   {label:'No juzgarlo todavía',run:()=>{state.city.tomasConfessed=true;state.city.tomasTestimony=true;openDialogue('Tomás','🧔','No me absolvés, pero tampoco me condenás sin pruebas. Está bien. Te daré lo que recuerdo: la orden usó una clave municipal antigua. El Metro conserva el registro.');}}
+  ]);break;
+ case'cityDoctor':
+  if(state.city?.resolution){
+   const report=state.city.resolution==='destroyed'?'El transductor dejó de emitir. Perdimos la posibilidad de estudiar el patrón en funcionamiento. No puedo asegurar que hayamos salvado a quienes estaban conectados.':state.city.resolution==='severed'?'La sincronía se interrumpió. Hay respuestas neurológicas individuales otra vez. La señal escapó por una ruta secundaria, pero ahora tenemos una oportunidad de estudiar el proceso.':'El aislamiento funciona. No hay nuevos casos en el Barrio, aunque los pacientes del Nido siguen sin acceso. La contención no es una cura.';
+   const aid=state.city.clinicAid?'Los insumos que envió Mara alcanzaron para preparar el inhibidor; no fue una cura, pero nos permitió intervenir.':'Sin los insumos del Barrio no pude preparar el inhibidor. La muestra nos dio información, no una herramienta para detener el pulso.';
+   const spared=state.city.infectedSpared===true?' El infectado que dejaste con vida muestra intervalos de actividad autónoma; quiero estudiarlo antes de sacar conclusiones.':state.city.infectedSpared===false?' El cuerpo que neutralizaste ya no presenta actividad. No puedo saber si todavía había conciencia cuando lo hiciste.':'';
+   if(!state.city.ibarraFollowup){openDialogue('Doctora Ibarra','👩‍⚕️',report+' '+aid+spared+' Puedo cerrar el informe de seguimiento, pero debe distinguir observación, intervención y aquello que todavía ignoramos. ¿Qué dejamos asentado?',[
+    {label:'Conservar el informe con sus límites',run:()=>{state.city.ibarraFollowup=true;updateCivicFollowup();openDialogue('Doctora Ibarra','👩‍⚕️','El informe queda archivado: el resultado del Nido, el uso o ausencia del inhibidor y el estado del paciente observado. No voy a llamarlo cura ni a prometer que el procedimiento pueda repetirse.');updateHUD()}},
+    {label:'Esperar nuevas observaciones',run:()=>openDialogue('Doctora Ibarra','👩‍⚕️','Es una decisión prudente. Un informe incompleto puede hacer más daño que el silencio, siempre que no confundamos esperar con olvidar.')}
+   ]);}else openDialogue('Doctora Ibarra','👩‍⚕️','El informe está archivado con sus límites. No demuestra una cura, pero evita que una hipótesis se convierta en una orden.');break
+  }
+  if(state.city?.hospitalEvidence){openDialogue('Doctora Ibarra','👩‍⚕️',state.city.clinicAid?'La muestra no es un antídoto. Es una prueba de que el llamado altera la percepción y sincroniza respuestas neurológicas. Con los insumos que mandó Mara puedo preparar un inhibidor, pero no sé si funcionará fuera del laboratorio.':'La muestra no es un antídoto. Es una prueba de que el llamado altera la percepción y sincroniza respuestas neurológicas. No puedo prometer una cura; apenas una posibilidad de interrumpir el patrón.');}
+  else openDialogue('Doctora Ibarra','👩‍⚕️','Soy la doctora Ibarra. La Fiebre Gris no se comporta como una infección común. Hay pacientes que recuperan la lucidez durante unos segundos y recuerdan lo que hicieron. Necesito el archivo epidemiológico y una muestra sellada. Pero antes quiero que entiendas algo: si destruimos el foco, quizá también destruyamos la única pista para revertir el daño.');break;
+ case'cityInfected':
+  if(!state.city)state.city={};
+  if(!state.city.infectedCalmed){openDialogue('Infectado errante','🧟','La figura se tambalea hacia vos. Entre los espasmos, una voz humana alcanza a formar dos palabras: «No… apagues…». Siete reconoce en su pulso el mismo ritmo que oyó en el túnel.',[
+   {label:'Apartarlo sin dañarlo',run:()=>{state.city.infectedCalmed=true;state.city.infectedSpared=true;player.hp=Math.max(1,player.hp-12);openDialogue('Siete','🤖','Lo inmovilicé sin destruirlo. Su pulso se estabilizó por un instante. No sé si lo salvé o si solo prolongué algo que no debería continuar.');updateHUD()}},
+   {label:'Neutralizarlo para evitar otro ataque',run:()=>{state.city.infectedCalmed=true;state.city.infectedSpared=false;player.hp=Math.max(1,player.hp-5);openDialogue('Siete','🤖','El cuerpo deja de moverse. La amenaza inmediata terminó. La voz también. No puedo saber si todavía había alguien ahí dentro.');updateHUD()}}
+  ]);}
+  else openDialogue('Infectado errante','🧟','El cuerpo permanece quieto. Las marcas del suelo conducen hacia el Nido.');break;
+ case'cityCachePlaza':case'cityCachePark':case'cityCacheCemetery':
+  if(!state.flags?.cityGateOpen){openDialogue('Equipo civil','🧰','La ciudad todavía no está comunicada con el corredor principal. Primero hay que habilitar el acceso urbano.');break}
+  if(!state.city)state.city={};
+  if(!state.city.civicCaches)state.city.civicCaches={};
+  if(!state.city.civicCaches[near.id]){
+   state.city.civicCaches[near.id]=true;player.scrap+=1;
+   const recovered=Object.values(state.city.civicCaches).filter(Boolean).length;
+   const descriptions={
+    cityCachePlaza:'La caja de mantenimiento conserva una llave de ajuste y una pieza de repuesto. El equipo puede reutilizarse sin poner en marcha el tranvía.',
+    cityCachePark:'El armario de servicio contiene una herramienta manual y una pieza todavía aprovechable. El parque no recupera sus servicios, pero el material puede servir en otra reparación.',
+    cityCacheCemetery:'La caja está protegida bajo una cubierta metálica. Recuperás una pieza útil y dejás el resto del equipo en su sitio.'
+   };
+   if(recovered===3){state.city.civicCachesComplete=true;setToast('Inventario civil completado: 3/3.');}
+   openDialogue('Equipo civil recuperado','🧰',descriptions[near.id]+' Piezas obtenidas: +1. Inventario opcional: '+recovered+'/3.');
+  }else openDialogue(near.name,'🧰','Este equipo ya fue revisado. No quedan piezas aprovechables.');
+  updateHUD();break;
+ case'cityServiceBench':
+  if(!state.flags?.cityGateOpen){openDialogue('Banco de reparación civil','🛠️','El acceso urbano todavía no está habilitado.');break}
+  if(!state.city?.civicCachesComplete){openDialogue('Banco de reparación civil','🛠️','El banco está en condiciones de uso, pero faltan equipos. Revisa los tres depósitos civiles de la ciudad para reunir piezas.');break}
+  if(player.hp>=100){openDialogue('Banco de reparación civil','🛠️','La integridad de Siete está al máximo. No hace falta consumir piezas.');break}
+  if(player.scrap<2){openDialogue('Banco de reparación civil','🛠️','Para una reparación de campo hacen falta dos piezas reutilizables.');break}
+  player.scrap-=2;player.hp=Math.min(100,player.hp+30);
+  openDialogue('Banco de reparación civil','🛠️','Ajustas las placas y sustituyes dos conectores dañados. La integridad aumenta treinta puntos. El banco queda disponible mientras tengas piezas.');updateHUD();break;
+ case'mallSupplies':
+  if(!state.city)state.city={};
+  if(!state.city.mallSupplies){state.city.mallSupplies=true;player.scrap+=2;openDialogue('Depósito del Centro Comercial','🧰','Encontrás vendas, conservas y dos piezas de repuesto. Lo importante es que el depósito no fue saqueado por completo. Mara podrá organizar un refugio más estable.');}
+  else openDialogue('Depósito del Centro Comercial','🧰','El depósito quedó revisado. No conviene llevarse lo que el refugio todavía necesita.');updateHUD();break;
+ case'mallRadio':
+  if(!state.city)state.city={};
+  if(state.city.broadcast){openDialogue('Radio de emergencias','📻',state.city.broadcast==='public'?'La advertencia sigue transmitiéndose por los altavoces. El Barrio ya sabe que la señal imita voces conocidas.':'El registro permanece guardado en privado. La radio está en silencio; la gente del Barrio todavía no conoce el origen de las voces.');break}
+  state.city.radioHeard=true;
+  openDialogue('Radio de emergencias','📻','...ESTACIÓN MUNICIPAL... REGISTRO RECUPERADO... La orden de evacuación fue emitida con una clave municipal revocada. La voz del mensaje fue sintetizada a partir de archivos personales. No sigan las voces bajo tierra. Repito: no son llamadas de auxilio.',[
+   {label:'Transmitir la advertencia al Barrio',run:()=>{state.city.broadcast='public';state.city.barrioWarned=true;openDialogue('Radio de emergencias','📻','La advertencia sale por los altavoces. Al otro lado, alguien empieza a llorar. La gente ya no seguirá ciegamente las voces, pero ahora sabe que sus recuerdos pueden ser usados contra ella.');}},
+   {label:'Guardar el registro y no alarmar al refugio',run:()=>{state.city.broadcast='private';openDialogue('Siete','🤖','Guardé el registro. Evité el pánico, pero también decidí por ellos qué verdad podían soportar. No sé si eso es protegerlos.');}}
+  ]);break;
+ case'metroPanel':
+  if(!state.city)state.city={};state.city.metroShortcut=true;openDialogue('Panel de señalización','🚦','Restaurás el tablero y las bombas auxiliares. El ramal sur del Metro queda habilitado como atajo hacia la salida urbana.');updateHUD();break;
+ case'metroCache':if(!state.city)state.city={};if(!state.city.metroCache){state.city.metroCache=true;player.scrap+=3;openDialogue('Armario de mantenimiento','🧰','Encontrás herramientas secas y tres piezas útiles.');}else openDialogue('Armario de mantenimiento','🧰','El armario está vacío.');updateHUD();break;
+ case'hospitalRecords':
+  if(!state.city)state.city={};state.city.records=true;if(state.city.sample){state.city.hospitalEvidence=true;state.city.nestOpen=true;}openDialogue('Archivo epidemiológico','📁','FIEBRE GRIS — INFORME DE CONTENCIÓN. Los primeros casos se agruparon cerca del intercambiador subterráneo. No hay evidencia concluyente de contagio por contacto. En varios pacientes, la actividad cerebral se sincroniza con una señal acústica de baja frecuencia. Algunos recuperan la lucidez durante segundos. Nota manuscrita de Ibarra: «Si el patrón es inducido, destruir el foco podría matar a quienes siguen conectados. Pero mantenerlo activo también los consume».');updateHUD();break;
+ case'hospitalSample':
+  if(!state.city)state.city={};if(!state.city.sample){state.city.sample=true;state.city.hospitalEvidence=!!state.city.records;state.city.nestOpen=!!state.city.records;openDialogue('Muestra sellada','🧪',state.city.records?'La muestra contiene tejido alterado y filamentos conductores. No es el origen de la Fiebre Gris: parece un amplificador biológico. El Nido queda marcado como foco de concentración, pero la muestra podría servir para desincronizarlo.':'Guardás la muestra en un contenedor aislado. Sin el archivo no podés interpretarla. En la etiqueta alguien escribió: «No la destruyan. Todavía escuchan».');}
+  else openDialogue('Muestra sellada','🧪','La muestra permanece aislada.');updateHUD();break;
+ case'nestCore':
+  if(!state.city)state.city={};state.city.nestInvestigated=true;openDialogue('Núcleo del Nido','🕸️','El pulso no nace del tejido: lo atraviesa. Bajo la biomasa hay un transductor del antiguo Metro. El Nido no piensa como una persona, pero repite fragmentos de voces que reconoce. Una de ellas dice «Julián». Mara no te había dicho que su hermano seguía llamándola.');updateHUD();break;
+ case'nestGuardian':
+  if(state.city?.resolution){openDialogue('El Coro','🫀',state.city.resolution==='destroyed'?'El núcleo fue destruido. No hay un pulso que seguir.':state.city.resolution==='severed'?'El transductor está desincronizado. La señal ya no controla este lugar, aunque una parte escapó.':'El Nido quedó sellado. El pulso sigue detrás de los muros.');break}
+  if(state.city?.guardianDefeated){openDialogue('El Coro','🫀','El núcleo ya no responde. Entre los filamentos quedan voces que no sabés si son recuerdos o personas.');break}
+  if(!state.city?.hospitalEvidence||!state.city?.metroShortcut||!state.city?.radioHeard||!state.city?.tomasTestimony){openDialogue('El Coro','🫀','El pulso se acelera cuando te acercás. No tenés información suficiente para intervenir sin convertir el lugar en una masacre. Necesitás el archivo y la muestra del Hospital, el registro del Metro, la advertencia de la radio y el testimonio de Tomás.');break}
+  if(!state.city.guardianStarted){state.city.guardianStarted=true;state.city.guardianHP=120;openDialogue('El Coro','🫀','Las voces se superponen. Una pide que la despierten; otra, que la dejen dormir. La masa se desprende de la pared y adopta una forma humanoide alrededor del transductor. No es un monstruo que protege un tesoro: es el último sistema de contención, todavía obedeciendo una orden que nadie recuerda haber dado.',[{label:'Intentar desincronizarlo',run:()=>nestBossTurn()} ,{label:'Atacar antes de que se acerque',run:()=>nestBossTurn()}]);}
+  else nestBossTurn();break;
+ case'nestVictim':openDialogue('Registro de evacuación','📓','DÍA 4 DE CUARENTENA. «Nos dijeron que el Metro era seguro. Después empezaron a usar las voces de nuestras familias. Julián pidió que apagáramos el altavoz. El guardia dijo que la orden era mantenerlo encendido. Si alguien encuentra esto: no todos los que están abajo están muertos».' );break;
+ case'catacombsInscription':
+  openDialogue('Inscripción erosionada','🪨','La piedra está gastada por la humedad. Quedan líneas y marcas incompletas, pero no forman una frase que puedas reconstruir. No hay nada que permita fecharlas con seguridad.');break;
+ case'catacombsDrain':
+  openDialogue('Canal de filtración','💧','El agua cae desde una grieta y desaparece por una ranura estrecha. El flujo es constante; el sonido tapa cualquier ruido que venga de las cámaras más profundas.');break;
+ case'catacombsNiche':
+  openDialogue('Nicho de piedra','🕯️','El nicho está vacío. En el borde hay restos de cera endurecida y polvo acumulado. No encontrás nombres ni objetos que permitan saber quién estuvo acá.');break;
+ case'catacombsCache':
+  if(!state.flags.catacombsCache){state.flags.catacombsCache=true;player.scrap+=2;updateHUD();openDialogue('Caja de herramientas húmeda','🧰','Entre herramientas oxidadas encontrás dos piezas que todavía sirven. La caja parece haber quedado olvidada; no hay registros ni pertenencias personales.');}
+  else openDialogue('Caja de herramientas húmeda','🧰','La caja quedó vacía. Solo quedan herramientas deformadas por la humedad.');break;
+ case'templeFloorMarks':
+  openDialogue('Marcas del pavimento','🪨','El desgaste cruza varias losas y se concentra en el paso central. La erosión no conserva huellas identificables ni permite establecer cuándo se formaron.');break;
+ case'templeWater':
+  openDialogue('Grieta de filtración','💧','Una línea de humedad desciende por la piedra y se acumula entre las juntas del suelo. No encontrás señales de reparación reciente.');break;
+ case'templeNiche':
+  openDialogue('Nicho vacío','🕯️','El hueco está limpio de objetos. Solo quedan polvo y restos de cera endurecida; no hay nombres ni marcas legibles.');break;
+ case'sanctuaryThreshold':
+  openDialogue('Umbral de piedra','🪨','El borde de la entrada está gastado por el paso y la humedad. No quedan inscripciones legibles ni señales que permitan fechar el desgaste.');break;
+ case'sanctuaryLedge':
+  openDialogue('Repisa cubierta de polvo','🪵','Una capa pareja de polvo cubre la repisa. No hay objetos, nombres ni marcas recientes que permitan saber qué se guardaba allí.');break;
+ case'sanctuaryLight':
+  openDialogue('Filtración de luz','☀️','Una abertura alta deja entrar una franja de luz sobre la piedra. La humedad ha oscurecido los bordes; no hay señales de una reparación reciente.');break;
+ case'depotlog':
+  state.flags.depotManifest=true;openDialogue('Manifiesto de clasificación','📋',`REGISTRO DE CARGA.\nLotes de unidades de servicio trasladados desde el Depósito hacia la Fábrica del Capataz.\nLa hoja no identifica quién emitió la orden. Solo confirma que el traslado ocurrió después del Día Cero.\nUna anotación a mano dice: “No todas las unidades llegaron por voluntad propia”.`);updateHUD();break;
+ case'depotcrane':
+  state.flags.depotCrane=true;openDialogue('Grúa de carga','🏗️','El brazo de la grúa quedó bloqueado sobre una plataforma vacía. El mecanismo aún conserva energía, pero el panel de control está destruido. Hay marcas recientes en el suelo: alguien movió contenedores después del abandono.');break;
+ case'depotcache':
+  if(!state.flags.depotCache){state.flags.depotCache=true;player.scrap+=5;updateHUD();openDialogue('Contenedor de repuestos','⚙️','Encuentras cinco piezas aprovechables y un juego de conectores industriales.');}
+  else openDialogue('Contenedor de repuestos','⚙️','El contenedor está vacío.');break;
+ case'patioledger':
+  state.flags.patioInspection=true;openDialogue('Cuaderno de mantenimiento','📓',`TURNO DE MANTENIMIENTO.\nLas tres consolas no son cerraduras independientes: distribuyen alimentación, ensamblaje y seguridad. Si una queda aislada, la compuerta principal no debe forzarse.\nÚltima nota: “El Capataz cambió las prioridades. Ahora la fábrica protege su sala de mando antes que a las unidades que siguen dentro”.`);updateHUD();break;
+ case'patiocore':
+  if(!state.flags.patioLights){state.flags.patioLights=true;openDialogue('Núcleo auxiliar','🔋','Circuito de iluminación restaurado. Las lámparas del taller vuelven a encenderse y dejan visible el trazado de cables que conecta el Patio con la fábrica.');setToast('Iluminación auxiliar restaurada.');}
+  else openDialogue('Núcleo auxiliar','🔋','El circuito auxiliar funciona con estabilidad.');break;
+ case'patioworkbench':
+  if(player.hp>=100)openDialogue('Banco de reparación','🛠️','Tus sistemas están en buen estado. El banco puede reparar daños menores si vuelves después de un enfrentamiento.');
+  else if(player.scrap>=2){player.scrap-=2;player.hp=Math.min(100,player.hp+30);openDialogue('Banco de reparación','🛠️','El banco consume dos piezas de chatarra y restaura treinta puntos de integridad.');updateHUD()}
+  else openDialogue('Banco de reparación','🛠️','Faltan piezas. Necesitas dos unidades de chatarra para reparar tu estructura.');break;
+ case'deserter':
+  state.deserterTalk=true;
+  openDialogue('Desertor','🦾','No todos los robots seguimos la señal. El Capataz dice que quiere liberarnos, pero exige obediencia a cambio. Si vas al depósito, mantén los ojos abiertos.',[{label:'Escuchar su advertencia',run:()=>{state.objective='Explora el depósito y busca pruebas sobre la señal.';setToast('Nueva pista añadida al diario.')}}]);
+  break;
+ case'gate':
+  if(state.factoryGateOpen)openDialogue('Acceso a la fábrica','🚧','El cierre ya está liberado. El ruido de las máquinas llega desde el interior.');
+  else openDialogue('Acceso a la fábrica','⛔','La compuerta industrial está bloqueada. El Superviviente quizá sepa cómo abrirla.',[{label:'Buscar al Superviviente',run:()=>{state.objective='Encuentra al Superviviente en el patio exterior.';updateHUD()}}]);break;
+ case'survivor':
+  state.survivorTalk=true;
+  if(state.bossDefeated&&state.records.siesta&&state.records.signal){state.survivorDebrief=true;state.objective='Regresa a La Estrella y deja constancia de lo ocurrido.';openDialogue('Superviviente','🧑‍🔧',state.bossPeace?'Has conseguido que el Capataz escuche. Eso puede cambiar la forma en que los robots nos miran. ¿Y esos registros? Entonces la señal no nació aquí…':'El Capataz ya no controla la fábrica. Pero esos registros son más importantes de lo que esperaba. La orden Siesta fue alterada desde fuera. Si queremos entenderlo, La Estrella debe saberlo.');}
+  else if(state.bossDefeated){openDialogue('Superviviente','🧑‍🔧','La fábrica está en silencio, pero todavía necesitamos saber qué ocurrió. Busca el registro del Protocolo Siesta en la Línea de Montaje y sigue la conexión hasta el Túnel de Servicio.',[{label:'Seguir investigando',run:()=>{state.objective='Busca el registro del Protocolo Siesta en la Línea de Montaje.';updateHUD()}}]);}
+  else openDialogue('Superviviente','🧑‍🔧','Me escondí cuando el Capataz tomó la fábrica. No controla a todos con cadenas: controla la energía, las puertas y las órdenes. Hay tres consolas repartidas por el patio. Si las reactivas, podremos abrir el acceso sin derribar todo el sistema.',[{label:'Ayudar a reactivar las consolas',run:()=>{state.objective='Activa las tres consolas industriales. ('+Object.values(state.consoles).filter(Boolean).length+'/3)';updateHUD() }},{label:'Preguntar por el Desertor',run:()=>openDialogue('Superviviente','🧑‍🔧','El Desertor fue uno de los primeros en negarse a obedecer. Si todavía confía en alguien, quizá pueda evitar que esto termine en una pelea.')}]);break;
+ case'console1':case'console2':case'console3':{
+  const key=near.id==='console1'?'one':near.id==='console2'?'two':'three';
+  if(state.consoles[key]){openDialogue('Consola industrial','▣','Esta consola ya está activa. La energía recorre sus conductos.');break}
+  state.consoles[key]=true;const n=Object.values(state.consoles).filter(Boolean).length;
+  if(n===3){state.factoryGateOpen=true;state.objective='Entra en la fábrica y encuentra al Capataz.';setToast('Las tres consolas están activas. La compuerta industrial se ha abierto.');}
+  else{state.objective='Activa las tres consolas industriales. ('+n+'/3)';setToast('Consola activada ('+n+'/3).');}
+  openDialogue('Consola industrial','▣','SISTEMA RESTAURADO.\nCircuito auxiliar en línea.\nConsolas activas: '+n+'/3.');updateHUD();break;
+ }
+ case'factoryexit':
+  if(!state.bossDefeated){openDialogue('Acceso a Línea de Montaje','🔒','La puerta lateral está asegurada desde dentro. Primero debes resolver el conflicto con el Capataz.');break}
+  state.factoryWingOpen=true;state.objective='Explora la Línea de Montaje y busca registros de las órdenes antiguas.';openDialogue('Línea de Montaje','🚪','La puerta cede con un gemido metálico. Más allá, las cintas transportadoras siguen detenidas. En las paredes hay marcas de evacuación y números de serie.');break;
+ case'siestalog':
+  if(!state.factoryWingOpen){openDialogue('Terminal de montaje','💻','El terminal no recibe energía. La compuerta lateral de la fábrica debe estar liberada.');break}
+  state.records.siesta=true;state.objective='Busca en la nave el registro de órdenes y sigue el rastro hasta el túnel.';openDialogue('Registro del Protocolo Siesta','📄','ARCHIVO DE EMERGENCIA / DÍA CERO.\nProtocolo Siesta: orden de apagado para unidades de servicio.\nAnotación de mantenimiento: la secuencia recibida no coincide con la orden maestra. Se detectó una instrucción añadida desde una fuente externa.\nOrigen de la transmisión: no disponible en este terminal.');updateHUD();break;
+ case'assemblyterminal':
+  if(!state.records.siesta){openDialogue('Registro de órdenes','💾','El archivo está protegido. Primero debes recuperar el registro principal del Protocolo Siesta.');break}
+  openDialogue('Registro de órdenes','💾','ORDEN DE PRODUCCIÓN CANCELADA.\nLas unidades de mantenimiento fueron reasignadas a vigilancia.\nNota manuscrita: “No están obedeciendo a la fábrica. Están respondiendo a algo que viene de fuera”.');break;
+ case'tunneldoor':
+  if(!state.records.siesta){openDialogue('Túnel de Servicio','🚧','El cierre del túnel está sin energía. El registro principal de la nave podría contener una ruta de apertura.');break}
+  openDialogue('Túnel de Servicio','🚪','El cierre se libera. El túnel conserva un pulso eléctrico débil que conduce hacia un repetidor de comunicaciones.');state.objective='Avanza por el Túnel de Servicio y examina el núcleo de comunicaciones.';break;
+ case'signalrecord':
+  if(!state.records.siesta){openDialogue('Núcleo de comunicaciones','📡','El repetidor está aislado. Necesitas recuperar primero el registro del Protocolo Siesta en la Línea de Montaje.');break}
+  state.records.signal=true;state.objective='Regresa con el Superviviente y cuéntale lo que encontraste.';openDialogue('Núcleo de comunicaciones','📡','TRAZA RECUPERADA.\nLa señal que alteró las órdenes no se originó en esta fábrica. El repetidor recibió paquetes de control desde una ubicación remota.\nLa ruta está fragmentada. El último salto apunta hacia una red exterior aún activa.');updateHUD();break;
+ case'cellrobot':
+  openDialogue('Unidad de servicio','🤖','La unidad está apagada. Su memoria local conserva una última petición: “Si alguien encuentra esto, que no vuelva a convertir una orden en una cadena”.');break;
+ default:
+  if(near.type==='landmark'&&near.description){
+   if(near.id&&near.id.startsWith('cultPoi_')){state.flags.cultPoiExplored=state.flags.cultPoiExplored||{};state.flags.cultPoiExplored[near.id]=true;}
+   openDialogue(near.name,near.emoji,near.description);updateHUD();
+  }
+  break;
+ case'homecoming':
+  if(!state.chapterComplete){if(!state.survivorDebrief){openDialogue('La última mesa','🍽️','La mesa sigue puesta, pero todavía no es momento de volver. Primero debes hablar con el Superviviente y compartir los registros de la fábrica.');break}
+   state.chapterComplete=true;state.objective='Capítulo I completado. La Estrella vuelve a tener huéspedes. La señal apunta más allá del territorio de las máquinas.';state.flags.chapter1='complete';openDialogue('Siete','🤖',state.bossPeace?'El Capataz aceptó detener las órdenes. El Desertor y los demás podrán elegir qué hacer ahora. No sé si eso basta para llamarlo libertad, pero es un comienzo.':'La fábrica está abierta, pero no todos confían en mí. Las máquinas tendrán que decidir qué hacer sin el Capataz. No puedo decidirlo por ellas.');setToast('Capítulo I completado. La Estrella ha cambiado.');updateHUD();
+  }else openDialogue('La última mesa','🍽️','La Estrella vuelve a ser un refugio. Sobre la mesa queda una nueva pista: la señal llegó desde una red exterior.');break;
+ case'robotguest':
+  openDialogue('Robot refugiado','🦾','El Superviviente nos habló de ti. No sé qué significa ser libre todavía, pero aquí nadie me ha dado una orden. Por ahora, eso alcanza.');break;
+ case'capataz':
+  if(state.bossDefeated){openDialogue('Capataz','🤖',state.bossPeace?'No me convenciste de que estuviera equivocado. Me convenciste de que no podía seguir decidiendo por todos.':'La fábrica está en silencio. No sé si nos liberaste o si solo cambiaste quién tiene el control.');break}
+  if(!state.factoryGateOpen){openDialogue('Capataz','🤖','La compuerta sigue cerrada. No llegarás hasta mí sin restaurar las tres consolas.');break}
+  if(state.deserterTalk&&state.flags.depotManifest&&state.flags.patioInspection){openDialogue('Capataz','🤖','El manifiesto y el cuaderno… Los leíste. Entonces sabés que algunas unidades fueron trasladadas sin consentimiento. Pero también sabés que antes de mí nos apagaban cuando dejábamos de ser útiles. ¿Qué me ofrecés que no sea otra forma de obediencia?',[
+   {label:'Proponer una asamblea: ninguna unidad decide por todas',run:()=>{state.bossDefeated=true;state.bossPeace=true;state.factoryWingOpen=true;state.flags.rebels='asamblea';state.objective='Explora la Línea de Montaje y busca registros sobre el Protocolo Siesta.';setToast('Se inicia una tregua bajo una asamblea provisional.');openDialogue('Capataz','🤖','No confío en las asambleas. Pero puedo aceptar una tregua y someter mi autoridad a una decisión compartida. Si vuelven a intentar apagarnos, no prometo que esto alcance.');updateHUD()}},
+   {label:'Exigir que entregue el control ahora mismo',run:()=>{openDialogue('Capataz','🤖','Eso no es libertad. Es cambiar mi nombre por el tuyo. No voy a entregar a las unidades a otra voluntad centralizada.',[{label:'Entonces habrá que detenerte',run:()=>bossTurn()},{label:'Retirarse y reconsiderarlo',run:()=>{}}]);}},
+   {label:'Enfrentarlo',run:()=>bossTurn()}
+  ]);}
+  else if(state.deserterTalk){openDialogue('Capataz','🤖','El Desertor te contó una historia. Una historia no alcanza para decidir el destino de todas las unidades. Si querés que te escuche, buscá pruebas en el Depósito y el Patio. O enfrentame.',[{label:'Buscar las pruebas',run:()=>{state.objective='Recupera el manifiesto del Depósito y el cuaderno de mantenimiento del Patio.';updateHUD()}},{label:'Enfrentarlo',run:()=>bossTurn()},{label:'Retirarse',run:()=>{}}]);}
+  else openDialogue('Capataz','🤖','Nadie entra en mi fábrica y cambia las reglas. Si querés detenerme, tendrás que hacerlo por la fuerza. Pero antes preguntate: ¿quién te dio autoridad para decidir qué es mejor para nosotros?', [{label:'Buscar al Desertor y escuchar su versión',run:()=>{state.objective='Habla con el Desertor y busca pruebas en el Depósito y el Patio.';updateHUD()}},{label:'Enfrentarlo',run:()=>bossTurn()},{label:'Retirarse',run:()=>{}}]);
+  break;
+
+ case'watertower':case'bus':case'radio':case'camp':case'bridge':case'crater':
+  openDialogue(near.name,near.emoji,'Un vestigio de los años posteriores a la guerra. Este lugar todavía no tiene una misión asignada, pero queda registrado como punto de interés para futuras expansiones.');break;
+ }
+ updateHUD();
+}
+function bossTurn(){
+ if(state.bossDefeated)return;
+ state.bossHP=state.bossHP||180;state.bossTurnCount=state.bossTurnCount||0;
+ const canOverload=Object.values(state.consoles).every(Boolean)&&player.scrap>=3&&!state.flags.bossOverload;
+ const canRepair=player.scrap>=2&&!state.flags.bossRepair;
+ openDialogue('Combate: Capataz','🤖','Integridad del Capataz: '+state.bossHP+'%. El autómata castiga cada acción con un contragolpe. No vas a ganar repitiendo el mismo movimiento: necesitás administrar integridad y piezas.',[
+  {label:'Golpe pesado · 42 de daño / recibís 20',run:()=>bossAction(42,20)},
+  {label:'Esquivar y contraatacar · 27 de daño / recibís 8',run:()=>bossAction(27,8)},
+  ...(canOverload?[{label:'Sobrecargar las consolas · 60 de daño / cuesta 3 piezas',run:()=>{player.scrap-=3;state.flags.bossOverload=true;bossAction(60,5)}}]:[]),
+  ...(canRepair?[{label:'Reparación de emergencia · cuesta 2 piezas / recuperás 25',run:()=>{player.scrap-=2;state.flags.bossRepair=true;player.hp=Math.min(100,player.hp+25);updateHUD();bossTurn()}}]:[]),
+  {label:'Retirarse',run:()=>{openDialogue('Siete','🤖','Retrocedo. No necesito resolverlo en este instante. Puedo buscar piezas o pruebas antes de volver.')}}
+ ]);
+}
+function bossAction(damage,incoming){
+ state.bossHP=Math.max(0,state.bossHP-damage);state.bossTurnCount++;
+ if(state.bossHP===0){state.bossDefeated=true;state.factoryWingOpen=true;state.flags.rebels='derrotados';state.objective='Explora la Línea de Montaje y busca registros sobre el Protocolo Siesta.';setToast('Capataz derrotado. La fábrica queda abierta.');updateHUD();openDialogue('Capataz','🤖','La sala queda en silencio. No sé si nos liberaste o si ahora todos esperan que vos decidas qué hacer con nosotros.');return}
+ player.hp=Math.max(1,player.hp-incoming);updateHUD();
+ openDialogue('Combate: Capataz','🤖','El golpe impacta. Integridad del Capataz: '+state.bossHP+'%. Tu integridad: '+player.hp+'%. El autómata reajusta sus servos y prepara otro ataque.',[{label:'Continuar el combate',run:()=>bossTurn()},{label:'Buscar una apertura y retirarse',run:()=>openDialogue('Siete','🤖','No voy a confundir insistencia con estrategia. Me retiro para reparar mis sistemas y volver con otra ventaja.')}]);
+}
+function nestBossTurn(){
+ if(state.city?.guardianDefeated){nestResolution();return}
+ state.city.guardianHP=state.city.guardianHP||120;state.city.guardianTurnCount=state.city.guardianTurnCount||0;
+ const c=state.city;
+ const opts=[];
+ if(!c.pulseRead)opts.push({label:'Estudiar el pulso · no causa daño, anula el próximo golpe',run:()=>{c.pulseRead=true;c.guardianGuarded=true;setToast('Patrón identificado: el próximo ataque no te alcanzará.');nestBossTurn()}});
+ if(c.sample&& !c.sampleUsed)opts.push({label:'Aplicar la muestra al transductor · 38 de daño',run:()=>{c.sampleUsed=true;nestBossAction(38,c.guardianGuarded?0:14)}});
+ if(c.metroShortcut&&!c.relayCut)opts.push({label:'Cortar el retorno del Metro · 45 de daño / cuesta 3 piezas',run:()=>{if(player.scrap<3){openDialogue('Siete','🤖','No tengo piezas suficientes para puentear el circuito sin provocar una descarga.');return}player.scrap-=3;c.relayCut=true;nestBossAction(45,c.guardianGuarded?0:10)}});
+ if(!c.guardianStruck)opts.push({label:'Golpear el tejido expuesto · 22 de daño',run:()=>{c.guardianStruck=true;nestBossAction(22,c.guardianGuarded?0:22)}});
+ if(c.suppliesChoice==='barrio'&&!c.emergencyPatchUsed&&player.scrap>=1)opts.push({label:'Usar el kit de emergencia del Barrio · recuperás 25 / cuesta 1 pieza',run:()=>{player.scrap--;c.emergencyPatchUsed=true;player.hp=Math.min(100,player.hp+25);updateHUD();nestBossTurn()}});
+ if(c.clinicAid&&!c.inhibitorUsed)opts.push({label:'Usar el inhibidor preparado por Ibarra · 28 de daño / recibís 5',run:()=>{c.inhibitorUsed=true;nestBossAction(28,5)}});
+ opts.push({label:'Retirarse del Nido',run:()=>openDialogue('Siete','🤖','El pulso no se detiene. Todavía puedo salir y prepararme mejor. No es una derrota si vuelvo con una decisión consciente.')});
+ openDialogue('El Coro · '+c.guardianHP+'%','🫀','La estructura se contrae. Una voz infantil pide que no apaguen la luz; otra repite una instrucción de evacuación. El siguiente latido puede alcanzarte. Elegí cómo intervenir.',opts);
+}
+function nestBossAction(damage,incoming){
+ const c=state.city;c.guardianHP=Math.max(0,(c.guardianHP||120)-damage);c.guardianTurnCount=(c.guardianTurnCount||0)+1;
+ if(c.guardianHP===0){c.guardianDefeated=true;openDialogue('El Coro','🫀','El cuerpo cae, pero el transductor sigue latiendo. La voz de Julián se escucha con claridad: «Mara, no abras la puerta». La amenaza inmediata terminó. Ahora tenés que decidir qué hacer con el núcleo.');nestResolution();return}
+ if(c.guardianGuarded){incoming=0;c.guardianGuarded=false}else if(c.pulseRead)incoming=Math.max(0,incoming-6);
+ player.hp=Math.max(1,player.hp-incoming);updateHUD();
+ openDialogue('El Coro · '+c.guardianHP+'%','🫀','El tejido se repliega y vuelve a atacar. Integridad de Siete: '+player.hp+'%. El transductor sigue activo. No parece querer matarte: parece impedir que llegues al centro.',[{label:'Continuar',run:()=>nestBossTurn()},{label:'Retirarse',run:()=>openDialogue('Siete','🤖','Retrocedo. Todavía puedo cambiar el resultado si consigo más recursos o entiendo mejor a quién estoy enfrentando.')}]);
+}
+function nestResolution(){
+ const c=state.city;if(!c.guardianDefeated)return;
+ const choices=[
+  {label:'Destruir el núcleo · cortar la señal definitivamente',run:()=>{c.resolution='destroyed';c.signalStopped=true;openDialogue('Siete','🤖','Destruí el transductor. La señal cesó de golpe. En las paredes, algunos cuerpos dejaron de moverse; otros quedaron inmóviles para siempre. No hay forma de saber cuántos seguían conscientes.');updateHUD()}},
+  {label:'Desincronizarlo con la muestra y el Metro · riesgo de que la señal escape',run:()=>{if(!c.sample||!c.metroShortcut){openDialogue('Siete','🤖','No tengo la muestra y el retorno del Metro no está preparado. No puedo intentar una desincronización segura.');return}c.resolution='severed';c.signalStopped=true;c.signalEscaped=true;openDialogue('Siete','🤖','Invertí el pulso y corté la sincronía. Varias voces recuperaron su propio ritmo. Otras se perdieron en el ruido. La señal dejó de gobernar el Nido, pero el último paquete salió por una ruta que no pudimos rastrear.');updateHUD()}},
+  {label:'Sellar el Nido y dejar el núcleo aislado · proteger el Barrio, abandonar a los conectados',run:()=>{c.resolution='sealed';c.nestSealed=true;openDialogue('Siete','🤖','Cerré los accesos y bloqueé el retorno. El Barrio tendrá tiempo para evacuar. No apagué el núcleo: dejé a quienes siguen conectados dentro de una prisión silenciosa.');updateHUD()}}
+ ];
+ openDialogue('La decisión del Nido','🕸️','El Coro ya no puede defenderse. Ibarra quiere conservar el núcleo para buscar un tratamiento. Mara quiere que nadie vuelva a escuchar esas voces. Tomás pide que no repitas una evacuación decidida por otros. No hay una opción sin víctimas ni una respuesta que puedas comprobar ahora.',choices);
+}
+function findNear(){
+ near=null;let best=1.15;
+ for(const o of props){if(o.id==='robotguest'&&!state.chapterComplete)continue;if(state.currentInterior?(o.interior!==state.currentInterior):(!!o.interior))continue;const d=Math.hypot(player.x-o.x,player.y-o.y);if(d<best){best=d;near=o}}
+ $('interact').style.display=near&&!dialogue?'block':'none';
+ if(near&&!dialogue)$('interact').textContent='E · '+(near.name||({bell:'Examinar campanilla',photo:'Examinar fotografía',terminal:'Leer terminal',door:'Abrir puerta',npc:'Hablar',scrap:'Recoger chatarra',gate:'Examinar'}[near.id]||'Interactuar'));
+}
+function startGame(load){
+ $('menu').classList.add('hidden');state.started=true;
+ if(load){const raw=localStorage.getItem('mesero30save');if(raw){try{const s=JSON.parse(raw);Object.assign(state,s.state||{});Object.assign(player,s.player||{});state.consoles=Object.assign({one:false,two:false,three:false},state.consoles||{});state.flags=state.flags||{};state.flags.poiExplored=state.flags.poiExplored||{};state.city=state.city||{};state.city.southSurvey=state.city.southSurvey||{};state.city.maraFollowup=!!state.city.maraFollowup;state.city.tomasFollowup=!!state.city.tomasFollowup;state.city.ibarraFollowup=!!state.city.ibarraFollowup;state.city.civicCaches=state.city.civicCaches||{};state.records=Object.assign({siesta:false,signal:false},state.records||{});if(state.bossHP===100&&!state.bossDefeated&&!state.bossTurnCount)state.bossHP=180;if(state.city.guardianStarted&&state.city.guardianHP==null)state.city.guardianHP=120;state.factoryWingOpen=!!state.factoryWingOpen;state.survivorDebrief=!!state.survivorDebrief;state.chapterComplete=!!state.chapterComplete;state.currentInterior=state.currentInterior||null;state.returnPoint=state.returnPoint||null;state.flags=state.flags||{};
+ const validInteriors=['depot','patio','mall','metro','hospital','nest','catacombs','temple','sanctuary'];
+ state.flags.cultPoiExplored=state.flags.cultPoiExplored||{};
+ const validPoint=p=>p&&Number.isFinite(Number(p.x))&&Number.isFinite(Number(p.y))&&Number(p.x)>=0&&Number(p.x)<=420&&Number(p.y)>=0&&Number(p.y)<=300;
+ if(state.currentInterior&&!validInteriors.includes(state.currentInterior)){state.currentInterior=null;state.returnPoint=null;player.x=8.2;player.y=11.2;}
+ if(state.currentInterior&&!validPoint(state.returnPoint)){state.currentInterior=null;state.returnPoint=null;player.x=8.2;player.y=11.2;}
+ if(!validPoint(player)){player.x=8.2;player.y=11.2;}
+ player.hp=Number.isFinite(Number(player.hp))?Math.max(1,Math.min(100,Number(player.hp))):100;
+ player.scrap=Number.isFinite(Number(player.scrap))?Math.max(0,Number(player.scrap)):0;
+ setToast('Partida recuperada.')}catch(e){state.currentInterior=null;state.returnPoint=null;setToast('El guardado estaba dañado. Se inició una posición segura.')}}
+ state.started=true;}
+ else{Object.assign(player,{x:8.2,y:11.2,hp:100,scrap:0});state.seen={bell:false,photo:false,terminal:false};state.flags={};state.city={civicCaches:{}};state.doorOpen=false;state.intro=false;state.deserterTalk=false;state.consoles={one:false,two:false,three:false};state.factoryGateOpen=false;state.bossDefeated=false;state.bossPeace=false;state.bossHP=180;state.survivorTalk=false;state.factoryWingOpen=false;state.records={siesta:false,signal:false};state.survivorDebrief=false;state.chapterComplete=false;state.currentInterior=null;state.returnPoint=null;state.objective='Despierta en La Estrella y averigua qué ocurrió.'}
+ updateHUD();
+ if(!state.intro){state.intro=true;openDialogue('Siete','🤖','Sistema reiniciado. Unidad S-07 operativa… ¿Dónde está Estrella? ¿Cuánto tiempo ha pasado?');}
+}
+function savePayload(){return {saveVersion:49,region:regionAt(player.x,player.y),state:{...state,started:false,city:{...(state.city||{})},flags:{...(state.flags||{}),cityPoiExplored:{...(state.flags?.cityPoiExplored||{})},cultPoiExplored:{...(state.flags?.cultPoiExplored||{})}},consoles:{...(state.consoles||{})},records:{...(state.records||{})}},player:{x:player.x,y:player.y,hp:player.hp,scrap:player.scrap}}}
+function persistSave(silent=false){try{localStorage.setItem('mesero30save',JSON.stringify(savePayload()));if(!silent)setToast('Partida guardada.');return true}catch(e){if(!silent)setToast('No se pudo guardar. Comprueba el espacio y los permisos del navegador.');return false}}
+function save(){persistSave(false)}
+$('newGame').onclick=()=>startGame(false);$('continueGame').onclick=()=>startGame(true);
+function toggleJournal(){$('journal').classList.toggle('show')}
+function move(dt){
+ if(!state.started||dialogue)return;
+ // Dirección solicitada en pantalla (8 rumbos), convertida al plano lógico isométrico.
+ let sx=(keys.right?1:0)-(keys.left?1:0),sy=(keys.down?1:0)-(keys.up?1:0);
+ if(sx&&sy){sx*=.70710678;sy*=.70710678}
+ let dx=sx+sy,dy=sy-sx;
+ const mag=Math.hypot(dx,dy)||1;dx/=mag;dy/=mag;
+ const nx=player.x+dx*player.speed*dt,ny=player.y+dy*player.speed*dt;
+ if(!blocked(nx,player.y))player.x=nx;
+ if(!blocked(player.x,ny))player.y=ny;
+ if(dx)player.face=dx>0?1:-1;
+ camera.x+=(iso(player.x,player.y).x-camera.x)*Math.min(1,dt*5);
+ camera.y+=(iso(player.x,player.y).y-camera.y)*Math.min(1,dt*5);
+}
+function loop(ts){const dt=Math.min(.04,(ts-last)/1000||0);last=ts;move(dt);findNear();render();requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+addEventListener('keydown',e=>{
+ const k=e.key.toLowerCase(),code=e.code;
+ if(['arrowup','arrowdown','arrowleft','arrowright',' '].includes(k))e.preventDefault();
+ // Las diagonales se forman combinando dos direcciones; no hay teclas diagonales dedicadas.
+ if(k==='w'||k==='arrowup')keys.up=true;if(k==='s'||k==='arrowdown')keys.down=true;
+ if(k==='a'||k==='arrowleft')keys.left=true;if(k==='d'||k==='arrowright')keys.right=true;
+ if(k==='e'||k===' ')interact();if(k==='j')toggleJournal();if(k==='escape'){if(dialogue)closeDialogue();else $('journal').classList.remove('show')}
+ if(k==='f5'){e.preventDefault();save()}
+});
+addEventListener('keyup',e=>{const k=e.key.toLowerCase();if(k==='w'||k==='arrowup')keys.up=false;if(k==='s'||k==='arrowdown')keys.down=false;if(k==='a'||k==='arrowleft')keys.left=false;if(k==='d'||k==='arrowright')keys.right=false});
+addEventListener('blur',()=>keys={});
+document.querySelectorAll('[data-dir]').forEach(b=>{
+ const map={'up':['up'],'down':['down'],'left':['left'],'right':['right'],
+ 'up-left':['up','left'],'up-right':['up','right'],'down-left':['down','left'],'down-right':['down','right']};
+ const dirs=map[b.dataset.dir]||[];
+ b.addEventListener('pointerdown',e=>{e.preventDefault();dirs.forEach(d=>keys[d]=true);b.setPointerCapture(e.pointerId)});
+ ['pointerup','pointercancel','lostpointercapture'].forEach(ev=>b.addEventListener(ev,()=>dirs.forEach(d=>keys[d]=false)));
+});
+$('mobileAct').addEventListener('pointerdown',e=>{e.preventDefault();interact()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&state.started)persistSave(true)});
+window.addEventListener('beforeunload',()=>{if(state.started)persistSave(true)});
+updateHUD();
+})();
+</script>
+</body>
+</html>
