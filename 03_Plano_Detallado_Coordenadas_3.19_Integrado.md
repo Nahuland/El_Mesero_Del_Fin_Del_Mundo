@@ -753,3 +753,18 @@ Los seis puntos son adiciones 3.20; no desplazan coordenadas 3.19. Los accesos C
 | Puesto de radio | (192,192) | 12×12 | (186,192) | Mástil sin transmisión ni mensajes |
 
 Las coordenadas, huellas y accesos se conservan sin desplazamientos. Los muros nuevos dejan libre la aproximación a los puntos de inspección. El límite físico de R4 en Y=145 y el bloqueo de entrada desde otras regiones siguen vigentes.
+
+
+## Addendum 3.22 — correspondencia de ruta militar (sin cambios geométricos)
+
+| Ruta del Guion Maestro Fase 4 | Hito cartográfico 3.21 | Centro |
+|---|---|---:|
+| Puerto Militar | Puerto | (65,225) |
+| Campo de Trincheras | Trincheras norte | (91,185) |
+| Hangar Oxidado | Hangar | (145,230) |
+| Muelle de Carga | Muelle | (44,247) |
+| Puente Blindado | Control del puente | (112,160) |
+| Aeródromo | Aeródromo | (180,250) |
+| Fortaleza del General | Fortaleza | (133,276) |
+
+Esta tabla relaciona nombres de ruta del Guion Maestro con sectores ya existentes; no crea hitos, no desplaza coordenadas y no fija todavía la secuencia de puertas ni interiores. Cuartel avanzado (139,188) y Puesto de radio (192,192) permanecen como hitos auxiliares sin función narrativa especificada. La implementación de personajes, pruebas, sabotaje y decisiones queda pendiente de la auditoría de canon 3.22.
