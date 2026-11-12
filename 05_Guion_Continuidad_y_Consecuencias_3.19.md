@@ -111,3 +111,8 @@ La versión 3.19 corrige progresión, carga de partidas y navegación espacial. 
 ## Nota editorial 3.20 — exploración ambiental de R5
 
 Los seis puntos nuevos describen únicamente elementos físicos observables: madera húmeda, piedras, mampostería erosionada, una pileta seca, restos de puestos y peldaños dañados. Ninguno permite identificar responsables, reconstruir prácticas, atribuir doctrinas o revelar la historia interna de la Secta del Sol y la Luna. No se agregan personajes, misiones, decisiones ni consecuencias narrativas. R4 y la facción militar siguen reservados para el tramo final.
+
+
+## Nota editorial 3.21 — R4, geografía sin facción
+
+La versión 3.21 representa instalaciones y terreno usando solo los nombres y funciones cartográficas ya registrados. Los espacios están vacíos y no incluyen insignias, soldados, mandos, órdenes, transmisiones, archivos legibles, misiones ni diálogos de facción. No se establecen bandos, motivaciones, estructura jerárquica, hechos históricos ni relaciones con personajes existentes. La frontera continúa cerrada. La historia militar y la identidad de la facción quedan reservadas para la etapa narrativa posterior.
