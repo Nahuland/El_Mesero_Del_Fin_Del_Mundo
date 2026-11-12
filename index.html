@@ -1038,11 +1038,16 @@ function blocked(x,y,fromX=player.x,fromY=player.y){
    if(!templeDoor&&!sanctuaryDoor)return true;
   }}
  for(const tr of cultTrees){if(Math.hypot(x-tr.x,y-tr.y)<1.05)return true}
- // Estructuras exteriores R4. Si una partida antigua ya estaba dentro
- // de una huella, puede salir de ella; no se permite entrar desde fuera.
- for(const b of militaryStructures){
-  const inside=x>b.x-.3&&x<b.x+b.w+.3&&y>b.y-.3&&y<b.y+b.h+.3;
-  const wasInside=fromX>b.x-.3&&fromX<b.x+b.w+.3&&fromY>b.y-.3&&fromY<b.y+b.h+.3;
+ // Muros exteriores R4: dejan libres los puntos de inspección y los accesos
+ // cartográficos; las puertas siguen cerradas porque aún no hay interiores.
+ const militaryWalls=[
+  {x:141,y:188,w:21,h:1.1},{x:139,y:189,w:1.1,h:16},{x:162,y:189,w:1.1,h:16},{x:140,y:205,w:22,h:1.1},{x:138.4,y:187.7,w:1.2,h:.55},
+  {x:147,y:230,w:29,h:1.1},{x:145,y:231,w:1.1,h:22},{x:176,y:231,w:1.1,h:22},{x:146,y:253,w:30,h:1.1},{x:143.8,y:229.7,w:2.4,h:.55},
+  {x:116,y:276,w:15,h:1.1},{x:135,y:276,w:15,h:1.1},{x:116,y:277,w:1.1,h:18},{x:149,y:277,w:1.1,h:18},{x:117,y:295,w:32,h:1.1},{x:131.8,y:275.7,w:2.4,h:.55}
+ ];
+ for(const b of militaryWalls){
+  const inside=x>b.x-.25&&x<b.x+b.w+.25&&y>b.y-.25&&y<b.y+b.h+.25;
+  const wasInside=fromX>b.x-.25&&fromX<b.x+b.w+.25&&fromY>b.y-.25&&fromY<b.y+b.h+.25;
   if(inside&&!wasInside)return true;
  }
  // El umbral se puede atravesar por el camino central; las columnas quedan fuera de él.
