@@ -46,3 +46,10 @@ R4 conserva el bloqueo de acceso. Esta entrega completa únicamente su primera c
 - [Informe QA documental 3.22](REPORTE_QA_3.22_Plan.txt)
 
 La 3.22 es una auditoría de canon y planificación; no es una versión jugable. El HTML permanece en 3.21 hasta que se definan los vacíos del Acto IV y se implemente la progresión con pruebas.
+
+
+### Propuestas narrativas pendientes de aprobación
+
+- [Acto IV: facción, nombres, jerarquía y General como jefe final](09_Propuestas_3.22_Acto_IV_General_Jefe_Final.md)
+
+La propuesta establece al General como villano irredimible y jefe final obligatorio. Los nombres y ampliaciones narrativas todavía no son canon ni están implementados.
