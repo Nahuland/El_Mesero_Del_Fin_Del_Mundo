@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>El Mesero del Fin del Mundo — 3.20 · EXPANSIÓN AMBIENTAL R5</title>
+<title>El Mesero del Fin del Mundo — 3.21 · GEOGRAFÍA DEL TERRITORIO MILITAR R4</title>
 <style>
 :root{--ink:#e9e4d8;--muted:#a9b8bc;--gold:#f0c58b;--cyan:#8ad8e8;--panel:#081522ed;--line:#477286}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#07111b;color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
@@ -56,7 +56,7 @@ h1{font:clamp(28px,5vw,48px)/1.05 Georgia,serif;color:#f2d2a2;margin:12px 0;text
 <body>
 <div id="game">
 <canvas id="world" aria-label="Mundo isométrico explorable"></canvas>
-<div id="topbar"><div class="brand">EL MESERO DEL FIN DEL MUNDO <span style="color:#7eb9c7">· 3.20 · R5 EXPANSIÓN</span></div><div id="zone">LA ESTRELLA</div></div>
+<div id="topbar"><div class="brand">EL MESERO DEL FIN DEL MUNDO <span style="color:#7eb9c7">· 3.21 · GEOGRAFÍA R4</span></div><div id="zone">LA ESTRELLA</div></div>
 <div id="hud"><div class="chip">S-07 <b>SIETE</b></div><div class="chip">Integridad <b id="hp">100%</b></div><div class="chip">Chatarra <b id="scrap">0</b></div><div class="chip">Amenaza <b id="bossStatus">Activa</b></div></div>
 <div id="hint">Mover: WASD / flechas · Interactuar: E · Diario: J · Guardar: F5</div>
 <div id="interact">E · Interactuar</div>
@@ -71,7 +71,7 @@ h1{font:clamp(28px,5vw,48px)/1.05 Georgia,serif;color:#f2d2a2;margin:12px 0;text
  </div>
  <button class="act" id="mobileAct">INTERACTUAR</button>
 </div>
-<div id="menu"><div class="menu-card"><div class="eyebrow">Una historia sobre lo que queda después del fin</div><h1>La última mesa</h1><p class="subtitle">Veintiséis años después de la guerra, la unidad S-07 despierta en un restaurante olvidado. Afuera, el mundo sigue esperando una respuesta.</p><div class="menu-actions"><button id="newGame">COMENZAR RECONSTRUCCIÓN</button><button id="continueGame" class="secondary">CONTINUAR PARTIDA</button></div><p style="font-size:10px;color:#809ba7;margin-top:18px">Versión 3.20 · Exploración ambiental de R5</p></div></div>
+<div id="menu"><div class="menu-card"><div class="eyebrow">Una historia sobre lo que queda después del fin</div><h1>La última mesa</h1><p class="subtitle">Veintiséis años después de la guerra, la unidad S-07 despierta en un restaurante olvidado. Afuera, el mundo sigue esperando una respuesta.</p><div class="menu-actions"><button id="newGame">COMENZAR RECONSTRUCCIÓN</button><button id="continueGame" class="secondary">CONTINUAR PARTIDA</button></div><p style="font-size:10px;color:#809ba7;margin-top:18px">Versión 3.21 · Geografía exterior de R4</p></div></div>
 </div>
 <script>
 (()=>{
@@ -284,6 +284,14 @@ const cultStructures=[
  // El Santuario se desplaza al este para que su acceso occidental no atraviese el edificio.
  {id:'sanctuary',x:388,y:267,w:18,h:18,hgt:74,c:'#656b57'}
 ];
+const militaryStructures=[
+ {id:'bridgeControl',x:112,y:160,w:18,h:12,hgt:24,c:'#66604f'},
+ {id:'advancedBarracks',x:139,y:188,w:24,h:18,hgt:48,c:'#62645c'},
+ {id:'portStore',x:65,y:225,w:12,h:8,hgt:28,c:'#655d4c'},
+ {id:'hangar',x:145,y:230,w:32,h:24,hgt:62,c:'#58615f'},
+ {id:'fortress',x:133,y:276,w:34,h:20,hgt:68,c:'#5d6259'},
+ {id:'radioBase',x:192,y:192,w:12,h:12,hgt:12,c:'#555c55'}
+];
 const cultTrees=[
  // Árboles de borde reubicados fuera de las rutas principales y de los accesos.
  {x:305,y:160},{x:306,y:181},{x:308,y:201},{x:313,y:228},
@@ -343,7 +351,18 @@ function zoneAt(x,y){
   if(x>=330&&x<375&&y>=170&&y<200)return 'Secta del Sol y la Luna · Aldea';
   return 'Secta del Sol y la Luna · Bosque';
  }
- if(r==='R4')return 'Territorio Militar · Frontera sur';
+ if(r==='R4'){
+  if(x>=100&&x<=125&&y>=148&&y<176)return 'Territorio Militar · Control del puente';
+  if(x>=72&&x<120&&y>=174&&y<207)return 'Territorio Militar · Trincheras norte';
+  if(x>=125&&x<165&&y>=174&&y<210)return 'Territorio Militar · Cuartel avanzado';
+  if(x>=180&&y>=180&&y<207)return 'Territorio Militar · Puesto de radio';
+  if(x>=45&&x<90&&y>=207&&y<239)return 'Territorio Militar · Puerto';
+  if(x<65&&y>=239&&y<264)return 'Territorio Militar · Muelle';
+  if(x>=125&&x<170&&y>=210&&y<247)return 'Territorio Militar · Hangar';
+  if(x>=160&&y>=230&&y<279)return 'Territorio Militar · Aeródromo';
+  if(x>=115&&x<160&&y>=263)return 'Territorio Militar · Fortaleza';
+  return 'Territorio Militar · Corredores exteriores';
+ }
  if(r==='R3'){
   if(x>=300&&y>=110&&y<135)return 'Ciudad Enferma · Paso del bosque';
   if(x>=285&&y>=55&&y<82)return 'Ciudad Enferma · Nido';
@@ -705,6 +724,59 @@ function drawBuildings(){
  room(364,49,33,37,58,'#4f5b50');let ns=screen(380,50);ctx.fillStyle='#c4cdb1';ctx.fillText('NIDO · CÁMARA CENTRAL',ns.x,ns.y-64);
  for(let i=0;i<6;i++){let q=screen(371+(i%3)*7,59+Math.floor(i/3)*12);ctx.strokeStyle='#9aa48b';ctx.lineWidth=3;ctx.beginPath();ctx.arc(q.x,q.y-20,8,0,Math.PI*2);ctx.stroke()}
 
+ // R4 · Geografía exterior militar. Instalaciones vacías, sin emblemas,
+ // personal, órdenes ni contenido de facción; los accesos permanecen cerrados.
+ if(!state.currentInterior){
+  // Control del puente: dos puestos laterales y una barrera física sin interacción.
+  boxIso(105.5,155.8,2.2,2.2,18,'#77705d','#484536');
+  boxIso(116.5,155.8,2.2,2.2,18,'#77705d','#484536');
+  boxIso(108,151.8,8,1.0,8,'#9a8764','#514a3a');
+  // Trincheras: zanjas quebradas, parapetos y sacos; el corredor central queda libre.
+  for(const [x,y,w] of [[75,180,13],[94,178,12],[82,193,15],[101,195,10]]){
+   boxIso(x,y,w,1.1,5,'#76694f','#4b493a');
+   for(let k=0;k<Math.floor(w/3);k++)boxIso(x+1+k*3,y-.35,1.8,.7,3,'#9a8968','#5b5342');
+  }
+  // Cuartel avanzado: bloque logístico cerrado, sin insignias ni interior.
+  const barr=militaryStructures.find(b=>b.id==='advancedBarracks');
+  boxIso(barr.x,barr.y,barr.w,barr.h,barr.hgt,barr.c,'#343b38');
+  boxIso(144,188.5,5.2,.9,24,'#303a38','#252e2c');
+  for(const [x,y] of [[141,192],[158,192],[141,201],[158,201]])boxIso(x,y,1,1,8,'#8b8876','#4b4b41');
+  // Puerto y almacén de carga. La costa existente continúa al oeste.
+  const port=militaryStructures.find(b=>b.id==='portStore');
+  boxIso(48,217,26,1.1,5,'#81745b','#4d493b');
+  boxIso(48,232,26,1.1,5,'#81745b','#4d493b');
+  boxIso(port.x,port.y,port.w,port.h,port.hgt,port.c,'#373b36');
+  for(const [x,y,c] of [[57,220,'#71604a'],[69,219,'#6b5945'],[58,229,'#76634b'],[72,229,'#6b6250']])boxIso(x,y,3.2,2.4,10,c,'#453d32');
+  // Muelle de madera sobre el borde del agua; no se habilita navegación.
+  for(let i=0;i<7;i++)boxIso(35+i*2.8,245.5,2.5,8.5,3,i%2?'#796247':'#876d4e','#4d4032');
+  for(const x of [36,48,56]){boxIso(x,245,0.65,.65,10,'#554b3c','#332f28');boxIso(x,253,0.65,.65,10,'#554b3c','#332f28')}
+  // Hangar cerrado con gran portón frontal; sin aeronaves ni archivos narrativos.
+  const hang=militaryStructures.find(b=>b.id==='hangar');
+  boxIso(hang.x,hang.y,hang.w,hang.h,hang.hgt,hang.c,'#303a3b');
+  boxIso(153,229.5,15,.9,36,'#293536','#202b2d');
+  for(const x of [153,168])boxIso(x,229.2,.8,1.2,38,'#8b8876','#4c504a');
+  // Aeródromo: pista vacía y marcas de orientación, sin aviones.
+  boxIso(163,246,34,4,1,'#555c59','#3b4240');
+  for(let x=166;x<195;x+=7)boxIso(x,247.1,3.2,.22,.5,'#b5ad8c','#77715b');
+  boxIso(178,241.8,1.0,12,1,'#777b70','#4b504a');
+  // Fortaleza cerrada, con perímetro exterior y acceso norte reservado.
+  const fort=militaryStructures.find(b=>b.id==='fortress');
+  boxIso(116,270,34,1.2,12,'#77715f','#48483d');
+  boxIso(116,270,1.2,19,12,'#77715f','#48483d');
+  boxIso(149,270,1.2,19,12,'#77715f','#48483d');
+  boxIso(116,289,34,1.2,12,'#77715f','#48483d');
+  boxIso(fort.x,fort.y,fort.w,fort.h,fort.hgt,fort.c,'#343a37');
+  boxIso(145,275.5,6,.9,42,'#252f2f','#202728');
+  // Puesto de radio: mástil sin transmisión ni mensajes.
+  const radio=militaryStructures.find(b=>b.id==='radioBase');
+  boxIso(radio.x,radio.y,radio.w,radio.h,radio.hgt,radio.c,'#3a413d');
+  const mast=screen(198,196);ctx.strokeStyle='#6f746b';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(mast.x,mast.y-12);ctx.lineTo(mast.x,mast.y-74);ctx.stroke();
+  for(const dy of [-62,-48,-34]){ctx.beginPath();ctx.moveTo(mast.x-12,mast.y+dy);ctx.lineTo(mast.x+12,mast.y+dy);ctx.stroke()}
+  // Rótulos cartográficos de los siete sectores principales y el puesto auxiliar.
+  for(const [x,y,t] of [[112,151,'CONTROL DEL PUENTE'],[91,174,'TRINCHERAS NORTE'],[139,179,'CUARTEL AVANZADO'],[65,211,'PUERTO'],[44,238,'MUELLE'],[145,218,'HANGAR'],[180,236,'AERÓDROMO'],[133,265,'FORTALEZA'],[192,184,'PUESTO DE RADIO']]){
+   const q=screen(x,y);ctx.textAlign='center';ctx.font='700 9px system-ui';ctx.fillStyle='#101714';ctx.fillText(t,q.x+1,q.y-36+1);ctx.fillStyle='#d4c5a2';ctx.fillText(t,q.x,q.y-36);
+  }
+ }
  // street wrecks
  boxIso(14.2,6.1,2.2,1.5,30,'#566064','#303b40');
  boxIso(19.2,4.2,2.5,1.4,24,'#5c5148','#34312e');
@@ -966,6 +1038,13 @@ function blocked(x,y,fromX=player.x,fromY=player.y){
    if(!templeDoor&&!sanctuaryDoor)return true;
   }}
  for(const tr of cultTrees){if(Math.hypot(x-tr.x,y-tr.y)<1.05)return true}
+ // Estructuras exteriores R4. Si una partida antigua ya estaba dentro
+ // de una huella, puede salir de ella; no se permite entrar desde fuera.
+ for(const b of militaryStructures){
+  const inside=x>b.x-.3&&x<b.x+b.w+.3&&y>b.y-.3&&y<b.y+b.h+.3;
+  const wasInside=fromX>b.x-.3&&fromX<b.x+b.w+.3&&fromY>b.y-.3&&fromY<b.y+b.h+.3;
+  if(inside&&!wasInside)return true;
+ }
  // El umbral se puede atravesar por el camino central; las columnas quedan fuera de él.
  // Los interiores urbanos tienen perímetros y salidas físicas independientes.
  const roomBounds={mall:{x1:329,x2:361,y1:9,y2:41,doorX:345,doorY:40},metro:{x1:364,x2:397,y1:9,y2:42,doorX:380,doorY:41},hospital:{x1:329,x2:361,y1:49,y2:86,doorX:345,doorY:85},nest:{x1:364,x2:397,y1:49,y2:86,doorX:380,doorY:85},temple:{x1:329,x2:361,y1:132,y2:166,doorX:345,doorY:165}}[state.currentInterior];
