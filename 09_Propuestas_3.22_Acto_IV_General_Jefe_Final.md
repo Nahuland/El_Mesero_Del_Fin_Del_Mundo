@@ -57,18 +57,18 @@ Elba Roldán y Nerea Vidal no ocupan puestos de mando político. Son personal t�
 
 ## 5. Historia propuesta para cerrar los huecos
 
-### 5.1 Cómo nació el Mando de Continuidad
-Tras el Día Cero, varios puestos militares quedaron aislados. Varela unificó las unidades que todavía respondían a una cadena de mando y presentó esa reorganización como una medida temporal. Con el paso de los años, eliminó controles internos y convirtió las órdenes de emergencia en ley permanente. La cronología exacta y el nombre del primer puesto unificado quedan sujetos a aprobación.
+### 5.1 Cómo nació el Ejército de Salvación
+Tras el Día Cero, varios puestos militares quedaron aislados. Richars Octavio unificó las unidades que todavía respondían a una cadena de mando y presentó esa reorganización como una medida temporal. Con el paso de los años, eliminó controles internos y convirtió las órdenes de emergencia en ley permanente. La cronología exacta y el nombre del primer puesto unificado quedan sujetos a aprobación.
 
 ### 5.2 La responsabilidad del General
-Varela no diseñó la Fiebre Gris ni originó la señal externa. Su responsabilidad, más concreta y condenable, es haber recibido alertas sobre la cápsula del Vuelo 9, priorizado la continuidad operativa, ocultado los manifiestos y permitido que la información no llegara a quienes podían proteger a la población. Después utilizó el miedo al colapso para justificar evacuaciones selectivas, represión y obediencia absoluta.
+Richars Octavio no diseñó la Fiebre Gris ni originó la señal externa. Su responsabilidad, más concreta y condenable, es haber recibido alertas sobre la cápsula del Vuelo 9, priorizado la continuidad operativa, ocultado los manifiestos y permitido que la información no llegara a quienes podían proteger a la población. Después utilizó el miedo al colapso para justificar evacuaciones selectivas, represión y obediencia absoluta.
 
 Propuesta de carácter: no se arrepiente. Considera que las vidas sacrificadas eran un coste aceptable y que la población necesita un amo antes que libertad. Su agotamiento no produce compasión ni una salida pacífica: alimenta su paranoia y su violencia.
 
 ### 5.3 Don Aurelio y el recetario
-Propuesta de vínculo: durante los primeros años posteriores al Día Cero, Don Aurelio se presentó ante el mando para pedir clemencia por robots de servicio que habían protegido civiles. Llevó comida y su recetario como gesto de humanidad. Varela aceptó conservar el recetario, pero rechazó la petición y mantuvo la política de desactivación y control.
+Propuesta de vínculo: durante los primeros años posteriores al Día Cero, Don Aurelio se presentó ante el mando para pedir clemencia por robots de servicio que habían protegido civiles. Llevó comida y su recetario como gesto de humanidad. Richars Octavio aceptó conservar el recetario, pero rechazó la petición y mantuvo la política de desactivación y control.
 
-El recetario aparece en la Fortaleza entre los efectos privados del General. Una anotación de Don Aurelio demuestra que la petición fue personal y que Varela entendió el argumento humano antes de rechazarlo. La escena no debe insinuar que el General fue bueno, que cambió de opinión o que merece perdón. La suerte posterior de Don Aurelio permanece desconocida: el recetario prueba el encuentro, no su destino.
+El recetario aparece en la Fortaleza entre los efectos privados del General. Una anotación de Don Aurelio demuestra que la petición fue personal y que Richars Octavio entendió el argumento humano antes de rechazarlo. La escena no debe insinuar que el General fue bueno, que cambió de opinión o que merece perdón. La suerte posterior de Don Aurelio permanece desconocida: el recetario prueba el encuentro, no su destino.
 
 ### 5.4 Mecánica y Piloto
 Elba Roldán conoce las lanchas artilladas porque participó en su mantenimiento. Sabe que se preparó un ataque y que las embarcaciones pueden quedar inutilizadas mediante una intervención mecánica. No conoce por sí sola el contenido completo del Vuelo 9.
@@ -90,7 +90,7 @@ La ruta y las coordenadas existentes se conservan. Las escenas se vinculan a los
 | Muelle de Carga / Muelle (44,247) | Si Siete ayudó a Elba y dispone de la llave inglesa, puede sabotear las lanchas artilladas. Si no, el ataque queda preparado y aumenta la presión en el tramo final |
 | Puente Blindado / Control del puente (112,160) | Encuentro con el dispositivo de seguridad de Funes y Ferreyra. El paso se abre mediante objetivo jugable, no por una llave arbitraria |
 | Aeródromo (180,250) | Centro de pruebas: manifiesto alterado, registro de carga de la cápsula y orden de ocultamiento. Cada pieza corrobora una parte distinta; ninguna por sí sola explica el origen de la señal |
-| Fortaleza del General / Fortaleza (133,276) | El recetario de Don Aurelio, la confrontación con Varela y el combate de jefe final |
+| Fortaleza del General / Fortaleza (133,276) | El recetario de Don Aurelio, la confrontación con Richars Octavio y el combate de jefe final |
 
 El Cuartel avanzado (139,188) se propone como puesto de mando operativo y tablero de órdenes. El Puesto de radio (192,192) se propone como nodo de comunicaciones donde se conserva una copia de la orden de encubrimiento; no es el origen de la señal externa.
 
@@ -103,17 +103,17 @@ Propuesta de conjunto de evidencias:
 4. **Orden de ocultamiento:** vincula el encubrimiento con la cadena de mando superior.
 5. **Testimonio de Nerea:** confirma los procedimientos y aquello que presenció.
 6. **Testimonio de Elba:** conecta la logística militar con las lanchas artilladas y el ataque preparado.
-7. **Recetario anotado:** confirma la petición de Don Aurelio y el rechazo consciente de Varela.
+7. **Recetario anotado:** confirma la petición de Don Aurelio y el rechazo consciente de Richars Octavio.
 
 El tablero de pistas en La Estrella debe separar evidencia directa, testimonio e inferencia. No debe afirmar que el ejército creó la enfermedad ni la señal.
 
 ## 8. General Acorazado: jefe final obligatorio
 
 ### Principio narrativo
-Varela no se rinde. No pide perdón. No ofrece una alianza. No existe una comprobación de afinidad que desbloquee una salida pacífica. Puede intentar intimidar, negociar de mala fe o prometer seguridad, pero son tácticas para ganar tiempo y atacar.
+Richars Octavio no se rinde. No pide perdón. No ofrece una alianza. No existe una comprobación de afinidad que desbloquee una salida pacífica. Puede intentar intimidar, negociar de mala fe o prometer seguridad, pero son tácticas para ganar tiempo y atacar.
 
 ### Propuesta de combate en tres fases
-- **Fase 1 — Control del campo:** Varela utiliza armamento pesado, ataques frontales telegrafiados y fuego de cobertura. El jugador aprende a leer sus patrones y a usar la cobertura del escenario.
+- **Fase 1 — Control del campo:** Richars Octavio utiliza armamento pesado, ataques frontales telegrafiados y fuego de cobertura. El jugador aprende a leer sus patrones y a usar la cobertura del escenario.
 - **Fase 2 — Blindaje de asalto:** al perder parte de su protección, acelera, rompe coberturas y castiga quedarse quieto. Las ventanas de daño aparecen después de ataques comprometidos.
 - **Fase 3 — Última orden:** con el blindaje dañado, activa el sistema de mando de la Fortaleza y combina ataques de área con presión directa. La arena obliga a moverse y aprovechar las aperturas; no hay cuenta regresiva que mate al jugador sin posibilidad de respuesta.
 
@@ -123,16 +123,16 @@ La pelea debe usar el sistema de combate, armas, recursos y controles ya existen
 - Si las lanchas fueron saboteadas, no aparece el apoyo artillado durante el combate o su presión queda reducida.
 - Si se reunieron pruebas del Aeródromo, se puede desactivar parte del apoyo de comunicaciones y el diario documenta la responsabilidad del General.
 - Si se ayudó a compañeros, pueden habilitarse apoyos concretos ya definidos en sus arcos; no deben convertirse en daño automático que elimine al jefe.
-- Si faltan pruebas, Varela conserva más apoyo y el jugador debe afrontar más presión ambiental, pero el combate sigue siendo ganable.
+- Si faltan pruebas, Richars Octavio conserva más apoyo y el jugador debe afrontar más presión ambiental, pero el combate sigue siendo ganable.
 
 ### Resolución
-Al derrotarlo, Varela muere o queda definitivamente neutralizado en combate. Propuesta recomendada: muerte explícita, sin escena de clemencia. La consola Siesta y la decisión del Acto V quedan como el conflicto final de la historia; derrotar al General no resuelve por sí solo el futuro de robots y humanos.
+Al derrotarlo, Richars Octavio muere o queda definitivamente neutralizado en combate. Propuesta recomendada: muerte explícita, sin escena de clemencia. La consola Siesta y la decisión del Acto V quedan como el conflicto final de la historia; derrotar al General no resuelve por sí solo el futuro de robots y humanos.
 
 ## 9. Puente hacia el Acto V
 
 La derrota del General abre la Fortaleza y permite acceder a la consola Siesta. Las pruebas reunidas alteran la información que Siete puede mostrar a sus aliados y la reacción de las comunidades, pero no eliminan las decisiones difíciles.
 
-El combate contra Varela debe ser obligatorio para completar el Acto IV. No se habilitan finales por pactar con él ni por aceptar su autoridad. Los ocho finales propuestos en la Biblia pueden conservarse como resultados de la decisión sobre Siesta y del estado del mundo; ninguno debe depender de que el General sobreviva o se redima.
+El combate contra Richars Octavio debe ser obligatorio para completar el Acto IV. No se habilitan finales por pactar con él ni por aceptar su autoridad. Los ocho finales propuestos en la Biblia pueden conservarse como resultados de la decisión sobre Siesta y del estado del mundo; ninguno debe depender de que el General sobreviva o se redima.
 
 ## 10. Huecos adicionales detectados y propuestas de resolución
 
@@ -176,10 +176,14 @@ Son nombres conceptuales para el diseño; antes de programarlos deben cotejarse 
 7. Conectar la derrota del General con la consola Siesta y el Acto V.
 8. Ejecutar pruebas estáticas, de regresión, de guardado/carga, de rutas y de combate; luego prueba visual/manual y móvil físico.
 
-## 13. Aprobación del usuario\n\nEl usuario aprobó el conjunto de propuestas con dos nombres definitivos: la facción se denomina **Ejército de Salvación** y el General Acorazado se llama **Richars Octavio**. Se aprueban también la jerarquía, los personajes Elba Roldán, Nerea Vidal, Damián Ferreyra, Celina Borda y Ramiro Funes, la historia propuesta, la cadena de evidencias, los sectores auxiliares y el combate final obligatorio en tres fases. Richars Octavio es malvado, irredimible y no puede rendirse ni ser redimido.\n\n## 14. Límites
+## 13. Aprobación del usuario
+
+El usuario aprobó el conjunto de propuestas con dos nombres definitivos: la facción se denomina **Ejército de Salvación** y el General Acorazado se llama **Richars Octavio**. Se aprueban también la jerarquía, los personajes Elba Roldán, Nerea Vidal, Damián Ferreyra, Celina Borda y Ramiro Funes, la historia propuesta, la cadena de evidencias, los sectores auxiliares y el combate final obligatorio en tres fases. Richars Octavio es malvado, irredimible y no puede rendirse ni ser redimido.
+
+## 14. Límites
 
 - El diseño narrativo de este documento está aprobado; la implementación técnica sigue pendiente.
 - No modificar el juego ejecutable ni el guardado hasta planificar y verificar la implementación.
 - No inventar que el General creó la Fiebre Gris o la señal externa.
-- No ofrecer redención, rendición, alianza ni clemencia para Varela.
+- No ofrecer redención, rendición, alianza ni clemencia para Richars Octavio.
 - No cambiar la ruta o las coordenadas R4 existentes sin una revisión separada del Plano y CSV.
