@@ -518,3 +518,10 @@ Se incorpora la primera capa física del Territorio Militar usando exclusivament
 La frontera R4 permanece cerrada para entradas desde otras regiones. Las partidas antiguas que ya estuvieran dentro conservan la posibilidad de salir. Los edificios nuevos tienen colisiones exteriores con puntos de inspección y aproximaciones libres; sus puertas permanecen cerradas. No se crean banderas nuevas ni cambia `saveVersion:49`; se conserva `mesero30save`.
 
 La validación de esta entrega es estática y de sintaxis. La inspección visual/manual y móvil de 3.21 queda pendiente.
+
+
+## 19. Preparación narrativa — Versión 3.22: Acto IV / Territorio Militar R4
+
+Se incorpora una auditoría del Guion Maestro Fase 4 para preparar el desarrollo de la facción militar. La etapa confirma la ruta Puerto Militar → Campo de Trincheras → Hangar Oxidado → Muelle de Carga → Puente Blindado → Aeródromo → Fortaleza del General y los hechos establecidos sobre Mecánica, Piloto, lanchas artilladas, evacuaciones selectivas, Vuelo 9, recetario de Don Aurelio, llave inglesa y General Acorazado.
+
+La auditoría no añade contenido ejecutable. Identifica los datos todavía no definidos por la fuente —nombres propios, encuentros, pruebas concretas, condiciones de ayuda, umbrales de rendición y progresión de interiores— y los deja pendientes de definición. No se modifica el HTML, el bloqueo regional, las coordenadas, el CSV ni el guardado saveVersion:49 / mesero30save. Ver 08_Plan_3.22_Desarrollo_Faccion_Militar.md y REPORTE_QA_3.22_Plan.txt.
