@@ -24,3 +24,9 @@ PENDIENTE ANTES DE LA IMPLEMENTACIÓN JUGABLE
 
 RESULTADO
 Auditoría documental aprobada. No es una entrega jugable y no certifica funcionamiento visual o móvil.
+
+
+ACTUALIZACIÓN DE DIRECCIÓN NARRATIVA
+[OK] Decisión del usuario: el General Acorazado es malvado y jefe final obligatorio; no hay redención ni rendición.
+[OK] Propuestas de nombres, jerarquía, facción, pruebas, historia y combate separadas del canon confirmado en 09_Propuestas_3.22_Acto_IV_General_Jefe_Final.md.
+[PENDIENTE] Aprobación de las propuestas antes de convertirlas en canon o implementarlas.
