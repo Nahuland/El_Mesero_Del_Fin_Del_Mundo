@@ -38,3 +38,11 @@ La versión de referencia preparada localmente es **3.19**. El informe de QA dis
 - [Informe QA 3.21](REPORTE_QA_3.21_R4_Geografia.txt)
 
 R4 conserva el bloqueo de acceso. Esta entrega completa únicamente su primera capa geográfica exterior; la facción y la historia militar siguen pendientes.
+
+
+## Versión 3.22 — preparación narrativa del Acto IV
+
+- [Plan de desarrollo de la facción militar R4](08_Plan_3.22_Desarrollo_Faccion_Militar.md)
+- [Informe QA documental 3.22](REPORTE_QA_3.22_Plan.txt)
+
+La 3.22 es una auditoría de canon y planificación; no es una versión jugable. El HTML permanece en 3.21 hasta que se definan los vacíos del Acto IV y se implemente la progresión con pruebas.
