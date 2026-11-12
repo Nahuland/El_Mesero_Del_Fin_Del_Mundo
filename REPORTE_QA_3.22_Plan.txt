@@ -7,7 +7,7 @@ Alcance: auditoría de canon y planificación del desarrollo narrativo militar R
 [OK] Correspondencia funcional con los nueve hitos cartográficos R4 3.21 documentada.
 [OK] Vacíos de canon y diseño enumerados; no se completan mediante invención.
 [OK] Variables narrativas propuestas por el Guion Maestro registradas como destino de diseño, no implementadas.
-[OK] Se conserva la distinción entre destruir autoridad, exponer verdad y permitir rendición.
+[OK] Se conserva la exposición de la verdad como variable; no existe rendición del General.
 [OK] Se mantiene la compatibilidad como requisito: mesero30save y migración aditiva.
 
 NO MODIFICADO
