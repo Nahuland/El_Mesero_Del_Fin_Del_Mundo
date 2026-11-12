@@ -1,0 +1,42 @@
+EL MESERO DEL FIN DEL MUNDO — QA 3.21
+Alcance: primera capa de geografía exterior del Territorio Militar R4.
+
+CONTENIDO IMPLEMENTADO
+- Control del puente (112,160): puestos laterales y barrera visual.
+- Trincheras norte (91,185): zanjas y parapetos, conservando el corredor.
+- Cuartel avanzado (139,188): estructura exterior cerrada.
+- Puerto (65,225): zona de carga, almacén y elementos de carga.
+- Muelle (44,247): pasarela visual conectada a la costa suroeste existente.
+- Hangar (145,230): nave exterior cerrada.
+- Aeródromo (180,250): pista vacía y marcas de orientación.
+- Fortaleza (133,276): perímetro y estructura exterior cerrados.
+- Puesto de radio (192,192): mástil sin transmisión.
+- Se incorporan etiquetas de zona para orientar al jugador dentro de R4.
+
+CONTINUIDAD Y RESTRICCIONES
+- No se cambian centros, huellas ni accesos del CSV maestro.
+- No se agregan personajes, soldados, insignias, órdenes, transmisiones, misiones, interiores ni revelaciones.
+- R4 sigue bloqueado desde otras regiones; partidas antiguas que ya estuvieran dentro pueden salir.
+- Los edificios tienen muros exteriores; las aproximaciones cartográficas quedan libres.
+- Se conserva mesero30save y saveVersion 49; no hay nuevas banderas ni migración de guardado.
+
+VALIDACIÓN ESTÁTICA
+[OK] JavaScript inline parseado mediante new Function, sin errores de sintaxis.
+[OK] Etiquetas de versión 3.21.
+[OK] Nueve hitos R4 y sus IDs conservados.
+[OK] Geometría visual de los sectores nuevos presente.
+[OK] Colisiones exteriores añadidas para Cuartel, Hangar y Fortaleza.
+[OK] Puntos de acceso quedan fuera de los segmentos de muro.
+[OK] Regla de bloqueo de entrada a R4 conservada.
+[OK] Rutas R3→R4 y conexiones internas preexistentes conservadas.
+[OK] saveVersion 49 y clave mesero30save conservadas.
+[OK] Coordenadas maestras 3.21 con 9 estados R4 actualizados y 21 columnas.
+
+PENDIENTE
+- Inspección visual/manual en navegador de 3.21.
+- Prueba física en móvil.
+- Comprobación práctica de colisiones y recorrido en una partida real.
+- Validación de legibilidad de las etiquetas en distintas resoluciones.
+
+RESULTADO
+Aprobación estática de sintaxis e integración de los cambios. No se declara cerrada la validación visual ni funcional.
