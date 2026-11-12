@@ -523,3 +523,10 @@ La numeración regional de implementación se mantiene: R4 es Territorio Militar
 La secuencia cartográfica militar conserva el acceso por el norte/este hacia Control del puente (112,160), Trincheras norte (91,185), Cuartel avanzado (139,188), y los sectores logísticos del sur: Puerto (65,225), Muelle (44,247), Hangar (145,230), Aeródromo (180,250) y Fortaleza (133,276). El Puesto de radio (192,192) permanece como hito auxiliar.
 
 La costa suroeste se representa con el agua existente y una estructura de muelle conectada visualmente a la orilla. El Hangar y el Aeródromo conservan áreas despejadas acordes a sus huellas. Esta capa es geográfica, no narrativa: no identifica fuerzas, bandos, rangos ni responsables.
+
+
+## Addendum 3.22 — preparación narrativa de R4
+
+El Guion Maestro Fase 4 establece la ruta del Acto IV y sus contenidos narrativos: logística de lanchas artilladas y evacuaciones selectivas, revelaciones de Mecánica y Piloto, pruebas del Vuelo 9 en el Aeródromo, conexión del recetario de Don Aurelio con el pasado del General y sabotaje condicionado de las lanchas mediante llave inglesa y ayuda previa a la Mecánica. La Fortaleza contiene la confrontación con el General Acorazado.
+
+La correspondencia espacial utiliza los hitos R4 ya cartografiados en 3.21; no se cambian centros, huellas ni accesos. El Cuartel avanzado y el Puesto de radio continúan sin función narrativa definida. Esta addenda es de planificación: no abre R4 ni añade puertas, interiores, personajes o misiones.
