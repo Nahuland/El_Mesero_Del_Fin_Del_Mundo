@@ -106,3 +106,8 @@ La versión 3.18 solo aclara la lectura espacial del corredor al Bosque y corrig
 ## Nota de continuidad 3.19 — QA sin expansión narrativa
 
 La versión 3.19 corrige progresión, carga de partidas y navegación espacial. No añade encuentros, personajes, doctrinas, misiones, decisiones ni revelaciones. Los interiores de Catacumbas, Templo y Santuario mantienen su función ambiental ya aprobada. R4 continúa cerrado y el arco militar permanece reservado.
+
+
+## Nota editorial 3.20 — exploración ambiental de R5
+
+Los seis puntos nuevos describen únicamente elementos físicos observables: madera húmeda, piedras, mampostería erosionada, una pileta seca, restos de puestos y peldaños dañados. Ninguno permite identificar responsables, reconstruir prácticas, atribuir doctrinas o revelar la historia interna de la Secta del Sol y la Luna. No se agregan personajes, misiones, decisiones ni consecuencias narrativas. R4 y la facción militar siguen reservados para el tramo final.
