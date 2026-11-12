@@ -736,3 +736,20 @@ La coordenada exterior de retorno se captura al entrar y no se sustituye por un 
 | Descanso de la escalinata | (372,239) | Inspección ambiental | Sin colisión; no cambia el acceso al Templo |
 
 Los seis puntos son adiciones 3.20; no desplazan coordenadas 3.19. Los accesos Catacumbas (354,220), Templo (352,247) y Santuario (384,276), sus apariciones y retornos permanecen intactos. No se modifica el límite de R4.
+
+
+## Addendum 3.21 — implementación física exterior de R4
+
+| Sector | Centro | Huella | Acceso del plano | Estado 3.21 |
+|---|---:|---:|---:|---|
+| Control del puente | (112,160) | 18×12 | (112,153) | Puestos laterales y barrera visual; acceso regional cerrado |
+| Trincheras norte | (91,185) | 34×18 | (91,174) | Parapetos y zanjas ambientales; corredor libre |
+| Cuartel avanzado | (139,188) | 24×18 | (139,179) | Estructura exterior cerrada; acceso reservado |
+| Puerto | (65,225) | 34×24 | (82,225) | Zona de carga, almacén y contenedores ambientales |
+| Muelle | (44,247) | 28×12 | (55,247) | Pasarela visual sobre la costa existente; sin navegación |
+| Hangar | (145,230) | 32×24 | (145,218) | Nave exterior cerrada; sin aeronaves ni interior |
+| Aeródromo | (180,250) | 38×26 | (180,236) | Pista vacía y marcas de orientación |
+| Fortaleza | (133,276) | 34×20 | (133,265) | Perímetro y edificio exterior cerrados |
+| Puesto de radio | (192,192) | 12×12 | (186,192) | Mástil sin transmisión ni mensajes |
+
+Las coordenadas, huellas y accesos se conservan sin desplazamientos. Los muros nuevos dejan libre la aproximación a los puntos de inspección. El límite físico de R4 en Y=145 y el bloqueo de entrada desde otras regiones siguen vigentes.
