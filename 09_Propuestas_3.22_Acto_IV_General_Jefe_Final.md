@@ -1,6 +1,6 @@
 # Propuestas 3.22 — Acto IV, jerarquía militar y General como jefe final
 
-**Estado editorial:** propuestas para aprobación. Nada de este documento se considera canon definitivo ni está implementado en el juego hasta recibir aprobación expresa.
+**Estado editorial:** diseño narrativo aprobado por el usuario. Aún no está implementado en el juego.
 
 ## 1. Decisión rectora del usuario
 
@@ -19,34 +19,34 @@ Esta decisión sustituye, para el General, la propuesta anterior del Guion Maest
 
 ## 2. Nombre y concepto de la facción
 
-### Propuesta principal: Mando de Continuidad
+### Nombre aprobado: Ejército de Salvación
 
-Nombre institucional: **Mando de Continuidad**. Nombre coloquial entre civiles: **el Mando**. Sus integrantes se identifican como personal del Mando o fuerzas de Continuidad.
+Nombre institucional: **Ejército de Salvación**. En el habla cotidiana puede llamarse **el Ejército**. Sus integrantes se identifican como personal o fuerzas del Ejército de Salvación.
 
 **Idea central:** una estructura militar que sobrevivió a la guerra y convirtió la emergencia en un régimen permanente. Su propaganda sostiene que solo una cadena de mando rígida evita otra guerra. En la práctica, el General concentra decisiones, administra evacuaciones selectivas, oculta información y utiliza la amenaza exterior para perpetuar su control.
 
 La facción no debe presentarse como una organización que creó la Fiebre Gris o la señal que manipuló robots. Su responsabilidad está en la negligencia, el encubrimiento del Vuelo 9, las decisiones de evacuación, la represión y el uso político del Protocolo Siesta.
 
-**Otras denominaciones posibles:** Régimen de Continuidad; Comando de Restauración. Se recomienda Mando de Continuidad porque suena a institución burocrático-militar y refuerza la idea de una emergencia que nunca termina.
+El nombre queda fijado como Ejército de Salvación; no se mantienen denominaciones alternativas.
 
 ## 3. Nombres propuestos
 
-Todos son nombres nuevos sugeridos, no nombres confirmados por el material maestro.
+Los nombres de esta tabla quedan aprobados por el usuario para el diseño narrativo.
 
 | Rol | Nombre propuesto | Función dramática |
 |---|---|---|
-| General Acorazado | **Octavio Varela** | Comandante supremo y jefe final. Su nombre civil se revela en documentos o durante el combate; el mundo lo conoce por su título |
+| General Acorazado | **Richars Octavio** | Comandante supremo y jefe final. Su nombre civil se revela en documentos o durante el combate; el mundo lo conoce por su título |
 | Mecánica | **Elba Roldán** | Técnica de mantenimiento de embarcaciones y sistemas de carga. Conoce las lanchas y puede sabotearlas si Siete la ayuda |
 | Piloto | **Nerea Vidal** | Piloto de transporte. Conoce la ruta y los procedimientos del Vuelo 9; aporta el testimonio operativo, no toda la prueba documental |
 | Coronel de Operaciones | **Damián Ferreyra** | Ejecuta las órdenes del General y coordina trincheras, puente y despliegue terrestre |
 | Mayor de Logística | **Celina Borda** | Administra combustible, manifiestos de carga, plazas de evacuación y suministros |
 | Jefe de Seguridad | **Ramiro Funes** | Responsable de los controles, detenciones y defensa de instalaciones; antagonista de combate opcional o miniboss |
 
-Los nombres pueden sustituirse. No se propone renombrar a ninguno de los ocho contactos existentes (Mira, Iván, Lía, Teo, Noa, Dante, Kai y Eva), ni asignarles automáticamente estos papeles.
+Los nombres quedan aprobados. No se renombra a ninguno de los ocho contactos existentes (Mira, Iván, Lía, Teo, Noa, Dante, Kai y Eva), ni asignarles automáticamente estos papeles.
 
 ## 4. Jerarquía propuesta
 
-1. **General Acorazado — Octavio Varela:** autoridad absoluta; decide prioridades, encubrimientos y castigos.
+1. **General Acorazado — Richars Octavio:** autoridad absoluta; decide prioridades, encubrimientos y castigos.
 2. **Coronel de Operaciones — Damián Ferreyra:** mando de tropas, trincheras, puente y defensa terrestre. Es el ejecutor más visible de la voluntad del General.
 3. **Mayor de Logística — Celina Borda:** controla combustible, carga, evacuaciones y registros de transporte. Su documentación permite reconstruir la selección de evacuados y la cadena del Vuelo 9.
 4. **Jefe de Seguridad — Ramiro Funes:** dirige puestos de control, detenciones y custodia de instalaciones.
@@ -167,19 +167,19 @@ Son nombres conceptuales para el diseño; antes de programarlos deben cotejarse 
 
 ## 12. Orden de trabajo propuesto
 
-1. Aprobar o modificar nombre de facción, nombres y jerarquía.
-2. Aprobar la historia de Don Aurelio y el recetario.
-3. Aprobar la cadena de evidencias y los encuentros de Elba y Nerea.
+1. Incorporar al canon el nombre de facción, nombres y jerarquía aprobados.
+2. Incorporar al canon la historia de Don Aurelio y el recetario aprobados.
+3. Incorporar al canon la cadena de evidencias y los encuentros de Elba y Nerea.
 4. Definir qué enemigos, minibosses y patrones caben en el sistema de combate existente.
 5. Diseñar la progresión y los interiores sin alterar coordenadas maestras.
 6. Implementar el jefe final obligatorio en tres fases y las consecuencias de preparación.
 7. Conectar la derrota del General con la consola Siesta y el Acto V.
 8. Ejecutar pruebas estáticas, de regresión, de guardado/carga, de rutas y de combate; luego prueba visual/manual y móvil físico.
 
-## 13. Límites
+## 13. Aprobación del usuario\n\nEl usuario aprobó el conjunto de propuestas con dos nombres definitivos: la facción se denomina **Ejército de Salvación** y el General Acorazado se llama **Richars Octavio**. Se aprueban también la jerarquía, los personajes Elba Roldán, Nerea Vidal, Damián Ferreyra, Celina Borda y Ramiro Funes, la historia propuesta, la cadena de evidencias, los sectores auxiliares y el combate final obligatorio en tres fases. Richars Octavio es malvado, irredimible y no puede rendirse ni ser redimido.\n\n## 14. Límites
 
-- Todo el contenido de este documento es propuesta pendiente de aprobación.
-- No modificar el juego ejecutable ni el guardado hasta aprobar el diseño.
+- El diseño narrativo de este documento está aprobado; la implementación técnica sigue pendiente.
+- No modificar el juego ejecutable ni el guardado hasta planificar y verificar la implementación.
 - No inventar que el General creó la Fiebre Gris o la señal externa.
 - No ofrecer redención, rendición, alianza ni clemencia para Varela.
 - No cambiar la ruta o las coordenadas R4 existentes sin una revisión separada del Plano y CSV.
