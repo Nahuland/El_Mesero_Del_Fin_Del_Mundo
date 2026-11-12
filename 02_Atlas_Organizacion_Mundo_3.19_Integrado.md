@@ -514,3 +514,12 @@ La continuación de partidas restaura el estado activo y conserva `currentInteri
 ## Addendum 3.20 — R5, exploración ambiental
 
 Se agregan seis puntos de observación sin función narrativa nueva: Tronco caído (316,168), Claro pedregoso (326,163), Muro derrumbado (329,190), Fuente seca (321,222), Patio de puestos (342,218) y Descanso de la escalinata (372,239). Los ramales son senderos de lectura visual; no habilitan accesos ni modifican la organización regional. La Aldea, Mercado, Catacumbas, Templo y Santuario conservan su distribución. R4 continúa reservado.
+
+
+## Addendum 3.21 — R4 Territorio Militar: capa geográfica
+
+La numeración regional de implementación se mantiene: R4 es Territorio Militar y R5 es Territorio del Culto, según diagrama macro, Plano Detallado y CSV maestro. El apartado descriptivo antiguo que llama al Culto R4 y al Militar R5 contiene un intercambio de rótulos y no altera esta correspondencia.
+
+La secuencia cartográfica militar conserva el acceso por el norte/este hacia Control del puente (112,160), Trincheras norte (91,185), Cuartel avanzado (139,188), y los sectores logísticos del sur: Puerto (65,225), Muelle (44,247), Hangar (145,230), Aeródromo (180,250) y Fortaleza (133,276). El Puesto de radio (192,192) permanece como hito auxiliar.
+
+La costa suroeste se representa con el agua existente y una estructura de muelle conectada visualmente a la orilla. El Hangar y el Aeródromo conservan áreas despejadas acordes a sus huellas. Esta capa es geográfica, no narrativa: no identifica fuerzas, bandos, rangos ni responsables.
