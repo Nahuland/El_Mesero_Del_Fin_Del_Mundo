@@ -5,7 +5,7 @@ Interiores militares, encuentros de Damián Ferreyra y Celina Borda, registro de
 
 ## Validaciones realizadas
 - JavaScript inline de `index.html`: compilación estática aprobada con `new Function`.
-- Aserciones estáticas: 9/9 para interiores nuevos, NPC, archivos, consola, clave de guardado y versión 49.
+- Aserciones estáticas: 12/12 para puertas, interiores, NPC, archivos, consola, dispatcher, clave de guardado y versión 49.
 - `index.html` y HTML versionado 3.23 sincronizados mediante el mismo contenido.
 - Se corrigió la acumulación de props militares dentro de `resize()`; ahora se registran una sola vez.
 - Se corrigió la transición de facción para preservar `weakened` tras sabotaje o derrota de Funes.
