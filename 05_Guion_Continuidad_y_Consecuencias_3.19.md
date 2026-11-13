@@ -134,3 +134,7 @@ El Ejército de Salvación convirtió la estructura de emergencia posterior al D
 El recetario confirma que Don Aurelio pidió clemencia por robots de servicio y que Richars rechazó la petición. No revela el destino posterior de Don Aurelio.
 
 Richars Octavio es malvado e irredimible. Es el jefe final obligatorio, no puede rendirse ni ser redimido. La victoria termina su régimen y permite acceder a la consola Siesta; el conflicto del Acto V continúa.
+
+## Addendum narrativo 3.23 — escenas militares y Siesta
+
+Celina Borda declara únicamente sobre las planillas y la asignación de plazas que administró. Damián Ferreyra declara sobre la coordinación de puestos y las órdenes que transmitió; su relato debe contrastarse con trincheras y radio. El libro del Hangar corrobora una corrección del peso declarado del Vuelo 9, sin explicar el origen de la Fiebre Gris o de la señal. El archivo de la Fortaleza confirma que la cadena superior recibió la discrepancia y ordenó retirar registros de consulta pública. La consola Siesta permite desconectar el núcleo de órdenes, aislarlo con autorización compartida o conservar una copia de solo lectura. Esas decisiones son el primer nodo del Acto V, no uno de los ocho finales. La derrota de Richars Octavio sigue siendo obligatoria e irredimible.
