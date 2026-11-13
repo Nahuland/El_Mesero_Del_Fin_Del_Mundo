@@ -318,7 +318,18 @@ props.push(
  {id:'mil_coverupOrder',x:192,y:208,type:'landmark',name:'Copia de orden de ocultamiento',emoji:'📡'},
  {id:'mil_funes',x:112,y:175,type:'landmark',name:'Ramiro Funes · Jefe de Seguridad',emoji:'🪖'},
  {id:'mil_recipe',x:142,y:282,type:'landmark',name:'Recetario de Don Aurelio',emoji:'📖'},
- {id:'mil_siestaConsole',x:137,y:284,type:'landmark',name:'Consola Siesta',emoji:'▣'}
+ {id:'mil_siestaConsole',x:137,y:284,type:'landmark',name:'Consola Siesta',emoji:'▣'},
+ {id:'mil_hangarDoor',x:144,y:229.7,type:'landmark',name:'Acceso al Hangar Oxidado',emoji:'🚪'},
+ {id:'mil_fortressDoor',x:133,y:276,type:'landmark',name:'Acceso a la Fortaleza',emoji:'🏰'},
+ {id:'mil_damian',x:114,y:166,type:'landmark',name:'Damián Ferreyra · Coronel de Operaciones',emoji:'🪖'},
+ {id:'mil_hangarReturn',x:181,y:165,type:'roomdoor',name:'Salida del Hangar',emoji:'🚪',interior:'milHangar'},
+ {id:'mil_celina',x:193,y:171,type:'landmark',name:'Celina Borda · Mayor de Logística',emoji:'📋',interior:'milHangar'},
+ {id:'mil_hangarFlightLog',x:188,y:182,type:'landmark',name:'Libro de operaciones del Vuelo 9',emoji:'📘',interior:'milHangar'},
+ {id:'mil_hangarToolRack',x:199,y:184,type:'landmark',name:'Banco de mantenimiento',emoji:'🛠️',interior:'milHangar'},
+ {id:'mil_fortressReturn',x:166,y:278,type:'roomdoor',name:'Salida de la Fortaleza',emoji:'🚪',interior:'milFortress'},
+ {id:'mil_fortressArchive',x:177,y:273,type:'landmark',name:'Archivo de mando',emoji:'🗄️',interior:'milFortress'},
+ {id:'mil_fortressAurelio',x:184,y:283,type:'landmark',name:'Recetario de Don Aurelio',emoji:'📖',interior:'milFortress'},
+ {id:'mil_fortressSiesta',x:177,y:290,type:'landmark',name:'Consola Siesta',emoji:'▣',interior:'milFortress'}
 );
 W=canvas.clientWidth;H=canvas.clientHeight;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
 addEventListener('resize',resize);resize();
@@ -352,6 +363,8 @@ function zoneAt(x,y){
  if(state.currentInterior==='catacombs')return 'Secta del Sol y la Luna · Catacumbas';
  if(state.currentInterior==='temple')return 'Secta del Sol y la Luna · Templo';
  if(state.currentInterior==='sanctuary')return 'Secta del Sol y la Luna · Santuario';
+ if(state.currentInterior==='milHangar')return 'Ejército de Salvación · Hangar Oxidado';
+ if(state.currentInterior==='milFortress')return 'Ejército de Salvación · Fortaleza';
  const r=regionAt(x,y);
  if(r==='R4'){if(x<80&&y>205)return 'Ejército de Salvación · Puerto y Muelle';if(x<125&&y<190)return 'Ejército de Salvación · Trincheras y Puente';if(x<170&&y<225)return 'Ejército de Salvación · Cuartel y Hangar';if(x>=170)return 'Ejército de Salvación · Aeródromo y Radio';return 'Ejército de Salvación · Fortaleza';}
  if(r==='R5'){
@@ -421,6 +434,8 @@ function drawGround(){
   const catacombsFloor=state.currentInterior==='catacombs'&&x>=329&&x<=361&&y>=91&&y<=125;
    const templeFloor=state.currentInterior==='temple'&&x>=329&&x<=361&&y>=132&&y<=166;
   const sanctuaryFloor=state.currentInterior==='sanctuary'&&x>=365&&x<=397&&y>=190&&y<=224;
+  const militaryHangarFloor=state.currentInterior==='milHangar'&&x>=178&&x<=207&&y>=162&&y<=191;
+  const militaryFortressFloor=state.currentInterior==='milFortress'&&x>=163&&x<=194&&y>=260&&y<=294;
   const cityInteriorFloor=!!state.currentInterior&&(
    (state.currentInterior==='catacombs'&&x>=329&&x<=361&&y>=91&&y<=125)||
     (state.currentInterior==='temple'&&x>=329&&x<=361&&y>=132&&y<=166)||
@@ -432,6 +447,8 @@ function drawGround(){
   if(state.currentInterior==='catacombs'&&catacombsFloor)c=((x+y)%2?'#454940':'#4e5248');
    else if(state.currentInterior==='temple'&&templeFloor)c=((x+y)%2?'#625f53':'#6b6759');
   else if(state.currentInterior==='sanctuary'&&sanctuaryFloor)c=((x+y)%2?'#57594f':'#606256');
+  else if(militaryHangarFloor)c=((x+y)%2?'#59615c':'#626b64');
+  else if(militaryFortressFloor)c=((x+y)%2?'#51473e':'#5b5045');
   else if(cityInteriorFloor)c=((x+y)%2?'#65645a':'#716f62');
   else if(depotFloor)c=((x+y)%2?'#625b4d':'#6b6252');
   else if(patioFloor)c=((x+y)%2?'#53605b':'#5c6962');
@@ -937,6 +954,18 @@ function drawCultExplorationSites(){
   ctx.fillStyle='#d8c8a6';ctx.fillText(o.name,p.x,p.y-43);ctx.restore();
  }
 }
+function drawMilitaryInterior(){
+ if(state.currentInterior==='milHangar'){
+  boxIso(179,163,28,1,22,'#555d58','#343d3b');boxIso(179,190,28,1,22,'#555d58','#343d3b');boxIso(179,164,1,27,22,'#555d58','#343d3b');boxIso(206,164,1,27,22,'#555d58','#343d3b');
+  boxIso(183,169,5,2,10,'#68716b','#414a45');boxIso(198,169,5,2,10,'#68716b','#414a45');
+  const plane=screen(192,179);ctx.save();ctx.fillStyle='#9b9b88';ctx.strokeStyle='#3b4545';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(plane.x,plane.y-30);ctx.lineTo(plane.x+8,plane.y+5);ctx.lineTo(plane.x+3,plane.y+10);ctx.lineTo(plane.x-3,plane.y+10);ctx.lineTo(plane.x-8,plane.y+5);ctx.closePath();ctx.fill();ctx.stroke();ctx.fillRect(plane.x-25,plane.y-4,50,7);ctx.restore();
+ }
+ if(state.currentInterior==='milFortress'){
+  boxIso(164,260,30,1,28,'#62564a','#40382f');boxIso(164,293,30,1,28,'#62564a','#40382f');boxIso(164,261,1,32,28,'#62564a','#40382f');boxIso(193,261,1,32,28,'#62564a','#40382f');
+  boxIso(170,264,5,2,13,'#75624d','#473b31');boxIso(185,264,5,2,13,'#75624d','#473b31');
+  const desk=screen(179,278);ctx.fillStyle='#594632';ctx.fillRect(desk.x-22,desk.y-15,44,12);ctx.fillStyle='#c2a77a';ctx.fillRect(desk.x-16,desk.y-19,32,4);
+ }
+}
 function drawPlayer(){
  const p=screen(player.x,player.y);
  ctx.fillStyle='#0008';ctx.beginPath();ctx.ellipse(p.x,p.y-1,14,6,0,0,Math.PI*2);ctx.fill();
@@ -954,7 +983,7 @@ function drawAtmosphere(){
 function render(){
  ctx.clearRect(0,0,W,H);
  const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#172c39');g.addColorStop(1,'#0b171f');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
- drawGround();drawBuildings();drawReservedBoundary();drawRegionLabels();drawExplorationSites();drawCultExplorationSites();
+ drawGround();drawBuildings();drawReservedBoundary();drawRegionLabels();drawExplorationSites();drawCultExplorationSites();drawMilitaryInterior();
  props.filter(o=>(o.id!=='robotguest'||state.chapterComplete)&&(state.currentInterior?o.interior===state.currentInterior:!o.interior)).slice().sort((a,b)=>a.x+a.y-(b.x+b.y)).forEach(drawProp);
  drawPlayer();drawAtmosphere();
 }
@@ -1015,6 +1044,20 @@ function blocked(x,y,fromX=player.x,fromY=player.y){
   for(const b of [{x:332,y:139,w:1.4,h:1.4},{x:358,y:139,w:1.4,h:1.4},{x:332,y:157,w:1.4,h:1.4},{x:358,y:157,w:1.4,h:1.4},{x:333.5,y:145,w:4.2,h:1.8},{x:352.3,y:145,w:4.2,h:1.8},{x:333.5,y:153,w:4.2,h:1.8},{x:352.3,y:153,w:4.2,h:1.8},{x:341,y:136,w:8,h:2.2}])if(x>b.x-.25&&x<b.x+b.w+.25&&y>b.y-.25&&y<b.y+b.h+.25)return true;
  }
 
+ if(state.currentInterior==='milHangar'){
+  const exit=x>178&&x<182&&y<167.5;
+  if(x<178.5||x>207.5||y<162.5||y>191.5)return true;
+  if(!exit&&(x<179.2||x>206.8||y<163.2||y>190.8))return true;
+  const blocks=[{x:183,y:168,w:3,h:2},{x:200,y:168,w:3,h:2},{x:184,y:187,w:4,h:1.5},{x:198,y:184,w:2,h:3}];
+  for(const b of blocks)if(x>b.x-.25&&x<b.x+b.w+.25&&y>b.y-.25&&y<b.y+b.h+.25)return true;
+ }
+ if(state.currentInterior==='milFortress'){
+  const exit=x>163&&x<167&&y>276&&y<280;
+  if(x<163.5||x>194.5||y<259.5||y>294.5)return true;
+  if(!exit&&(x<164.2||x>193.8||y<260.2||y>293.8))return true;
+  const blocks=[{x:169,y:264,w:5,h:2},{x:185,y:264,w:5,h:2},{x:170,y:286,w:4,h:2},{x:187,y:286,w:4,h:2}];
+  for(const b of blocks)if(x>b.x-.25&&x<b.x+b.w+.25&&y>b.y-.25&&y<b.y+b.h+.25)return true;
+ }
  // Santuario: sala independiente con entrada/salida occidental.
  if(state.currentInterior==='sanctuary'){
   const westDoor=x<367.2&&y>205.2&&y<209.0;
@@ -1076,7 +1119,7 @@ function blocked(x,y,fromX=player.x,fromY=player.y){
  for(const o of obstacles){if(x>o.x-.35&&x<o.x+o.w+.35&&y>o.y-.35&&y<o.y+o.h+.35)return true}
  return false;
 }
-function enterInterior(name,x,y){if(state.currentInterior)return;state.returnPoint={x:player.x,y:player.y};state.currentInterior=name;player.x=x;player.y=y;keys={};camera.x=iso(x,y).x;camera.y=iso(x,y).y;updateHUD();const labels={depot:'nave de clasificación',patio:'taller del Patio',mall:'Centro Comercial',metro:'Metro',hospital:'Hospital',nest:'Nido',catacombs:'Catacumbas',temple:'Templo',sanctuary:'Santuario'};setToast('Entraste en '+(labels[name]||'el interior')+'.')}
+function enterInterior(name,x,y){if(state.currentInterior)return;state.returnPoint={x:player.x,y:player.y};state.currentInterior=name;player.x=x;player.y=y;keys={};camera.x=iso(x,y).x;camera.y=iso(x,y).y;updateHUD();const labels={depot:'nave de clasificación',patio:'taller del Patio',mall:'Centro Comercial',metro:'Metro',hospital:'Hospital',nest:'Nido',catacombs:'Catacumbas',temple:'Templo',sanctuary:'Santuario',milHangar:'Hangar Oxidado',milFortress:'Fortaleza'};setToast('Entraste en '+(labels[name]||'el interior')+'.')}
 function exitInterior(target){const p=target||state.returnPoint||{x:34.2,y:22.5};state.currentInterior=null;player.x=p.x;player.y=p.y;state.returnPoint=null;keys={};camera.x=iso(player.x,player.y).x;camera.y=iso(player.x,player.y).y;updateHUD();setToast('Has regresado al exterior.')}
 function setToast(msg){$('toast').textContent=msg;$('toast').style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').style.display='none',2200)}
 function updateCivicFollowup(){
@@ -1109,7 +1152,7 @@ function updateHUD(){
  const cityPoiCount=Object.values(state.flags.cityPoiExplored||{}).filter(Boolean).length;
  const civicCacheCount=Object.values(state.city?.civicCaches||{}).filter(Boolean).length;
  $('journalText').textContent=(state.city?.resolution||state.city?.suppliesChoice||state.city?.broadcast||state.city?.tomasTrust||state.city?.infectedSpared!==undefined?cityMemoryText():(state.chapterComplete?'Capítulo I cerrado. La Estrella es ahora un refugio para quienes eligieron dejar de obedecer la señal.':state.bossDefeated?'La fábrica está abierta. Recuperá los registros de Siesta y rastreá la señal en el túnel.':state.survivorTalk?'El Superviviente conoce el sistema de control del Capataz. Buscá pruebas antes de decidir cómo enfrentarlo.':(state.flags.depotManifest||state.flags.patioInspection?'Los registros del Depósito y el Patio pueden cambiar la forma de resolver el conflicto con el Capataz.':'Reuní recuerdos en La Estrella, escuchá al Desertor y descubrí qué controla el Capataz.')))+(poiCount?' · Hitos R1/R2 revisados: '+poiCount+'/10':'')+(cityPoiCount?' · Ciudad Enferma revisada: '+cityPoiCount+'/7':'')+(state.city?.resolution?' · Corredor sur: '+Object.values(state.city?.southSurvey||{}).filter(Boolean).length+'/3':'')+(state.city?.southApproachPrepared?' · Acceso urbano preparado':'')+(state.flags?.cityGateOpen?' · Recursos civiles: '+civicCacheCount+'/3':'')+(state.city?.resolution?' · Seguimiento civil: '+[state.city?.maraFollowup,state.city?.tomasFollowup,state.city?.ibarraFollowup].filter(Boolean).length+'/3':'')+(cultPoiCount?' · R5 ambiental: '+cultPoiCount+'/6':'');
- if(regionAt(player.x,player.y)==='R4'||state.military?.varelaDefeated){const m=ensureMilitary(),e=m.evidence;const n=[e.evacuation,e.trenchOrders,e.flight9Manifest,e.flight9Discrepancy,e.coverupOrder,e.aurelioRecipe].filter(Boolean).length;$('journalText').textContent+=' · Ejército de Salvación: '+n+'/6 pruebas'+(m.gunboatsSabotaged?' · lanchas saboteadas':'')+(m.varelaDefeated?' · Richars Octavio derrotado':'');}
+ if(regionAt(player.x,player.y)==='R4'||state.military?.varelaDefeated){const m=ensureMilitary(),e=m.evidence;const n=[e.evacuation,e.trenchOrders,e.flight9Manifest,e.flight9Discrepancy,e.coverupOrder,e.aurelioRecipe].filter(Boolean).length;$('journalText').textContent+=' · Ejército de Salvación: '+n+'/6 pruebas'+(m.gunboatsSabotaged?' · lanchas saboteadas':'')+(m.varelaDefeated?' · Richars Octavio derrotado':'')+(m.siestaDecision?' · Siesta: '+(m.siestaDecision==='destroy'?'desconectada':m.siestaDecision==='shared'?'acceso compartido':'archivo preservado'):'');}
 }
 function openDialogue(speaker,portrait,text,choices){
  dialogue={speaker,portrait,text,choices:choices||[]};
@@ -1121,13 +1164,13 @@ function openDialogue(speaker,portrait,text,choices){
 function closeDialogue(){$('dialogue').classList.remove('show');document.body.classList.remove('dialogue-open');dialogue=null}
 function advance(){if(!dialogue)return;if(dialogue.choices?.length)return;closeDialogue()}
 $('dialogue').addEventListener('click',e=>{if(e.target.tagName!=='BUTTON')advance()});
-function militaryDefaults(){return {evidence:{evacuation:false,trenchOrders:false,flight9Manifest:false,flight9Discrepancy:false,coverupOrder:false,aurelioRecipe:false},elbaMet:false,elbaHelped:false,wrench:false,gunboatsSabotaged:false,nereaMet:false,nereaTestimony:false,funesHP:90,funesDefeated:false,bridgeSecured:false,varelaDefeated:false,bossHP:260,bossTurnCount:0,bossPhase:1,exposedWeakness:false,repairUsed:false,siestaConsoleAccess:false};}
+function militaryDefaults(){return {hangarLogRead:false,damianConfronted:false,commandArchiveRead:false,siestaDecision:null,evidence:{evacuation:false,trenchOrders:false,flight9Manifest:false,flight9Discrepancy:false,coverupOrder:false,aurelioRecipe:false},elbaMet:false,elbaHelped:false,wrench:false,gunboatsSabotaged:false,nereaMet:false,nereaTestimony:false,funesHP:90,funesDefeated:false,bridgeSecured:false,varelaDefeated:false,bossHP:260,bossTurnCount:0,bossPhase:1,exposedWeakness:false,repairUsed:false,siestaConsoleAccess:false};}
 function ensureMilitary(){state.military=Object.assign(militaryDefaults(),state.military||{});state.military.evidence=Object.assign(militaryDefaults().evidence,state.military.evidence||{});return state.military;}
 function militaryIncoming(base){const m=ensureMilitary();return Math.max(3,base-(m.gunboatsSabotaged?6:0)-(m.funesDefeated?4:0)-(m.evidence.coverupOrder?2:0));}
 function evidenceReady(m){const e=m.evidence;return e.flight9Manifest&&e.flight9Discrepancy&&e.coverupOrder;}
 function militaryInteract(id){
  const m=ensureMilitary(),e=m.evidence;
- const evidence=(key,title,portrait,body)=>{const first=!e[key];e[key]=true;if(!m.varelaDefeated)m.faction='exposed';state.objective='Reuní las pruebas del Vuelo 9 y de las decisiones del Ejército de Salvación.';openDialogue(title,portrait,first?body:'La evidencia ya está archivada en tu registro.');updateHUD();};
+ const evidence=(key,title,portrait,body)=>{const first=!e[key];e[key]=true;if(!m.varelaDefeated)m.faction=(m.gunboatsSabotaged||m.funesDefeated)?'weakened':'exposed';state.objective='Reuní las pruebas del Vuelo 9 y de las decisiones del Ejército de Salvación.';openDialogue(title,portrait,first?body:'La evidencia ya está archivada en tu registro.');updateHUD();};
  switch(id){
  case'mil_elba':
   if(!m.elbaMet){m.elbaMet=true;openDialogue('Elba Roldán · Mecánica','🧑‍🔧','Mantuve las lanchas del puerto. El Ejército de Salvación las prepara para un ataque, no para evacuar civiles. Puedo inutilizar su artillería, pero necesito una llave inglesa adecuada y que alguien me ayude.',[{label:'Ayudarla a impedir el ataque',run:()=>{m.elbaHelped=true;openDialogue('Elba Roldán','🧑‍🔧','Buscá una llave inglesa de servicio en el Cuartel avanzado. Si la traés, prepararé el sabotaje.')}},{label:'No comprometerse todavía',run:()=>openDialogue('Elba Roldán','🧑‍🔧','Entiendo. Si cambiás de idea, voy a seguir aquí.')} ]);}
@@ -1142,7 +1185,7 @@ function militaryInteract(id){
  case'mil_varela':if(!evidenceReady(m))openDialogue('Richars Octavio','🛡️','El acceso a la Fortaleza sigue cerrado. Necesitás la orden de carga del Vuelo 9, el registro de discrepancia y la orden de ocultamiento: '+[e.flight9Manifest,e.flight9Discrepancy,e.coverupOrder].filter(Boolean).length+'/3.');else militaryBossTurn();break;
  case'mil_funes':militaryFunesTurn();break;
  case'mil_recipe':if(!m.varelaDefeated){openDialogue('Fortaleza','📖','Los efectos privados del General siguen dentro del recinto. Primero tendrás que derrotarlo.');break;}evidence('aurelioRecipe','Recetario de Don Aurelio','📖','Una nota confirma que Don Aurelio se presentó ante el mando para pedir clemencia por robots de servicio que habían protegido civiles. Richars Octavio conservó el recetario y rechazó la petición. No hay registro que permita saber qué ocurrió después con Don Aurelio.');break;
- case'mil_siestaConsole':if(!m.varelaDefeated){openDialogue('Consola Siesta','▣','El acceso está bajo control de Richars Octavio.');break;}m.siestaConsoleAccess=true;state.objective='Revisa el Protocolo Siesta y decide qué hacer con la información reunida.';openDialogue('Consola Siesta','▣','La derrota de Richars Octavio no apagó el Protocolo Siesta ni resolvió la señal externa. Los registros militares pueden cruzarse con la información de La Estrella; el conflicto sobre el futuro de las unidades continúa.');break;
+ case'mil_siestaConsole':if(!m.varelaDefeated){openDialogue('Consola Siesta','▣','El acceso está bajo control de Richars Octavio.');break;}m.siestaConsoleAccess=true;state.objective='Revisa el Protocolo Siesta y toma una decisión sobre su control.';if(m.siestaDecision){openDialogue('Consola Siesta','▣',m.siestaDecision==='archive'?'El registro maestro permanece aislado en modo de solo lectura. La decisión quedó archivada.':m.siestaDecision==='destroy'?'El núcleo de órdenes fue desconectado. La copia de evidencia se conserva fuera del sistema.':'El protocolo quedó aislado y su acceso requiere autorización compartida. La decisión quedó archivada.');break;}openDialogue('Consola Siesta','▣','La derrota de Richars Octavio no apagó el Protocolo Siesta ni resolvió la señal externa. El terminal permite elegir cómo tratar el sistema de órdenes. Ninguna opción explica el origen de la señal ni garantiza qué ocurrirá con las unidades.',[{label:'Desconectar el núcleo de órdenes · impedir nuevas órdenes centralizadas',run:()=>{m.siestaDecision='destroy';state.flags.siestaCoreDisconnected=true;state.objective='El núcleo de Siesta fue desconectado. Reúne a las comunidades y decide cómo compartir los registros.';openDialogue('Consola Siesta','▣','Desconectás el núcleo de órdenes. Los registros recuperados permanecen en una copia aislada; la red externa sigue sin explicación.');persistSave(true);updateHUD()}},{label:'Aislarlo con autorización compartida · impedir el control unilateral',run:()=>{m.siestaDecision='shared';state.flags.siestaSharedControl=true;state.objective='Siesta quedó bajo acceso compartido. Reúne a las comunidades y decide el destino de los registros.';openDialogue('Consola Siesta','▣','El acceso queda bloqueado por dos llaves independientes y una revisión conjunta. No es una garantía de justicia: es un límite técnico contra una nueva orden unilateral.');persistSave(true);updateHUD()}},{label:'Conservar una copia de solo lectura · preservar la evidencia',run:()=>{m.siestaDecision='archive';state.flags.siestaArchivePreserved=true;state.objective='La evidencia de Siesta quedó preservada. Reúne a las comunidades y decide cómo usarla.';openDialogue('Consola Siesta','▣','Guardás una copia de solo lectura y aislás la consola original. La información se conserva, pero el futuro de las unidades todavía requiere una decisión colectiva.');persistSave(true);updateHUD()}}]);break;
  }
  updateHUD();
 }
@@ -1163,7 +1206,7 @@ function interact(){
    case'poi_trincherasnorte':e.trenchOrders=true;openDialogue('Campo de Trincheras','🪖','Una orden exige mantener la línea después de retirar suministros y personal de apoyo. Los registros muestran abandono y represión de quienes intentaron cruzar sin autorización. No todos los soldados tuvieron la misma responsabilidad.');break;
    case'poi_cuartelavanzado':militaryInteract('mil_wrench');break;
    case'poi_muelle':if(m.elbaHelped&&m.wrench&&!m.gunboatsSabotaged)openDialogue('Muelle de Carga','🚢','La llave inglesa permite intervenir el mecanismo de alimentación.',[{label:'Sabotear las lanchas con Elba',run:()=>{m.gunboatsSabotaged=true;m.faction='weakened';openDialogue('Elba Roldán','🧑‍🔧','Las lanchas no podrán disparar. El ataque artillado no llegará a la Fortaleza.');updateHUD();}},{label:'Dejarlo para después',run:()=>{}}]);else openDialogue('Muelle de Carga','🚢',m.gunboatsSabotaged?'Las lanchas quedaron inutilizadas.':'Para sabotearlas necesitás haber ayudado a Elba y llevar la llave inglesa del Cuartel avanzado.');break;
-   case'poi_hangar':e.flight9Manifest=true;openDialogue('Hangar Oxidado','✈️','La orden de carga confirma que una cápsula sellada fue transportada en el Vuelo 9. Nerea Vidal puede confirmar el procedimiento que presenció.');break;
+   case'poi_hangar':e.flight9Manifest=true;openDialogue('Hangar Oxidado','✈️','La orden de carga confirma que una cápsula sellada fue transportada en el Vuelo 9. Nerea Vidal puede confirmar el procedimiento que presenció. El acceso al interior está en la puerta lateral de la nave.');break;
    case'poi_aerodromo':e.flight9Discrepancy=true;openDialogue('Aeródromo','🛫','El manifiesto declara suministros médicos ordinarios, pero el registro de peso y el sello corresponden a una cápsula de contención. Esto demuestra transporte y encubrimiento, no el origen de la Fiebre Gris.');break;
    case'poi_puestoderadio':e.coverupOrder=true;openDialogue('Puesto de radio','📻','La copia de una orden exige retirar los registros del Vuelo 9 y derivar consultas a la Fortaleza. El puesto transmitía órdenes; no originó la señal externa.');break;
    case'poi_controldelpuente':militaryFunesTurn();break;
@@ -1283,7 +1326,17 @@ function interact(){
    openDialogue('Sistema de acceso','🚧','Señal autenticada. La compuerta exterior se desbloqueó y el camino hacia la Ciudad Enferma quedó abierto.');
   }
   break;
- case'depotdoor':
+ case'mil_hangarDoor':enterInterior('milHangar',181,178);break;
+  case'mil_fortressDoor':if(!ensureMilitary().varelaDefeated){openDialogue('Fortaleza','🏰','La entrada sigue bajo control de Richars Octavio.');break}enterInterior('milFortress',166,278);break;
+  case'mil_hangarReturn':case'mil_fortressReturn':exitInterior();break;
+  case'mil_celina':{const m=ensureMilitary();openDialogue('Celina Borda · Mayor de Logística','📋',m.evidence.evacuation?'Los cupos se asignaban por credencial. Las plazas reservadas para personal militar y técnicos no se liberaban aunque hubiera familias esperando. Yo administré las planillas; las órdenes venían de arriba. No voy a fingir que los números no tenían nombres.':'Llevé los registros de carga y evacuación. Si buscás entender qué salió y quién tuvo prioridad, primero revisá los manifiestos del Puerto. No puedo hablar por lo que no vi.');break}
+  case'mil_hangarFlightLog':{const m=ensureMilitary();m.hangarLogRead=true;openDialogue('Libro de operaciones · Hangar','📘','El libro vincula el número de serie de la cápsula con el manifiesto del Vuelo 9 y registra una corrección posterior del peso declarado. La anotación confirma una discrepancia documental; no identifica el origen de la Fiebre Gris ni de la señal externa.');updateHUD();break}
+  case'mil_hangarToolRack':if(player.hp<100&&player.scrap>=2){player.scrap-=2;player.hp=Math.min(100,player.hp+30);openDialogue('Banco de mantenimiento','🛠️','Reparás los daños con piezas del taller. Integridad +30.');updateHUD()}else openDialogue('Banco de mantenimiento','🛠️',player.hp>=100?'No necesitás reparaciones ahora.':'Necesitás dos piezas para reparar treinta puntos de integridad.');break;
+  case'mil_damian':{const m=ensureMilitary();m.damianConfronted=true;openDialogue('Damián Ferreyra · Coronel de Operaciones','🪖','El puente no se sostuvo solo. Yo coordiné los puestos y transmití las órdenes de mantener la línea, incluso cuando ya no quedaban suministros suficientes. Richars exigía que cada sector siguiera operativo. Yo convertí esa exigencia en instrucciones concretas. No voy a decir que todos obedecieron por voluntad: algunos tenían miedo, otros eligieron aprovecharse. Los registros del puesto de radio y las trincheras pueden contrastar lo que digo.');updateHUD();break}
+  case'mil_fortressArchive':{const m=ensureMilitary();if(!m.varelaDefeated){openDialogue('Archivo de mando','🗄️','El archivo está sellado por la autoridad de Richars Octavio.');break}m.commandArchiveRead=true;openDialogue('Archivo de mando','🗄️','Las órdenes firmadas por Richars Octavio confirman que la cadena superior recibió la discrepancia del Vuelo 9 y ordenó retirar los registros de consulta pública. El archivo no atribuye al General la creación de la Fiebre Gris ni de la señal externa.');updateHUD();break}
+  case'mil_fortressAurelio':militaryInteract('mil_recipe');break;
+  case'mil_fortressSiesta':militaryInteract('mil_siestaConsole');break;
+  case'depotdoor':
   if(!state.doorOpen){openDialogue('Nave de clasificación','🚪','La nave está cerrada desde dentro. Primero debes abrir la puerta principal de La Estrella y salir al camino.');break}
   enterInterior('depot',163,25.5);break;
  case'patiodoor':
@@ -1580,7 +1633,7 @@ function findNear(){
 function startGame(load){
  $('menu').classList.add('hidden');state.started=true;
  if(load){const raw=localStorage.getItem('mesero30save');if(raw){try{const s=JSON.parse(raw);Object.assign(state,s.state||{});Object.assign(player,s.player||{});state.consoles=Object.assign({one:false,two:false,three:false},state.consoles||{});state.flags=state.flags||{};state.flags.poiExplored=state.flags.poiExplored||{};state.city=state.city||{};state.city.southSurvey=state.city.southSurvey||{};state.city.maraFollowup=!!state.city.maraFollowup;state.city.tomasFollowup=!!state.city.tomasFollowup;state.city.ibarraFollowup=!!state.city.ibarraFollowup;state.city.civicCaches=state.city.civicCaches||{};state.records=Object.assign({siesta:false,signal:false},state.records||{});ensureMilitary();if(state.city?.southApproachPrepared)state.flags.militaryAccessOpen=true;if(state.bossHP===100&&!state.bossDefeated&&!state.bossTurnCount)state.bossHP=180;if(state.city.guardianStarted&&state.city.guardianHP==null)state.city.guardianHP=120;state.factoryWingOpen=!!state.factoryWingOpen;state.survivorDebrief=!!state.survivorDebrief;state.chapterComplete=!!state.chapterComplete;state.currentInterior=state.currentInterior||null;state.returnPoint=state.returnPoint||null;state.flags=state.flags||{};
- const validInteriors=['depot','patio','mall','metro','hospital','nest','catacombs','temple','sanctuary'];
+ const validInteriors=['depot','patio','mall','metro','hospital','nest','catacombs','temple','sanctuary','milHangar','milFortress'];
  state.flags.cultPoiExplored=state.flags.cultPoiExplored||{};
  const validPoint=p=>p&&Number.isFinite(Number(p.x))&&Number.isFinite(Number(p.y))&&Number(p.x)>=0&&Number(p.x)<=420&&Number(p.y)>=0&&Number(p.y)<=300;
  if(state.currentInterior&&!validInteriors.includes(state.currentInterior)){state.currentInterior=null;state.returnPoint=null;player.x=8.2;player.y=11.2;}
