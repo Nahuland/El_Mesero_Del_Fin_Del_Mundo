@@ -65,3 +65,13 @@ El diseño narrativo fue aprobado por el usuario. La primera capa jugable está 
 - [Propuesta narrativa aprobada](09_Propuestas_3.22_Acto_IV_General_Jefe_Final.md)
 
 La versión incorpora la primera capa jugable del Acto IV: apertura de R4 tras la preparación civil, Elba, Nerea, evidencias, sabotaje, Funes, Richars Octavio y acceso posterior a la consola Siesta. saveVersion:49 y mesero30save se conservan. La prueba visual/manual y móvil queda pendiente.
+
+## Versión 3.23 — interiores militares y puente al Acto V
+
+- [HTML principal](index.html)
+- [HTML versionado 3.23](El_Mesero_del_Fin_Del_Mundo_3.23_Ejercito_Salvacion.html)
+- [Implementación 3.23](11_Implementacion_3.23_Interiores_Acto_IV.md)
+- [Plan posterior al mapa](12_Plan_Produccion_PostMapa.md)
+- [Informe QA 3.23](REPORTE_QA_3.23_Interiores_Militares.txt)
+
+La versión añade interiores del Hangar y Fortaleza, encuentros de Celina Borda y Damián Ferreyra, registros de operaciones y archivo de mando, y tres decisiones iniciales persistentes de Siesta. Se mantiene `mesero30save` y `saveVersion:49`. Validación estática aprobada; recorrido, visual y móvil pendientes.
