@@ -768,3 +768,23 @@ Las coordenadas, huellas y accesos se conservan sin desplazamientos. Los muros n
 | Fortaleza del General | Fortaleza | (133,276) |
 
 Esta tabla relaciona nombres de ruta del Guion Maestro con sectores ya existentes; no crea hitos, no desplaza coordenadas y no fija todavía la secuencia de puertas ni interiores. Cuartel avanzado (139,188) y Puesto de radio (192,192) permanecen como hitos auxiliares sin función narrativa especificada. La implementación de personajes, pruebas, sabotaje y decisiones queda pendiente de la auditoría de canon 3.22.
+
+
+## Addenda de coordenadas 3.22 — Acto IV militar
+
+Se conservan todas las coordenadas de los hitos R4 existentes. Nuevos elementos interactivos (unidades lógicas del mapa):
+
+| Elemento | X | Y | Función |
+|---|---:|---:|---|
+| Elba Roldán | 65 | 218 | Encuentro de Mecánica |
+| Manifiesto de evacuación | 75 | 218 | Evidencia de plazas selectivas |
+| Llave inglesa de servicio | 139 | 211 | Objeto para el sabotaje |
+| Nerea Vidal | 145 | 224 | Testimonio de Piloto |
+| Orden de carga del Vuelo 9 | 162 | 225 | Evidencia de transporte |
+| Copia de orden de ocultamiento | 192 | 208 | Evidencia en el Puesto de radio |
+| Ramiro Funes | 112 | 175 | Encuentro de seguridad |
+| Richars Octavio | 133 | 273 | Jefe final, frente a la Fortaleza |
+| Consola Siesta | 137 | 284 | Acceso posterior a la derrota |
+| Recetario de Don Aurelio | 142 | 282 | Evidencia posterior al jefe |
+
+La prueba de discrepancia se inspecciona en el hito Aeródromo (180,250); la evidencia de represión, en Trincheras norte (91,185). Los nuevos objetos no alteran las huellas cartográficas ni los accesos originales.
