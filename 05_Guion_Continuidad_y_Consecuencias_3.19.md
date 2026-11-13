@@ -122,7 +122,7 @@ La versión 3.21 representa instalaciones y terreno usando solo los nombres y fu
 
 El Guion Maestro Fase 4 define el Acto IV como una confrontación con el costo del orden: la Mecánica y el Piloto revelan la logística del ejército; el Aeródromo aporta pruebas sobre la cápsula del Vuelo 9 y la cadena de mando que ocultó su transporte; el recetario de Don Aurelio conecta el pasado del General con la petición de clemencia por los robots; la llave inglesa permite sabotear las lanchas si Siete ayudó a la Mecánica. El General Acorazado debe conservar su complejidad: sostuvo el orden por la fuerza y encubrió información, pero no creó por sí solo todos los males; teme que el vacío de autoridad repita la guerra, sin que ese temor lo absuelva.
 
-La fuente no fija nombres propios para Mecánica y Piloto, coordenadas de sus encuentros, contenido exacto de las pruebas y del recetario, umbrales de rendición ni el mecanismo de ayuda a la Mecánica. Esos puntos quedan abiertos y no se inventan en esta etapa. La versión 3.22 es documental; no incorpora escenas ni cambia el juego ejecutable.
+El usuario aprobó los nombres Elba Roldán y Nerea Vidal, sus encuentros, la cadena de pruebas y el mecanismo de ayuda a Elba. La primera implementación jugable 3.22 incorpora esos elementos y Richars Octavio como jefe final obligatorio. Los interiores militares y las escenas de Damián Ferreyra/Celina Borda siguen pendientes.
 
 
 ## Addenda 3.22 — Canon aprobado del Ejército de Salvación
