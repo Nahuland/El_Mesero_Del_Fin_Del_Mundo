@@ -66,6 +66,16 @@ El diseño narrativo fue aprobado por el usuario. La primera capa jugable está 
 
 La versión incorpora la primera capa jugable del Acto IV: apertura de R4 tras la preparación civil, Elba, Nerea, evidencias, sabotaje, Funes, Richars Octavio y acceso posterior a la consola Siesta. saveVersion:49 y mesero30save se conservan. La prueba visual/manual y móvil queda pendiente.
 
+## Versión 3.24 — cierre jugable del Acto IV
+
+- [Abrir juego (GitHub Pages)](https://nahuland.github.io/El_Mesero_Del_Fin_Del_Mundo/)
+- [HTML principal 3.24](index.html)
+- [HTML versionado 3.24](El_Mesero_del_Fin_del_Mundo_3.24_Cierre_Acto_IV.html)
+- [Implementación 3.24](13_Implementacion_3.24_Cierre_Acto_IV.md)
+- [Informe QA 3.24](REPORTE_QA_3.24_Cierre_Acto_IV.txt)
+
+La versión añade una mesa de revisión en la Fortaleza con 13 requisitos explícitos para consolidar las pruebas, testimonios, archivo de mando, derrota de Richars y decisión de Siesta. Se mantiene `mesero30save` y `saveVersion:49`. Validación estática aprobada; recorrido manual, guardado/carga real, visual y móvil siguen pendientes.
+
 ## Versión 3.23 — interiores militares y puente al Acto V
 
 - [HTML principal](index.html)
