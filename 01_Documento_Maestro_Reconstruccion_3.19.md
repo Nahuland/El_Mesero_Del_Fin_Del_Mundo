@@ -525,3 +525,16 @@ La validación de esta entrega es estática y de sintaxis. La inspección visual
 Se incorpora una auditoría del Guion Maestro Fase 4 para preparar el desarrollo de la facción militar. La etapa confirma la ruta Puerto Militar → Campo de Trincheras → Hangar Oxidado → Muelle de Carga → Puente Blindado → Aeródromo → Fortaleza del General y los hechos establecidos sobre Mecánica, Piloto, lanchas artilladas, evacuaciones selectivas, Vuelo 9, recetario de Don Aurelio, llave inglesa y General Acorazado.
 
 La auditoría no añade contenido ejecutable. Identifica los datos todavía no definidos por la fuente —nombres propios, encuentros, pruebas concretas, condiciones de ayuda, umbrales de rendición y progresión de interiores— y los deja pendientes de definición. No se modifica el HTML, el bloqueo regional, las coordenadas, el CSV ni el guardado saveVersion:49 / mesero30save. Ver 08_Plan_3.22_Desarrollo_Faccion_Militar.md y REPORTE_QA_3.22_Plan.txt.
+
+
+## Addenda 3.22 — Ejército de Salvación y Acto IV aprobado
+
+El usuario aprobó el diseño narrativo del Ejército de Salvación y de Richars Octavio como General Acorazado. La facción convirtió el mando de emergencia posterior al Día Cero en un régimen permanente. Su responsabilidad narrativa comprende evacuaciones selectivas, represión y encubrimiento del Vuelo 9; no creó la Fiebre Gris ni la señal externa que manipuló robots.
+
+Nombres aprobados: Elba Roldán (Mecánica), Nerea Vidal (Piloto), Damián Ferreyra (Coronel de Operaciones), Celina Borda (Mayor de Logística), Ramiro Funes (Jefe de Seguridad) y Richars Octavio (General Acorazado). Los ocho contactos existentes conservan sus nombres.
+
+Richars Octavio es malvado, irredimible y jefe final obligatorio. No hay rendición, redención, negociación ni clemencia. El combate tiene tres fases y su derrota abre el acceso a la consola Siesta. Las pruebas modifican preparación y presión del combate, no su culpabilidad ni su destino.
+
+Implementación inicial 3.22: acceso a R4 tras resolver el Nido, completar el reconocimiento del corredor sur y preparar el acceso urbano; encuentros de Elba y Nerea; llave inglesa y sabotaje opcional de lanchas; evidencias de evacuación, trincheras, Vuelo 9 y ocultamiento; encuentro opcional con Funes; jefe Richars Octavio; recetario de Don Aurelio y consola Siesta tras la victoria.
+
+La implementación conserva coordenadas maestras, mesero30save y saveVersion:49 mediante campos aditivos en state.military. No se declara validación visual manual ni prueba en móvil físico.
