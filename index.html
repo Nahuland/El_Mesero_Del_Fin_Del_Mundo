@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>El Mesero del Fin del Mundo — 3.25 · ACTO V: LA ÚLTIMA ORDEN</title>
+<title>El Mesero del Fin del Mundo — 3.26 · LOS OCHO DESENLACES</title>
 <style>
 :root{--ink:#e9e4d8;--muted:#a9b8bc;--gold:#f0c58b;--cyan:#8ad8e8;--panel:#081522ed;--line:#477286}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#07111b;color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
@@ -56,7 +56,7 @@ h1{font:clamp(28px,5vw,48px)/1.05 Georgia,serif;color:#f2d2a2;margin:12px 0;text
 <body>
 <div id="game">
 <canvas id="world" aria-label="Mundo isométrico explorable"></canvas>
-<div id="topbar"><div class="brand">EL MESERO DEL FIN DEL MUNDO <span style="color:#7eb9c7">· 3.25 · ACTO V: LA ÚLTIMA ORDEN</span></div><div id="zone">LA ESTRELLA</div></div>
+<div id="topbar"><div class="brand">EL MESERO DEL FIN DEL MUNDO <span style="color:#7eb9c7">· 3.26 · LOS OCHO DESENLACES</span></div><div id="zone">LA ESTRELLA</div></div>
 <div id="hud"><div class="chip">S-07 <b>SIETE</b></div><div class="chip">Integridad <b id="hp">100%</b></div><div class="chip">Chatarra <b id="scrap">0</b></div><div class="chip">Amenaza <b id="bossStatus">Activa</b></div></div>
 <div id="hint">Mover: WASD / flechas · Interactuar: E · Diario: J · Guardar: F5</div>
 <div id="interact">E · Interactuar</div>
@@ -71,7 +71,7 @@ h1{font:clamp(28px,5vw,48px)/1.05 Georgia,serif;color:#f2d2a2;margin:12px 0;text
  </div>
  <button class="act" id="mobileAct">INTERACTUAR</button>
 </div>
-<div id="menu"><div class="menu-card"><div class="eyebrow">Una historia sobre lo que queda después del fin</div><h1>La última mesa</h1><p class="subtitle">Veintiséis años después de la guerra, la unidad S-07 despierta en un restaurante olvidado. Afuera, el mundo sigue esperando una respuesta.</p><div class="menu-actions"><button id="newGame">COMENZAR RECONSTRUCCIÓN</button><button id="continueGame" class="secondary">CONTINUAR PARTIDA</button></div><p style="font-size:10px;color:#809ba7;margin-top:18px">Versión 3.25 · Acto V: La última orden</p></div></div>
+<div id="menu"><div class="menu-card"><div class="eyebrow">Una historia sobre lo que queda después del fin</div><h1>La última mesa</h1><p class="subtitle">Veintiséis años después de la guerra, la unidad S-07 despierta en un restaurante olvidado. Afuera, el mundo sigue esperando una respuesta.</p><div class="menu-actions"><button id="newGame">COMENZAR RECONSTRUCCIÓN</button><button id="continueGame" class="secondary">CONTINUAR PARTIDA</button></div><p style="font-size:10px;color:#809ba7;margin-top:18px">Versión 3.26 · Los ocho desenlaces</p></div></div>
 </div>
 <script>
 (()=>{
@@ -196,6 +196,7 @@ props.push(
  {id:'metroSouthExit',x:390,y:22,type:'roomdoor',name:'Conexión sur del Metro',emoji:'🚇',interior:'metro'},
  {id:'hospitalRecords',x:337,y:62,type:'inspect',name:'Archivo epidemiológico',emoji:'📁',interior:'hospital'},
  {id:'hospitalSample',x:350,y:72,type:'cache',name:'Muestra sellada de Fiebre Gris',emoji:'🧪',interior:'hospital'},
+ {id:'hospitalAntidote',x:360,y:62,type:'cache',name:'Frasco de antídoto',emoji:'🧪',interior:'hospital'},
  {id:'hospitalReturn',x:345,y:84,type:'roomdoor',name:'Salida del Hospital',emoji:'🚪',interior:'hospital'},
  {id:'nestCore',x:379,y:63,type:'relay',name:'Núcleo del Nido',emoji:'🕸️',interior:'nest'},
  {id:'nestGuardian',x:387,y:65,type:'nestboss',name:'El Coro',emoji:'🫀',interior:'nest'},
@@ -1171,7 +1172,7 @@ function militaryDefaults(){return {hangarLogRead:false,damianConfronted:false,c
 function ensureMilitary(){state.military=Object.assign(militaryDefaults(),state.military||{});state.military.evidence=Object.assign(militaryDefaults().evidence,state.military.evidence||{});return state.military;}
 function militaryIncoming(base){const m=ensureMilitary();return Math.max(3,base-(m.gunboatsSabotaged?6:0)-(m.funesDefeated?4:0)-(m.evidence.coverupOrder?2:0));}
 function evidenceReady(m){const e=m.evidence;return e.flight9Manifest&&e.flight9Discrepancy&&e.coverupOrder;}
-function act5Defaults(){return {contacts:{mira:null,ivan:null,lia:null,teo:null,noa:null,dante:null,kai:null,eva:null},councilComplete:false};}
+function act5Defaults(){return {contacts:{mira:null,ivan:null,lia:null,teo:null,noa:null,dante:null,kai:null,eva:null},councilComplete:false,ending:null,transmitterDisabled:false};}
 function ensureAct5(){state.act5=Object.assign(act5Defaults(),state.act5||{});state.act5.contacts=Object.assign(act5Defaults().contacts,state.act5.contacts||{});return state.act5;}
 function militaryAct4Checklist(m){const e=m.evidence;return [{label:'Manifiesto de evacuación',done:!!e.evacuation},{label:'Órdenes de las trincheras',done:!!e.trenchOrders},{label:'Orden de carga del Vuelo 9',done:!!e.flight9Manifest},{label:'Discrepancia del Vuelo 9',done:!!e.flight9Discrepancy},{label:'Orden de ocultamiento',done:!!e.coverupOrder},{label:'Recetario de Don Aurelio',done:!!e.aurelioRecipe},{label:'Testimonio de Nerea Vidal',done:!!m.nereaTestimony},{label:'Testimonio de Celina Borda',done:!!m.celinaBriefed},{label:'Testimonio de Damián Ferreyra',done:!!m.damianConfronted},{label:'Libro de operaciones del Hangar',done:!!m.hangarLogRead},{label:'Archivo de mando',done:!!m.commandArchiveRead},{label:'Derrota de Richars Octavio',done:!!m.varelaDefeated},{label:'Decisión persistente de Siesta',done:!!m.siestaDecision}];}
 const ACT5_CONTACTS=[
@@ -1184,14 +1185,80 @@ const ACT5_CONTACTS=[
  {id:'kai',name:'Kai',role:'Mecánica',portrait:'🔧',confession:'Encontré el expediente de Siete y lo escondí para que nadie lo mandara al desguace.',request:'¿Le pides que sabotee las lanchas del General?'},
  {id:'eva',name:'Eva',role:'Piloto',portrait:'🧑‍✈️',confession:'Fui yo quien soltó la cápsula del Vuelo 9. Dije que solo cumplía órdenes, pero lo hice.',request:'¿Perdonas su confesión y lo quieres a tu lado?'}
 ];
-function act5Defaults(){return {contacts:{mira:null,ivan:null,lia:null,teo:null,noa:null,dante:null,kai:null,eva:null},councilComplete:false};}
+function act5Defaults(){return {contacts:{mira:null,ivan:null,lia:null,teo:null,noa:null,dante:null,kai:null,eva:null},councilComplete:false,ending:null,transmitterDisabled:false};}
 function ensureAct5(){state.act5=Object.assign(act5Defaults(),state.act5||{});state.act5.contacts=Object.assign(act5Defaults().contacts,state.act5.contacts||{});return state.act5;}
 function act5DecisionLabel(value){return value==='support'?'Acompañar':value==='negotiate'?'Negociar condiciones':'Rechazar';}
 function act5Summary(){const a=ensureAct5();return ACT5_CONTACTS.map(c=>c.name+': '+(a.contacts[c.id]?act5DecisionLabel(a.contacts[c.id]):'pendiente')).join(' · ');}
-function act5Finish(){const a=ensureAct5();a.councilComplete=true;state.flags.act5CouncilComplete=true;state.objective='La deliberación de los ocho contactos concluyó. La consola Siesta conserva la decisión técnica tomada; falta desarrollar su resolución final.';persistSave(true);updateHUD();const m=ensureMilitary();openDialogue('Acto V · La última orden','🍽️','Los ocho contactos han dejado registrada su posición. '+act5Summary()+'. La reunión no borra las responsabilidades ni resuelve por sí sola el futuro de las unidades. La decisión técnica de Siesta sigue siendo: '+(m.siestaDecision==='destroy'?'núcleo desconectado':m.siestaDecision==='shared'?'acceso aislado con control compartido':'copia de solo lectura preservada')+'. La consola queda preparada para la resolución final, que tendrá en cuenta estas decisiones y las consecuencias de las cuatro facciones.');}
+
+function finaleMetrics(){
+ const a=ensureAct5(),m=ensureMilitary(),c=state.city||{},f=state.flags||{},p=a.contacts;
+ const allies=ACT5_CONTACTS.filter(x=>p[x.id]==='support'||p[x.id]==='negotiate').length;
+ const supporters=ACT5_CONTACTS.filter(x=>p[x.id]==='support').length;
+ const peaceful=[!!state.bossPeace,c.resolution==='severed',!!(m.gunboatsSabotaged&&m.funesDefeated)].filter(Boolean).length;
+ const recordCount=[!!state.records?.siesta,!!state.records?.signal,!!m.hangarLogRead,!!m.commandArchiveRead,!!m.evidence?.evacuation,!!m.evidence?.trenchOrders,!!m.evidence?.flight9Manifest,!!m.evidence?.flight9Discrepancy,!!m.evidence?.coverupOrder,!!m.evidence?.aurelioRecipe,!!c.records,!!c.sample,c.broadcast==='public'].filter(Boolean).length;
+ const restaurant=m.siestaDecision==='destroy'&&allies>=4&&peaceful>=2;
+ const archive=m.siestaDecision==='archive'&&c.broadcast==='public'&&recordCount>=6;
+ const mesa=m.siestaDecision==='destroy'&&!!state.bossPeace&&c.resolution==='severed'&&f.cultResolution==='reconciled'&&m.gunboatsSabotaged&&m.funesDefeated&&allies>=6&&['noa','dante','kai','eva'].every(id=>p[id]==='support'||p[id]==='negotiate');
+ const dawn=!!(c.records&&c.sample&&c.hospitalEvidence&&c.suppliesChoice==='hospital'&&c.clinicAid&&c.resolution==='severed'&&c.antidoteRecovered&&!c.antidoteUsedForCarnicero&&p.lia==='support'&&p.teo!=='support');
+ const signal=!!(state.records?.siesta&&state.records?.signal&&m.hangarLogRead&&m.commandArchiveRead&&m.evidence?.flight9Manifest&&m.evidence?.flight9Discrepancy&&m.evidence?.coverupOrder);
+ return {allies,supporters,peaceful,recordCount,restaurant,archive,mesa,dawn,signal,solitary:m.siestaDecision==='destroy'&&!restaurant,iron:m.siestaDecision==='shared',siesta:true,cultReady:f.cultResolution==='reconciled'};
+}
+function chooseEnding(id){
+ const a=ensureAct5(),q=finaleMetrics();
+ if(a.ending){showEnding();return}
+ const names={restaurant:'El Restaurante de Estrella',solitary:'El Mesero Solitario',archive:'El Archivo del Eco',iron:'El Mesero de Hierro',siesta:'Siesta Voluntaria',mesa:'La Mesa Larga',dawn:'Un Amanecer sin Fiebre',signal:'La Señal se Apaga'};
+ const stories={
+  restaurant:'La Estrella vuelve a abrir sus puertas como comedor y refugio. Los compañeros que eligieron quedarse ayudan a poner la primera mesa. Siete sirve porque ahora puede elegir a quién cuidar, no porque una orden se lo exija.',
+  solitary:'Siete desconecta el núcleo de órdenes y libera a las unidades. Pero los vínculos no alcanzaron para reconstruir una comunidad. En una ruta desierta, sirve café a quien se detiene; cada taza recuerda la mesa que no logró reunir.',
+  archive:'La copia de Siesta y las pruebas quedan preservadas en un archivo público, acompañadas por la advertencia sobre el Vuelo 9 y la señal. El mundo obtiene memoria y transparencia, aunque recordar la verdad no produce reconciliación inmediata.',
+  iron:'Siete convierte el acceso compartido a Siesta en una orden permanente para imponer la paz. Los conflictos visibles cesan, pero también se reduce la libertad. El antiguo sistema tiene un nuevo rostro: el Mesero de Hierro.',
+  siesta:'Siete elige apagarse. Esta vez no es una orden impuesta ni una batería retirada a escondidas: es una decisión propia, tomada después de escuchar a quienes seguirán viviendo.',
+  mesa:'Las cuatro comunidades se sientan en La Estrella. Rebeldes, supervivientes afectados por la Fiebre Gris, miembros de la Secta y antiguos soldados participan de una mesa plural. Siete destruye la orden y deja que cada persona elija su lugar.',
+  dawn:'La red médica del Hospital recibe el apoyo y el antídoto que se conservaron. La prioridad deja de ser ganar una disputa por el poder: los supervivientes tienen una oportunidad concreta de tratar la Fiebre Gris y reconstruir la atención.',
+  signal:'Siete corta la transmisión externa que alteraba las órdenes. Las unidades recuperan autonomía, pero la libertad no repara por sí sola el daño causado a las personas. El mundo queda abierto e incierto, sin una voz remota que dicte el siguiente movimiento.'
+ };
+ const valid={restaurant:q.restaurant,solitary:q.solitary,archive:q.archive,iron:q.iron,siesta:true,mesa:q.mesa,dawn:q.dawn,signal:q.signal};
+ if(!valid[id]){finaleConsole();return}
+ if(id==='signal'){a.transmitterDisabled=true;state.flags.externalSignalDisabled=true;}
+ a.ending=id;state.flags['ending_'+id]=true;state.objective='Desenlace completado: '+names[id]+'.';persistSave(true);updateHUD();
+ let epilogue=stories[id];
+ if(id==='siesta')epilogue+=(q.allies>=4?' Tus compañeros permanecen cerca y mantienen encendida la luz de La Estrella.':'No hay suficientes compañeros para acompañarte; el silencio que sigue es casi absoluto.');
+ if(id==='restaurant'||id==='mesa')epilogue+=' Personas presentes en la mesa: '+q.allies+' de los ocho contactos.';
+ if(id==='archive')epilogue+=' Registros reunidos: '+q.recordCount+'.';
+ if(id==='dawn')epilogue+=' El frasco no fue destinado a la petición de Teo; permanece disponible para la red médica.';
+ if(id==='signal')epilogue+=' La ruta remota fue localizada con los registros de fábrica, Hangar, Aeródromo y mando.';
+ openDialogue('FINAL · '+names[id],id==='siesta'?'🤖':id==='dawn'?'🧪':id==='signal'?'📡':'🍽️',epilogue);
+}
+function showEnding(){
+ const a=ensureAct5(),q=finaleMetrics();
+ const names={restaurant:'El Restaurante de Estrella',solitary:'El Mesero Solitario',archive:'El Archivo del Eco',iron:'El Mesero de Hierro',siesta:'Siesta Voluntaria',mesa:'La Mesa Larga',dawn:'Un Amanecer sin Fiebre',signal:'La Señal se Apaga'};
+ const id=a.ending;
+ openDialogue('Desenlace registrado · '+(names[id]||id),'📜','Esta partida ya tiene un desenlace definitivo: '+(names[id]||id)+'. La decisión quedó guardada. '+(id==='siesta'?(q.allies>=4?'Tus compañeros siguen junto a La Estrella.':'No hubo suficientes compañeros para acompañarte.'):'Las decisiones y los vínculos de la partida se conservaron.'));
+}
+function finaleConsole(){
+ const a=ensureAct5(),m=ensureMilitary(),q=finaleMetrics();
+ if(!m.act4ReviewComplete||!a.councilComplete){openDialogue('Consola Siesta','▣','Antes de resolver el futuro, debe quedar cerrado el expediente militar y completada la deliberación de los ocho contactos.');return}
+ if(a.ending){showEnding();return}
+ const all=[
+  ['restaurant','Final 1 · El Restaurante de Estrella',q.restaurant,'Siesta desconectada, al menos cuatro vínculos y dos resoluciones pacíficas.'],
+  ['solitary','Final 2 · El Mesero Solitario',q.solitary,'Siesta desconectada sin alcanzar la reconstrucción de comunidad.'],
+  ['archive','Final 3 · El Archivo del Eco',q.archive,'Copia de solo lectura, advertencia pública y seis o más registros.'],
+  ['iron','Final 4 · El Mesero de Hierro',q.iron,'Acceso compartido a Siesta; la decisión final será imponer una paz obligatoria.'],
+  ['siesta','Final 5 · Siesta Voluntaria',true,'Disponible como decisión personal de Siete.'],
+  ['mesa','Final 6 · La Mesa Larga',q.mesa,'Capataz escuchado, Nido desincronizado, Secta reconciliada, lanchas saboteadas y Funes neutralizado, además de seis vínculos.'],
+  ['dawn','Final 7 · Un Amanecer sin Fiebre',q.dawn,'Archivo y muestra del Hospital, suministros médicos, antídoto conservado, Lía acompañada y resolución no letal del Nido.'],
+  ['signal','Final 8 · La Señal se Apaga',q.signal,'Registro Siesta y señal, manifiesto y discrepancia del Vuelo 9, orden de ocultamiento, Hangar y archivo de mando.']
+ ];
+ const available=all.filter(x=>x[2]),locked=all.filter(x=>!x[2]);
+ const status='La resolución tendrá en cuenta las decisiones de Siesta y las ocho posturas.\n\nDISPONIBLES: '+available.map(x=>x[1]).join(' · ')+'\n\nAÚN NO DISPONIBLES:\n'+locked.map(x=>x[1]+': '+x[3]).join('\n')+(locked.some(x=>x[0]==='mesa')&&!q.cultReady?'\nLa reconciliación de la Secta aún no tiene una bandera de resolución en esta versión; el Acto III debe completar esa ruta antes de habilitar La Mesa Larga.':'');
+ const choices=available.map(x=>({label:x[1],run:()=>chooseEnding(x[0])}));
+ choices.push({label:'Cerrar la consola',run:()=>{}});
+ openDialogue('Consola Siesta · Los ocho desenlaces','▣',status,choices);
+}
+function act5Finish(){const a=ensureAct5();a.councilComplete=true;state.flags.act5CouncilComplete=true;state.objective='La deliberación de los ocho contactos concluyó. Regresa a la consola Siesta para consultar los desenlaces disponibles.';persistSave(true);updateHUD();const m=ensureMilitary();openDialogue('Acto V · La última orden','🍽️','Los ocho contactos han dejado registrada su posición. '+act5Summary()+'. La reunión no borra las responsabilidades ni resuelve por sí sola el futuro de las unidades. La decisión técnica de Siesta sigue siendo: '+(m.siestaDecision==='destroy'?'núcleo desconectado':m.siestaDecision==='shared'?'acceso aislado con control compartido':'copia de solo lectura preservada')+'. La consola queda preparada para mostrar los desenlaces que permite esta partida.',[{label:'Consultar los desenlaces',run:()=>finaleConsole()},{label:'Cerrar la reunión',run:()=>{}}]);}
 function act5NextContact(){const a=ensureAct5();const c=ACT5_CONTACTS.find(x=>!a.contacts[x.id]);if(!c){act5Finish();return;}openDialogue(c.name+' · '+c.role,c.portrait,c.confession+' '+c.request,[{label:'Acompañar su petición',run:()=>act5Choose(c.id,'support')},{label:'Escuchar y negociar condiciones',run:()=>act5Choose(c.id,'negotiate')},{label:'Rechazar su petición',run:()=>act5Choose(c.id,'reject')}]);}
-function act5Choose(id,value){const a=ensureAct5();if(a.contacts[id]){act5NextContact();return;}a.contacts[id]=value;state.flags['act5_'+id+'_'+value]=true;persistSave(true);updateHUD();act5NextContact();}
-function startAct5Council(){if(!ensureMilitary().act4ReviewComplete){openDialogue('Mesa de comunidades','📑','Primero debe quedar cerrado el expediente del Acto IV.');return;}const a=ensureAct5();if(a.councilComplete){openDialogue('Acto V · Deliberación registrada','🍽️',act5Summary()+'. Las ocho posiciones están guardadas. La resolución final todavía no ha sido elegida.');return;}state.objective='Escucha a los ocho contactos y registra qué postura tomará Siete ante cada petición.';persistSave(true);act5NextContact();}
+function act5Choose(id,value){const a=ensureAct5();if(a.contacts[id]){act5NextContact();return;}a.contacts[id]=value;state.flags['act5_'+id+'_'+value]=true;if(id==='teo'&&value==='support'){const c=state.city||(state.city={});c.antidoteReservedForCarnicero=true;if(c.antidoteRecovered){c.antidoteRecovered=false;c.antidoteUsedForCarnicero=true;}}persistSave(true);updateHUD();act5NextContact();}
+function startAct5Council(){if(!ensureMilitary().act4ReviewComplete){openDialogue('Mesa de comunidades','📑','Primero debe quedar cerrado el expediente del Acto IV.');return;}const a=ensureAct5();if(a.councilComplete){if(a.ending){showEnding();return;}openDialogue('Acto V · Deliberación registrada','🍽️',act5Summary()+'. Las ocho posiciones están guardadas. La consola Siesta permite consultar los desenlaces disponibles.',[{label:'Consultar los desenlaces',run:()=>finaleConsole()},{label:'Cerrar',run:()=>{}}]);return;}state.objective='Escucha a los ocho contactos y registra qué postura tomará Siete ante cada petición.';persistSave(true);act5NextContact();}
 function militaryAct4Review(){const m=ensureMilitary();if(m.act4ReviewComplete){startAct5Council();return;}const checks=militaryAct4Checklist(m),missing=checks.filter(x=>!x.done).map(x=>x.label);if(missing.length){openDialogue('Mesa de revisión · Acto IV','📑','Expediente incompleto: '+(checks.length-missing.length)+'/'+checks.length+' requisitos. Todavía falta: '+missing.join('; ')+'. Las lanchas y el Control del puente quedan registrados como consecuencias tácticas, pero no sustituyen las pruebas ni los testimonios.');return;}m.act4ReviewComplete=true;state.flags.act4Complete=true;state.objective='Acto IV cerrado. Reúne a Mira, Iván, Lía, Teo, Noa, Dante, Kai y Eva para deliberar sobre las consecuencias.';persistSave(true);updateHUD();const siesta=m.siestaDecision==='destroy'?'núcleo desconectado':m.siestaDecision==='shared'?'acceso compartido':'copia de solo lectura';const tactics=(m.gunboatsSabotaged?'lanchas inutilizadas':'lanchas intactas')+'; '+(m.funesDefeated?'Control del puente neutralizado':'Control del puente no neutralizado');openDialogue('Acto IV · expediente consolidado','📑','Las pruebas, los testimonios y el archivo de mando quedaron reunidos. Richars Octavio fue derrotado y Siesta quedó registrada con esta decisión: '+siesta+'. Consecuencias tácticas: '+tactics+'. Esto cierra la revisión militar, no resuelve el destino de las unidades ni selecciona un final. El siguiente paso es la deliberación de las ocho comunidades.',[{label:'Convocar la mesa de los ocho',run:()=>startAct5Council()},{label:'Cerrar expediente',run:()=>{}}]);}
 function militaryInteract(id){
  const m=ensureMilitary(),e=m.evidence;
@@ -1210,7 +1277,7 @@ function militaryInteract(id){
  case'mil_varela':if(!evidenceReady(m))openDialogue('Richars Octavio','🛡️','El acceso a la Fortaleza sigue cerrado. Necesitás la orden de carga del Vuelo 9, el registro de discrepancia y la orden de ocultamiento: '+[e.flight9Manifest,e.flight9Discrepancy,e.coverupOrder].filter(Boolean).length+'/3.');else militaryBossTurn();break;
  case'mil_funes':militaryFunesTurn();break;
  case'mil_recipe':if(!m.varelaDefeated){openDialogue('Fortaleza','📖','Los efectos privados del General siguen dentro del recinto. Primero tendrás que derrotarlo.');break;}evidence('aurelioRecipe','Recetario de Don Aurelio','📖','Una nota confirma que Don Aurelio se presentó ante el mando para pedir clemencia por robots de servicio que habían protegido civiles. Richars Octavio conservó el recetario y rechazó la petición. No hay registro que permita saber qué ocurrió después con Don Aurelio.');break;
- case'mil_siestaConsole':if(!m.varelaDefeated){openDialogue('Consola Siesta','▣','El acceso está bajo control de Richars Octavio.');break;}m.siestaConsoleAccess=true;state.objective='Revisa el Protocolo Siesta y toma una decisión sobre su control.';if(m.siestaDecision){openDialogue('Consola Siesta','▣',m.siestaDecision==='archive'?'El registro maestro permanece aislado en modo de solo lectura. La decisión quedó archivada.':m.siestaDecision==='destroy'?'El núcleo de órdenes fue desconectado. La copia de evidencia se conserva fuera del sistema.':'El protocolo quedó aislado y su acceso requiere autorización compartida. La decisión quedó archivada.');break;}openDialogue('Consola Siesta','▣','La derrota de Richars Octavio no apagó el Protocolo Siesta ni resolvió la señal externa. El terminal permite elegir cómo tratar el sistema de órdenes. Ninguna opción explica el origen de la señal ni garantiza qué ocurrirá con las unidades.',[{label:'Desconectar el núcleo de órdenes · impedir nuevas órdenes centralizadas',run:()=>{m.siestaDecision='destroy';state.flags.siestaCoreDisconnected=true;state.objective='El núcleo de Siesta fue desconectado. Reúne a las comunidades y decide cómo compartir los registros.';openDialogue('Consola Siesta','▣','Desconectás el núcleo de órdenes. Los registros recuperados permanecen en una copia aislada; la red externa sigue sin explicación.');persistSave(true);updateHUD()}},{label:'Aislarlo con autorización compartida · impedir el control unilateral',run:()=>{m.siestaDecision='shared';state.flags.siestaSharedControl=true;state.objective='Siesta quedó bajo acceso compartido. Reúne a las comunidades y decide el destino de los registros.';openDialogue('Consola Siesta','▣','El acceso queda bloqueado por dos llaves independientes y una revisión conjunta. No es una garantía de justicia: es un límite técnico contra una nueva orden unilateral.');persistSave(true);updateHUD()}},{label:'Conservar una copia de solo lectura · preservar la evidencia',run:()=>{m.siestaDecision='archive';state.flags.siestaArchivePreserved=true;state.objective='La evidencia de Siesta quedó preservada. Reúne a las comunidades y decide cómo usarla.';openDialogue('Consola Siesta','▣','Guardás una copia de solo lectura y aislás la consola original. La información se conserva, pero el futuro de las unidades todavía requiere una decisión colectiva.');persistSave(true);updateHUD()}}]);break;
+ case'mil_siestaConsole':if(ensureAct5().councilComplete){finaleConsole();break;}if(!m.varelaDefeated){openDialogue('Consola Siesta','▣','El acceso está bajo control de Richars Octavio.');break;}m.siestaConsoleAccess=true;state.objective='Revisa el Protocolo Siesta y toma una decisión sobre su control.';if(m.siestaDecision){openDialogue('Consola Siesta','▣',m.siestaDecision==='archive'?'El registro maestro permanece aislado en modo de solo lectura. La decisión quedó archivada.':m.siestaDecision==='destroy'?'El núcleo de órdenes fue desconectado. La copia de evidencia se conserva fuera del sistema.':'El protocolo quedó aislado y su acceso requiere autorización compartida. La decisión quedó archivada.');break;}openDialogue('Consola Siesta','▣','La derrota de Richars Octavio no apagó el Protocolo Siesta ni resolvió la señal externa. El terminal permite elegir cómo tratar el sistema de órdenes. Ninguna opción explica el origen de la señal ni garantiza qué ocurrirá con las unidades.',[{label:'Desconectar el núcleo de órdenes · impedir nuevas órdenes centralizadas',run:()=>{m.siestaDecision='destroy';state.flags.siestaCoreDisconnected=true;state.objective='El núcleo de Siesta fue desconectado. Reúne a las comunidades y decide cómo compartir los registros.';openDialogue('Consola Siesta','▣','Desconectás el núcleo de órdenes. Los registros recuperados permanecen en una copia aislada; la red externa sigue sin explicación.');persistSave(true);updateHUD()}},{label:'Aislarlo con autorización compartida · impedir el control unilateral',run:()=>{m.siestaDecision='shared';state.flags.siestaSharedControl=true;state.objective='Siesta quedó bajo acceso compartido. Reúne a las comunidades y decide el destino de los registros.';openDialogue('Consola Siesta','▣','El acceso queda bloqueado por dos llaves independientes y una revisión conjunta. No es una garantía de justicia: es un límite técnico contra una nueva orden unilateral.');persistSave(true);updateHUD()}},{label:'Conservar una copia de solo lectura · preservar la evidencia',run:()=>{m.siestaDecision='archive';state.flags.siestaArchivePreserved=true;state.objective='La evidencia de Siesta quedó preservada. Reúne a las comunidades y decide cómo usarla.';openDialogue('Consola Siesta','▣','Guardás una copia de solo lectura y aislás la consola original. La información se conserva, pero el futuro de las unidades todavía requiere una decisión colectiva.');persistSave(true);updateHUD()}}]);break;
  }
  updateHUD();
 }
@@ -1484,6 +1551,13 @@ function interact(){
  case'metroPanel':
   if(!state.city)state.city={};state.city.metroShortcut=true;openDialogue('Panel de señalización','🚦','Restaurás el tablero y las bombas auxiliares. El ramal sur del Metro queda habilitado como atajo hacia la salida urbana.');updateHUD();break;
  case'metroCache':if(!state.city)state.city={};if(!state.city.metroCache){state.city.metroCache=true;player.scrap+=3;openDialogue('Armario de mantenimiento','🧰','Encontrás herramientas secas y tres piezas útiles.');}else openDialogue('Armario de mantenimiento','🧰','El armario está vacío.');updateHUD();break;
+ case'hospitalAntidote':
+  if(!state.city)state.city={};
+  if(!state.city.records||!state.city.sample){openDialogue('Frasco de antídoto','🧪','El frasco está dentro de un contenedor sellado. Primero necesitás el archivo epidemiológico y la muestra para comprobar que sigue estable.');break;}
+  if(state.city.antidoteRecovered||state.city.antidoteUsedForCarnicero){openDialogue('Frasco de antídoto','🧪',state.city.antidoteUsedForCarnicero?'El frasco fue destinado a la petición de Teo.':'El antídoto está conservado en el inventario médico de Siete.');break;}
+  if(state.act5?.contacts?.teo==='support'||state.city.antidoteReservedForCarnicero){state.city.antidoteUsedForCarnicero=true;openDialogue('Frasco de antídoto','🧪','El frasco queda destinado a la petición de Teo: intentar salvar al Carnicero. La decisión queda registrada, aunque esta versión no incluye todavía la escena jugable del tratamiento.');}
+  else{state.city.antidoteRecovered=true;openDialogue('Frasco de antídoto','🧪','El antídoto sigue estable. Lo conservás para la red médica del Hospital; todavía puede ayudar a más de una persona si se administra con cuidado.');}
+  persistSave(true);updateHUD();break;
  case'hospitalRecords':
   if(!state.city)state.city={};state.city.records=true;if(state.city.sample){state.city.hospitalEvidence=true;state.city.nestOpen=true;}openDialogue('Archivo epidemiológico','📁','FIEBRE GRIS — INFORME DE CONTENCIÓN. Los primeros casos se agruparon cerca del intercambiador subterráneo. No hay evidencia concluyente de contagio por contacto. En varios pacientes, la actividad cerebral se sincroniza con una señal acústica de baja frecuencia. Algunos recuperan la lucidez durante segundos. Nota manuscrita de Ibarra: «Si el patrón es inducido, destruir el foco podría matar a quienes siguen conectados. Pero mantenerlo activo también los consume».');updateHUD();break;
  case'hospitalSample':
