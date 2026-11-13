@@ -1,0 +1,50 @@
+name: QA y paquete 3.23
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtener repositorio
+        uses: actions/checkout@v4
+      - name: Validar sintaxis y compatibilidad
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const files = ['index.html', 'El_Mesero_del_Fin_Del_Mundo_3.23_Ejercito_Salvacion.html'];
+          for (const file of files) {
+            const html = fs.readFileSync(file, 'utf8');
+            const match = html.match(/<script>([\s\S]*?)<\/script>/);
+            if (!match) throw new Error('No se encontró script inline: ' + file);
+            new Function(match[1]);
+            if (!html.includes('saveVersion:49') || !html.includes('mesero30save')) throw new Error('Compatibilidad de guardado ausente: ' + file);
+            for (const token of ['milHangar','milFortress','mil_celina','mil_damian','siestaDecision']) {
+              if (!html.includes(token)) throw new Error('Falta ' + token + ' en ' + file);
+            }
+            console.log('Sintaxis y aserciones OK:', file);
+          }
+          const a = fs.readFileSync(files[0], 'utf8');
+          const b = fs.readFileSync(files[1], 'utf8');
+          if (a !== b) throw new Error('index.html y HTML versionado no están sincronizados');
+          console.log('HTML principal y versionado sincronizados.');
+          NODE
+      - name: Crear ZIP completo
+        run: |
+          zip -r -q El_Mesero_del_Fin_del_Mundo_3.23_Proyecto_Completo.zip . -x '.git/*' '*.zip'
+          unzip -t El_Mesero_del_Fin_del_Mundo_3.23_Proyecto_Completo.zip
+          unzip -l El_Mesero_del_Fin_del_Mundo_3.23_Proyecto_Completo.zip | grep -q 'index.html'
+          unzip -l El_Mesero_del_Fin_del_Mundo_3.23_Proyecto_Completo.zip | grep -q 'El_Mesero_del_Fin_Del_Mundo_3.23_Ejercito_Salvacion.html'
+      - name: Publicar paquete ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: Mesero-3.23-Proyecto-Completo
+          path: El_Mesero_del_Fin_del_Mundo_3.23_Proyecto_Completo.zip
+          if-no-files-found: error
+          retention-days: 30
