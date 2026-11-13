@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>El Mesero del Fin del Mundo — 3.21 · GEOGRAFÍA DEL TERRITORIO MILITAR R4</title>
+<title>El Mesero del Fin del Mundo — 3.22 · EJÉRCITO DE SALVACIÓN R4</title>
 <style>
 :root{--ink:#e9e4d8;--muted:#a9b8bc;--gold:#f0c58b;--cyan:#8ad8e8;--panel:#081522ed;--line:#477286}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#07111b;color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
@@ -71,7 +71,7 @@ h1{font:clamp(28px,5vw,48px)/1.05 Georgia,serif;color:#f2d2a2;margin:12px 0;text
  </div>
  <button class="act" id="mobileAct">INTERACTUAR</button>
 </div>
-<div id="menu"><div class="menu-card"><div class="eyebrow">Una historia sobre lo que queda después del fin</div><h1>La última mesa</h1><p class="subtitle">Veintiséis años después de la guerra, la unidad S-07 despierta en un restaurante olvidado. Afuera, el mundo sigue esperando una respuesta.</p><div class="menu-actions"><button id="newGame">COMENZAR RECONSTRUCCIÓN</button><button id="continueGame" class="secondary">CONTINUAR PARTIDA</button></div><p style="font-size:10px;color:#809ba7;margin-top:18px">Versión 3.21 · Geografía exterior de R4</p></div></div>
+<div id="menu"><div class="menu-card"><div class="eyebrow">Una historia sobre lo que queda después del fin</div><h1>La última mesa</h1><p class="subtitle">Veintiséis años después de la guerra, la unidad S-07 despierta en un restaurante olvidado. Afuera, el mundo sigue esperando una respuesta.</p><div class="menu-actions"><button id="newGame">COMENZAR RECONSTRUCCIÓN</button><button id="continueGame" class="secondary">CONTINUAR PARTIDA</button></div><p style="font-size:10px;color:#809ba7;margin-top:18px">Versión 3.22 · Ejército de Salvación</p></div></div>
 </div>
 <script>
 (()=>{
@@ -307,7 +307,19 @@ props.push(
  {id:'cultPoi_marketRemains',x:342,y:218,type:'landmark',name:'Patio de puestos',emoji:'🪵',description:'Detrás de los puestos quedan tablones, soportes torcidos y fragmentos de lona. El espacio puede recorrerse sin atravesar las estructuras del mercado.'},
  {id:'cultPoi_stairRest',x:372,y:239,type:'landmark',name:'Descanso de la escalinata',emoji:'🪜',description:'Un rellano lateral conserva dos peldaños rotos y un borde desgastado. Desde aquí se distinguen la subida y la terraza, sin que aparezca una ruta nueva.'}
 );
-function resize(){dpr=Math.min(devicePixelRatio||1,2);W=canvas.clientWidth;H=canvas.clientHeight;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
+function resize(){dpr=Math.min(devicePixelRatio||1,2);
+props.push(
+ {id:'mil_elba',x:65,y:218,type:'landmark',name:'Elba Roldán · Mecánica',emoji:'🧑‍🔧'},
+ {id:'mil_evacManifest',x:75,y:218,type:'landmark',name:'Manifiesto de evacuación',emoji:'📋'},
+ {id:'mil_wrench',x:139,y:211,type:'landmark',name:'Llave inglesa de servicio',emoji:'🔧'},
+ {id:'mil_nerea',x:145,y:224,type:'landmark',name:'Nerea Vidal · Piloto',emoji:'🧑‍✈️'},
+ {id:'mil_flightOrder',x:162,y:225,type:'landmark',name:'Orden de carga · Vuelo 9',emoji:'📄'},
+ {id:'mil_coverupOrder',x:192,y:208,type:'landmark',name:'Copia de orden de ocultamiento',emoji:'📡'},
+ {id:'mil_funes',x:112,y:175,type:'landmark',name:'Ramiro Funes · Jefe de Seguridad',emoji:'🪖'},
+ {id:'mil_recipe',x:142,y:282,type:'landmark',name:'Recetario de Don Aurelio',emoji:'📖'},
+ {id:'mil_siestaConsole',x:137,y:284,type:'landmark',name:'Consola Siesta',emoji:'▣'}
+);
+W=canvas.clientWidth;H=canvas.clientHeight;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
 addEventListener('resize',resize);resize();
 function iso(x,y){return {x:(x-y)*TILE_W/2,y:(x+y)*TILE_H/2}}
 function screen(x,y){const p=iso(x,y);return {x:p.x-camera.x+W/2,y:p.y-camera.y+H/2}}
@@ -340,6 +352,7 @@ function zoneAt(x,y){
  if(state.currentInterior==='temple')return 'Secta del Sol y la Luna · Templo';
  if(state.currentInterior==='sanctuary')return 'Secta del Sol y la Luna · Santuario';
  const r=regionAt(x,y);
+ if(r==='R4'){if(x<80&&y>205)return 'Ejército de Salvación · Puerto y Muelle';if(x<125&&y<190)return 'Ejército de Salvación · Trincheras y Puente';if(x<170&&y<225)return 'Ejército de Salvación · Cuartel y Hangar';if(x>=170)return 'Ejército de Salvación · Aeródromo y Radio';return 'Ejército de Salvación · Fortaleza';}
  if(r==='R5'){
   if(x>=380&&y>=265)return 'Secta del Sol y la Luna · Santuario';
   if(x>=300&&x<320&&y>=135&&y<153)return 'Secta del Sol y la Luna · Umbral del bosque';
@@ -816,12 +829,13 @@ function drawProp(o){
 }
 function drawReservedBoundary(){
  // R4 conserva su geografía, pero el acceso físico sigue cerrado en esta etapa.
- const a=screen(35,145),b=screen(225,145);ctx.save();ctx.strokeStyle='#b58d61';ctx.lineWidth=4;ctx.setLineDash([10,7]);
+ const a=screen(35,145),b=screen(state.flags?.militaryAccessOpen?210:225,145);ctx.save();ctx.strokeStyle='#b58d61';ctx.lineWidth=4;ctx.setLineDash([10,7]);
  ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();ctx.setLineDash([]);
- for(let x=40;x<=220;x+=12){const p=screen(x,145);ctx.strokeStyle='#4d4940';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(p.x,p.y-7);ctx.lineTo(p.x,p.y+7);ctx.stroke()}
+ for(let x=40;x<=(state.flags?.militaryAccessOpen?204:220);x+=12){const p=screen(x,145);ctx.strokeStyle='#4d4940';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(p.x,p.y-7);ctx.lineTo(p.x,p.y+7);ctx.stroke()}
  ctx.restore();
 }
-function drawRegionLabels(){
+function drawRegionLabels(){ if(state.flags?.militaryAccessOpen){const p=screen(218,145);ctx.fillStyle='#d6c28c';ctx.font='700 9px system-ui';ctx.textAlign='center';ctx.fillText('PASO MILITAR ABIERTO',p.x,p.y-15)}
+
  const labels=[
   {x:48,y:112,t:'CINTURÓN EXTERIOR',c:'#d4c39a'},
   {x:115,y:112,t:'TERRITORIO DE LAS MÁQUINAS',c:'#c4c9b7'},
@@ -947,7 +961,7 @@ function blocked(x,y,fromX=player.x,fromY=player.y){
  if(x<.4||y<.4||x>world.w-.6||y>world.h-.6)return true;
  // R4 permanece reservado: no se puede entrar desde otra región, pero una partida
  // antigua que ya estuviera allí puede salir sin perder su posición guardada.
- if(regionAt(x,y)==='R4'&&regionAt(fromX,fromY)!=='R4')return true;
+ if(regionAt(x,y)==='R4'&&regionAt(fromX,fromY)!=='R4'&&!state.flags?.militaryAccessOpen)return true;
  // Colisiones de los nueve hitos R1/R2; el pasillo del almacén requiere energía.
  for(const b of explorationColliders){
   if(b.id==='warehouse'&&state.flags?.warehouseShortcut&&x>b.x+3.22&&x<b.x+6.78&&y>b.y-.28&&y<b.y+b.h+.28)continue;
@@ -1045,7 +1059,7 @@ function blocked(x,y,fromX=player.x,fromY=player.y){
   {x:147,y:230,w:29,h:1.1},{x:145,y:231,w:1.1,h:22},{x:176,y:231,w:1.1,h:22},{x:146,y:253,w:30,h:1.1},{x:143.8,y:229.7,w:2.4,h:.55},
   {x:116,y:276,w:15,h:1.1},{x:135,y:276,w:15,h:1.1},{x:116,y:277,w:1.1,h:18},{x:149,y:277,w:1.1,h:18},{x:117,y:295,w:32,h:1.1},{x:131.8,y:275.7,w:2.4,h:.55}
  ];
- for(const b of militaryWalls){
+ for(const b of militaryWalls){\n  if(state.military?.varelaDefeated&&b.x===131.8&&b.y===275.7)continue;
   const inside=x>b.x-.25&&x<b.x+b.w+.25&&y>b.y-.25&&y<b.y+b.h+.25;
   const wasInside=fromX>b.x-.25&&fromX<b.x+b.w+.25&&fromY>b.y-.25&&fromY<b.y+b.h+.25;
   if(inside&&!wasInside)return true;
@@ -1093,6 +1107,7 @@ function updateHUD(){
  const cityPoiCount=Object.values(state.flags.cityPoiExplored||{}).filter(Boolean).length;
  const civicCacheCount=Object.values(state.city?.civicCaches||{}).filter(Boolean).length;
  $('journalText').textContent=(state.city?.resolution||state.city?.suppliesChoice||state.city?.broadcast||state.city?.tomasTrust||state.city?.infectedSpared!==undefined?cityMemoryText():(state.chapterComplete?'Capítulo I cerrado. La Estrella es ahora un refugio para quienes eligieron dejar de obedecer la señal.':state.bossDefeated?'La fábrica está abierta. Recuperá los registros de Siesta y rastreá la señal en el túnel.':state.survivorTalk?'El Superviviente conoce el sistema de control del Capataz. Buscá pruebas antes de decidir cómo enfrentarlo.':(state.flags.depotManifest||state.flags.patioInspection?'Los registros del Depósito y el Patio pueden cambiar la forma de resolver el conflicto con el Capataz.':'Reuní recuerdos en La Estrella, escuchá al Desertor y descubrí qué controla el Capataz.')))+(poiCount?' · Hitos R1/R2 revisados: '+poiCount+'/10':'')+(cityPoiCount?' · Ciudad Enferma revisada: '+cityPoiCount+'/7':'')+(state.city?.resolution?' · Corredor sur: '+Object.values(state.city?.southSurvey||{}).filter(Boolean).length+'/3':'')+(state.city?.southApproachPrepared?' · Acceso urbano preparado':'')+(state.flags?.cityGateOpen?' · Recursos civiles: '+civicCacheCount+'/3':'')+(state.city?.resolution?' · Seguimiento civil: '+[state.city?.maraFollowup,state.city?.tomasFollowup,state.city?.ibarraFollowup].filter(Boolean).length+'/3':'')+(cultPoiCount?' · R5 ambiental: '+cultPoiCount+'/6':'');
+ if(regionAt(player.x,player.y)==='R4'||state.military?.varelaDefeated){const m=ensureMilitary(),e=m.evidence;const n=[e.evacuation,e.trenchOrders,e.flight9Manifest,e.flight9Discrepancy,e.coverupOrder,e.aurelioRecipe].filter(Boolean).length;$('journalText').textContent+=' · Ejército de Salvación: '+n+'/6 pruebas'+(m.gunboatsSabotaged?' · lanchas saboteadas':'')+(m.varelaDefeated?' · Richars Octavio derrotado':'');}
 }
 function openDialogue(speaker,portrait,text,choices){
  dialogue={speaker,portrait,text,choices:choices||[]};
@@ -1105,8 +1120,52 @@ function closeDialogue(){$('dialogue').classList.remove('show');document.body.cl
 function advance(){if(!dialogue)return;if(dialogue.choices?.length)return;closeDialogue()}
 $('dialogue').addEventListener('click',e=>{if(e.target.tagName!=='BUTTON')advance()});
 function interact(){
+function militaryDefaults(){return {evidence:{evacuation:false,trenchOrders:false,flight9Manifest:false,flight9Discrepancy:false,coverupOrder:false,aurelioRecipe:false},elbaMet:false,elbaHelped:false,wrench:false,gunboatsSabotaged:false,nereaMet:false,nereaTestimony:false,funesHP:90,funesDefeated:false,bridgeSecured:false,varelaDefeated:false,bossHP:260,bossTurnCount:0,bossPhase:1,exposedWeakness:false,repairUsed:false,siestaConsoleAccess:false};}
+function ensureMilitary(){state.military=Object.assign(militaryDefaults(),state.military||{});state.military.evidence=Object.assign(militaryDefaults().evidence,state.military.evidence||{});return state.military;}
+function militaryIncoming(base){const m=ensureMilitary();return Math.max(3,base-(m.gunboatsSabotaged?6:0)-(m.funesDefeated?4:0)-(m.evidence.coverupOrder?2:0));}
+function evidenceReady(m){const e=m.evidence;return e.flight9Manifest&&e.flight9Discrepancy&&e.coverupOrder;}
+function militaryInteract(id){
+ const m=ensureMilitary(),e=m.evidence;
+ const evidence=(key,title,portrait,body)=>{const first=!e[key];e[key]=true;state.objective='Reuní las pruebas del Vuelo 9 y de las decisiones del Ejército de Salvación.';openDialogue(title,portrait,first?body:'La evidencia ya está archivada en tu registro.');updateHUD();};
+ switch(id){
+ case'mil_elba':
+  if(!m.elbaMet){m.elbaMet=true;openDialogue('Elba Roldán · Mecánica','🧑‍🔧','Mantuve las lanchas del puerto. El Ejército de Salvación las prepara para un ataque, no para evacuar civiles. Puedo inutilizar su artillería, pero necesito una llave inglesa adecuada y que alguien me ayude.',[{label:'Ayudarla a impedir el ataque',run:()=>{m.elbaHelped=true;openDialogue('Elba Roldán','🧑‍🔧','Buscá una llave inglesa de servicio en el Cuartel avanzado. Si la traés, prepararé el sabotaje.')}},{label:'No comprometerse todavía',run:()=>openDialogue('Elba Roldán','🧑‍🔧','Entiendo. Si cambiás de idea, voy a seguir aquí.')} ]);}
+  else openDialogue('Elba Roldán','🧑‍🔧',m.gunboatsSabotaged?'Las lanchas ya no podrán disparar.':'Necesito que hayas aceptado ayudarme y que traigas la llave inglesa del Cuartel avanzado. El sabotaje se hace en el Muelle.');
+  break;
+ case'mil_evacManifest':evidence('evacuation','Manifiesto de evacuación','📋','El manifiesto separa plazas por credencial: personal militar, técnicos autorizados y familias con permiso. Hay espacios reservados mientras varias solicitudes civiles figuran como rechazadas. La selección fue administrativa, no una falta de capacidad del transporte.');break;
+ case'mil_wrench':if(!m.wrench){m.wrench=true;openDialogue('Cuartel avanzado','🔧','Encontrás una llave inglesa de servicio. Está gastada, pero el mecanismo todavía funciona.');}else openDialogue('Cuartel avanzado','🔧','Ya llevás la llave inglesa de servicio.');break;
+ case'mil_nerea':m.nereaMet=true;m.nereaTestimony=true;openDialogue('Nerea Vidal · Piloto','🧑‍✈️','En el Vuelo 9 me ordenaron mantener el manifiesto cerrado durante la carga. Vi una cápsula asegurada como material prioritario y después recibí instrucciones de no hablar del desvío. No conozco el origen de la Fiebre Gris; puedo confirmar lo que transportamos y lo que me ordenaron.');break;
+ case'mil_flightOrder':evidence('flight9Manifest','Orden de carga del Vuelo 9','📄','La orden confirma que una cápsula sellada fue cargada en el Vuelo 9 bajo prioridad militar. El documento registra el transporte y la cadena logística, no el origen de la Fiebre Gris.');break;
+ case'mil_coverupOrder':evidence('coverupOrder','Orden de ocultamiento','📡','La copia indica que los registros del Vuelo 9 debían retirarse del archivo público y que las consultas se elevaran a la Fortaleza. El Puesto de radio transmitía órdenes; no originó la señal externa.');break;
+ case'mil_funes':militaryFunesTurn();break;
+ case'mil_recipe':if(!m.varelaDefeated){openDialogue('Fortaleza','📖','Los efectos privados del General siguen dentro del recinto. Primero tendrás que derrotarlo.');break;}evidence('aurelioRecipe','Recetario de Don Aurelio','📖','Una nota confirma que Don Aurelio se presentó ante el mando para pedir clemencia por robots de servicio que habían protegido civiles. Richars Octavio conservó el recetario y rechazó la petición. No hay registro que permita saber qué ocurrió después con Don Aurelio.');break;
+ case'mil_siestaConsole':if(!m.varelaDefeated){openDialogue('Consola Siesta','▣','El acceso está bajo control de Richars Octavio.');break;}m.siestaConsoleAccess=true;state.objective='Revisa el Protocolo Siesta y decide qué hacer con la información reunida.';openDialogue('Consola Siesta','▣','La derrota de Richars Octavio no apagó el Protocolo Siesta ni resolvió la señal externa. Los registros militares pueden cruzarse con la información de La Estrella; el conflicto sobre el futuro de las unidades continúa.');break;
+ }
+ updateHUD();
+}
+function militaryFunesTurn(){const m=ensureMilitary();if(m.funesDefeated){openDialogue('Control del puente','🪖','Ramiro Funes ya no controla el puesto.');return;}openDialogue('Ramiro Funes · '+m.funesHP+'%','🪖','Funes bloquea el paso y exige que entregues las pruebas. No va a negociar.',[{label:'Golpe directo · 35 de daño / recibís 18',run:()=>militaryFunesAction(35,18)},{label:'Esquivar y contraatacar · 24 de daño / recibís 8',run:()=>militaryFunesAction(24,8)},{label:'Retirarse',run:()=>openDialogue('Siete','🤖','Puedo regresar con más recursos.')}]);}
+function militaryFunesAction(damage,incoming){const m=ensureMilitary();m.funesHP=Math.max(0,m.funesHP-damage);if(!m.funesHP){m.funesDefeated=true;m.bridgeSecured=true;openDialogue('Ramiro Funes','🪖','Funes cae. El control del puente queda neutralizado; no hay acuerdo ni rendición.');updateHUD();return;}player.hp=Math.max(1,player.hp-incoming);updateHUD();openDialogue('Ramiro Funes · '+m.funesHP+'%','🪖','Funes responde con una ráfaga. Integridad de Siete: '+player.hp+'%.',[{label:'Seguir luchando',run:()=>militaryFunesTurn()},{label:'Retirarse',run:()=>openDialogue('Siete','🤖','Me repliego para reparar mis sistemas.')}]);}
+function militaryBossTurn(){const m=ensureMilitary();if(m.varelaDefeated){openDialogue('Richars Octavio','🛡️','El General fue derrotado.');return;}m.bossHP=Number(m.bossHP)||260;m.bossPhase=m.bossHP>174?1:(m.bossHP>87?2:3);const phase=m.bossPhase,base=[15,20,25][phase-1],phaseText=phase===1?'Fase 1 · Control del campo: Richars dispara desde posiciones protegidas.':phase===2?'Fase 2 · Blindaje de asalto: embiste y rompe coberturas.':'Fase 3 · Última orden: combina ataques de área con presión directa.';const canExpose=evidenceReady(m)&&!m.exposedWeakness,canRepair=player.scrap>=2&&!m.repairUsed;openDialogue('Richars Octavio · '+m.bossHP+'%','🛡️',phaseText+' El General no se rendirá. Elegí una acción.',[{label:'Ataque pesado · 46 de daño',run:()=>militaryBossAction(46,militaryIncoming(base+5))},{label:'Esquivar y contraatacar · 30 de daño',run:()=>militaryBossAction(30,militaryIncoming(Math.max(5,base-7)))},...(canExpose?[{label:'Exponer la cadena de órdenes · 58 de daño / una vez',run:()=>{m.exposedWeakness=true;militaryBossAction(58,militaryIncoming(base-5));}}]:[]),...(canRepair?[{label:'Reparación · 2 piezas / +25 integridad',run:()=>{player.scrap-=2;m.repairUsed=true;player.hp=Math.min(100,player.hp+25);updateHUD();militaryBossTurn();}}]:[]),{label:'Retirarse y prepararse',run:()=>openDialogue('Siete','🤖','Richars Octavio no va a cambiar. Volveré para terminar esto.')}]);}
+function militaryBossAction(damage,incoming){const m=ensureMilitary(),old=m.bossPhase;m.bossHP=Math.max(0,m.bossHP-damage);m.bossTurnCount++;m.bossPhase=m.bossHP>174?1:(m.bossHP>87?2:3);if(!m.bossHP){m.varelaDefeated=true;m.faction='defeated';state.flags.militaryFortressOpen=true;state.objective='Richars Octavio fue derrotado. Entra en la Fortaleza y examina la consola Siesta.';updateHUD();openDialogue('Richars Octavio','🛡️','Richars Octavio cae. No hay rendición ni clemencia: su régimen termina con él. La derrota no apaga la consola Siesta ni explica el origen de la señal.');persistSave(true);return;}player.hp=Math.max(1,player.hp-incoming);updateHUD();openDialogue('Richars Octavio · '+m.bossHP+'%','🛡️','El impacto alcanza el blindaje. Integridad de Siete: '+player.hp+'%.'+(m.bossPhase!==old?' Richars cambia su patrón de ataque.':''),[{label:'Continuar el combate',run:()=>militaryBossTurn()},{label:'Retirarse',run:()=>openDialogue('Siete','🤖','Me repliego. No voy a negociar con él.')}]);}
+
  if(dialogue){advance();return}
  if(!near)return;
+ if(near.id&&near.id.startsWith('mil_')){militaryInteract(near.id);return;}
+ if(['poi_controldelpuente','poi_trincherasnorte','poi_cuartelavanzado','poi_puerto','poi_muelle','poi_hangar','poi_aerodromo','poi_fortaleza','poi_puestoderadio'].includes(near.id)){
+  const m=ensureMilitary(),e=m.evidence;
+  switch(near.id){
+   case'poi_puerto':e.evacuation=true;openDialogue('Puerto Militar','⚓','Los manifiestos reservan plazas para personal militar y técnicos autorizados mientras varias solicitudes civiles fueron rechazadas. Elba Roldán trabaja junto al almacén.');break;
+   case'poi_trincherasnorte':e.trenchOrders=true;openDialogue('Campo de Trincheras','🪖','Una orden exige mantener la línea después de retirar suministros y personal de apoyo. Los registros muestran abandono y represión de quienes intentaron cruzar sin autorización. No todos los soldados tuvieron la misma responsabilidad.');break;
+   case'poi_cuartelavanzado':militaryInteract('mil_wrench');break;
+   case'poi_muelle':if(m.elbaHelped&&m.wrench&&!m.gunboatsSabotaged)openDialogue('Muelle de Carga','🚢','La llave inglesa permite intervenir el mecanismo de alimentación.',[{label:'Sabotear las lanchas con Elba',run:()=>{m.gunboatsSabotaged=true;openDialogue('Elba Roldán','🧑‍🔧','Las lanchas no podrán disparar. El ataque artillado no llegará a la Fortaleza.');updateHUD();}},{label:'Dejarlo para después',run:()=>{}}]);else openDialogue('Muelle de Carga','🚢',m.gunboatsSabotaged?'Las lanchas quedaron inutilizadas.':'Para sabotearlas necesitás haber ayudado a Elba y llevar la llave inglesa del Cuartel avanzado.');break;
+   case'poi_hangar':e.flight9Manifest=true;openDialogue('Hangar Oxidado','✈️','La orden de carga confirma que una cápsula sellada fue transportada en el Vuelo 9. Nerea Vidal puede confirmar el procedimiento que presenció.');break;
+   case'poi_aerodromo':e.flight9Discrepancy=true;openDialogue('Aeródromo','🛫','El manifiesto declara suministros médicos ordinarios, pero el registro de peso y el sello corresponden a una cápsula de contención. Esto demuestra transporte y encubrimiento, no el origen de la Fiebre Gris.');break;
+   case'poi_puestoderadio':e.coverupOrder=true;openDialogue('Puesto de radio','📻','La copia de una orden exige retirar los registros del Vuelo 9 y derivar consultas a la Fortaleza. El puesto transmitía órdenes; no originó la señal externa.');break;
+   case'poi_controldelpuente':militaryFunesTurn();break;
+   case'poi_fortaleza':if(!evidenceReady(m))openDialogue('Fortaleza del General','🏰','El acceso está bajo control de Richars Octavio. Necesitás orden de carga, registro de discrepancia y copia de ocultamiento: '+[e.flight9Manifest,e.flight9Discrepancy,e.coverupOrder].filter(Boolean).length+'/3.');else{state.flags.militaryFortressAccess=true;militaryBossTurn();}break;
+  }updateHUD();return;
+ }
+
  // 3.12 · Interacciones de exploración R1/R2. Se registran como hallazgos
  // ambientales y servicios locales; no añaden facciones ni revelaciones.
  // 3.14 · Exploración ambiental de R3. Los textos describen el estado visible
@@ -1148,7 +1207,7 @@ function interact(){
   if(!state.city?.resolution){openDialogue(near.name,'🛣️','La salida sigue comprometida. Primero hay que resolver el Nido y evitar que la ciudad avance con una amenaza activa.');return}
   if(surveyed<3){openDialogue(near.name,'🛣️','La ruta todavía no está suficientemente reconocida. Faltan referencias civiles del corredor: '+surveyed+'/3. La frontera permanece cerrada.');return}
   if(state.city.southApproachPrepared){openDialogue('Puesto de preparación','🧭','El acceso urbano quedó despejado y señalizado para una futura expedición. No hay autorización ni paso abierto al otro lado. La frontera sigue cerrada.');return}
-  state.city.southApproachPrepared=true;
+  state.city.southApproachPrepared=true;state.flags.militaryAccessOpen=true;
   state.objective='Preparativos del corredor completados. Reúne información y recursos antes de afrontar la frontera sur.';
   if(!state.flags.cityPoiExplored)state.flags.cityPoiExplored={};state.flags.cityPoiExplored[near.id]=true;
   openDialogue('Preparativos del corredor','🧭','Retirás escombros menores, marcas el borde seguro del pavimento y dejas una señal visible para quienes salgan del Barrio. El trazado civil queda preparado para una futura expedición. Más allá, la frontera continúa cerrada: todavía no hay paso, contacto ni información verificable sobre lo que espera al sur.');
@@ -1515,7 +1574,7 @@ function findNear(){
 }
 function startGame(load){
  $('menu').classList.add('hidden');state.started=true;
- if(load){const raw=localStorage.getItem('mesero30save');if(raw){try{const s=JSON.parse(raw);Object.assign(state,s.state||{});Object.assign(player,s.player||{});state.consoles=Object.assign({one:false,two:false,three:false},state.consoles||{});state.flags=state.flags||{};state.flags.poiExplored=state.flags.poiExplored||{};state.city=state.city||{};state.city.southSurvey=state.city.southSurvey||{};state.city.maraFollowup=!!state.city.maraFollowup;state.city.tomasFollowup=!!state.city.tomasFollowup;state.city.ibarraFollowup=!!state.city.ibarraFollowup;state.city.civicCaches=state.city.civicCaches||{};state.records=Object.assign({siesta:false,signal:false},state.records||{});if(state.bossHP===100&&!state.bossDefeated&&!state.bossTurnCount)state.bossHP=180;if(state.city.guardianStarted&&state.city.guardianHP==null)state.city.guardianHP=120;state.factoryWingOpen=!!state.factoryWingOpen;state.survivorDebrief=!!state.survivorDebrief;state.chapterComplete=!!state.chapterComplete;state.currentInterior=state.currentInterior||null;state.returnPoint=state.returnPoint||null;state.flags=state.flags||{};
+ if(load){const raw=localStorage.getItem('mesero30save');if(raw){try{const s=JSON.parse(raw);Object.assign(state,s.state||{});Object.assign(player,s.player||{});state.consoles=Object.assign({one:false,two:false,three:false},state.consoles||{});state.flags=state.flags||{};state.flags.poiExplored=state.flags.poiExplored||{};state.city=state.city||{};state.city.southSurvey=state.city.southSurvey||{};state.city.maraFollowup=!!state.city.maraFollowup;state.city.tomasFollowup=!!state.city.tomasFollowup;state.city.ibarraFollowup=!!state.city.ibarraFollowup;state.city.civicCaches=state.city.civicCaches||{};state.records=Object.assign({siesta:false,signal:false},state.records||{});ensureMilitary();if(state.bossHP===100&&!state.bossDefeated&&!state.bossTurnCount)state.bossHP=180;if(state.city.guardianStarted&&state.city.guardianHP==null)state.city.guardianHP=120;state.factoryWingOpen=!!state.factoryWingOpen;state.survivorDebrief=!!state.survivorDebrief;state.chapterComplete=!!state.chapterComplete;state.currentInterior=state.currentInterior||null;state.returnPoint=state.returnPoint||null;state.flags=state.flags||{};
  const validInteriors=['depot','patio','mall','metro','hospital','nest','catacombs','temple','sanctuary'];
  state.flags.cultPoiExplored=state.flags.cultPoiExplored||{};
  const validPoint=p=>p&&Number.isFinite(Number(p.x))&&Number.isFinite(Number(p.y))&&Number(p.x)>=0&&Number(p.x)<=420&&Number(p.y)>=0&&Number(p.y)<=300;
@@ -1526,7 +1585,7 @@ function startGame(load){
  player.scrap=Number.isFinite(Number(player.scrap))?Math.max(0,Number(player.scrap)):0;
  setToast('Partida recuperada.')}catch(e){state.currentInterior=null;state.returnPoint=null;setToast('El guardado estaba dañado. Se inició una posición segura.')}}
  state.started=true;}
- else{Object.assign(player,{x:8.2,y:11.2,hp:100,scrap:0});state.seen={bell:false,photo:false,terminal:false};state.flags={};state.city={civicCaches:{}};state.doorOpen=false;state.intro=false;state.deserterTalk=false;state.consoles={one:false,two:false,three:false};state.factoryGateOpen=false;state.bossDefeated=false;state.bossPeace=false;state.bossHP=180;state.survivorTalk=false;state.factoryWingOpen=false;state.records={siesta:false,signal:false};state.survivorDebrief=false;state.chapterComplete=false;state.currentInterior=null;state.returnPoint=null;state.objective='Despierta en La Estrella y averigua qué ocurrió.'}
+ else{Object.assign(player,{x:8.2,y:11.2,hp:100,scrap:0});state.seen={bell:false,photo:false,terminal:false};state.flags={};state.city={civicCaches:{}};state.doorOpen=false;state.intro=false;state.deserterTalk=false;state.consoles={one:false,two:false,three:false};state.factoryGateOpen=false;state.bossDefeated=false;state.bossPeace=false;state.bossHP=180;state.survivorTalk=false;state.factoryWingOpen=false;state.records={siesta:false,signal:false};state.survivorDebrief=false;state.chapterComplete=false;state.currentInterior=null;state.returnPoint=null;state.military=militaryDefaults();state.objective='Despierta en La Estrella y averigua qué ocurrió.'}
  updateHUD();
  if(!state.intro){state.intro=true;openDialogue('Siete','🤖','Sistema reiniciado. Unidad S-07 operativa… ¿Dónde está Estrella? ¿Cuánto tiempo ha pasado?');}
 }
