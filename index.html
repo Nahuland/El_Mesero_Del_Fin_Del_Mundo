@@ -307,7 +307,6 @@ props.push(
  {id:'cultPoi_marketRemains',x:342,y:218,type:'landmark',name:'Patio de puestos',emoji:'🪵',description:'Detrás de los puestos quedan tablones, soportes torcidos y fragmentos de lona. El espacio puede recorrerse sin atravesar las estructuras del mercado.'},
  {id:'cultPoi_stairRest',x:372,y:239,type:'landmark',name:'Descanso de la escalinata',emoji:'🪜',description:'Un rellano lateral conserva dos peldaños rotos y un borde desgastado. Desde aquí se distinguen la subida y la terraza, sin que aparezca una ruta nueva.'}
 );
-function resize(){dpr=Math.min(devicePixelRatio||1,2);
 props.push(
  {id:'mil_elba',x:65,y:218,type:'landmark',name:'Elba Roldán · Mecánica',emoji:'🧑‍🔧'},
  {id:'mil_varela',x:133,y:273,type:'landmark',name:'Richars Octavio · General Acorazado',emoji:'🛡️'},
@@ -331,6 +330,8 @@ props.push(
  {id:'mil_fortressAurelio',x:184,y:283,type:'landmark',name:'Recetario de Don Aurelio',emoji:'📖',interior:'milFortress'},
  {id:'mil_fortressSiesta',x:177,y:290,type:'landmark',name:'Consola Siesta',emoji:'▣',interior:'milFortress'}
 );
+function resize(){dpr=Math.min(devicePixelRatio||1,2);
+
 W=canvas.clientWidth;H=canvas.clientHeight;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
 addEventListener('resize',resize);resize();
 function iso(x,y){return {x:(x-y)*TILE_W/2,y:(x+y)*TILE_H/2}}
@@ -341,6 +342,7 @@ function regionAt(x,y){
   if(['depot','patio'].includes(state.currentInterior))return 'R2';
   if(['mall','metro','hospital','nest'].includes(state.currentInterior))return 'R3';
   if(['catacombs','temple','sanctuary'].includes(state.currentInterior))return 'R5';
+  if(['milHangar','milFortress'].includes(state.currentInterior))return 'R4';
  }
  // Rectángulos maestros 420×300. R1/R2 se solapan por diseño;
  // R5 tiene prioridad desde Y=135; el extremo terminal de R3 queda al norte de esa línea.
