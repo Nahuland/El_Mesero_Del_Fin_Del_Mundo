@@ -1,0 +1,24 @@
+# REPORTE QA — Versión 3.24 · Cierre jugable del Acto IV
+
+## Resultado
+Validación estática aprobada. No equivale a una partida completa ni a pruebas físicas.
+
+## Comprobaciones ejecutadas
+- JavaScript inline extraído del HTML: compilación sintáctica aprobada.
+- Presencia del nuevo punto `mil_fortressBoard`: aprobada.
+- Presencia de la función de checklist de 13 requisitos: aprobada.
+- Presencia de la transición persistente `act4ReviewComplete` / `act4Complete`: aprobada.
+- Inicialización de `celinaBriefed` al hablar con Celina: aprobada.
+- Reinicialización de estado militar al comenzar una partida nueva: aprobada.
+- Compatibilidad de guardado: clave `mesero30save` y `saveVersion:49` conservadas.
+- Las condiciones tácticas de sabotaje y Funes se mantienen independientes de los 13 requisitos documentales.
+
+## No ejecutado
+- Recorrido manual completo de Puerto a Fortaleza.
+- Simulación real de los 13 pasos del tablero en navegador.
+- Guardado/carga real de una partida 3.23 y de una partida 3.24.
+- Balance del combate de Richars en una partida completa.
+- Inspección visual y prueba en móvil físico.
+
+## Conclusión
+La versión 3.24 añade una condición explícita y persistente para cerrar la revisión del Acto IV. El cierre depende de pruebas, testimonios, derrota de Richars y decisión de Siesta; no determina ninguno de los ocho finales.
