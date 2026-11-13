@@ -60,6 +60,8 @@ El diseño narrativo fue aprobado por el usuario: la facción se llama Ejército
 - [HTML principal 3.22](index.html)
 - [HTML versionado 3.22](El_Mesero_del_Fin_del_Mundo_3.22_Ejercito_Salvacion.html)
 - [Plan y estado de implementación](08_Plan_3.22_Desarrollo_Faccion_Militar.md)
+- [Detalle de implementación jugable 3.22](10_Implementacion_3.22_Ejercito_Salvacion.md)
+- [Informe QA actualizado](REPORTE_QA_3.22_Plan.txt)
 - [Propuesta narrativa aprobada](09_Propuestas_3.22_Acto_IV_General_Jefe_Final.md)
 
 La versión incorpora la primera capa jugable del Acto IV: apertura de R4 tras la preparación civil, Elba, Nerea, evidencias, sabotaje, Funes, Richars Octavio y acceso posterior a la consola Siesta. saveVersion:49 y mesero30save se conservan. La prueba visual/manual y móvil queda pendiente.
