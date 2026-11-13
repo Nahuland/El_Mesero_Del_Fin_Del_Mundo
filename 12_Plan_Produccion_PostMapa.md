@@ -1,8 +1,8 @@
 # Plan de producción posterior a la geografía — El Mesero del Fin del Mundo
 
 ## Estado de partida
-- Versión de referencia en el repositorio: 3.24 — cierre jugable del Acto IV.
-- Versión 3.25 implementada: deliberación persistente de los ocho contactos; finales aún pendientes.
+- Versión de referencia en el repositorio: 3.26 — ocho desenlaces implementados con dos bloqueos narrativos heredados.
+- Versión 3.25 implementada: deliberación persistente de los ocho contactos.
 - R1–R5 existen como mapa explorable con distintos niveles de desarrollo narrativo.
 - R4 conserva la geografía de 3.21 y la primera capa narrativa 3.22.
 - Richars Octavio es el jefe final obligatorio del tramo militar: malvado e irredimible; no hay rendición, alianza, clemencia ni redención.
@@ -50,18 +50,20 @@
 
 **QA 3.25:** compilación y simulación aislada 8/8 aprobadas. Pruebas manuales, visuales, guardado/carga real y móvil pendientes.
 
-### 3.26 — Ocho finales y epílogos
-Implementar y probar los ocho finales ya definidos en el material maestro:
-- El Restaurante de Estrella.
-- El Mesero Solitario.
-- El Archivo del Eco.
-- El Mesero de Hierro.
-- Siesta Voluntaria.
-- La Mesa Larga.
-- Un Amanecer sin Fiebre.
-- La Señal se Apaga.
+### 3.26 — Ocho finales y epílogos — IMPLEMENTADO CON BLOQUEOS NARRATIVOS
+- Consola final conectada a la deliberación 8/8 y a la decisión técnica previa de Siesta.
+- Ocho desenlaces, condiciones explícitas, epílogos y persistencia de una elección definitiva.
+- Final 1: cuatro vínculos, dos resoluciones pacíficas y dos misiones personales.
+- Final 2: Siesta desconectada sin cumplir el umbral comunitario.
+- Final 3: copia de solo lectura, advertencia pública y seis o más registros.
+- Final 4: acceso compartido y elección de imponer paz mediante Siesta.
+- Final 5: apagado voluntario con epílogo variable según los vínculos.
+- Final 6: requiere resolución reconciliada de la Secta; queda bloqueado porque la base 3.25 aún no implementa la resolución del Sacerdote del Eclipse.
+- Final 7: añade el frasco de antídoto al Hospital y conecta la elección de Lía/Teo con la red médica; el tratamiento del Carnicero aún carece de escena jugable.
+- Final 8: desactivación del enlace externo desde la consola con registros de fábrica, Vuelo 9 y mando.
+- Se conserva `mesero30save` y `saveVersion:49`.
 
-Cada final debe tener condiciones explícitas, escena propia, consecuencias para los ocho contactos y persistencia. No inventar nuevos finales ni reasignar sus nombres sin aprobación.
+**QA 3.26:** scripts compilados, aserciones estáticas y simulación aislada de las ocho condiciones aprobadas. No se declara QA manual, guardado/carga real, móvil ni despliegue.
 
 ### 3.27 — Pulido sistémico y experiencia
 - Auditoría de colisiones y rutas de todas las regiones e interiores.
