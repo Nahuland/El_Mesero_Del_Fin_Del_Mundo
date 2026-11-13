@@ -1,0 +1,37 @@
+name: QA y paquete 3.22
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtener repositorio
+        uses: actions/checkout@v4
+      - name: Validar sintaxis JavaScript inline
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          for (const file of ['index.html', 'El_Mesero_del_Fin_Del_Mundo_3.22_Ejercito_Salvacion.html']) {
+            const html = fs.readFileSync(file, 'utf8');
+            const match = html.match(/<script>([\s\S]*?)<\/script>/);
+            if (!match) throw new Error('No se encontró script inline en ' + file);
+            new Function(match[1]);
+            console.log('Sintaxis OK:', file);
+          }
+          NODE
+      - name: Crear ZIP completo del repositorio
+        run: git archive --format=zip --output=El_Mesero_del_Fin_Del_Mundo_3.22_Paquete_Completo.zip HEAD
+      - name: Publicar paquete ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: Mesero-3.22-Paquete-Completo
+          path: El_Mesero_del_Fin_Del_Mundo_3.22_Paquete_Completo.zip
+          if-no-files-found: error
+          retention-days: 30
