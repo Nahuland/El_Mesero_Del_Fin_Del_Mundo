@@ -1,0 +1,24 @@
+# REPORTE QA — Versión 3.23
+
+## Alcance
+Interiores militares, encuentros de Damián Ferreyra y Celina Borda, registro de operaciones, archivo de mando, reparación interior y primer nodo de decisión de Siesta.
+
+## Validaciones realizadas
+- JavaScript inline de `index.html`: compilación estática aprobada con `new Function`.
+- Aserciones estáticas: 9/9 para interiores nuevos, NPC, archivos, consola, clave de guardado y versión 49.
+- `index.html` y HTML versionado 3.23 sincronizados mediante el mismo contenido.
+- Se corrigió la acumulación de props militares dentro de `resize()`; ahora se registran una sola vez.
+- Se corrigió la transición de facción para preservar `weakened` tras sabotaje o derrota de Funes.
+- `milHangar` y `milFortress` se incorporan a la lista de interiores válidos al cargar una partida.
+- No se incrementa `saveVersion`; campos nuevos son aditivos y el guardado sigue usando `mesero30save`.
+
+## Pendiente
+- Recorrido automatizado completo de R4.
+- Verificar físicamente puertas, colisiones y retornos de Hangar y Fortaleza.
+- Guardado/carga real desde navegador con partida anterior y con los dos interiores activos.
+- Probar las tres decisiones de Siesta y persistencia tras recarga.
+- Balance y recorrido completo del combate de Richars.
+- Inspección visual manual en navegador y prueba en móvil físico.
+
+## Estado
+Validación estática aprobada. No se declara validación visual/manual, móvil físico ni cierre del Acto IV/V.
