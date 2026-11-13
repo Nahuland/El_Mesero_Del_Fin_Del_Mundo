@@ -56,7 +56,7 @@ Richars Octavio no se rinde, no se redime y no puede ser perdonado. Su derrota a
 ## Archivos
 
 - `index.html`: entrada principal 3.22.
-- `El_Mesero_del_Fin_del_Mundo_3.22_Ejercito_Salvacion.html`: copia versionada.
+- `El_Mesero_del_Fin_Del_Mundo_3.22_Ejercito_Salvacion.html`: copia versionada.
 - `Coordenadas_Maestro_El_Mesero_3.21.csv`: filas adicionales de los nuevos elementos.
 - Documento Maestro, Atlas, Plano y Guion de Continuidad: addendas 3.22.
 - `REPORTE_QA_3.22_Plan.txt`: validaciones y pendientes.
