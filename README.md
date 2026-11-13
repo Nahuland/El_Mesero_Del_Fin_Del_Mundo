@@ -40,7 +40,7 @@ La versión de referencia preparada localmente es **3.19**. El informe de QA dis
 R4 conserva el bloqueo de acceso. Esta entrega completa únicamente su primera capa geográfica exterior; la facción y la historia militar siguen pendientes.
 
 
-## Versión 3.22 — preparación narrativa del Acto IV
+## Versión 3.22 — auditoría y preparación documental del Acto IV
 
 - [Plan de desarrollo de la facción militar R4](08_Plan_3.22_Desarrollo_Faccion_Militar.md)
 - [Informe QA documental 3.22](REPORTE_QA_3.22_Plan.txt)
@@ -48,11 +48,11 @@ R4 conserva el bloqueo de acceso. Esta entrega completa únicamente su primera c
 La auditoría documental fue completada y luego seguida por la implementación jugable inicial 3.22. El HTML principal ya integra la primera capa del Acto IV; quedan pendientes las pruebas visuales/manuales y la expansión de interiores y escenas secundarias.
 
 
-### Propuestas narrativas pendientes de aprobación
+### Diseño narrativo aprobado
 
 - [Acto IV: facción, nombres, jerarquía y General como jefe final](09_Propuestas_3.22_Acto_IV_General_Jefe_Final.md)
 
-El diseño narrativo fue aprobado por el usuario: la facción se llama Ejército de Salvación y el General Acorazado es Richars Octavio, jefe final irredimible. El resto de la propuesta también está aprobado, pero aún no está implementado.
+El diseño narrativo fue aprobado por el usuario. La primera capa jugable está implementada; los interiores militares, las escenas de Damián Ferreyra y Celina Borda y las decisiones completas del Acto V siguen pendientes.
 
 
 ## Versión 3.22 — Ejército de Salvación (implementación inicial)
