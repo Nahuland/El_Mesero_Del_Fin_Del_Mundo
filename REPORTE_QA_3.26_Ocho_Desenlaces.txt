@@ -1,0 +1,30 @@
+# REPORTE QA — Versión 3.26 · Los ocho desenlaces
+
+## Resultado
+Validación sintáctica, aserciones estáticas y simulación aislada de condiciones aprobadas. La integración narrativa queda parcialmente bloqueada por contenido previo ausente en la base 3.25.
+
+## Pruebas ejecutadas
+- Compilación de todos los scripts JavaScript inline con `new Function`: aprobada.
+- Presencia de los ocho identificadores de desenlace y sus epílogos: aprobada.
+- Acceso a la consola tras completar Acto IV y consejo 8/8: comprobado estáticamente.
+- Registro de un único desenlace por partida: comprobado estáticamente.
+- Persistencia en `mesero30save`, `saveVersion:49`: comprobado estáticamente.
+- Antídoto del Hospital: requiere archivo y muestra; la asignación a Teo impide reutilizarlo para el final médico: comprobado estáticamente.
+- Simulación aislada de condiciones: Restaurante, Solitario, Archivo, Hierro, Siesta Voluntaria, Mesa Larga, Amanecer sin Fiebre y Señal se Apaga devolvieron disponible cuando se proporcionaron sus banderas requeridas.
+- HTML principal y HTML versionado: mismo SHA de contenido.
+
+## Bloqueos conocidos
+- **La Mesa Larga no es alcanzable desde la progresión actual:** depende de `state.flags.cultResolution === 'reconciled'`, pero la base 3.25 todavía no implementa la resolución alternativa del Sacerdote del Eclipse. Se mantiene bloqueado para no inventar la reconciliación de la Secta.
+- La elección de Teo reserva el antídoto para intentar salvar al Carnicero, pero no existe todavía una escena jugable que resuelva ese tratamiento.
+- La desactivación del enlace externo se registra en la consola; no se añadió un transmisor físico explorable.
+
+## No ejecutado
+- Partida manual completa desde una partida 3.25.
+- Guardado/carga real en navegador con una partida anterior.
+- Recorrido de cada desenlace dentro del navegador.
+- Inspección visual de diálogos y consola.
+- Prueba en móvil físico.
+- Verificación de publicación de GitHub Pages.
+
+## Conclusión
+La lógica de selección y persistencia de los desenlaces está integrada y validada estáticamente. No se considera cerrada la fase narrativa completa hasta implementar la resolución de la Secta y la escena del antídoto/Carnicero, y ejecutar QA manual.
