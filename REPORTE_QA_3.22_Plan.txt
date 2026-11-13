@@ -30,3 +30,25 @@ ACTUALIZACIÓN DE DIRECCIÓN NARRATIVA
 [OK] Decisión del usuario: el General Acorazado es malvado y jefe final obligatorio; no hay redención ni rendición.
 [OK] Propuestas de nombres, jerarquía, facción, pruebas, historia y combate separadas del canon confirmado en 09_Propuestas_3.22_Acto_IV_General_Jefe_Final.md.
 [PENDIENTE] Aprobación de las propuestas antes de convertirlas en canon o implementarlas.
+
+
+ACTUALIZACIÓN DE IMPLEMENTACIÓN 3.22
+[OK] HTML principal actualizado y HTML versionado 3.22 creado.
+[OK] Acceso R4 condicionado por la preparación civil del corredor sur.
+[OK] Encuentros y persistencia de Elba Roldán y Nerea Vidal.
+[OK] Evidencias de evacuación, trincheras, Vuelo 9, discrepancia y ocultamiento.
+[OK] Llave inglesa y sabotaje opcional de lanchas.
+[OK] Enfrentamiento opcional con Ramiro Funes.
+[OK] Richars Octavio implementado como jefe obligatorio en tres fases, sin rendición ni redención.
+[OK] Derrota abre el acceso a recetario y consola Siesta.
+[OK] Sintaxis JavaScript del HTML comprobada mediante compilación estática.
+[OK] saveVersion permanece en 49; migración aditiva compatible con mesero30save.
+[PENDIENTE] Prueba de progresión completa, combate automatizado, guardado/carga real, inspección visual manual y móvil físico.
+
+## QA de implementación 3.22
+
+La primera capa jugable se incorporó a index.html y al HTML versionado. El acceso a R4 requiere resolución del Nido, reconocimiento sur 3/3 y preparación civil. Se añadieron Elba, Nerea, evidencias, llave inglesa, sabotaje, encuentro opcional con Funes, jefe Richars Octavio en tres fases y acceso posterior a recetario y consola Siesta.
+
+Validación realizada: compilación estática del JavaScript inline aprobada; comprobación estática de las banderas, funciones y migración aprobada. saveVersion:49 y mesero30save se conservan con campos aditivos.
+
+Pendiente: recorrido automatizado completo, combate automatizado, guardado/carga real desde partida 3.21, inspección visual manual y prueba en móvil físico. No se certifica todavía la fase completa.
