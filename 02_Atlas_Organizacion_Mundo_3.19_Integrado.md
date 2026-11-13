@@ -539,3 +539,7 @@ La cartografía exterior R4 de 3.21 se conserva sin desplazar centros, huellas n
 El acceso regional se habilita solo después de resolver el Nido, registrar los tres puntos del corredor sur y preparar la salida urbana. Se agregan como personajes aprobados Elba Roldán y Nerea Vidal; el encuentro de seguridad de Ramiro Funes se vincula al Control del puente. La Fortaleza queda bajo el mando de Richars Octavio hasta su derrota obligatoria.
 
 Los puntos auxiliares Cuartel avanzado y Puesto de radio reciben funciones de juego: herramienta logística y copia de orden de ocultamiento, respectivamente. El Puesto de radio no es el origen de la señal externa.
+
+## Addendum 3.23 — interiores del Ejército de Salvación
+
+El Hangar Oxidado conserva su acceso exterior y ahora conecta con una instancia explorable `milHangar` (178–207, 162–191), con salida interior en (181,165), Celina Borda (193,171), libro de operaciones (188,182) y banco de mantenimiento (199,184). La Fortaleza conserva su huella exterior y, solo tras derrotar a Richars Octavio, conecta con `milFortress` (163–194, 260–294), con salida (166,278), archivo de mando (177,273), recetario (184,283) y consola Siesta (177,290). Damián Ferreyra se incorpora al Control del puente (114,166). Las coordenadas exteriores maestras no se desplazan.
