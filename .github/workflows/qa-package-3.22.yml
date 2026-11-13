@@ -27,7 +27,8 @@ jobs:
           }
           NODE
       - name: Crear ZIP completo del repositorio
-        run: zip -r -q El_Mesero_del_Fin_Del_Mundo_3.22_Paquete_Completo.zip . -x '.git/*' '*.zip'
+        run: |
+          zip -r -q El_Mesero_del_Fin_Del_Mundo_3.22_Paquete_Completo.zip . -x '.git/*' '*.zip'
           unzip -l El_Mesero_del_Fin_Del_Mundo_3.22_Paquete_Completo.zip | grep -q 'index.html'
           unzip -l El_Mesero_del_Fin_Del_Mundo_3.22_Paquete_Completo.zip | grep -q 'El_Mesero_del_Fin_Del_Mundo_3.22_Ejercito_Salvacion.html'
       - name: Publicar paquete ZIP
