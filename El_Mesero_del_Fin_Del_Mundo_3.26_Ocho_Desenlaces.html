@@ -1194,14 +1194,15 @@ function finaleMetrics(){
  const a=ensureAct5(),m=ensureMilitary(),c=state.city||{},f=state.flags||{},p=a.contacts;
  const allies=ACT5_CONTACTS.filter(x=>p[x.id]==='support'||p[x.id]==='negotiate').length;
  const supporters=ACT5_CONTACTS.filter(x=>p[x.id]==='support').length;
- const peaceful=[!!state.bossPeace,c.resolution==='severed',!!(m.gunboatsSabotaged&&m.funesDefeated)].filter(Boolean).length;
+ const peaceful=[!!state.bossPeace,c.resolution==='severed',f.cultResolution==='reconciled'].filter(Boolean).length;
+ const missions=[!!c.maraFollowup,!!c.tomasFollowup,!!c.ibarraFollowup,!!c.clinicAid,!!m.elbaHelped].filter(Boolean).length;
  const recordCount=[!!state.records?.siesta,!!state.records?.signal,!!m.hangarLogRead,!!m.commandArchiveRead,!!m.evidence?.evacuation,!!m.evidence?.trenchOrders,!!m.evidence?.flight9Manifest,!!m.evidence?.flight9Discrepancy,!!m.evidence?.coverupOrder,!!m.evidence?.aurelioRecipe,!!c.records,!!c.sample,c.broadcast==='public'].filter(Boolean).length;
- const restaurant=m.siestaDecision==='destroy'&&allies>=4&&peaceful>=2;
+ const restaurant=m.siestaDecision==='destroy'&&allies>=4&&peaceful>=2&&missions>=2;
  const archive=m.siestaDecision==='archive'&&c.broadcast==='public'&&recordCount>=6;
  const mesa=m.siestaDecision==='destroy'&&!!state.bossPeace&&c.resolution==='severed'&&f.cultResolution==='reconciled'&&m.gunboatsSabotaged&&m.funesDefeated&&allies>=6&&['noa','dante','kai','eva'].every(id=>p[id]==='support'||p[id]==='negotiate');
  const dawn=!!(c.records&&c.sample&&c.hospitalEvidence&&c.suppliesChoice==='hospital'&&c.clinicAid&&c.resolution==='severed'&&c.antidoteRecovered&&!c.antidoteUsedForCarnicero&&p.lia==='support'&&p.teo!=='support');
  const signal=!!(state.records?.siesta&&state.records?.signal&&m.hangarLogRead&&m.commandArchiveRead&&m.evidence?.flight9Manifest&&m.evidence?.flight9Discrepancy&&m.evidence?.coverupOrder);
- return {allies,supporters,peaceful,recordCount,restaurant,archive,mesa,dawn,signal,solitary:m.siestaDecision==='destroy'&&!restaurant,iron:m.siestaDecision==='shared',siesta:true,cultReady:f.cultResolution==='reconciled'};
+ return {allies,supporters,peaceful,missions,recordCount,restaurant,archive,mesa,dawn,signal,solitary:m.siestaDecision==='destroy'&&!restaurant,iron:m.siestaDecision==='shared',siesta:true,cultReady:f.cultResolution==='reconciled'};
 }
 function chooseEnding(id){
  const a=ensureAct5(),q=finaleMetrics();
@@ -1240,7 +1241,7 @@ function finaleConsole(){
  if(!m.act4ReviewComplete||!a.councilComplete){openDialogue('Consola Siesta','▣','Antes de resolver el futuro, debe quedar cerrado el expediente militar y completada la deliberación de los ocho contactos.');return}
  if(a.ending){showEnding();return}
  const all=[
-  ['restaurant','Final 1 · El Restaurante de Estrella',q.restaurant,'Siesta desconectada, al menos cuatro vínculos y dos resoluciones pacíficas.'],
+  ['restaurant','Final 1 · El Restaurante de Estrella',q.restaurant,'Siesta desconectada, cuatro vínculos, dos resoluciones pacíficas y dos misiones personales.'],
   ['solitary','Final 2 · El Mesero Solitario',q.solitary,'Siesta desconectada sin alcanzar la reconstrucción de comunidad.'],
   ['archive','Final 3 · El Archivo del Eco',q.archive,'Copia de solo lectura, advertencia pública y seis o más registros.'],
   ['iron','Final 4 · El Mesero de Hierro',q.iron,'Acceso compartido a Siesta; la decisión final será imponer una paz obligatoria.'],
