@@ -95,3 +95,13 @@ La versión añade una mesa de revisión en la Fortaleza con 13 requisitos expl�
 - [Informe QA 3.23](REPORTE_QA_3.23_Interiores_Militares.txt)
 
 La versión añade interiores del Hangar y Fortaleza, encuentros de Celina Borda y Damián Ferreyra, registros de operaciones y archivo de mando, y tres decisiones iniciales persistentes de Siesta. Se mantiene `mesero30save` y `saveVersion:49`. Validación estática aprobada; recorrido, visual y móvil pendientes.
+
+## Versión 3.26 — Los ocho desenlaces
+
+- [Abrir el juego en GitHub Pages](https://nahuland.github.io/El_Mesero_Del_Fin_Del_Mundo/)
+- [HTML principal 3.26](index.html)
+- [HTML versionado 3.26](El_Mesero_del_Fin_Del_Mundo_3.26_Ocho_Desenlaces.html)
+- [Implementación 3.26](15_Implementacion_3.26_Ocho_Desenlaces.md)
+- [Informe QA 3.26](REPORTE_QA_3.26_Ocho_Desenlaces.txt)
+
+La consola Siesta muestra los finales disponibles según decisiones, registros, misiones y vínculos. Se conserva `mesero30save` y `saveVersion:49`. La Mesa Larga queda bloqueada hasta que el Acto III registre la reconciliación de la Secta; el tratamiento del Carnicero todavía requiere su escena jugable. Validación sintáctica y simulación aislada aprobadas; QA manual, guardado/carga real, móvil y despliegue siguen pendientes.
