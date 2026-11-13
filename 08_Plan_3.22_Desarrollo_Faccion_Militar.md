@@ -57,13 +57,13 @@ Los nombres del Guion Maestro y del plano se relacionan por función geográfica
 | Muelle de Carga | Lanchas artilladas y posibilidad de sabotaje | Llave inglesa + ayuda previa a la Mecánica permiten sabotearlas |
 | Puente Blindado | Parte de la ruta hacia el Aeródromo y la Fortaleza | No se especifica mecanismo de control ni guardia |
 | Aeródromo | Evidencia de la cápsula del Vuelo 9 y de la cadena de mando que ocultó el transporte | Reunir pruebas contribuye a las resoluciones del General y a la verdad del Vuelo 9 |
-| Fortaleza del General | Confrontación con el General Acorazado | Destruir autoridad, exponer verdad o rendición condicionada por pruebas y vínculos |
+| Fortaleza del General | Confrontación con el General Acorazado | Jefe final obligatorio; pruebas y vínculos afectan preparación y exposición de la verdad, nunca abren una rendición |
 | Recetario de Don Aurelio | Conexión entre el pasado del General y la petición de clemencia por los robots | Se debe preservar su peso emocional; el contenido exacto de esa conexión aún no está detallado |
 
 ## 4. Variables y persistencia previstas
 
 El Guion Maestro propone el registro narrativo central:
-- `faction.military`: pruebas reunidas y estado de rendición o resistencia.
+- `faction.military`: `exposed`, `weakened` y `defeated`; no existe estado `surrendered`.
 - `truth.flight9`: pruebas sobre la cápsula y la cadena de mando.
 - `truth.siesta`: fragmentos que explican la orden y su manipulación.
 - `relationships`: afinidad y decisiones individuales de compañeros.
@@ -82,7 +82,7 @@ No se completarán por inferencia. Se necesita definición o aprobación antes d
 4. Qué acción concreta significa “ayudar” a la Mecánica y cuándo se entrega/obtiene la llave inglesa.
 5. Contenido exacto, ubicación y secuencia de lectura de las pruebas del Aeródromo.
 6. Qué revela exactamente el recetario sobre el pasado del General y cómo se vincula con la petición de Don Aurelio.
-7. Qué pruebas y vínculos son suficientes para habilitar la rendición; no hay umbrales numéricos definidos.
+7. No existe ruta de rendición para Richars Octavio. Las pruebas afectan la preparación y la información posterior, no el desenlace del combate.
 8. Qué implica exactamente “destruir su autoridad” frente a “exponer la verdad” en términos de escenas y consecuencias.
 9. Función narrativa del Cuartel avanzado y del Puesto de radio dentro del Acto IV.
 10. Orden de desbloqueo de interiores, puertas, retorno y progresión entre los siete hitos de la ruta.
@@ -95,11 +95,21 @@ Una vez resueltos los vacíos anteriores:
 3. Implementar la cadena de evidencia del Vuelo 9 en el Aeródromo.
 4. Implementar la condición de ayuda a la Mecánica, la llave inglesa y el sabotaje de lanchas.
 5. Integrar el recetario de Don Aurelio como evidencia/vínculo, sin convertirlo en una revelación distinta.
-6. Implementar el enfrentamiento y sus tres resoluciones, condicionadas por pruebas y vínculos.
+6. Implementar el combate obligatorio de Richars Octavio en tres fases; las pruebas y preparativos modifican su dificultad, nunca permiten rendición.
 7. Reflejar consecuencias en La Estrella, diario y estado de facción.
 8. Validar sintaxis, regresión, colisiones, accesos, transiciones, guardado/carga y rutas alternativas.
 
-## 7. Cambio de dirección aprobado por el usuario\n\nEl General Acorazado es malvado y será el jefe final de R4. No hay redención, rendición, negociación ni salida pacífica, aunque se reúnan todas las pruebas o vínculos. Las pruebas alteran la exposición de la verdad y la dificultad/preparación del enfrentamiento, no la culpabilidad ni el destino del General. Esta decisión reemplaza únicamente la opción de rendición del General descrita en el Guion Maestro; el resto del canon se conserva salvo aprobación posterior.\n\nLas propuestas de nombre de facción, nombres propios, jerarquía, vínculos biográficos, cadena de pruebas y combate se desarrollan por separado en `09_Propuestas_3.22_Acto_IV_General_Jefe_Final.md`.\n\n## 8. Aprobación posterior del diseño\n\nEl usuario aprobó las propuestas narrativas con estos nombres definitivos: **Ejército de Salvación** como facción y **Richars Octavio** como identidad del General Acorazado. También aprobó el resto del diseño de `09_Propuestas_3.22_Acto_IV_General_Jefe_Final.md`: jerarquía, personajes, historia, pruebas, encuentros, sabotaje y combate final obligatorio en tres fases, sin redención ni rendición. Esta aprobación convierte el diseño propuesto en dirección narrativa aprobada, pero no implica que esté implementado ni probado en el juego.\n\n## 9. Límites de esta entrega
+## 7. Cambio de dirección aprobado por el usuario
+
+El General Acorazado es malvado y será el jefe final de R4. No hay redención, rendición, negociación ni salida pacífica, aunque se reúnan todas las pruebas o vínculos. Las pruebas alteran la exposición de la verdad y la dificultad/preparación del enfrentamiento, no la culpabilidad ni el destino del General. Esta decisión reemplaza únicamente la opción de rendición del General descrita en el Guion Maestro; el resto del canon se conserva salvo aprobación posterior.
+
+Las propuestas de nombre de facción, nombres propios, jerarquía, vínculos biográficos, cadena de pruebas y combate se desarrollan por separado en `09_Propuestas_3.22_Acto_IV_General_Jefe_Final.md`.
+
+## 8. Aprobación posterior del diseño
+
+El usuario aprobó las propuestas con los nombres definitivos **Ejército de Salvación** y **Richars Octavio**, además de jerarquía, personajes, historia, pruebas, encuentros, sabotaje y combate obligatorio en tres fases. La primera capa jugable está implementada en 3.22; interiores militares, escenas de Damián Ferreyra y Celina Borda y decisiones completas del Acto V siguen pendientes.
+
+## 9. Límites de esta entrega
 
 - R4 conserva el bloqueo de ingreso desde otras regiones hasta que la progresión narrativa y sus accesos estén preparados.
 - No se añaden soldados, enemigos, emblemas, rangos, doctrinas, mensajes, archivos legibles ni diálogos.
