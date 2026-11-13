@@ -788,3 +788,21 @@ Se conservan todas las coordenadas de los hitos R4 existentes. Nuevos elementos 
 | Recetario de Don Aurelio | 142 | 282 | Evidencia posterior al jefe |
 
 La prueba de discrepancia se inspecciona en el hito Aeródromo (180,250); la evidencia de represión, en Trincheras norte (91,185). Los nuevos objetos no alteran las huellas cartográficas ni los accesos originales.
+
+## Addendum 3.23 — coordenadas de interiores militares
+
+| Elemento | Coordenada lógica | Función |
+|---|---:|---|
+| Acceso interior Hangar | (144,229.7) | Entrada desde el acceso lateral existente |
+| Instancia Hangar | (178–207,162–191) | Sala explorable; salida (181,165) |
+| Celina Borda | (193,171) | Testimonio de logística |
+| Libro de operaciones | (188,182) | Corrobora serie y discrepancia del Vuelo 9 |
+| Banco de mantenimiento | (199,184) | Consume 2 piezas; restaura 30 integridad |
+| Damián Ferreyra | (114,166) | Testimonio de operaciones en Control del puente |
+| Acceso Fortaleza | (133,276) | Disponible tras derrotar a Richars Octavio |
+| Instancia Fortaleza | (163–194,260–294) | Sala explorable; salida (166,278) |
+| Archivo de mando | (177,273) | Evidencia posterior al jefe |
+| Recetario | (184,283) | Historia de Don Aurelio; destino no resuelto |
+| Consola Siesta | (177,290) | Decisión inicial persistente del Acto V |
+
+Las instancias son coordenadas lógicas interiores; no modifican los centros ni las huellas exteriores de R4.
