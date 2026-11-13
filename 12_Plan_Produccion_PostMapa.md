@@ -1,7 +1,8 @@
 # Plan de producción posterior a la geografía — El Mesero del Fin del Mundo
 
 ## Estado de partida
-- Versión ejecutable: 3.23 — interiores militares y puente inicial de Siesta.
+- Versión de referencia en el repositorio: 3.24 — cierre jugable del Acto IV.
+- Versión 3.25 implementada: deliberación persistente de los ocho contactos; finales aún pendientes.
 - R1–R5 existen como mapa explorable con distintos niveles de desarrollo narrativo.
 - R4 conserva la geografía de 3.21 y la primera capa narrativa 3.22.
 - Richars Octavio es el jefe final obligatorio del tramo militar: malvado e irredimible; no hay rendición, alianza, clemencia ni redención.
@@ -39,12 +40,15 @@
 - Ajustar combate de Richars: fases, patrones, apoyo artillado según preparación y opciones de reparación; debe seguir siendo obligatorio y ganable.
 - Pruebas de progresión, guardado/carga y regresión.
 
-### 3.25 — Acto V: mesa de comunidades y consecuencias
-- Reunir a los ocho contactos ya existentes: Mira, Iván, Lía, Teo, Noa, Dante, Kai y Eva.
-- Construir una escena de deliberación donde cada contacto responda a decisiones ya registradas, no a un sistema de karma.
-- Conectar la decisión de Siesta con relaciones, estado de facciones, verdad sobre Vuelo 9 y resolución del Nido.
-- Mantener separadas las consecuencias técnicas (núcleo desconectado, aislado o archivado) de la decisión social sobre el futuro de las unidades.
-- Evitar que una única opción elimine los costes de las decisiones anteriores.
+### 3.25 — Acto V: mesa de comunidades y consecuencias — IMPLEMENTADO
+- Reunión secuencial de Mira, Iván, Lía, Teo, Noa, Dante, Kai y Eva en la mesa de la Fortaleza.
+- Cada contacto presenta su confesión y petición del guion maestro.
+- Tres posturas por contacto: acompañar, negociar condiciones o rechazar.
+- Registro explícito y persistente por contacto; reanudación desde el primero pendiente.
+- El consejo completado deja la consola preparada, sin seleccionar todavía un final.
+- La conexión detallada de las banderas con condiciones y epílogos queda para 3.26.
+
+**QA 3.25:** compilación y simulación aislada 8/8 aprobadas. Pruebas manuales, visuales, guardado/carga real y móvil pendientes.
 
 ### 3.26 — Ocho finales y epílogos
 Implementar y probar los ocho finales ya definidos en el material maestro:
