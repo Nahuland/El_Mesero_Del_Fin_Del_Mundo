@@ -66,6 +66,16 @@ El diseño narrativo fue aprobado por el usuario. La primera capa jugable está 
 
 La versión incorpora la primera capa jugable del Acto IV: apertura de R4 tras la preparación civil, Elba, Nerea, evidencias, sabotaje, Funes, Richars Octavio y acceso posterior a la consola Siesta. saveVersion:49 y mesero30save se conservan. La prueba visual/manual y móvil queda pendiente.
 
+## Versión 3.25 — Acto V: La última orden
+
+- [Abrir juego (GitHub Pages)](https://nahuland.github.io/El_Mesero_Del_Fin_Del_Mundo/)
+- [HTML principal 3.25](index.html)
+- [HTML versionado 3.25](El_Mesero_del_Fin_del_Mundo_3.25_Acto_V_Ultima_Orden.html)
+- [Implementación 3.25](14_Implementacion_3.25_Acto_V.md)
+- [Informe QA 3.25](REPORTE_QA_3.25_Acto_V.txt)
+
+La mesa de la Fortaleza convoca a Mira, Iván, Lía, Teo, Noa, Dante, Kai y Eva. Cada contacto plantea su confesión y petición; Siete registra una postura individual (acompañar, negociar o rechazar). Las elecciones se guardan una por una y la deliberación puede reanudarse. Se conserva `saveVersion:49`. No se elige todavía un final: esa etapa corresponde a 3.26.
+
 ## Versión 3.24 — cierre jugable del Acto IV
 
 - [Abrir juego (GitHub Pages)](https://nahuland.github.io/El_Mesero_Del_Fin_Del_Mundo/)
