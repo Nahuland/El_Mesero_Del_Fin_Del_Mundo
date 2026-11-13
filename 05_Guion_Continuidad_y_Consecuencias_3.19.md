@@ -123,3 +123,14 @@ La versión 3.21 representa instalaciones y terreno usando solo los nombres y fu
 El Guion Maestro Fase 4 define el Acto IV como una confrontación con el costo del orden: la Mecánica y el Piloto revelan la logística del ejército; el Aeródromo aporta pruebas sobre la cápsula del Vuelo 9 y la cadena de mando que ocultó su transporte; el recetario de Don Aurelio conecta el pasado del General con la petición de clemencia por los robots; la llave inglesa permite sabotear las lanchas si Siete ayudó a la Mecánica. El General Acorazado debe conservar su complejidad: sostuvo el orden por la fuerza y encubrió información, pero no creó por sí solo todos los males; teme que el vacío de autoridad repita la guerra, sin que ese temor lo absuelva.
 
 La fuente no fija nombres propios para Mecánica y Piloto, coordenadas de sus encuentros, contenido exacto de las pruebas y del recetario, umbrales de rendición ni el mecanismo de ayuda a la Mecánica. Esos puntos quedan abiertos y no se inventan en esta etapa. La versión 3.22 es documental; no incorpora escenas ni cambia el juego ejecutable.
+
+
+## Addenda 3.22 — Canon aprobado del Ejército de Salvación
+
+El usuario aprobó el nombre Ejército de Salvación para la facción y Richars Octavio para el General Acorazado. También aprobó a Elba Roldán (Mecánica), Nerea Vidal (Piloto), Damián Ferreyra (Coronel de Operaciones), Celina Borda (Mayor de Logística) y Ramiro Funes (Jefe de Seguridad), así como la jerarquía, historia, pruebas y desarrollo del Acto IV descritos en el documento 09.
+
+El Ejército de Salvación convirtió la estructura de emergencia posterior al Día Cero en un régimen permanente. Richars Octavio ordenó evacuaciones selectivas, represión y encubrimiento de información del Vuelo 9. No creó la Fiebre Gris ni la señal externa. La cadena documental confirma el transporte de una cápsula y el encubrimiento posterior, sin atribuir al Ejército el origen de la enfermedad o de la señal.
+
+El recetario confirma que Don Aurelio pidió clemencia por robots de servicio y que Richars rechazó la petición. No revela el destino posterior de Don Aurelio.
+
+Richars Octavio es malvado e irredimible. Es el jefe final obligatorio, no puede rendirse ni ser redimido. La victoria termina su régimen y permite acceder a la consola Siesta; el conflicto del Acto V continúa.
