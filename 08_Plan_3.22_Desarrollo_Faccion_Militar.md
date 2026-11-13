@@ -1,7 +1,7 @@
 # Versión 3.22 — Auditoría de canon y plan de desarrollo de la facción militar R4
 
 ## Estado
-**Etapa de propuestas narrativas.** La decisión del usuario establece que el General Acorazado será un villano irredimible y jefe final obligatorio, sin rendición ni negociación. Los nombres, jerarquías y ampliaciones de historia fueron aprobados por el usuario el 12-11-2026. La implementación jugable sigue pendiente.
+**Implementación jugable inicial 3.22 en curso.** La decisión del usuario establece que el General Acorazado será un villano irredimible y jefe final obligatorio, sin rendición ni negociación. Los nombres, jerarquías y ampliaciones de historia fueron aprobados por el usuario el 12-11-2026. La implementación jugable inicial está en index.html y El_Mesero_del_Fin_del_Mundo_3.22_Ejercito_Salvacion.html; las pruebas visuales/manuales y móviles siguen pendientes.
 
 ## Fuentes rectoras
 - Guion Maestro y Biblia Narrativa — Fase 4, especialmente secciones 2, 3 (Acto IV), 5, 6, 8, 9 y 10.
@@ -106,3 +106,18 @@ Una vez resueltos los vacíos anteriores:
 - No se modifica `index.html`, `saveVersion:49`, `mesero30save`, el CSV ni las coordenadas.
 - No se declaran implementadas ni probadas las escenas del Acto IV.
 - Esta versión es una auditoría de canon y un plan de producción, no una versión jugable 3.22.
+
+
+## 9. Implementación jugable 3.22 — estado técnico
+
+- Acceso R4: se abre al completar la resolución del Nido, los tres puntos del reconocimiento sur y preparar la salida urbana. Se migra el estado anterior leyendo city.southApproachPrepared.
+- Personajes: Elba Roldán y Nerea Vidal; testimonio de Nerea y ayuda opcional a Elba.
+- Objetos y pruebas: manifiesto de evacuación, llave inglesa, orden de carga del Vuelo 9, discrepancia del Aeródromo y orden de ocultamiento del Puesto de radio.
+- Muelle: sabotaje de lanchas condicionado a ayudar a Elba y obtener la llave inglesa.
+- Control del puente: enfrentamiento opcional con Ramiro Funes.
+- Fortaleza: acceso al combate de Richars Octavio tras reunir las tres pruebas documentales principales (orden de carga, discrepancia y ocultamiento).
+- Jefe: combate por turnos de tres fases, con preparación afectada por sabotaje, Funes y evidencias. Sin rendición ni redención.
+- Tras la victoria: se abre el paso de la Fortaleza, queda disponible el recetario y se habilita la consola Siesta.
+- Persistencia: campos aditivos en state.military; mesero30save y saveVersion:49 se conservan.
+
+La entrega no incluye interiores militares nuevos ni escenas de Damián Ferreyra/Celina Borda; esos elementos quedan para una siguiente iteración. La función de la consola Siesta queda conectada narrativamente, sin implementar todavía las decisiones completas del Acto V.
