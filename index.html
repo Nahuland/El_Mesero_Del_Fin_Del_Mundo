@@ -1200,7 +1200,7 @@ function militaryBossAction(damage,incoming){const m=ensureMilitary(),old=m.boss
 function interact(){
  if(dialogue){advance();return}
  if(!near)return;
- if(near.id&&near.id.startsWith('mil_')){militaryInteract(near.id);return;}
+ if(near.id&&near.id.startsWith('mil_')&&!['mil_hangarDoor','mil_fortressDoor','mil_hangarReturn','mil_fortressReturn','mil_celina','mil_hangarFlightLog','mil_hangarToolRack','mil_damian','mil_fortressArchive','mil_fortressAurelio','mil_fortressSiesta'].includes(near.id)){militaryInteract(near.id);return;}
  if(['poi_controldelpuente','poi_trincherasnorte','poi_cuartelavanzado','poi_puerto','poi_muelle','poi_hangar','poi_aerodromo','poi_fortaleza','poi_puestoderadio'].includes(near.id)){
   const m=ensureMilitary(),e=m.evidence;
   switch(near.id){
