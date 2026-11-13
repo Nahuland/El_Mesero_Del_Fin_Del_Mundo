@@ -530,3 +530,12 @@ La costa suroeste se representa con el agua existente y una estructura de muelle
 El Guion Maestro Fase 4 establece la ruta del Acto IV y sus contenidos narrativos: logística de lanchas artilladas y evacuaciones selectivas, revelaciones de Mecánica y Piloto, pruebas del Vuelo 9 en el Aeródromo, conexión del recetario de Don Aurelio con el pasado del General y sabotaje condicionado de las lanchas mediante llave inglesa y ayuda previa a la Mecánica. La Fortaleza contiene la confrontación con el General Acorazado.
 
 La correspondencia espacial utiliza los hitos R4 ya cartografiados en 3.21; no se cambian centros, huellas ni accesos. El Cuartel avanzado y el Puesto de radio continúan sin función narrativa definida. Esta addenda es de planificación: no abre R4 ni añade puertas, interiores, personajes o misiones.
+
+
+## Addenda territorial 3.22 — Ejército de Salvación
+
+La cartografía exterior R4 de 3.21 se conserva sin desplazar centros, huellas ni accesos. Se incorporan interacciones sobre los hitos ya definidos: Puerto (65,225), Trincheras norte (91,185), Control del puente (112,160), Cuartel avanzado (139,188), Hangar (145,230), Muelle (44,247), Aeródromo (180,250), Fortaleza (133,276) y Puesto de radio (192,192).
+
+El acceso regional se habilita solo después de resolver el Nido, registrar los tres puntos del corredor sur y preparar la salida urbana. Se agregan como personajes aprobados Elba Roldán y Nerea Vidal; el encuentro de seguridad de Ramiro Funes se vincula al Control del puente. La Fortaleza queda bajo el mando de Richars Octavio hasta su derrota obligatoria.
+
+Los puntos auxiliares Cuartel avanzado y Puesto de radio reciben funciones de juego: herramienta logística y copia de orden de ocultamiento, respectivamente. El Puesto de radio no es el origen de la señal externa.
