@@ -1060,7 +1060,8 @@ function blocked(x,y,fromX=player.x,fromY=player.y){
   {x:147,y:230,w:29,h:1.1},{x:145,y:231,w:1.1,h:22},{x:176,y:231,w:1.1,h:22},{x:146,y:253,w:30,h:1.1},{x:143.8,y:229.7,w:2.4,h:.55},
   {x:116,y:276,w:15,h:1.1},{x:135,y:276,w:15,h:1.1},{x:116,y:277,w:1.1,h:18},{x:149,y:277,w:1.1,h:18},{x:117,y:295,w:32,h:1.1},{x:131.8,y:275.7,w:2.4,h:.55}
  ];
- for(const b of militaryWalls){\n  if(state.military?.varelaDefeated&&b.x===131.8&&b.y===275.7)continue;
+ for(const b of militaryWalls){
+  if(state.military?.varelaDefeated&&b.x===131.8&&b.y===275.7)continue;
   const inside=x>b.x-.25&&x<b.x+b.w+.25&&y>b.y-.25&&y<b.y+b.h+.25;
   const wasInside=fromX>b.x-.25&&fromX<b.x+b.w+.25&&fromY>b.y-.25&&fromY<b.y+b.h+.25;
   if(inside&&!wasInside)return true;
