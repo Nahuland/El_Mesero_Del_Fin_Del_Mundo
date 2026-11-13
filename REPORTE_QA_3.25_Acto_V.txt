@@ -1,0 +1,24 @@
+# REPORTE QA — Versión 3.25 · Acto V
+
+## Resultado
+Validación sintáctica y simulación aislada del flujo de deliberación aprobadas.
+
+## Pruebas ejecutadas
+- JavaScript inline compilado con `new Function`: aprobado.
+- Ocho contactos presentes en el flujo: aprobado.
+- Simulación de una elección por contacto: 8/8.
+- Cada respuesta persiste antes de pasar al siguiente contacto: aprobado en simulación.
+- Cierre del consejo y bandera `act5CouncilComplete`: aprobado.
+- Resumen final conserva las ocho posturas: aprobado.
+- Reanudación desde el primer contacto sin respuesta: verificada por la búsqueda del primer valor nulo.
+- Compatibilidad aditiva: `mesero30save` y `saveVersion:49` se mantienen.
+
+## No ejecutado
+- Recorrido manual en navegador desde el cierre del Acto IV.
+- Prueba real de guardado y carga desde una partida 3.24.
+- Inspección visual de los diálogos y retratos.
+- Prueba física en móvil.
+- Integración de los ocho finales, reservada para 3.26.
+
+## Conclusión
+3.25 implementa la deliberación persistente de los ocho contactos. No selecciona finales ni modifica el estado técnico de Siesta.
