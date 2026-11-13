@@ -1,0 +1,99 @@
+# Plan de producción posterior a la geografía — El Mesero del Fin del Mundo
+
+## Estado de partida
+- Versión ejecutable: 3.23 — interiores militares y puente inicial de Siesta.
+- R1–R5 existen como mapa explorable con distintos niveles de desarrollo narrativo.
+- R4 conserva la geografía de 3.21 y la primera capa narrativa 3.22.
+- Richars Octavio es el jefe final obligatorio del tramo militar: malvado e irredimible; no hay rendición, alianza, clemencia ni redención.
+- `mesero30save` y `saveVersion:49` se conservan.
+
+## Qué existe para seguir implementando o mejorar
+
+### Sistemas ya disponibles
+1. Movimiento isométrico 2.5D, teclado y controles táctiles.
+2. Mapa regional de 420×300, subzonas, terreno, estructuras y colisiones.
+3. Interacción contextual, diálogos y elecciones.
+4. Interiores instanciados con entrada, salida y retorno a la coordenada exterior.
+5. Guardado/carga local con restauración de posición e interior activo.
+6. Diario/HUD y persistencia de decisiones.
+7. Combate por turnos para Capataz, Coro, Funes y Richars.
+8. Inventario de chatarra, reparación y recursos consumibles.
+9. Progresión narrativa de La Estrella, máquinas, Ciudad Enferma y R5 ambiental.
+10. Evidencias, testimonios y consecuencias parciales del Ejército de Salvación.
+
+### Contenido que ya está implementado
+- R4 exterior, Puerto, Muelle, Trincheras, Control del puente, Cuartel, Hangar, Aeródromo, Fortaleza y Puesto de radio.
+- Elba Roldán, Nerea Vidal, Ramiro Funes y Richars Octavio.
+- Cadena de evidencias del Vuelo 9, evacuaciones y ocultamiento.
+- Sabotaje opcional de lanchas y jefe de tres fases.
+- Interiores de Hangar y Fortaleza, Celina Borda, Damián Ferreyra, libro de operaciones y archivo de mando.
+- Tres tratamientos iniciales persistentes para el núcleo de Siesta.
+
+## Hoja de ruta recomendada
+
+### 3.24 — Cierre jugable del Acto IV
+- Recorrer y corregir la ruta completa Puerto → Trincheras → Hangar → Muelle → Puente → Aeródromo → Fortaleza.
+- Dar continuidad a los testimonios de Elba, Nerea, Celina y Damián sin ampliar sus conocimientos más allá de lo aprobado.
+- Integrar evidencia de evacuación, represión, Vuelo 9, ocultamiento y recetario en un tablero de pruebas legible.
+- Revisar la secuencia de acceso al jefe, estados de facción y consecuencias de sabotaje/Funes.
+- Ajustar combate de Richars: fases, patrones, apoyo artillado según preparación y opciones de reparación; debe seguir siendo obligatorio y ganable.
+- Pruebas de progresión, guardado/carga y regresión.
+
+### 3.25 — Acto V: mesa de comunidades y consecuencias
+- Reunir a los ocho contactos ya existentes: Mira, Iván, Lía, Teo, Noa, Dante, Kai y Eva.
+- Construir una escena de deliberación donde cada contacto responda a decisiones ya registradas, no a un sistema de karma.
+- Conectar la decisión de Siesta con relaciones, estado de facciones, verdad sobre Vuelo 9 y resolución del Nido.
+- Mantener separadas las consecuencias técnicas (núcleo desconectado, aislado o archivado) de la decisión social sobre el futuro de las unidades.
+- Evitar que una única opción elimine los costes de las decisiones anteriores.
+
+### 3.26 — Ocho finales y epílogos
+Implementar y probar los ocho finales ya definidos en el material maestro:
+- El Restaurante de Estrella.
+- El Mesero Solitario.
+- El Archivo del Eco.
+- El Mesero de Hierro.
+- Siesta Voluntaria.
+- La Mesa Larga.
+- Un Amanecer sin Fiebre.
+- La Señal se Apaga.
+
+Cada final debe tener condiciones explícitas, escena propia, consecuencias para los ocho contactos y persistencia. No inventar nuevos finales ni reasignar sus nombres sin aprobación.
+
+### 3.27 — Pulido sistémico y experiencia
+- Auditoría de colisiones y rutas de todas las regiones e interiores.
+- Balance de combates, recuperación, chatarra y dificultad.
+- Revisión de textos, objetivos, diario y consistencia de nombres.
+- Mejoras de accesibilidad: tamaño de texto, foco de botones, contraste, controles y pausa.
+- Rendimiento del render isométrico y escalado de canvas en móviles.
+- Revisión visual en navegador de escritorio y móvil; prueba física en dispositivo real.
+
+### 3.28 — Empaquetado y cierre de producción
+- HTML principal y versión numerada sincronizados.
+- ZIP completo del repositorio, con integridad verificada.
+- QA automático de sintaxis, estructuras, coordenadas, migración, finales y archivos.
+- Informe separado de pruebas automatizadas, manuales y físicas.
+- Publicación Pages y comprobación de la versión servida.
+
+## Prioridades de mejora transversales
+1. **Guardado:** probar migración real de partidas antiguas; mantener escritura aditiva y no reutilizar flags con significado distinto.
+2. **Mapa:** crear una matriz de accesos, puertas, interiores y retornos para detectar callejones sin salida.
+3. **Narrativa:** separar hechos comprobados, testimonios e inferencias en el diario.
+4. **Combate:** añadir telegráficos visuales/patrones y balance sin sustituir la interfaz existente.
+5. **Contenido opcional:** que recursos y conversaciones amplíen preparación y comprensión, sin bloquear la historia principal.
+6. **Pruebas:** no llamar “completo” a un acto por compilar; exigir recorrido de principio a fin y guardado/carga.
+
+## Criterio de cierre por versión
+- Compilación JavaScript.
+- Aserciones estáticas de contenido y compatibilidad.
+- Prueba de progresión automatizada.
+- Entradas/salidas y colisiones de interiores.
+- Guardado/carga y migración.
+- Recorrido de combate y condiciones de victoria.
+- QA visual/manual y móvil reportados por separado.
+
+## Límites de canon
+- Richars Octavio no se rinde ni se redime; su derrota es obligatoria.
+- El General no creó la Fiebre Gris ni la señal externa.
+- El destino de Don Aurelio sigue sin determinarse por el recetario.
+- La derrota del General no apaga Siesta ni resuelve la señal.
+- Mantener los ocho contactos y ocho finales existentes.
