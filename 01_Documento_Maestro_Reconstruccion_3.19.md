@@ -524,7 +524,7 @@ La validación de esta entrega es estática y de sintaxis. La inspección visual
 
 Se incorpora una auditoría del Guion Maestro Fase 4 para preparar el desarrollo de la facción militar. La etapa confirma la ruta Puerto Militar → Campo de Trincheras → Hangar Oxidado → Muelle de Carga → Puente Blindado → Aeródromo → Fortaleza del General y los hechos establecidos sobre Mecánica, Piloto, lanchas artilladas, evacuaciones selectivas, Vuelo 9, recetario de Don Aurelio, llave inglesa y General Acorazado.
 
-La auditoría no añade contenido ejecutable. Identifica los datos todavía no definidos por la fuente —nombres propios, encuentros, pruebas concretas, condiciones de ayuda, umbrales de rendición y progresión de interiores— y los deja pendientes de definición. No se modifica el HTML, el bloqueo regional, las coordenadas, el CSV ni el guardado saveVersion:49 / mesero30save. Ver 08_Plan_3.22_Desarrollo_Faccion_Militar.md y REPORTE_QA_3.22_Plan.txt.
+La auditoría documental fue seguida por la implementación inicial 3.22. El HTML añade acceso R4 condicionado, encuentros, evidencias, sabotaje opcional, enfrentamiento con Funes y jefe final Richars Octavio. Se conservan coordenadas existentes, mesero30save y saveVersion:49. La validación visual/manual y móvil permanece pendiente. Ver 08_Plan_3.22_Desarrollo_Faccion_Militar.md y REPORTE_QA_3.22_Plan.txt.
 
 
 ## Addenda 3.22 — Ejército de Salvación y Acto IV aprobado
