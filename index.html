@@ -27,6 +27,9 @@ canvas{display:block;width:100%;height:100%;image-rendering:pixelated}
 #choices{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
 #choices button,.action{border:1px solid #547e90;border-radius:6px;background:#15374a;color:#edf6f2;padding:8px 11px;font-size:12px;cursor:pointer}
 #choices button:hover,.action:hover{background:#24536a}
+:focus-visible{outline:3px solid #f0c58b;outline-offset:3px}
+button{touch-action:manipulation}
+#dialogue[aria-modal="true"]{overscroll-behavior:contain}
 #dialogueFooter{position:absolute;right:16px;bottom:10px;color:#85a7b4;font-size:9px;letter-spacing:.12em}
 #menu{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 40%,#21394a88,#050d16f2 70%);z-index:20}
 #menu.hidden{display:none}
@@ -38,8 +41,8 @@ h1{font:clamp(28px,5vw,48px)/1.05 Georgia,serif;color:#f2d2a2;margin:12px 0;text
 .menu-actions button{padding:12px 20px;border:1px solid #d2a875;border-radius:7px;background:linear-gradient(#f4d2a1,#bc875b);color:#18232a;font-weight:800;cursor:pointer}
 .menu-actions button.secondary{background:#132f42;color:#e6f2ef;border-color:#52798a}
 #mobileControls{position:absolute;inset:auto 12px 12px auto;display:none;z-index:5;gap:12px;align-items:end;touch-action:none;user-select:none}
-#mobileControls .pad{display:grid;grid-template-columns:repeat(3,42px);grid-template-rows:repeat(3,42px);gap:3px}
-#mobileControls button{background:#0a1b2bcc;border:1px solid #668797;color:#fff;border-radius:7px;font-size:17px}
+#mobileControls .pad{display:grid;grid-template-columns:repeat(3,48px);grid-template-rows:repeat(3,48px);gap:4px}
+#mobileControls button{min-width:44px;min-height:44px;background:#0a1b2bcc;border:1px solid #668797;color:#fff;border-radius:7px;font-size:17px}
 #mobileControls .act{height:42px;padding:0 14px;font-size:11px;font-weight:800}
 #journal{position:absolute;top:58px;right:14px;width:min(320px,calc(100% - 28px));padding:13px;border:1px solid #52798b;border-radius:8px;background:#081725ed;display:none;z-index:6}
 #journal.show{display:block}
@@ -55,30 +58,30 @@ h1{font:clamp(28px,5vw,48px)/1.05 Georgia,serif;color:#f2d2a2;margin:12px 0;text
 </head>
 <body>
 <div id="game">
-<canvas id="world" aria-label="Mundo isométrico explorable"></canvas>
-<div id="topbar"><div class="brand">EL MESERO DEL FIN DEL MUNDO <span style="color:#7eb9c7">· 3.26 · LOS OCHO DESENLACES</span></div><div id="zone">LA ESTRELLA</div></div>
+<canvas id="world" role="img" aria-label="Mundo isométrico explorable de El Mesero del Fin del Mundo"></canvas>
+<div id="topbar"><div class="brand">EL MESERO DEL FIN DEL MUNDO <span style="color:#7eb9c7">· 3.27 · PULIDO TÉCNICO</span></div><div id="zone">LA ESTRELLA</div></div>
 <div id="hud"><div class="chip">S-07 <b>SIETE</b></div><div class="chip">Integridad <b id="hp">100%</b></div><div class="chip">Chatarra <b id="scrap">0</b></div><div class="chip">Amenaza <b id="bossStatus">Activa</b></div></div>
 <div id="hint">Mover: WASD / flechas · Interactuar: E · Diario: J · Guardar: F5</div>
 <div id="interact">E · Interactuar</div>
 <div id="toast"></div>
 <div id="journal"><h3>Diario de Siete</h3><p id="objective">Objetivo: despierta en La Estrella y averigua qué ocurrió.</p><p id="journalText">Las decisiones dejan consecuencias. Investiga antes de elegir.</p></div>
-<div id="dialogue"><div id="portrait">🤖</div><div id="speaker">Siete</div><div id="say"></div><div id="choices"></div><div id="dialogueFooter">E / ESPACIO PARA CONTINUAR</div></div>
+<div id="dialogue" role="dialog" aria-modal="true" aria-labelledby="speaker" aria-describedby="say" tabindex="-1"><div id="portrait" aria-hidden="true">🤖</div><div id="speaker">Siete</div><div id="say" aria-live="polite"></div><div id="choices"></div><div id="dialogueFooter">E / ESPACIO PARA CONTINUAR</div></div>
 <div id="mobileControls">
  <div class="pad">
-  <button data-dir="up-left">↖</button><button data-dir="up">▲</button><button data-dir="up-right">↗</button>
-  <button data-dir="left">◀</button><span></span><button data-dir="right">▶</button>
-  <button data-dir="down-left">↙</button><button data-dir="down">▼</button><button data-dir="down-right">↘</button>
+  <button type="button" data-dir="up-left" aria-label="Mover arriba a la izquierda">↖</button><button type="button" data-dir="up" aria-label="Mover arriba">▲</button><button type="button" data-dir="up-right" aria-label="Mover arriba a la derecha">↗</button>
+  <button type="button" data-dir="left" aria-label="Mover a la izquierda">◀</button><span aria-hidden="true"></span><button type="button" data-dir="right" aria-label="Mover a la derecha">▶</button>
+  <button type="button" data-dir="down-left" aria-label="Mover abajo a la izquierda">↙</button><button type="button" data-dir="down" aria-label="Mover abajo">▼</button><button type="button" data-dir="down-right" aria-label="Mover abajo a la derecha">↘</button>
  </div>
- <button class="act" id="mobileAct">INTERACTUAR</button>
+ <button type="button" class="act" id="mobileAct" aria-label="Interactuar con el objeto cercano">INTERACTUAR</button>
 </div>
-<div id="menu"><div class="menu-card"><div class="eyebrow">Una historia sobre lo que queda después del fin</div><h1>La última mesa</h1><p class="subtitle">Veintiséis años después de la guerra, la unidad S-07 despierta en un restaurante olvidado. Afuera, el mundo sigue esperando una respuesta.</p><div class="menu-actions"><button id="newGame">COMENZAR RECONSTRUCCIÓN</button><button id="continueGame" class="secondary">CONTINUAR PARTIDA</button></div><p style="font-size:10px;color:#809ba7;margin-top:18px">Versión 3.26 · Los ocho desenlaces</p></div></div>
+<div id="menu"><div class="menu-card"><div class="eyebrow">Una historia sobre lo que queda después del fin</div><h1>La última mesa</h1><p class="subtitle">Veintiséis años después de la guerra, la unidad S-07 despierta en un restaurante olvidado. Afuera, el mundo sigue esperando una respuesta.</p><div class="menu-actions"><button id="newGame">COMENZAR RECONSTRUCCIÓN</button><button id="continueGame" class="secondary">CONTINUAR PARTIDA</button></div><p style="font-size:10px;color:#809ba7;margin-top:18px">Versión 3.27 · Pulido técnico</p></div></div>
 </div>
 <script>
 (()=>{
 'use strict';
 const canvas=document.getElementById('world'),ctx=canvas.getContext('2d');
 const $=id=>document.getElementById(id);
-let W=0,H=0,dpr=1,last=0,keys={},dialogue=null,near=null,toastTimer=0;
+let W=0,H=0,dpr=1,last=0,keys={},dialogue=null,near=null,toastTimer=0,dialogueReturnFocus=null;
 const TILE_W=64,TILE_H=32;
 const world={w:420,h:300};
 const player={x:8.2,y:11.2,z:0,face:1,speed:3.15,hp:100,scrap:0};
@@ -1159,13 +1162,18 @@ function updateHUD(){
  if(regionAt(player.x,player.y)==='R4'||state.military?.varelaDefeated){const m=ensureMilitary(),e=m.evidence;const n=[e.evacuation,e.trenchOrders,e.flight9Manifest,e.flight9Discrepancy,e.coverupOrder,e.aurelioRecipe].filter(Boolean).length;$('journalText').textContent+=' · Ejército de Salvación: '+n+'/6 pruebas'+(m.gunboatsSabotaged?' · lanchas saboteadas':'')+(m.funesDefeated?' · puente neutralizado':'')+(m.varelaDefeated?' · Richars Octavio derrotado':'')+(m.siestaDecision?' · Siesta: '+(m.siestaDecision==='destroy'?'desconectada':m.siestaDecision==='shared'?'acceso compartido':'archivo preservado'):'')+(m.act4ReviewComplete?' · Acto IV revisado':'')+(state.act5?.councilComplete?' · Acto V: 8/8 contactos':'');}
 }
 function openDialogue(speaker,portrait,text,choices){
+ if(!dialogue)dialogueReturnFocus=document.activeElement;
  dialogue={speaker,portrait,text,choices:choices||[]};
  $('speaker').textContent=speaker;$('portrait').textContent=portrait;$('say').textContent=text;
  $('choices').innerHTML='';
  if(choices&&choices.length){choices.forEach((c,i)=>{const b=document.createElement('button');b.textContent=c.label;b.onclick=()=>{const fn=c.run;closeDialogue();fn&&fn()};$('choices').appendChild(b)})}
- $('dialogue').classList.add('show');
+ $('dialogue').classList.add('show');document.body.classList.add('dialogue-open');
+ const firstChoice=$('choices').querySelector('button');(firstChoice||$('dialogue')).focus();
 }
-function closeDialogue(){$('dialogue').classList.remove('show');document.body.classList.remove('dialogue-open');dialogue=null}
+function closeDialogue(){
+ $('dialogue').classList.remove('show');document.body.classList.remove('dialogue-open');dialogue=null;
+ if(dialogueReturnFocus&&dialogueReturnFocus.isConnected)dialogueReturnFocus.focus();dialogueReturnFocus=null;
+}
 function advance(){if(!dialogue)return;if(dialogue.choices?.length)return;closeDialogue()}
 $('dialogue').addEventListener('click',e=>{if(e.target.tagName!=='BUTTON')advance()});
 function militaryDefaults(){return {hangarLogRead:false,damianConfronted:false,celinaBriefed:false,commandArchiveRead:false,act4ReviewComplete:false,siestaDecision:null,evidence:{evacuation:false,trenchOrders:false,flight9Manifest:false,flight9Discrepancy:false,coverupOrder:false,aurelioRecipe:false},elbaMet:false,elbaHelped:false,wrench:false,gunboatsSabotaged:false,nereaMet:false,nereaTestimony:false,funesHP:90,funesDefeated:false,bridgeSecured:false,varelaDefeated:false,bossHP:260,bossTurnCount:0,bossPhase:1,exposedWeakness:false,repairUsed:false,siestaConsoleAccess:false};}
@@ -1748,7 +1756,7 @@ function startGame(load){
  updateHUD();
  if(!state.intro){state.intro=true;openDialogue('Siete','🤖','Sistema reiniciado. Unidad S-07 operativa… ¿Dónde está Estrella? ¿Cuánto tiempo ha pasado?');}
 }
-function savePayload(){return {saveVersion:49,region:regionAt(player.x,player.y),state:{...state,started:false,city:{...(state.city||{})},flags:{...(state.flags||{}),cityPoiExplored:{...(state.flags?.cityPoiExplored||{})},cultPoiExplored:{...(state.flags?.cultPoiExplored||{})}},consoles:{...(state.consoles||{})},records:{...(state.records||{})}},player:{x:player.x,y:player.y,hp:player.hp,scrap:player.scrap}}}
+function savePayload(){return {saveVersion:50,region:regionAt(player.x,player.y),state:{...state,started:false,city:{...(state.city||{})},flags:{...(state.flags||{}),cityPoiExplored:{...(state.flags?.cityPoiExplored||{})},cultPoiExplored:{...(state.flags?.cultPoiExplored||{})}},consoles:{...(state.consoles||{})},records:{...(state.records||{})}},player:{x:player.x,y:player.y,hp:player.hp,scrap:player.scrap}}}
 function persistSave(silent=false){try{localStorage.setItem('mesero30save',JSON.stringify(savePayload()));if(!silent)setToast('Partida guardada.');return true}catch(e){if(!silent)setToast('No se pudo guardar. Comprueba el espacio y los permisos del navegador.');return false}}
 function save(){persistSave(false)}
 $('newGame').onclick=()=>startGame(false);$('continueGame').onclick=()=>startGame(true);
