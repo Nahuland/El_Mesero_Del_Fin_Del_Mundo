@@ -3,7 +3,7 @@
 **Rama:** `release/3.27-pulido-tecnico`  
 **Archivo auditado:** `index.html`  
 **Alcance:** revisión estática del código de movimiento, colisiones, límites, interiores y cambios de zona.  
-**Estado:** auditoría estática ampliada; validación jugable pendiente.
+**Estado:** H1 corregido en código; validación jugable pendiente.
 
 ## Resultado ejecutivo
 
@@ -76,4 +76,19 @@ El movimiento normaliza las diagonales y comprueba X/Y por separado. Este patró
 
 ## Conclusión
 
-**Resultado estático: un defecto probable de perímetro en cuatro interiores urbanos; otros riesgos requieren pruebas de movimiento real.** No se modificó el código del juego en esta fase. La corrección de H1 debe ser el siguiente cambio técnico y debe acompañarse de una prueba de regresión de las cuatro salidas.
+**Resultado estático: un defecto probable de perímetro en cuatro interiores urbanos; otros riesgos requieren pruebas de movimiento real.** La corrección estática de H1 se implementó en la rama de trabajo. La reproducción y regresión jugable de las cuatro salidas siguen pendientes; los hallazgos H2–H5 tampoco se consideran cerrados.
+
+
+## Actualización posterior — corrección H1 (3.27)
+
+**Estado:** implementada en `index.html`; pendiente de validación manual en navegador.
+
+- Para `mall`, `metro`, `hospital` y `nest`, `blocked()` ahora mantiene activa la franja de colisión interior incluso cuando el movimiento intenta superar el borde inferior. La salida normal sigue siendo la interacción con el objeto `roomdoor`.
+- Se conserva la transición especial `metroSouthExit`, que llama a `exitInterior({x:218,y:139})` cuando el atajo está habilitado.
+- Al cargar una partida antigua, si `currentInterior` identifica uno de esos cuatro interiores pero la posición guardada quedó fuera de su zona transitable, Siete se reubica en el punto de entrada interior correspondiente. Se preservan `returnPoint`, progreso, decisiones y el formato de guardado.
+- No se modificó `saveVersion:50` ni la clave `mesero30save`.
+- El Templo conserva su corredor de salida anterior; no se amplió ni modificó su perímetro.
+
+**Regresión estática comprobada:** presencia de la barrera estricta para los cuatro interiores, puntos de recuperación de guardados antiguos, conservación de versión/clave de guardado, interacción de salidas normales y destino especial del Metro.
+
+**Pendiente:** recorrer en navegador cada sala, probar las cuatro salidas normales, el atajo sur del Metro y guardar/cargar partidas dentro y en posiciones heredadas. Esta actualización no afirma que esas pruebas manuales se hayan ejecutado.
