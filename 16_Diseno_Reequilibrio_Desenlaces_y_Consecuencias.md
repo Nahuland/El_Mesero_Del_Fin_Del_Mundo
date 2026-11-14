@@ -142,3 +142,44 @@ Antes de cerrar el diseño definitivo se debe cotejar:
 - hechos concretos que el guion establece sobre las relaciones afectivas y familiares.
 
 **Criterio de aprobación:** ningún final se considerará equilibrado hasta que sus requisitos sean alcanzables desde una partida normal, sus costes sean legibles antes de elegir y sus epílogos reconozcan las consecuencias reales de la ruta tomada.
+
+
+## 8. Cotejo con el Guion Maestro — Fase 4
+
+**Fuente de continuidad:** `Guion_Maestro_El_Mesero_del_Fin_del_Mundo_Fase4.md`, revisión de continuidad aportada por el usuario. Esta sección separa hechos establecidos de propuestas y conflictos pendientes.
+
+### Hechos canónicos que deben conservarse
+
+- Siete es la unidad S-07, nombrada por Don Aurelio. Estrella lo consideró familia, retiró manualmente su batería para protegerlo del Protocolo Siesta y lo escondió. Don Aurelio salió a pedir clemencia por los robots y nunca regresó.
+- La señal externa manipuló órdenes de robots; la instalación militar vinculada al Vuelo 9 conserva pruebas de origen y transmisión. No confundir esta señal con el origen de la Fiebre Gris.
+- La Fiebre Gris llegó en una cápsula transportada por el Vuelo 9 y afecta a humanos. El Hospital Abandonado y el Aeródromo permiten reconstruir la cadena de negligencia.
+- El reflector oxidado sostuvo el rito de la Secta del Sol y la Luna. El Sacerdote convirtió el miedo en doctrina de odio, pero su historia incluye dolor y culpa.
+- El ejército ocultó información del Vuelo 9 y sostuvo el orden mediante fuerza. El General no originó por sí solo todos los males: eligió obedecer y encubrir.
+- El Carnicero fue cocinero de hospital; su violencia y su canción están ligadas a pérdida y deterioro. Teo cantaba con él en la cocina: el vínculo es significativo, pero el documento no lo define como romántico.
+- La confesión de Noa se refiere a que dejó marchar a su hijo con su padre. La de Dante, al reflector y al rito del Sol. No convertir estos hechos en subtramas románticas.
+- Las misiones de los ocho contactos deben seguir la secuencia encuentro, confianza, decisión (apoyar/rechazar/negociar) y consecuencia persistente.
+
+### Rutas y consecuencias que el diseño debe respetar
+
+- Capataz: puede ser derrotado o escuchado si se ganó la confianza del Desertor. Si es escuchado, los Rebeldes pueden dejar de atacar viajeros neutrales y facilitar rutas; si cae por la fuerza, el territorio queda más abierto pero hostil y desconfiado.
+- Carnicero: la alternativa de reconocimiento depende de condiciones narrativas; el antídoto es un recurso disputado, no una cura garantizada.
+- Secta: refugio, comida y sentido son parte de su función comunitaria. Exponer el engaño puede permitir la rendición del Sacerdote si existen confianza y prueba del reflector. Humillar o masacrar dispersa seguidores y mantiene hostilidad.
+- Ejército: la Mecánica y el Piloto revelan logística, lanchas, evacuaciones y Vuelo 9. La llave inglesa permite sabotear las lanchas si se ayudó a la Mecánica. La rendición del General requiere pruebas y vínculos suficientes según el Guion Maestro.
+- La Señal se Apaga debe incluir una operación física sobre el transmisor, no solo una decisión documental en consola.
+- Un Amanecer sin Fiebre debe distinguir el destino del antídoto, la continuidad de Lía y la capacidad real de una red médica; no representa una cura global.
+- La Estrella es centro emocional y mecánico persistente: compañeros, habitaciones, conversaciones, tablero de pistas, taller y diario deben reflejar hechos concretos, no solo contadores.
+
+### Conflictos entre documentos que no se resolverán por suposición
+
+1. **General / Richars:** el Guion Maestro permite que el General se rinda si se reúnen pruebas y vínculos; el plan técnico anterior caracteriza a Richars Octavio como irreconciliable, sin rendición ni redención. Antes de implementar hay que confirmar si Richars es el General y cuál de las dos versiones prevalece.
+2. **Sacerdote / La Mesa Larga:** el Guion Maestro contempla la rendición del Sacerdote con confianza y prueba del reflector; la implementación 3.26 carece de una bandera funcional `cultResolution === 'reconciled'`. La ruta debe construirse explícitamente, sin concederla por coleccionables ni por un contador genérico.
+3. **Antídoto / Carnicero:** el Guion Maestro plantea una elección de recursos y una resolución alternativa condicionada; no establece que el Carnicero pueda curarse con certeza. La escena debe preservar esa incertidumbre.
+4. **Identidad afectiva del elenco:** el documento fija hechos familiares y vínculos emocionales, pero no define orientaciones sexuales o románticas. Las fichas posteriores deben marcar como “sin definir en canon” lo que no esté respaldado y proponer opciones por separado, para aprobación.
+
+### Condiciones de calidad añadidas
+
+- Las decisiones principales necesitan banderas explícitas y estables; no inferirlas exclusivamente de `G.m`.
+- La migración de partidas antiguas debe asignar valores por defecto sin borrar progreso.
+- Los finales pueden compartir escenas, pero sus epílogos deben reflejar compañeros presentes/ausentes, estado de refugios, consecuencias de facción y decisiones verificables.
+- No se exige completar todos los coleccionables para finales principales, salvo la ruta de archivo/completismo.
+- La exploración semiabierta y las ubicaciones existentes se conservan: exterior físico, interiores conectados con retorno al punto exacto y La Estrella persistente.
