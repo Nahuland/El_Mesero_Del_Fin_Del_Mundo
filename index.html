@@ -1119,7 +1119,13 @@ function blocked(x,y,fromX=player.x,fromY=player.y){
  // El umbral se puede atravesar por el camino central; las columnas quedan fuera de él.
  // Los interiores urbanos tienen perímetros y salidas físicas independientes.
  const roomBounds={mall:{x1:329,x2:361,y1:9,y2:41,doorX:345,doorY:40},metro:{x1:364,x2:397,y1:9,y2:42,doorX:380,doorY:41},hospital:{x1:329,x2:361,y1:49,y2:86,doorX:345,doorY:85},nest:{x1:364,x2:397,y1:49,y2:86,doorX:380,doorY:85},temple:{x1:329,x2:361,y1:132,y2:166,doorX:345,doorY:165}}[state.currentInterior];
- if(roomBounds&&x>roomBounds.x1&&x<roomBounds.x2&&y>roomBounds.y1&&y<roomBounds.y2){
+ // Centro Comercial, Metro, Hospital y Nido: el perímetro se mantiene activo
+ // incluso al intentar cruzar el borde de la puerta. La salida válida es interactuar
+ // con el objeto roomdoor; el Metro conserva su conexión sur especial.
+ const confinedUrban=['mall','metro','hospital','nest'].includes(state.currentInterior);
+ if(roomBounds&&confinedUrban&&(x<roomBounds.x1+1.1||x>roomBounds.x2-1.1||y<roomBounds.y1+1.1||y>roomBounds.y2-1.1))return true;
+ // El Templo conserva su corredor de salida específico.
+ if(roomBounds&&!confinedUrban&&x>roomBounds.x1&&x<roomBounds.x2&&y>roomBounds.y1&&y<roomBounds.y2){
   const inDoor=Math.abs(x-roomBounds.doorX)<1.7&&y>roomBounds.doorY-1.2;
   if(!inDoor&&(x<roomBounds.x1+1.1||x>roomBounds.x2-1.1||y<roomBounds.y1+1.1||y>roomBounds.y2-1.1))return true;
  }
@@ -1748,6 +1754,12 @@ function startGame(load){
  if(state.currentInterior&&!validInteriors.includes(state.currentInterior)){state.currentInterior=null;state.returnPoint=null;player.x=8.2;player.y=11.2;}
  if(state.currentInterior&&!validPoint(state.returnPoint)){state.currentInterior=null;state.returnPoint=null;player.x=8.2;player.y=11.2;}
  if(!validPoint(player)){player.x=8.2;player.y=11.2;}
+ // Compatibilidad con guardados anteriores: si el estado dice que Siete está en
+ // uno de estos interiores pero quedó fuera de su zona transitable, reubicarlo
+ // dentro de la sala sin tocar returnPoint ni el progreso narrativo.
+ const urbanBounds={mall:{x1:329,x2:361,y1:9,y2:41},metro:{x1:364,x2:397,y1:9,y2:42},hospital:{x1:329,x2:361,y1:49,y2:86},nest:{x1:364,x2:397,y1:49,y2:86}}[state.currentInterior];
+ const urbanSpawn={mall:{x:332,y:25},metro:{x:367,y:25},hospital:{x:332,y:65},nest:{x:367,y:65}}[state.currentInterior];
+ if(urbanBounds&&urbanSpawn&&(player.x<urbanBounds.x1+1.1||player.x>urbanBounds.x2-1.1||player.y<urbanBounds.y1+1.1||player.y>urbanBounds.y2-1.1)){player.x=urbanSpawn.x;player.y=urbanSpawn.y;}
  player.hp=Number.isFinite(Number(player.hp))?Math.max(1,Math.min(100,Number(player.hp))):100;
  player.scrap=Number.isFinite(Number(player.scrap))?Math.max(0,Number(player.scrap)):0;
  setToast('Partida recuperada.')}catch(e){state.currentInterior=null;state.returnPoint=null;setToast('El guardado estaba dañado. Se inició una posición segura.')}}
