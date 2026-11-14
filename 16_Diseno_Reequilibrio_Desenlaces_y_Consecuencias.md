@@ -27,7 +27,7 @@ Además:
 - Toda resolución de una facción debe tener coste, riesgo, consecuencias y supervivientes afectados.
 - Los combates importantes deben poder dejar a Siete fuera de combate, obligar a retiradas y consumir recursos; la dificultad debe ser justa y telegráfica, no arbitraria.
 - Los jefes no cambian de convicción por una conversación. Las salidas diplomáticas son treguas, intercambios, rendiciones limitadas o alianzas inestables, según el personaje.
-- Algunas amenazas son irreconciliables. Richars Octavio permanece como canon: jefe obligatorio, sin rendición ni redención.
+- Algunas amenazas son irreconciliables. Richars Octavio, también conocido como el General Acorazado, es una de ellas: jefe obligatorio, no se rinde y no busca redención.
 - Los finales expresan resultados mixtos: una victoria puede salvar a unos y condenar a otros.
 - No se añadirá un contador global de moralidad ni se reducirá el desenlace a una ruta pacífica/violenta.
 
@@ -88,6 +88,7 @@ El epílogo debe distinguir abandono voluntario, ruptura de confianza y superviv
 - Cada facción debe aceptar garantías verificables y entregar algo concreto.
 - La mesa puede formarse, pero no implica paz definitiva: debe haber heridas, desacuerdos y riesgo de ruptura.
 - No usar el total de aliados como sustituto de confianza política.
+- La Mesa Larga no puede depender de una rendición del General: Richars Octavio no se rinde. La coalición tendrá que construirse frente a su resistencia, con consecuencias militares reales.
 
 ### 7. Un Amanecer sin Fiebre
 **La medicina debe ser una decisión de supervivencia con capacidad limitada.**
@@ -124,7 +125,7 @@ El epílogo debe distinguir abandono voluntario, ruptura de confianza y superviv
 - Siesta Voluntaria está marcada como disponible incondicionalmente.
 - Mesero de Hierro depende únicamente de `siestaDecision === 'shared'`.
 - El combate de Capataz, Funes, Richars y el Coro aplica `Math.max(1, player.hp - incoming)` en los fragmentos revisados: Siete no puede caer a 0 en esos encuentros.
-- Richars no se rinde ni se redime, coherente con el plan de producción vigente.
+- Richars no se rinde ni se redime, coherente con el canon confirmado.
 
 ## 6. Fuera de alcance de esta primera etapa
 
@@ -136,13 +137,12 @@ El epílogo debe distinguir abandono voluntario, ruptura de confianza y superviv
 ## 7. Pendientes de canon que requieren el documento maestro
 
 Antes de cerrar el diseño definitivo se debe cotejar:
-- texto original y motivaciones completas del Capataz, el Nido, el Sacerdote del Eclipse y el General;
+- texto original y motivaciones completas del Capataz, el Nido y el Sacerdote del Eclipse;
 - destino y papel narrativo de Mara, Tomás, Ibarra, Elba y los ocho contactos;
 - condiciones originales de los ocho desenlaces, si difieren de la implementación 3.26;
 - hechos concretos que el guion establece sobre las relaciones afectivas y familiares.
 
 **Criterio de aprobación:** ningún final se considerará equilibrado hasta que sus requisitos sean alcanzables desde una partida normal, sus costes sean legibles antes de elegir y sus epílogos reconozcan las consecuencias reales de la ruta tomada.
-
 
 ## 8. Cotejo con el Guion Maestro — Fase 4
 
@@ -164,17 +164,27 @@ Antes de cerrar el diseño definitivo se debe cotejar:
 - Capataz: puede ser derrotado o escuchado si se ganó la confianza del Desertor. Si es escuchado, los Rebeldes pueden dejar de atacar viajeros neutrales y facilitar rutas; si cae por la fuerza, el territorio queda más abierto pero hostil y desconfiado.
 - Carnicero: la alternativa de reconocimiento depende de condiciones narrativas; el antídoto es un recurso disputado, no una cura garantizada.
 - Secta: refugio, comida y sentido son parte de su función comunitaria. Exponer el engaño puede permitir la rendición del Sacerdote si existen confianza y prueba del reflector. Humillar o masacrar dispersa seguidores y mantiene hostilidad.
-- Ejército: la Mecánica y el Piloto revelan logística, lanchas, evacuaciones y Vuelo 9. La llave inglesa permite sabotear las lanchas si se ayudó a la Mecánica. La rendición del General requiere pruebas y vínculos suficientes según el Guion Maestro.
+- Ejército: la Mecánica y el Piloto revelan logística, lanchas, evacuaciones y Vuelo 9. La llave inglesa permite sabotear las lanchas si se ayudó a la Mecánica. Richars Octavio es el General Acorazado; dirige la fuerza militar y no se rinde ni busca redimirse.
 - La Señal se Apaga debe incluir una operación física sobre el transmisor, no solo una decisión documental en consola.
 - Un Amanecer sin Fiebre debe distinguir el destino del antídoto, la continuidad de Lía y la capacidad real de una red médica; no representa una cura global.
 - La Estrella es centro emocional y mecánico persistente: compañeros, habitaciones, conversaciones, tablero de pistas, taller y diario deben reflejar hechos concretos, no solo contadores.
 
-### Conflictos entre documentos que no se resolverán por suposición
+### Aclaración de canon: Richars Octavio
 
-1. **General / Richars:** el Guion Maestro permite que el General se rinda si se reúnen pruebas y vínculos; el plan técnico anterior caracteriza a Richars Octavio como irreconciliable, sin rendición ni redención. Antes de implementar hay que confirmar si Richars es el General y cuál de las dos versiones prevalece.
-2. **Sacerdote / La Mesa Larga:** el Guion Maestro contempla la rendición del Sacerdote con confianza y prueba del reflector; la implementación 3.26 carece de una bandera funcional `cultResolution === 'reconciled'`. La ruta debe construirse explícitamente, sin concederla por coleccionables ni por un contador genérico.
-3. **Antídoto / Carnicero:** el Guion Maestro plantea una elección de recursos y una resolución alternativa condicionada; no establece que el Carnicero pueda curarse con certeza. La escena debe preservar esa incertidumbre.
-4. **Identidad afectiva del elenco:** el documento fija hechos familiares y vínculos emocionales, pero no define orientaciones sexuales o románticas. Las fichas posteriores deben marcar como “sin definir en canon” lo que no esté respaldado y proponer opciones por separado, para aprobación.
+Queda resuelta la discrepancia documental por confirmación expresa del autor: **Richars Octavio es el General Acorazado. El General no se rinde y no quiere redimirse.** Esta regla prevalece sobre la frase del Guion Maestro que contemplaba una posible rendición del General.
+
+Consecuencias obligatorias para el diseño:
+- No habrá diálogo, prueba, vínculo, negociación ni ruta secreta que convierta la confrontación con Richars en rendición o redención.
+- Las pruebas del Vuelo 9 sirven para exponer sus decisiones y permitir que otras comunidades actúen; no funcionan como palanca para cambiar su voluntad.
+- La victoria sobre Richars debe resolverse mediante la confrontación prevista por el juego. Sus costes militares, humanos y materiales deben persistir.
+- La Mesa Larga, si se alcanza, se construye pese a la oposición del General, no con su consentimiento. La coalición tendrá que afrontar las consecuencias de mantenerlo como enemigo.
+- No confundir derrotarlo con reconciliar al ejército entero: sus subordinados y supervivientes pueden reaccionar de maneras distintas, según sus propias decisiones y responsabilidades.
+
+### Conflictos y límites restantes
+
+1. **Sacerdote / La Mesa Larga:** el Guion Maestro contempla la rendición del Sacerdote con confianza y prueba del reflector; la implementación 3.26 carece de una bandera funcional `cultResolution === 'reconciled'`. La ruta debe construirse explícitamente, sin concederla por coleccionables ni por un contador genérico.
+2. **Antídoto / Carnicero:** el Guion Maestro plantea una elección de recursos y una resolución alternativa condicionada; no establece que el Carnicero pueda curarse con certeza. La escena debe preservar esa incertidumbre.
+3. **Identidad afectiva del elenco:** el documento fija hechos familiares y vínculos emocionales, pero no define orientaciones sexuales o románticas. Las fichas posteriores deben marcar como “sin definir en canon” lo que no esté respaldado y proponer opciones por separado, para aprobación.
 
 ### Condiciones de calidad añadidas
 
