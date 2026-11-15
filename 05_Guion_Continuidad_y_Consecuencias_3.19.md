@@ -138,3 +138,9 @@ Richars Octavio es malvado e irredimible. Es el jefe final obligatorio, no puede
 ## Addendum narrativo 3.23 — escenas militares y Siesta
 
 Celina Borda declara únicamente sobre las planillas y la asignación de plazas que administró. Damián Ferreyra declara sobre la coordinación de puestos y las órdenes que transmitió; su relato debe contrastarse con trincheras y radio. El libro del Hangar corrobora una corrección del peso declarado del Vuelo 9, sin explicar el origen de la Fiebre Gris o de la señal. El archivo de la Fortaleza confirma que la cadena superior recibió la discrepancia y ordenó retirar registros de consulta pública. La consola Siesta permite desconectar el núcleo de órdenes, aislarlo con autorización compartida o conservar una copia de solo lectura. Esas decisiones son el primer nodo del Acto V, no uno de los ocho finales. La derrota de Richars Octavio sigue siendo obligatoria e irredimible.
+
+---
+
+## Nota de producción no canónica — presentación visual
+
+Esta nota no modifica el Guion Maestro Fase 4 ni agrega hechos al mundo. La producción visual pendiente deberá representar con claridad los personajes, regiones, interiores, enemigos, jefes y estados ambientales ya establecidos. Los modelos, texturas, animaciones, iluminación, ambientación y UI deben reforzar la lectura de lo existente, no introducir símbolos, relaciones, acontecimientos o explicaciones nuevas sin aprobación editorial. El seguimiento de arte, recursos, carga y rendimiento se rige por la sección 20 del Documento Maestro de Reconstrucción y Producción.
