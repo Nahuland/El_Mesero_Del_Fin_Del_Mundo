@@ -78,7 +78,7 @@ Quedan pendientes de prueba real:
 | Condición de acceso a Richars | Confirmada estáticamente |
 | Tres fases y nueve patrones telegráficos | Implementados y comprobados estáticamente |
 | Apoyo opcional Elba/Funes/ocultamiento | Efectos comunicados en el briefing; modificadores comprobados estáticamente |
-| QA automatizado de sintaxis, progresión 13/13 y condiciones de los ocho finales | Aprobado en GitHub Actions |
+| QA automatizado de sintaxis, estructura de mapas/interiores, progresión 13/13 y condiciones de los ocho finales | Aprobado en GitHub Actions |
 | Carga inicial en Chromium | Aprobada; menú detectado y sin excepciones JS de página |
 | Ruta geográfica completa | Pendiente de recorrido de juego |
 | Guardado/carga real y matriz G01–G12 | Pendientes |
