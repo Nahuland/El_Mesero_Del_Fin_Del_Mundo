@@ -56,7 +56,7 @@ Ejecución: [QA 3.27 — GitHub Actions](https://github.com/Nahuland/El_Mesero_D
 - Estructura del mapa: IDs de props únicos, coordenadas dentro de 420×300, referencias de interiores válidas y puerta de retorno presente en los 11 interiores.
 - Simulación del cierre 13/13 del Acto IV: bloquea la revisión si falta una prueba y la completa al reunirlas todas; las acciones opcionales de Elba y Funes no son requisito.
 - Nueve patrones de Richars y persistencia por turno: comprobados.
-- Chromium carga el menú inicial sin excepciones JavaScript y sin IDs duplicados.
+- Chromium carga el menú inicial sin excepciones JavaScript y sin IDs duplicados; iniciar partida oculta el menú y muestra el HUD en escritorio y móvil.
 - Viewport táctil 390×844: controles visibles, 8 direcciones y objetivos direccionales de al menos 44×44 px; sin excepciones JavaScript.
 - Simulación de las condiciones de los ocho desenlaces: los ocho quedan alcanzables con estados preparados; se verifican los bloqueos específicos de Final 6 y Final 7.
 - Simulación real en Chromium de la secuencia Sol → Luna; Luna antes que Sol no completa el ritual.
