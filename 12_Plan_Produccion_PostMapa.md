@@ -67,7 +67,7 @@
 **QA 3.26:** scripts compilados, aserciones estáticas y simulación aislada de las ocho condiciones aprobadas. En 3.27 se amplió la automatización: Chromium simula las ocho condiciones y las rutas críticas descritas en el informe 24. No se declara recorrido manual, guardado/carga real de navegador ni prueba física en móvil.
 
 ### 3.27 — Pulido sistémico y experiencia
-**Estado parcial:** accesibilidad, perímetros interiores H1, corrección visual de La Estrella, combate telegráfico de Richars, arco jugable de Noa y Dante, registro de doctrina, resolución limitada del Sacerdote y tratamiento del Carnicero implementados. GitHub Actions valida el contrato 13/13 del Acto IV, modificadores tácticos, los ocho finales y controles táctiles en viewport móvil. Siguen pendientes recorrido manual, guardado/carga real, prueba física y perfilado en dispositivo.
+**Estado parcial:** accesibilidad, perímetros interiores H1, corrección visual de La Estrella, combate telegráfico de Richars, arco jugable de Noa y Dante, registro de doctrina, resolución limitada del Sacerdote y tratamiento del Carnicero implementados. GitHub Actions valida coordenadas y retornos de los 11 interiores, el contrato 13/13 del Acto IV, modificadores tácticos, los ocho finales y controles táctiles en viewport móvil. Siguen pendientes recorrido manual, guardado/carga real, prueba física y perfilado en dispositivo.
 - Auditoría de colisiones y rutas de todas las regiones e interiores.
 - Balance de combates, recuperación, chatarra y dificultad.
 - Revisión de textos, objetivos, diario y consistencia de nombres.
