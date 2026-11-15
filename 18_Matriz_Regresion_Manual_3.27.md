@@ -117,6 +117,9 @@ Duplicar este bloque por cada caso FALLIDO:
 | C — H4 accesos militares | | | | |
 | D — H5 movimiento y esquinas | | | | |
 | E — transiciones generales | | | | |
+| F — La Estrella | | | | |
+| G — Richars Octavio | | | | |
+| H — Secta del Sol y la Luna | | | | |
 
 **Conclusión de la sesión:** pendiente.
 
@@ -147,3 +150,20 @@ Duplicar este bloque por cada caso FALLIDO:
 | G10 | Guardar durante el combate, recargar y continuar. | Se conservan integridad, turno/patrón, piezas, reparación usada y progreso; no se reinicia ni duplica una acción. | NO EJECUTADO |
 | G11 | Derrotar a Richars. | No hay rendición; se abre el acceso narrativo existente a la Fortaleza y Siesta permanece pendiente de decisión. | NO EJECUTADO |
 | G12 | Repetir una sesión en escritorio y otra en móvil. | Los avisos y opciones son legibles, los botones responden y no se solapan con el diálogo. | NO EJECUTADO |
+
+
+### H. Secta del Sol y la Luna — confianza, prueba y resolución
+
+| ID | Escenario y pasos | Resultado esperado | Estado |
+|---|---|---|---|
+| H01 | Hablar con Noa en la Aldea y elegir acompañarla para preparar su salida. | Se registra su confianza y su decisión de buscar a su hijo cuando el camino sea seguro; no se garantiza el reencuentro. | NO EJECUTADO |
+| H02 | Hablar con Noa, aplazar la ayuda y volver más tarde. | No se registra confianza hasta aceptar acompañarla; la interacción puede retomarse. | NO EJECUTADO |
+| H03 | Hablar con Dante en el Mercado y aceptar escuchar su testimonio. | Se registra su confianza y se indica que el reflector fue usado para fabricar el rito; no se absuelve su responsabilidad. | NO EJECUTADO |
+| H04 | Leer el registro de doctrina en las Catacumbas. | Queda claro que el Sacerdote convirtió el miedo en doctrina contra los robots y que no todos los fieles conocían el engaño. | NO EJECUTADO |
+| H05 | Inspeccionar el registro físico del reflector en el Templo. | La prueba queda guardada y puede contrastarse con el testimonio de Dante. | NO EJECUTADO |
+| H06 | Encender primero el brasero de la Luna y después el del Sol; repetir en el orden correcto. | Luna antes que Sol no completa la secuencia; Sol → Luna sí detiene el mecanismo y persiste. | NO EJECUTADO |
+| H07 | Con prueba y braseros completos, hablar con el Sacerdote sin haber ganado la confianza de Noa y Dante. | La rendición permanece bloqueada y se informa qué testimonios faltan. | NO EJECUTADO |
+| H08 | Ganar la confianza de Noa y Dante, reunir prueba y completar Sol → Luna; aceptar la rendición limitada. | Se registra la rendición del Sacerdote y la formación de una comunidad parcial; no se obliga a todos los fieles a perdonar ni abandonar la doctrina. | NO EJECUTADO |
+| H09 | Rechazar la rendición limitada y volver después de completar las condiciones. | No se altera el estado hasta aceptar explícitamente; la escena puede retomarse. | NO EJECUTADO |
+| H10 | Guardar después de Noa/Dante, la prueba, el ritual y la rendición; recargar. | Se conservan todas las banderas y el estado parcial de la comunidad, sin duplicar escenas ni borrar progreso. | NO EJECUTADO |
+| H11 | Recorrer la Aldea y el Refugio después de la resolución. | El texto reconoce que la Secta ofreció refugio y comida; distingue a sus familias del engaño y las acciones del Sacerdote. | NO EJECUTADO |
