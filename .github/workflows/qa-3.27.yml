@@ -119,7 +119,9 @@ jobs:
                   const act4ClosureWorks = military.act4ReviewComplete === true && state.flags.act4Complete === true;
                   closeDialogue();
                   const evidenceGateWorks = evidenceReady(military);
+                  military.evidence.coverupOrder = false;
                   const incomingDamageWorks = militaryIncoming(15) === 15;
+                  military.evidence.coverupOrder = true;
                   military.gunboatsSabotaged = true; military.funesDefeated = true;
                   const preparedDamageWorks = militaryIncoming(15) === 3;
                   state.act5 = { contacts: { mira:'support', ivan:'support', lia:'support', teo:'negotiate', noa:'reject', dante:'support', kai:'support', eva:'support' }, councilComplete:true, ending:null, transmitterDisabled:false };
