@@ -2,7 +2,7 @@
 
 **Rama:** `release/3.27-pulido-tecnico`  
 **Archivo:** `index.html`  
-**Estado:** implementado en código; QA automatizado ampliado, resultado final pendiente.
+**Estado:** implementado en código; QA automatizado aprobado en GitHub Actions.
 
 ## Final 6 — La Mesa Larga
 
@@ -41,11 +41,30 @@ Esta alternativa no cambia las condiciones del Final 7 médico: reservar el fras
 - Se añadió el control de estas rutas al workflow de GitHub Actions.
 - La instrumentación de Playwright para simular estados se inserta solo en el HTML de prueba en memoria; no se incorpora al juego publicado.
 
-## Validación pendiente
+## QA automatizado realizado
 
-- Confirmar que GitHub Actions apruebe sintaxis, carga inicial y simulación de condiciones de Final 6 y Final 7.
-- Comprobar la interacción física con los nuevos puntos del Templo y Santuario, el orden de braseros, la rendición limitada y la persistencia al recargar.
-- Comprobar la escena del Carnicero y el guardado/carga del resultado.
-- Recorrido manual completo y revisión en móvil siguen pendientes.
+<badge>APROBADO · GitHub Actions</badge>
 
-**Importante:** la aprobación del smoke test no equivale a haber jugado las rutas completas. No se declara validación manual.
+Ejecución: [QA 3.27 — GitHub Actions](https://github.com/Nahuland/El_Mesero_Del_Fin_Del_Mundo/actions/runs/43742725807)
+
+- Sintaxis del JavaScript principal: aprobada.
+- Contrato de progresión del Acto IV (13 requisitos y rutas de evidencia): aprobado.
+- Nueve patrones de Richars y persistencia por turno: comprobados.
+- Chromium carga el menú inicial sin excepciones JavaScript y sin IDs duplicados.
+- Simulación real en Chromium de la secuencia Sol → Luna; Luna antes que Sol no completa el ritual.
+- El Sacerdote no acepta la rendición sin la confianza de Noa y Dante; con la prueba y el orden correctos, registra la rendición limitada.
+- Final 6 se habilita con `cultResolution` y se bloquea cuando falta.
+- Final 7 médico se habilita con el antídoto reservado al Hospital y se bloquea cuando se destina al Carnicero.
+- La escena de Teo/Carnicero se ejecuta y persiste el resultado de lucidez temporal.
+- Las nuevas banderas se conservan en la estructura generada por `savePayload()`.
+
+La instrumentación de prueba expone el estado encapsulado solo dentro de una copia HTML en memoria durante Chromium; no se incorpora al juego.
+
+## Validación manual pendiente
+
+- Recorrer físicamente los puntos del Templo y Santuario, y comprobar distancias de interacción y legibilidad.
+- Probar guardado/carga cerrando y reabriendo el navegador.
+- Ejecutar la ruta médica y la alternativa del Carnicero en una partida completa.
+- Recorrido manual completo y revisión en móvil físico.
+
+**Importante:** el QA automatizado sí ejecutó las interacciones y las condiciones en Chromium con estado simulado. No equivale a una partida completa ni a validación manual.
