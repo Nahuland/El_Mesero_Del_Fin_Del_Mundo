@@ -33,7 +33,7 @@ Las propuestas de orientación y fichas afectivas permanecen intactas y fuera de
 
 ## QA automatizado ampliado — GitHub Actions
 
-- Workflow: [QA 3.27](https://github.com/Nahuland/El_Mesero_Del_Fin_Del_Mundo/actions/runs/43744324561).
+- Workflow: [QA 3.27](https://github.com/Nahuland/El_Mesero_Del_Fin_Del_Mundo/actions/runs/43744433504).
 - Estado: **APROBADO**.
 - Estructura del mapa: IDs únicos, coordenadas dentro de límites, referencias válidas y retornos en los 11 interiores.
 - Simulación del cierre 13/13 del Acto IV y bloqueo cuando falta un requisito.
@@ -47,3 +47,11 @@ Las propuestas de orientación y fichas afectivas permanecen intactas y fuera de
 - Guardado/carga: escritura real en `localStorage`, recarga de página y recuperación de banderas con el botón Continuar.
 
 **Límite:** el workflow simula estados y ejecuta funciones reales en Chromium, y sí prueba la persistencia en `localStorage` tras recargar y continuar. No realiza un recorrido físico completo por los mapas, no migra una colección de guardados antiguos ni certifica un dispositivo móvil real. Los casos manuales de la matriz 18 siguen pendientes.
+
+
+## Empaquetado RC
+
+- Job `package-3-27-rc`: **APROBADO** tras depender del job QA.
+- Artefacto: `El-Mesero-3.27-Pulido-Tecnico-RC`, con ZIP del proyecto y checksum.
+- Ejecución: [GitHub Actions 43744433504](https://github.com/Nahuland/El_Mesero_Del_Fin_Del_Mundo/actions/runs/43744433504).
+- No se publicó Pages ni se modificó `main`.
