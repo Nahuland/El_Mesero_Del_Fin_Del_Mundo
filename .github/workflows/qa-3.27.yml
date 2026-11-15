@@ -61,7 +61,6 @@ jobs:
             "cultReflectorProof", "cultSolarBrazier", "cultLunarBrazier", "cultPriest",
             "cultBrazierOrderComplete", "cultPriestSurrendered",
             "f.cultResolution='reconciled'",
-            "contacts[id]==='support'||contacts[id]==='negotiate'",
             "case'nestVictim'", "c.carniceroTreatmentResolved=true",
             "c.carniceroTreatmentOutcome='lucidez_temporal'",
             "state.act5?.contacts?.teo==='support'",
@@ -69,7 +68,8 @@ jobs:
             "interior:'temple'", "interior:'sanctuary'",
             "cultNoa", "cultDante", "cultDoctrineRecord", "cultRefuge",
             "f.cultNoaTrust=true", "f.cultDanteTrust=true",
-            "f.cultCommunityFormed=true", "f.cultFollowersRemainDivided=true"
+            "f.cultCommunityFormed=true", "f.cultFollowersRemainDivided=true",
+            "!!f.cultNoaTrust&&!!f.cultDanteTrust"
           ];
           for (const token of required) {
             if (!html.includes(token)) throw new Error('Falta comprobación: ' + token);
@@ -172,7 +172,7 @@ jobs:
                   close();
                   const treatmentSaved = state.city.carniceroTreatmentResolved === true && state.city.carniceroTreatmentOutcome === 'lucidez_temporal';
                   const saved = savePayload();
-                  const newFlagsPersisted = saved.state.flags.cultResolution === 'reconciled' && saved.state.city.carniceroTreatmentResolved === true && saved.state.military.act4ReviewComplete === true && saved.state.flags.act4Complete === true;
+                  const newFlagsPersisted = saved.state.flags.cultResolution === 'reconciled' && saved.state.flags.cultNoaTrust === true && saved.state.flags.cultDanteTrust === true && saved.state.flags.cultDoctrineRecordRead === true && saved.state.flags.cultCommunityFormed === true && saved.state.city.carniceroTreatmentResolved === true && saved.state.military.act4ReviewComplete === true && saved.state.flags.act4Complete === true;
                   const contacts = { mira:'support', ivan:'support', lia:'support', teo:'negotiate', noa:'support', dante:'support', kai:'support', eva:'support' };
                   state.act5 = { contacts, councilComplete:true, ending:null, transmitterDisabled:false };
                   state.military = { siestaDecision:'destroy', elbaHelped:true };
