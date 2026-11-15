@@ -160,7 +160,28 @@ jobs:
                   const treatmentSaved = state.city.carniceroTreatmentResolved === true && state.city.carniceroTreatmentOutcome === 'lucidez_temporal';
                   const saved = savePayload();
                   const newFlagsPersisted = saved.state.flags.cultResolution === 'reconciled' && saved.state.city.carniceroTreatmentResolved === true && saved.state.military.act4ReviewComplete === true && saved.state.flags.act4Complete === true;
-                  return { cultPropsPlaced, blockedAct4, act4BlockedUntilAll13, all13Present, optionalActionsRemainOptional, act4ClosureWorks, evidenceGateWorks, incomingDamageWorks, preparedDamageWorks, lunarFirstBlocked, priestBlockedWithoutTrust, surrenderChoice, final6Available, final6BlockedWithoutResolution, final7Available, final7BlockedAfterReservation, treatmentChoice, treatmentSaved, newFlagsPersisted };
+                  const contacts = { mira:'support', ivan:'support', lia:'support', teo:'negotiate', noa:'support', dante:'support', kai:'support', eva:'support' };
+                  state.act5 = { contacts, councilComplete:true, ending:null, transmitterDisabled:false };
+                  state.military = { siestaDecision:'destroy', elbaHelped:true };
+                  state.bossPeace = true;
+                  state.city = { resolution:'severed', maraFollowup:true, tomasFollowup:true, clinicAid:true };
+                  state.flags = {};
+                  const final1Restaurant = finaleMetrics().restaurant;
+                  state.act5 = { contacts:{}, councilComplete:true, ending:null, transmitterDisabled:false };
+                  state.military = { siestaDecision:'destroy' };
+                  state.city = {};
+                  const final2Solitary = finaleMetrics().solitary;
+                  state.military = { siestaDecision:'archive', hangarLogRead:true, commandArchiveRead:true, evidence:{evacuation:true,trenchOrders:true,flight9Manifest:true,flight9Discrepancy:true,coverupOrder:true,aurelioRecipe:false} };
+                  state.records = { siesta:true, signal:true };
+                  state.city = { broadcast:'public', records:true, sample:true };
+                  const final3Archive = finaleMetrics().archive;
+                  state.military = { siestaDecision:'shared' };
+                  const final4Iron = finaleMetrics().iron;
+                  const final5Siesta = finaleMetrics().siesta;
+                  state.military = { siestaDecision:'archive', hangarLogRead:true, commandArchiveRead:true, evidence:{flight9Manifest:true,flight9Discrepancy:true,coverupOrder:true} };
+                  state.records = { siesta:true, signal:true };
+                  const final8Signal = finaleMetrics().signal;
+                  return { final1Restaurant, final2Solitary, final3Archive, final4Iron, final5Siesta, final8Signal, cultPropsPlaced, blockedAct4, act4BlockedUntilAll13, all13Present, optionalActionsRemainOptional, act4ClosureWorks, evidenceGateWorks, incomingDamageWorks, preparedDamageWorks, lunarFirstBlocked, priestBlockedWithoutTrust, surrenderChoice, final6Available, final6BlockedWithoutResolution, final7Available, final7BlockedAfterReservation, treatmentChoice, treatmentSaved, newFlagsPersisted };
                 }
               };
               updateHUD();
@@ -171,14 +192,14 @@ jobs:
               if (!(await page.locator('body').count())) throw new Error('No se creó el body.');
               if (!(await page.locator('#menu').count())) throw new Error('No aparece el menú inicial.');
               const endings = await page.evaluate(() => window.__qa.runCultAndFinaleChecks());
-              if (!endings.cultPropsPlaced || !endings.blockedAct4 || !endings.act4BlockedUntilAll13 || !endings.all13Present || !endings.optionalActionsRemainOptional || !endings.act4ClosureWorks || !endings.evidenceGateWorks || !endings.incomingDamageWorks || !endings.preparedDamageWorks || !endings.lunarFirstBlocked || !endings.priestBlockedWithoutTrust || !endings.surrenderChoice || !endings.final6Available || !endings.final6BlockedWithoutResolution || !endings.final7Available || !endings.final7BlockedAfterReservation || !endings.treatmentChoice || !endings.treatmentSaved || !endings.newFlagsPersisted) {
+              if (!endings.final1Restaurant || !endings.final2Solitary || !endings.final3Archive || !endings.final4Iron || !endings.final5Siesta || !endings.final8Signal || !endings.cultPropsPlaced || !endings.blockedAct4 || !endings.act4BlockedUntilAll13 || !endings.all13Present || !endings.optionalActionsRemainOptional || !endings.act4ClosureWorks || !endings.evidenceGateWorks || !endings.incomingDamageWorks || !endings.preparedDamageWorks || !endings.lunarFirstBlocked || !endings.priestBlockedWithoutTrust || !endings.surrenderChoice || !endings.final6Available || !endings.final6BlockedWithoutResolution || !endings.final7Available || !endings.final7BlockedAfterReservation || !endings.treatmentChoice || !endings.treatmentSaved || !endings.newFlagsPersisted) {
                 throw new Error('Falló la simulación del Acto IV, la ubicación de los puntos de la Secta, finales 6/7 o tratamiento del Carnicero: ' + JSON.stringify(endings));
               }
               const ids = await page.locator('[id]').evaluateAll(nodes => nodes.map(node => node.id));
               const duplicates = ids.filter((id, i) => ids.indexOf(id) !== i);
               if (duplicates.length) throw new Error('IDs duplicados: ' + [...new Set(duplicates)].join(', '));
               if (errors.length) throw new Error('Errores JavaScript en navegador: ' + errors.join(' | '));
-              console.log('OK: Chromium carga el menú, simula el cierre 13/13 del Acto IV, la secuencia de la Secta, finales 6/7 y el tratamiento del Carnicero y no registra excepciones JS.');
+              console.log('OK: Chromium carga el menú, simula el cierre 13/13 del Acto IV y las condiciones de los ocho finales, además de la secuencia de la Secta y el tratamiento del Carnicero y no registra excepciones JS.');
             } finally {
               await browser.close();
             }
