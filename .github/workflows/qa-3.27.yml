@@ -126,7 +126,7 @@ jobs:
                   state.military = { siestaDecision:'destroy', gunboatsSabotaged:true, funesDefeated:true, act4ReviewComplete:true };
                   state.bossPeace = true;
                   state.city = { resolution:'severed', records:true, sample:true, hospitalEvidence:true, suppliesChoice:'hospital', clinicAid:true, antidoteRecovered:true, antidoteUsedForCarnicero:false, guardianDefeated:false };
-                  state.flags = {};
+                  state.flags = { act4Complete:true };
                   const close = () => { if (dialogue) closeDialogue(); };
                   near = { id:'cultLunarBrazier' }; interact();
                   const lunarFirstBlocked = !state.flags.cultBrazierOrderComplete; close();
