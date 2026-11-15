@@ -99,6 +99,29 @@ jobs:
               if (at < 0) throw new Error('No se encontró el cierre del script para instrumentar QA.');
               const bridge = `window.__qa = {
                 runCultAndFinaleChecks() {
+                  state.military = {
+                    evidence: { evacuation:true, trenchOrders:true, flight9Manifest:true, flight9Discrepancy:false, coverupOrder:true, aurelioRecipe:true },
+                    nereaTestimony:true, celinaBriefed:true, damianConfronted:true,
+                    hangarLogRead:true, commandArchiveRead:true, varelaDefeated:true,
+                    siestaDecision:'archive', gunboatsSabotaged:false, funesDefeated:false,
+                    act4ReviewComplete:false
+                  };
+                  state.flags = {};
+                  const military = ensureMilitary();
+                  const blockedAct4 = militaryAct4Checklist(military).filter(x => !x.done).length === 1;
+                  militaryAct4Review();
+                  const act4BlockedUntilAll13 = !military.act4ReviewComplete;
+                  closeDialogue();
+                  military.evidence.flight9Discrepancy = true;
+                  const all13Present = militaryAct4Checklist(military).length === 13 && militaryAct4Checklist(military).every(x => x.done);
+                  const optionalActionsRemainOptional = !military.gunboatsSabotaged && !military.funesDefeated && all13Present;
+                  militaryAct4Review();
+                  const act4ClosureWorks = military.act4ReviewComplete === true && state.flags.act4Complete === true;
+                  closeDialogue();
+                  const evidenceGateWorks = evidenceReady(military);
+                  const incomingDamageWorks = militaryIncoming(15) === 15;
+                  military.gunboatsSabotaged = true; military.funesDefeated = true;
+                  const preparedDamageWorks = militaryIncoming(15) === 3;
                   state.act5 = { contacts: { mira:'support', ivan:'support', lia:'support', teo:'negotiate', noa:'reject', dante:'support', kai:'support', eva:'support' }, councilComplete:true, ending:null, transmitterDisabled:false };
                   state.military = { siestaDecision:'destroy', gunboatsSabotaged:true, funesDefeated:true };
                   state.bossPeace = true;
@@ -133,7 +156,9 @@ jobs:
                   const treatmentSaved = state.city.carniceroTreatmentResolved === true && state.city.carniceroTreatmentOutcome === 'lucidez_temporal';
                   const saved = savePayload();
                   const newFlagsPersisted = saved.state.flags.cultResolution === 'reconciled' && saved.state.city.carniceroTreatmentResolved === true;
-                  return { lunarFirstBlocked, priestBlockedWithoutTrust, surrenderChoice, final6Available, final6BlockedWithoutResolution, final7Available, final7BlockedAfterReservation, treatmentChoice, treatmentSaved, newFlagsPersisted };
+                  const saved = savePayload();
+                  const newFlagsPersisted = saved.state.flags.cultResolution === 'reconciled' && saved.state.city.carniceroTreatmentResolved === true && saved.state.military.act4ReviewComplete === true;
+                  return { blockedAct4, act4BlockedUntilAll13, all13Present, optionalActionsRemainOptional, act4ClosureWorks, evidenceGateWorks, incomingDamageWorks, preparedDamageWorks, lunarFirstBlocked, priestBlockedWithoutTrust, surrenderChoice, final6Available, final6BlockedWithoutResolution, final7Available, final7BlockedAfterReservation, treatmentChoice, treatmentSaved, newFlagsPersisted };
                 }
               };
               updateHUD();
@@ -144,14 +169,14 @@ jobs:
               if (!(await page.locator('body').count())) throw new Error('No se creó el body.');
               if (!(await page.locator('#menu').count())) throw new Error('No aparece el menú inicial.');
               const endings = await page.evaluate(() => window.__qa.runCultAndFinaleChecks());
-              if (!endings.lunarFirstBlocked || !endings.priestBlockedWithoutTrust || !endings.surrenderChoice || !endings.final6Available || !endings.final6BlockedWithoutResolution || !endings.final7Available || !endings.final7BlockedAfterReservation || !endings.treatmentChoice || !endings.treatmentSaved || !endings.newFlagsPersisted) {
-                throw new Error('Falló la simulación de Secta, finales 6/7 o tratamiento del Carnicero: ' + JSON.stringify(endings));
+              if (!endings.blockedAct4 || !endings.act4BlockedUntilAll13 || !endings.all13Present || !endings.optionalActionsRemainOptional || !endings.act4ClosureWorks || !endings.evidenceGateWorks || !endings.incomingDamageWorks || !endings.preparedDamageWorks || !endings.lunarFirstBlocked || !endings.priestBlockedWithoutTrust || !endings.surrenderChoice || !endings.final6Available || !endings.final6BlockedWithoutResolution || !endings.final7Available || !endings.final7BlockedAfterReservation || !endings.treatmentChoice || !endings.treatmentSaved || !endings.newFlagsPersisted) {
+                throw new Error('Falló la simulación del Acto IV, la Secta, finales 6/7 o tratamiento del Carnicero: ' + JSON.stringify(endings));
               }
               const ids = await page.locator('[id]').evaluateAll(nodes => nodes.map(node => node.id));
               const duplicates = ids.filter((id, i) => ids.indexOf(id) !== i);
               if (duplicates.length) throw new Error('IDs duplicados: ' + [...new Set(duplicates)].join(', '));
               if (errors.length) throw new Error('Errores JavaScript en navegador: ' + errors.join(' | '));
-              console.log('OK: Chromium carga el menú, recorre la secuencia de la Secta, simula finales 6/7 y el tratamiento del Carnicero y no registra excepciones JS.');
+              console.log('OK: Chromium carga el menú, simula el cierre 13/13 del Acto IV, la secuencia de la Secta, finales 6/7 y el tratamiento del Carnicero y no registra excepciones JS.');
             } finally {
               await browser.close();
             }
