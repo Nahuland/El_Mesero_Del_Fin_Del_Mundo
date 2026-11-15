@@ -33,7 +33,7 @@ Las propuestas de orientación y fichas afectivas permanecen intactas y fuera de
 
 ## QA automatizado ampliado — GitHub Actions
 
-- Workflow: [QA 3.27](https://github.com/Nahuland/El_Mesero_Del_Fin_Del_Mundo/actions/runs/43743821262).
+- Workflow: [QA 3.27](https://github.com/Nahuland/El_Mesero_Del_Fin_Del_Mundo/actions/runs/43744142112).
 - Estado: **APROBADO**.
 - Estructura del mapa: IDs únicos, coordenadas dentro de límites, referencias válidas y retornos en los 11 interiores.
 - Simulación del cierre 13/13 del Acto IV y bloqueo cuando falta un requisito.
@@ -44,5 +44,6 @@ Las propuestas de orientación y fichas afectivas permanecen intactas y fuera de
 - Escena de Teo y el Carnicero, resultado de lucidez temporal y persistencia en `savePayload()`.
 - Chromium escritorio: carga de menú, inicio de partida, HUD visible, IDs sin duplicados y sin excepciones JavaScript.
 - Chromium táctil 390×844: controles visibles, inicio de partida, ocho direcciones y objetivos direccionales de al menos 44×44 px.
+- Guardado/carga: escritura real en `localStorage`, recarga de página y recuperación de banderas con el botón Continuar.
 
-**Límite:** el workflow simula estados y ejecuta funciones reales en Chromium, pero no realiza un recorrido físico completo por los mapas, ni prueba el guardado/carga cerrando y reabriendo el navegador, ni certifica un dispositivo móvil real. Los casos manuales de la matriz 18 siguen pendientes.
+**Límite:** el workflow simula estados y ejecuta funciones reales en Chromium, y sí prueba la persistencia en `localStorage` tras recargar y continuar. No realiza un recorrido físico completo por los mapas, no migra una colección de guardados antiguos ni certifica un dispositivo móvil real. Los casos manuales de la matriz 18 siguen pendientes.
