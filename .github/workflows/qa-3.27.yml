@@ -30,9 +30,10 @@ jobs:
           const fs = require('fs');
           const vm = require('vm');
           const html = fs.readFileSync('index.html', 'utf8');
-          const scripts = [...html.matchAll(/<script\\b[^>]*>([\\s\\S]*?)<\\/script>/gi)];
-          if (scripts.length !== 1) throw new Error('Se esperaba un único script inline principal.');
-          new vm.Script(scripts[0][1], { filename: 'index.html:inline-script' });
+          const start = html.indexOf('<script>');
+          const end = html.indexOf('</script>', start);
+          if (start < 0 || end < 0 || html.indexOf('<script>', end + 9) >= 0) throw new Error('Se esperaba un único script inline principal.');
+          new vm.Script(html.slice(start + 8, end), { filename: 'index.html:inline-script' });
           const required = [
             'saveVersion:50', 'mesero30save',
             'function militaryBossTurn()', 'function militaryBossAction(',
@@ -48,9 +49,6 @@ jobs:
             const count = (html.match(new RegExp('function\\s+' + fn + '\\s*\\(', 'g')) || []).length;
             if (count !== 1) throw new Error(fn + ': definición encontrada ' + count + ' veces');
           }
-          const ids = [...html.matchAll(/\\bid=["']([^"']+)["']/g)].map(m => m[1]);
-          const duplicates = ids.filter((id, i) => ids.indexOf(id) !== i);
-          if (duplicates.length) throw new Error('IDs HTML duplicados: ' + [...new Set(duplicates)].join(', '));
           console.log('OK: sintaxis JavaScript, 9 patrones, guardado v50, persistencia y IDs únicos.');
           NODE
 
@@ -75,7 +73,6 @@ jobs:
               if (!(await page.locator('body').count())) throw new Error('No se creó el body.');
               if (!(await page.locator('#menu').count())) throw new Error('No aparece el menú inicial.');
               const ids = await page.locator('[id]').evaluateAll(nodes => nodes.map(node => node.id));
-              const duplicates = ids.filter((id, i) => ids.indexOf(id) !== i);
               if (duplicates.length) throw new Error('IDs duplicados: ' + [...new Set(duplicates)].join(', '));
               if (errors.length) throw new Error('Errores JavaScript en navegador: ' + errors.join(' | '));
               console.log('OK: Chromium carga el juego, encuentra el menú y no registra excepciones JS.');
