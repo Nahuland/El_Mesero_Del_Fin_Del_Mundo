@@ -121,3 +121,11 @@ Duplicar este bloque por cada caso FALLIDO:
 **Conclusión de la sesión:** pendiente.
 
 **Importante:** esta matriz es un instrumento de prueba, no evidencia de que el juego haya sido probado. La auditoría 3.27 permanece estática hasta registrar la ejecución de los casos.
+
+### F. La Estrella — coherencia visual del acceso
+
+| ID | Escenario y pasos | Resultado esperado | Estado |
+|---|---|---|---|
+| F01 | Iniciar partida nueva y observar La Estrella desde dentro y desde el exterior. Recorrer el pasillo hacia la puerta este y seguir el camino hacia el este. | La senda interior se lee como pasillo de salida; el camino exterior comienza después de la fachada y no parece atravesar el edificio. | NO EJECUTADO |
+| F02 | Observar y rodear la farola situada junto al camino exterior. | La farola queda fuera de la huella del restaurante, no invade el vano de la puerta ni bloquea el paso. | NO EJECUTADO |
+| F03 | Acercarse a la puerta este desde el interior y desde el exterior, en diagonal y de frente. | La puerta sigue visible y la interacción/transición se mantiene funcional. | NO EJECUTADO |
