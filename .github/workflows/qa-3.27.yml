@@ -103,6 +103,13 @@ jobs:
               if (at < 0) throw new Error('No se encontró el cierre del script para instrumentar QA.');
               const bridge = `window.__qa = {
                 runCultAndFinaleChecks() {
+                  const validInteriors = ['depot','patio','mall','metro','hospital','nest','catacombs','temple','sanctuary','milHangar','milFortress'];
+                  const propIds = props.map(p => p.id);
+                  const propIdsUnique = new Set(propIds).size === propIds.length;
+                  const mapBoundsValid = props.every(p => p.x === undefined || (Number.isFinite(p.x) && Number.isFinite(p.y) && p.x >= 0 && p.x <= 420 && p.y >= 0 && p.y <= 300));
+                  const interiorRefsValid = props.every(p => !p.interior || validInteriors.includes(p.interior));
+                  const interiorReturnsPresent = validInteriors.every(id => props.some(p => p.interior === id && p.type === 'roomdoor'));
+                  const mapStructureValid = propIdsUnique && mapBoundsValid && interiorRefsValid && interiorReturnsPresent;
                   const cultPropsPlaced = ['cultReflectorProof','cultSolarBrazier','cultLunarBrazier'].every(id => props.some(p => p.id === id && p.interior === 'temple')) && props.some(p => p.id === 'cultPriest' && p.interior === 'sanctuary') && props.some(p => p.id === 'cultDoctrineRecord' && p.interior === 'catacombs') && props.some(p => p.id === 'cultNoa' && !p.interior) && props.some(p => p.id === 'cultDante' && !p.interior) && props.some(p => p.id === 'cultRefuge' && !!p.description);
                   state.military = {
                     evidence: { evacuation:true, trenchOrders:true, flight9Manifest:true, flight9Discrepancy:false, coverupOrder:true, aurelioRecipe:true },
@@ -194,7 +201,7 @@ jobs:
                   state.military = { siestaDecision:'archive', hangarLogRead:true, commandArchiveRead:true, evidence:{flight9Manifest:true,flight9Discrepancy:true,coverupOrder:true} };
                   state.records = { siesta:true, signal:true };
                   const final8Signal = finaleMetrics().signal;
-                  return { final1Restaurant, final2Solitary, final3Archive, final4Iron, final5Siesta, final8Signal, cultPropsPlaced, noaChoice, danteChoice, doctrineRead, blockedAct4, act4BlockedUntilAll13, all13Present, optionalActionsRemainOptional, act4ClosureWorks, evidenceGateWorks, incomingDamageWorks, preparedDamageWorks, lunarFirstBlocked, priestBlockedWithoutTrust, surrenderChoice, final6Available, final6BlockedWithoutResolution, final7Available, final7BlockedAfterReservation, treatmentChoice, treatmentSaved, newFlagsPersisted };
+                  return { final1Restaurant, final2Solitary, final3Archive, final4Iron, final5Siesta, final8Signal, mapStructureValid, cultPropsPlaced, noaChoice, danteChoice, doctrineRead, blockedAct4, act4BlockedUntilAll13, all13Present, optionalActionsRemainOptional, act4ClosureWorks, evidenceGateWorks, incomingDamageWorks, preparedDamageWorks, lunarFirstBlocked, priestBlockedWithoutTrust, surrenderChoice, final6Available, final6BlockedWithoutResolution, final7Available, final7BlockedAfterReservation, treatmentChoice, treatmentSaved, newFlagsPersisted };
                 }
               };
               updateHUD();
@@ -206,7 +213,7 @@ jobs:
               if (!(await page.locator('body').count())) throw new Error('No se creó el body.');
               if (!(await page.locator('#menu').count())) throw new Error('No aparece el menú inicial.');
               const endings = await page.evaluate(() => window.__qa.runCultAndFinaleChecks());
-              if (!endings.final1Restaurant || !endings.final2Solitary || !endings.final3Archive || !endings.final4Iron || !endings.final5Siesta || !endings.final8Signal || !endings.cultPropsPlaced || !endings.noaChoice || !endings.danteChoice || !endings.doctrineRead || !endings.blockedAct4 || !endings.act4BlockedUntilAll13 || !endings.all13Present || !endings.optionalActionsRemainOptional || !endings.act4ClosureWorks || !endings.evidenceGateWorks || !endings.incomingDamageWorks || !endings.preparedDamageWorks || !endings.lunarFirstBlocked || !endings.priestBlockedWithoutTrust || !endings.surrenderChoice || !endings.final6Available || !endings.final6BlockedWithoutResolution || !endings.final7Available || !endings.final7BlockedAfterReservation || !endings.treatmentChoice || !endings.treatmentSaved || !endings.newFlagsPersisted) {
+              if (!endings.mapStructureValid || !endings.final1Restaurant || !endings.final2Solitary || !endings.final3Archive || !endings.final4Iron || !endings.final5Siesta || !endings.final8Signal || !endings.cultPropsPlaced || !endings.noaChoice || !endings.danteChoice || !endings.doctrineRead || !endings.blockedAct4 || !endings.act4BlockedUntilAll13 || !endings.all13Present || !endings.optionalActionsRemainOptional || !endings.act4ClosureWorks || !endings.evidenceGateWorks || !endings.incomingDamageWorks || !endings.preparedDamageWorks || !endings.lunarFirstBlocked || !endings.priestBlockedWithoutTrust || !endings.surrenderChoice || !endings.final6Available || !endings.final6BlockedWithoutResolution || !endings.final7Available || !endings.final7BlockedAfterReservation || !endings.treatmentChoice || !endings.treatmentSaved || !endings.newFlagsPersisted) {
                 throw new Error('Falló la simulación del Acto IV, la ubicación de los puntos de la Secta, finales 6/7 o tratamiento del Carnicero: ' + JSON.stringify(endings));
               }
               const ids = await page.locator('[id]').evaluateAll(nodes => nodes.map(node => node.id));
@@ -226,7 +233,7 @@ jobs:
               if (!touchTargetsValid) throw new Error('Hay controles direccionales menores de 44px.');
               if (mobileErrors.length) throw new Error('Errores JS en viewport móvil: ' + mobileErrors.join(' | '));
               await mobile.close();
-                            console.log('OK: Chromium carga el menú, simula el cierre 13/13 del Acto IV y las condiciones de los ocho finales, además de el arco de Noa y Dante, la secuencia de la Secta y el tratamiento del Carnicero; escritorio y viewport móvil pasan sin excepciones JS.');
+                            console.log('OK: Chromium carga el menú, simula la estructura de mapas/interiores, el cierre 13/13 del Acto IV y las condiciones de los ocho finales, además de el arco de Noa y Dante, la secuencia de la Secta y el tratamiento del Carnicero; escritorio y viewport móvil pasan sin excepciones JS.');
             } finally {
               await browser.close();
             }
