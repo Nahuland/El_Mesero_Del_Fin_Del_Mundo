@@ -45,6 +45,7 @@ La resolución del golpe informa qué ataque impactó, cuánto daño recibió Si
 ## Compatibilidad y alcance
 
 - Se reutiliza `bossTurnCount` ya existente para rotar los patrones.
+- Cada turno resuelto persiste silenciosamente el estado para conservar integridad, turno/patrón y reparación usada al recargar.
 - No se añade una nueva bandera narrativa ni se altera el esquema de guardado.
 - Se conserva `saveVersion: 50` y la clave `mesero30save`.
 - No se modifican diálogos de historia, condiciones de acceso, desenlaces, personajes ni coordenadas.
@@ -63,6 +64,7 @@ Se volvió a leer el archivo tras los commits y se comprobaron estas condiciones
 | Mensajes de apoyo artillado y preparación | OK |
 | Reparación consume el turno y recibe el golpe anunciado | OK |
 | Versión y clave de guardado sin cambios | OK |
+| Persistencia silenciosa tras cada turno | OK |
 | Richars conserva su condición de no rendirse | OK |
 
 También se verificó que las funciones usan el contador persistente existente y que la opción de reparación muestra el daño entrante antes de seleccionarla.
