@@ -1,7 +1,8 @@
 # Plan de producción posterior a la geografía — El Mesero del Fin del Mundo
 
 ## Estado de partida
-- Versión de referencia en el repositorio: 3.26 — ocho desenlaces implementados con dos bloqueos narrativos heredados.
+- Versión de referencia inicial: 3.26 — ocho desenlaces con dos bloqueos narrativos heredados.
+- Estado actualizado en rama 3.27: cierres de los finales 6 y 7 implementados; QA automatizado de progresión 13/13 del Acto IV, condiciones de los ocho finales, secuencia de la Secta y tratamiento del Carnicero aprobado en GitHub Actions.
 - Versión 3.25 implementada: deliberación persistente de los ocho contactos.
 - R1–R5 existen como mapa explorable con distintos niveles de desarrollo narrativo.
 - R4 conserva la geografía de 3.21 y la primera capa narrativa 3.22.
@@ -58,14 +59,15 @@
 - Final 3: copia de solo lectura, advertencia pública y seis o más registros.
 - Final 4: acceso compartido y elección de imponer paz mediante Siesta.
 - Final 5: apagado voluntario con epílogo variable según los vínculos.
-- Final 6: requiere resolución reconciliada de la Secta; queda bloqueado porque la base 3.25 aún no implementa la resolución del Sacerdote del Eclipse.
-- Final 7: añade el frasco de antídoto al Hospital y conecta la elección de Lía/Teo con la red médica; el tratamiento del Carnicero aún carece de escena jugable.
+- Final 6: la resolución de la Secta se completó en 3.27 con prueba del reflector, braseros Sol → Luna y rendición limitada del Sacerdote, condicionada por la confianza de Noa y Dante.
+- Final 7: la red médica del Hospital conserva su ruta y límites; la alternativa de Teo ahora incluye una escena jugable de tratamiento del Carnicero, con lucidez temporal y sin prometer cura.
 - Final 8: desactivación del enlace externo desde la consola con registros de fábrica, Vuelo 9 y mando.
 - Se conserva `mesero30save` y `saveVersion:49`.
 
-**QA 3.26:** scripts compilados, aserciones estáticas y simulación aislada de las ocho condiciones aprobadas. No se declara QA manual, guardado/carga real, móvil ni despliegue.
+**QA 3.26:** scripts compilados, aserciones estáticas y simulación aislada de las ocho condiciones aprobadas. En 3.27 se amplió la automatización: Chromium simula las ocho condiciones y las rutas críticas descritas en el informe 24. No se declara recorrido manual, guardado/carga real de navegador ni prueba física en móvil.
 
 ### 3.27 — Pulido sistémico y experiencia
+**Estado parcial:** accesibilidad, perímetros interiores H1, corrección visual de La Estrella, combate telegráfico de Richars, secuencia de reconciliación de la Secta y tratamiento del Carnicero implementados. GitHub Actions valida el contrato 13/13 del Acto IV, modificadores tácticos, los ocho finales y controles táctiles en viewport móvil. Siguen pendientes recorrido manual, guardado/carga real, prueba física y perfilado en dispositivo.
 - Auditoría de colisiones y rutas de todas las regiones e interiores.
 - Balance de combates, recuperación, chatarra y dificultad.
 - Revisión de textos, objetivos, diario y consistencia de nombres.
