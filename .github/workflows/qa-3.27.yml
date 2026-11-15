@@ -269,8 +269,8 @@ jobs:
               await mobile.close();
                             console.log('OK: Chromium inicia partida en escritorio y móvil, simula la estructura de mapas/interiores, el cierre 13/13 del Acto IV y las condiciones de los ocho finales, además de el arco de Noa y Dante, la secuencia de la Secta y el tratamiento del Carnicero; escritorio y viewport móvil pasan; localStorage guarda y recupera las banderas al continuar.');
             } finally {
-              if (server) await new Promise(resolve => server.close(resolve));
               await browser.close();
+              if (server) await new Promise(resolve => server.close(resolve));
             }
           })().catch(error => { console.error(error); process.exit(1); });
           NODE
