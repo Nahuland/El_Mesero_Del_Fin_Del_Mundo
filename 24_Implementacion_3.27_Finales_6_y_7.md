@@ -6,7 +6,11 @@
 
 ## Final 6 — La Mesa Larga
 
-Se añadieron al Templo y al Santuario:
+Se añadió el núcleo jugable de R5 y se completó la secuencia del Templo/Santuario:
+- Noa, Acólita, en la Aldea: el jugador puede acompañarla a preparar su salida y su búsqueda de su hijo, sin prometer un reencuentro.
+- Dante, Exacólito, en el Mercado: confiesa que fabricó el rito del reflector y ofrece testimonio sin quedar absuelto.
+- Registro de doctrina en las Catacumbas: distingue las decisiones del Sacerdote de las familias que buscaban refugio.
+- Refugio de la Aldea: contextualiza la comida y el amparo que la comunidad sí ofrecía.
 - Registro del reflector, que aporta la prueba del eclipse artificial.
 - Brasero del Sol y brasero de la Luna. La secuencia válida es Sol → Luna; intentar Luna primero no completa ni altera la secuencia.
 - Sacerdote del Eclipse en el Santuario.
@@ -14,7 +18,8 @@ Se añadieron al Templo y al Santuario:
 La rendición limitada del Sacerdote exige:
 1. Prueba del reflector registrada.
 2. Secuencia Sol → Luna completada.
-3. Noa y Dante dispuestos a apoyar o negociar en la deliberación del Acto V.
+3. Confianza de Noa y Dante ganada mediante sus interacciones de R5.
+4. Noa y Dante dispuestos a apoyar o negociar en la deliberación del Acto V para que el Final 6 siga disponible.
 
 Al aceptar la escena, se guarda `state.flags.cultResolution='reconciled'` y `cultPriestSurrendered=true`. El diálogo deja explícito que la rendición no borra el daño, no obliga a los fieles a perdonar y no significa que toda la Secta abandone la doctrina.
 
