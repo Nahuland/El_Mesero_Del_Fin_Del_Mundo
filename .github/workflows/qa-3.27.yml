@@ -86,32 +86,42 @@ jobs:
         run: |
           node <<'NODE'
           const { chromium } = require('playwright');
-          const path = require('path');
+          const fs = require('fs');
           (async () => {
             const browser = await chromium.launch({ headless: true });
             try {
               const page = await browser.newPage();
               const errors = [];
               page.on('pageerror', error => errors.push(error.message));
-              await page.goto('file://' + path.resolve('index.html'), { waitUntil: 'domcontentloaded' });
+              const html = fs.readFileSync('index.html', 'utf8');
+              const marker = 'updateHUD();\\n})();\\n</script>';
+              const at = html.lastIndexOf(marker);
+              if (at < 0) throw new Error('No se encontró el cierre del script para instrumentar QA.');
+              const bridge = `window.__qa = {
+                runFinaleChecks() {
+                  state.act5 = { contacts: { mira:'support', ivan:'support', lia:'support', teo:'negotiate', noa:'support', dante:'support', kai:'support', eva:'support' }, councilComplete:true, ending:null, transmitterDisabled:false };
+                  state.military = { siestaDecision:'destroy', gunboatsSabotaged:true, funesDefeated:true };
+                  state.bossPeace = true;
+                  state.city = { resolution:'severed', records:true, sample:true, hospitalEvidence:true, suppliesChoice:'hospital', clinicAid:true, antidoteRecovered:true, antidoteUsedForCarnicero:false };
+                  state.flags = { cultResolution:'reconciled' };
+                  const final6Available = finaleMetrics().mesa;
+                  state.flags.cultResolution = null;
+                  const final6BlockedWithoutCultResolution = !finaleMetrics().mesa;
+                  state.flags.cultResolution = 'reconciled';
+                  const final7Available = finaleMetrics().dawn;
+                  state.city.antidoteUsedForCarnicero = true;
+                  const final7BlockedAfterAntidoteReservation = !finaleMetrics().dawn;
+                  return { final6Available, final6BlockedWithoutCultResolution, final7Available, final7BlockedAfterAntidoteReservation };
+                }
+              };
+              updateHUD();
+              })();
+              </script>`;
+              await page.setContent(html.slice(0, at) + bridge + html.slice(at + marker.length), { waitUntil: 'domcontentloaded' });
               await page.waitForTimeout(1200);
               if (!(await page.locator('body').count())) throw new Error('No se creó el body.');
               if (!(await page.locator('#menu').count())) throw new Error('No aparece el menú inicial.');
-              const endings = await page.evaluate(() => {
-                state.act5 = { contacts: { mira:'support', ivan:'support', lia:'support', teo:'negotiate', noa:'support', dante:'support', kai:'support', eva:'support' }, councilComplete:true, ending:null, transmitterDisabled:false };
-                state.military = { siestaDecision:'destroy', gunboatsSabotaged:true, funesDefeated:true };
-                state.bossPeace = true;
-                state.city = { resolution:'severed', records:true, sample:true, hospitalEvidence:true, suppliesChoice:'hospital', clinicAid:true, antidoteRecovered:true, antidoteUsedForCarnicero:false };
-                state.flags = { cultResolution:'reconciled' };
-                const final6Available = finaleMetrics().mesa;
-                state.flags.cultResolution = null;
-                const final6BlockedWithoutCultResolution = !finaleMetrics().mesa;
-                state.flags.cultResolution = 'reconciled';
-                const final7Available = finaleMetrics().dawn;
-                state.city.antidoteUsedForCarnicero = true;
-                const final7BlockedAfterAntidoteReservation = !finaleMetrics().dawn;
-                return { final6Available, final6BlockedWithoutCultResolution, final7Available, final7BlockedAfterAntidoteReservation };
-              });
+              const endings = await page.evaluate(() => window.__qa.runFinaleChecks());
               if (!endings.final6Available || !endings.final6BlockedWithoutCultResolution || !endings.final7Available || !endings.final7BlockedAfterAntidoteReservation) {
                 throw new Error('Falló la simulación de condiciones de los finales 6/7: ' + JSON.stringify(endings));
               }
