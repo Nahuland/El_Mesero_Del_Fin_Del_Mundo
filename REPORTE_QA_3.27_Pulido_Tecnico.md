@@ -29,3 +29,19 @@
 
 ## Protección narrativa
 Las propuestas de orientación y fichas afectivas permanecen intactas y fuera del canon; no se incorporaron cambios narrativos en esta rama.
+
+
+## QA automatizado ampliado — GitHub Actions
+
+- Workflow: [QA 3.27](https://github.com/Nahuland/El_Mesero_Del_Fin_Del_Mundo/actions/runs/43743284827).
+- Estado: **APROBADO**.
+- Simulación del cierre 13/13 del Acto IV y bloqueo cuando falta un requisito.
+- Verificación de que Elba y Funes son consecuencias tácticas opcionales, no requisitos del expediente.
+- Puerta de evidencia del Vuelo 9 y cálculo de daño con modificadores tácticos.
+- Secuencia del Templo/Santuario: ubicación interior de puntos, Sol → Luna, confianza de Noa/Dante y rendición limitada.
+- Simulación de las condiciones de los ocho finales y de los bloqueos específicos de los finales 6 y 7.
+- Escena de Teo y el Carnicero, resultado de lucidez temporal y persistencia en `savePayload()`.
+- Chromium escritorio: carga de menú, IDs sin duplicados y sin excepciones JavaScript.
+- Chromium táctil 390×844: controles visibles, ocho direcciones y objetivos direccionales de al menos 44×44 px.
+
+**Límite:** el workflow simula estados y ejecuta funciones reales en Chromium, pero no realiza un recorrido físico completo por los mapas, ni prueba el guardado/carga cerrando y reabriendo el navegador, ni certifica un dispositivo móvil real. Los casos manuales de la matriz 18 siguen pendientes.
