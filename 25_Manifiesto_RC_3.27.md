@@ -13,7 +13,7 @@
 
 ## QA automatizado
 
-<https://github.com/Nahuland/El_Mesero_Del_Fin_Del_Mundo/actions/runs/43744324561>
+<https://github.com/Nahuland/El_Mesero_Del_Fin_Del_Mundo/actions/runs/43744433504>
 
 Aprobado:
 - Sintaxis JavaScript y carga inicial.
@@ -40,7 +40,7 @@ Aprobado:
 
 ## Paquete candidato
 
-El workflow de QA genera, tras aprobar todas las pruebas, un ZIP de la rama con HTML principal y numerado, informes y matriz de regresión. Se excluye el archivo legado `index.html.html` para evitar distribuir una copia antigua como entrada del juego.
+El workflow generó el ZIP de la rama tras aprobar QA. El artefacto descargable `El-Mesero-3.27-Pulido-Tecnico-RC` quedó publicado en la ejecución 43744433504 (790.117 bytes; digest del artefacto e81bb539e85deb5cab94c18fddb8c674e499b975bdd0e4466c069f399a76d974). Incluye el ZIP del proyecto y su archivo SHA-256. Se excluye el archivo legado `index.html.html` para evitar distribuir una copia antigua como entrada del juego.
 
 ## Límites conocidos y siguiente etapa
 
