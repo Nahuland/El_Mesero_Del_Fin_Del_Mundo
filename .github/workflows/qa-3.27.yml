@@ -206,7 +206,7 @@ jobs:
                   return { final1Restaurant, final2Solitary, final3Archive, final4Iron, final5Siesta, final8Signal, mapStructureValid, cultPropsPlaced, noaChoice, danteChoice, doctrineRead, blockedAct4, act4BlockedUntilAll13, all13Present, optionalActionsRemainOptional, act4ClosureWorks, evidenceGateWorks, incomingDamageWorks, preparedDamageWorks, lunarFirstBlocked, priestBlockedWithoutTrust, surrenderChoice, final6Available, final6BlockedWithoutResolution, final7Available, final7BlockedAfterReservation, treatmentChoice, treatmentSaved, newFlagsPersisted };
                 },
                 readLoadedState() {
-                  return { started:state.started, flags:{...(state.flags||{})}, city:{...(state.city||{})}, military:{...(state.military||{})} };
+                  return { started:state.started, flags:{...(state.flags||{})}, city:{...(state.city||{})}, military:{...(state.military||{})}, saveExists:!!localStorage.getItem('mesero30save'), continueHandler:document.getElementById('continueGame')?.onclick?.toString()||null };
                 }
               };
               updateHUD();
@@ -228,11 +228,6 @@ jobs:
               const duplicates = ids.filter((id, i) => ids.indexOf(id) !== i);
               if (duplicates.length) throw new Error('IDs duplicados: ' + [...new Set(duplicates)].join(', '));
               if (errors.length) throw new Error('Errores JavaScript en navegador: ' + errors.join(' | '));
-              await page.locator('#newGame').click();
-              await page.waitForTimeout(350);
-              if (await page.locator('#menu').isVisible()) throw new Error('El menú no se oculta al iniciar partida en escritorio.');
-              if (!(await page.locator('#hud').isVisible())) throw new Error('El HUD no aparece al iniciar partida en escritorio.');
-              if (errors.length) throw new Error('Errores JS al iniciar partida de escritorio: ' + errors.join(' | '));
               const stored = await page.evaluate(() => {
                 const raw = localStorage.getItem('mesero30save');
                 if (!raw) return null;
@@ -243,13 +238,22 @@ jobs:
                 throw new Error('El guardado real en localStorage no conserva las nuevas banderas: ' + JSON.stringify(stored));
               }
               await page.reload({ waitUntil:'domcontentloaded' });
-              await page.waitForTimeout(200);
+              await page.waitForTimeout(250);
+              const rawAfterReload = await page.evaluate(() => localStorage.getItem('mesero30save'));
+              if (!rawAfterReload) throw new Error('localStorage perdió el guardado después de recargar la página.');
               await page.locator('#continueGame').click();
-              await page.waitForTimeout(300);
+              await page.waitForTimeout(350);
               const loaded = await page.evaluate(() => window.__qa.readLoadedState());
-              if (!loaded.started || loaded.flags.cultResolution !== 'reconciled' || loaded.flags.cultNoaTrust !== true || loaded.flags.cultDanteTrust !== true || loaded.city.carniceroTreatmentResolved !== true || loaded.military.act4ReviewComplete !== true) {
+              if (!loaded.started || !loaded.saveExists || loaded.flags.cultResolution !== 'reconciled' || loaded.flags.cultNoaTrust !== true || loaded.flags.cultDanteTrust !== true || loaded.city.carniceroTreatmentResolved !== true || loaded.military.act4ReviewComplete !== true) {
                 throw new Error('El guardado real no se recupera al continuar: ' + JSON.stringify(loaded));
               }
+              await page.reload({ waitUntil:'domcontentloaded' });
+              await page.waitForTimeout(200);
+              await page.locator('#newGame').click();
+              await page.waitForTimeout(350);
+              if (await page.locator('#menu').isVisible()) throw new Error('El menú no se oculta al iniciar partida en escritorio.');
+              if (!(await page.locator('#hud').isVisible())) throw new Error('El HUD no aparece al iniciar partida en escritorio.');
+              if (errors.length) throw new Error('Errores JS al iniciar partida de escritorio: ' + errors.join(' | '));
               const mobile = await browser.newPage({ viewport: { width:390, height:844 }, isMobile:true, hasTouch:true });
               const mobileErrors = [];
               mobile.on('pageerror', error => mobileErrors.push(error.message));
