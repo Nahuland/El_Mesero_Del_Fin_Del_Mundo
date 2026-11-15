@@ -311,6 +311,14 @@ props.push(
  {id:'cultPoi_marketRemains',x:342,y:218,type:'landmark',name:'Patio de puestos',emoji:'🪵',description:'Detrás de los puestos quedan tablones, soportes torcidos y fragmentos de lona. El espacio puede recorrerse sin atravesar las estructuras del mercado.'},
  {id:'cultPoi_stairRest',x:372,y:239,type:'landmark',name:'Descanso de la escalinata',emoji:'🪜',description:'Un rellano lateral conserva dos peldaños rotos y un borde desgastado. Desde aquí se distinguen la subida y la terraza, sin que aparezca una ruta nueva.'}
 );
+
+props.push(
+ {id:'cultReflectorProof',x:338,y:143,type:'landmark',name:'Registro del reflector',emoji:'🔦'},
+ {id:'cultSolarBrazier',x:334,y:153,type:'landmark',name:'Brasero del Sol',emoji:'☀️'},
+ {id:'cultLunarBrazier',x:356,y:153,type:'landmark',name:'Brasero de la Luna',emoji:'🌙'},
+ {id:'cultPriest',x:381,y:208,type:'landmark',name:'Sacerdote del Eclipse',emoji:'🌘',interior:'sanctuary'}
+);
+
 props.push(
  {id:'mil_elba',x:65,y:218,type:'landmark',name:'Elba Roldán · Mecánica',emoji:'🧑‍🔧'},
  {id:'mil_varela',x:133,y:273,type:'landmark',name:'Richars Octavio · General Acorazado',emoji:'🛡️'},
@@ -1167,7 +1175,7 @@ function updateHUD(){
  const cultPoiCount=Object.values(state.flags.cultPoiExplored||{}).filter(Boolean).length;
  const cityPoiCount=Object.values(state.flags.cityPoiExplored||{}).filter(Boolean).length;
  const civicCacheCount=Object.values(state.city?.civicCaches||{}).filter(Boolean).length;
- $('journalText').textContent=(state.city?.resolution||state.city?.suppliesChoice||state.city?.broadcast||state.city?.tomasTrust||state.city?.infectedSpared!==undefined?cityMemoryText():(state.chapterComplete?'Capítulo I cerrado. La Estrella es ahora un refugio para quienes eligieron dejar de obedecer la señal.':state.bossDefeated?'La fábrica está abierta. Recuperá los registros de Siesta y rastreá la señal en el túnel.':state.survivorTalk?'El Superviviente conoce el sistema de control del Capataz. Buscá pruebas antes de decidir cómo enfrentarlo.':(state.flags.depotManifest||state.flags.patioInspection?'Los registros del Depósito y el Patio pueden cambiar la forma de resolver el conflicto con el Capataz.':'Reuní recuerdos en La Estrella, escuchá al Desertor y descubrí qué controla el Capataz.')))+(poiCount?' · Hitos R1/R2 revisados: '+poiCount+'/10':'')+(cityPoiCount?' · Ciudad Enferma revisada: '+cityPoiCount+'/7':'')+(state.city?.resolution?' · Corredor sur: '+Object.values(state.city?.southSurvey||{}).filter(Boolean).length+'/3':'')+(state.city?.southApproachPrepared?' · Acceso urbano preparado':'')+(state.flags?.cityGateOpen?' · Recursos civiles: '+civicCacheCount+'/3':'')+(state.city?.resolution?' · Seguimiento civil: '+[state.city?.maraFollowup,state.city?.tomasFollowup,state.city?.ibarraFollowup].filter(Boolean).length+'/3':'')+(cultPoiCount?' · R5 ambiental: '+cultPoiCount+'/6':'');
+ $('journalText').textContent=(state.city?.resolution||state.city?.suppliesChoice||state.city?.broadcast||state.city?.tomasTrust||state.city?.infectedSpared!==undefined?cityMemoryText():(state.chapterComplete?'Capítulo I cerrado. La Estrella es ahora un refugio para quienes eligieron dejar de obedecer la señal.':state.bossDefeated?'La fábrica está abierta. Recuperá los registros de Siesta y rastreá la señal en el túnel.':state.survivorTalk?'El Superviviente conoce el sistema de control del Capataz. Buscá pruebas antes de decidir cómo enfrentarlo.':(state.flags.depotManifest||state.flags.patioInspection?'Los registros del Depósito y el Patio pueden cambiar la forma de resolver el conflicto con el Capataz.':'Reuní recuerdos en La Estrella, escuchá al Desertor y descubrí qué controla el Capataz.')))+(poiCount?' · Hitos R1/R2 revisados: '+poiCount+'/10':'')+(cityPoiCount?' · Ciudad Enferma revisada: '+cityPoiCount+'/7':'')+(state.city?.resolution?' · Corredor sur: '+Object.values(state.city?.southSurvey||{}).filter(Boolean).length+'/3':'')+(state.city?.southApproachPrepared?' · Acceso urbano preparado':'')+(state.flags?.cityGateOpen?' · Recursos civiles: '+civicCacheCount+'/3':'')+(state.city?.resolution?' · Seguimiento civil: '+[state.city?.maraFollowup,state.city?.tomasFollowup,state.city?.ibarraFollowup].filter(Boolean).length+'/3':'')+(cultPoiCount?' · R5 ambiental: '+cultPoiCount+'/6':'')+(state.flags.cultResolution==='reconciled'?' · Secta: rendición limitada registrada':'');
  if(regionAt(player.x,player.y)==='R4'||state.military?.varelaDefeated){const m=ensureMilitary(),e=m.evidence;const n=[e.evacuation,e.trenchOrders,e.flight9Manifest,e.flight9Discrepancy,e.coverupOrder,e.aurelioRecipe].filter(Boolean).length;$('journalText').textContent+=' · Ejército de Salvación: '+n+'/6 pruebas'+(m.gunboatsSabotaged?' · lanchas saboteadas':'')+(m.funesDefeated?' · puente neutralizado':'')+(m.varelaDefeated?' · Richars Octavio derrotado':'')+(m.siestaDecision?' · Siesta: '+(m.siestaDecision==='destroy'?'desconectada':m.siestaDecision==='shared'?'acceso compartido':'archivo preservado'):'')+(m.act4ReviewComplete?' · Acto IV revisado':'')+(state.act5?.councilComplete?' · Acto V: 8/8 contactos':'');}
 }
 function openDialogue(speaker,portrait,text,choices){
@@ -1358,6 +1366,56 @@ function militaryBossAction(damage,incoming,attackName){
 function interact(){
  if(dialogue){advance();return}
  if(!near)return;
+ if(['cultReflectorProof','cultSolarBrazier','cultLunarBrazier','cultPriest'].includes(near.id)){
+  state.flags=state.flags||{};
+  const f=state.flags;
+  if(near.id==='cultReflectorProof'){
+   if(!f.cultReflectorProof){
+    f.cultReflectorProof=true;
+    openDialogue('Registro del reflector','🔦','El mecanismo conserva piezas del reflector utilizado para sostener el eclipse artificial. La evidencia permite contrastar el rito con el funcionamiento real del dispositivo; no demuestra que todas las personas de la Secta conocieran el engaño.');
+    persistSave(true);
+   }else openDialogue('Registro del reflector','🔦','La prueba del reflector ya quedó registrada.');
+  }else if(near.id==='cultSolarBrazier'){
+   if(f.cultBrazierOrderComplete)openDialogue('Brasero del Sol','☀️','El orden de los braseros ya fue reconstruido: Sol antes que Luna.');
+   else{
+    f.cultBrazierStep=1;f.cultSolarBrazierLit=true;
+    openDialogue('Brasero del Sol','☀️','Encendés el brasero del Sol. La secuencia todavía no está completa: falta la Luna.');
+    persistSave(true);
+   }
+  }else if(near.id==='cultLunarBrazier'){
+   if(f.cultBrazierOrderComplete)openDialogue('Brasero de la Luna','🌙','La secuencia permanece completa: Sol antes que Luna.');
+   else if(f.cultBrazierStep===1){
+    f.cultLunarBrazierLit=true;f.cultBrazierOrderComplete=true;f.cultBrazierStep=2;
+    openDialogue('Brasero de la Luna','🌙','Encendés la Luna después del Sol. El mecanismo del eclipse se detiene y el orden queda registrado.');
+    persistSave(true);
+   }else openDialogue('Brasero de la Luna','🌙','El mecanismo no responde. El orden debe reconstruirse: primero el Sol, después la Luna.');
+  }else{
+   if(f.cultResolution==='reconciled'){
+    openDialogue('Sacerdote del Eclipse','🌘','El engaño quedó expuesto. Me he rendido, pero no puedo decidir por cada persona que siguió la doctrina. Algunas se marcharán; otras todavía no aceptan lo ocurrido.');
+   }else{
+    const contacts=state.act5?.contacts||{};
+    const trust=['noa','dante'].every(id=>contacts[id]==='support'||contacts[id]==='negotiate');
+    const missing=[];
+    if(!f.cultReflectorProof)missing.push('la prueba del reflector');
+    if(!f.cultBrazierOrderComplete)missing.push('el orden de braseros Sol → Luna');
+    if(!trust)missing.push('la confianza de Noa y Dante');
+    if(missing.length){
+     openDialogue('Sacerdote del Eclipse','🌘','No voy a escuchar una acusación incompleta. Todavía falta: '+missing.join('; ')+'.');
+    }else{
+     openDialogue('Sacerdote del Eclipse','🌘','La prueba del reflector contradice el rito que sostuve. No todos los fieles conocían el engaño y no todos cargarán con la misma responsabilidad. No puedo reparar lo que hice, pero puedo dejar de ordenarles que lo repitan. ¿Vas a exponer la verdad y permitir que me rinda?',[
+      {label:'Exponer la prueba y aceptar su rendición limitada',run:()=>{
+       f.cultResolution='reconciled';f.cultPriestSurrendered=true;
+       state.objective='La Secta quedó dividida: una parte puede reconstruirse como comunidad, otras personas mantienen su distancia.';
+       persistSave(true);updateHUD();
+       openDialogue('Sacerdote del Eclipse','🌘','Me rindo. Eso no borra el daño ni obliga a mis seguidores a perdonarme. Noa y Dante podrán decidir qué hacer con la verdad; quienes quieran marcharse no serán retenidos.');
+      }},
+      {label:'No intervenir todavía',run:()=>{}}
+     ]);
+    }
+   }
+  }
+  updateHUD();return;
+ }
  if(near.id&&near.id.startsWith('mil_')&&!['mil_hangarDoor','mil_fortressDoor','mil_hangarReturn','mil_fortressReturn','mil_celina','mil_hangarFlightLog','mil_hangarToolRack','mil_damian','mil_fortressArchive','mil_fortressAurelio','mil_fortressSiesta','mil_fortressBoard'].includes(near.id)){militaryInteract(near.id);return;}
  if(['poi_controldelpuente','poi_trincherasnorte','poi_cuartelavanzado','poi_puerto','poi_muelle','poi_hangar','poi_aerodromo','poi_fortaleza','poi_puestoderadio'].includes(near.id)){
   const m=ensureMilitary(),e=m.evidence;
