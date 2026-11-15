@@ -61,7 +61,11 @@ jobs:
             "cultReflectorProof", "cultSolarBrazier", "cultLunarBrazier", "cultPriest",
             "cultBrazierOrderComplete", "cultPriestSurrendered",
             "f.cultResolution='reconciled'",
-            "contacts[id]==='support'||contacts[id]==='negotiate'"
+            "contacts[id]==='support'||contacts[id]==='negotiate'",
+            "case'nestVictim'", "c.carniceroTreatmentResolved=true",
+            "c.carniceroTreatmentOutcome='lucidez_temporal'",
+            "state.act5?.contacts?.teo==='support'",
+            "El Carnicero", "la canción le devolvió unos instantes de lucidez"
           ];
           for (const token of required) {
             if (!html.includes(token)) throw new Error('Falta comprobación: ' + token);
@@ -70,7 +74,7 @@ jobs:
             const count = (html.match(new RegExp('function\\s+' + fn + '\\s*\\(', 'g')) || []).length;
             if (count !== 1) throw new Error(fn + ': definición encontrada ' + count + ' veces');
           }
-          console.log('OK: sintaxis JavaScript, 13 requisitos Acto IV, 9 patrones Richars, secuencia de reconciliación de la Secta, guardado v50 y persistencia.');
+          console.log('OK: sintaxis JavaScript, Acto IV, 9 patrones Richars, reconciliación de la Secta, tratamiento del Carnicero y guardado v50.');
           NODE
 
       - name: Instalar navegador para prueba smoke
