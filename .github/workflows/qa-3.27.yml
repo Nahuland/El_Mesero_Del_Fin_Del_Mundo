@@ -281,3 +281,38 @@ jobs:
             }
           })().catch(error => { console.error(error); process.exit(1); });
           NODE
+
+  package-3-27-rc:
+    needs: qa-3-27
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtener código
+        uses: actions/checkout@v4
+
+      - name: Crear ZIP íntegro del candidato
+        run: |
+          mkdir -p dist/package
+          git archive HEAD | tar -x -C dist/package
+          rm -f dist/package/index.html.html
+          cat > dist/package/LEEME_RC.txt <<'EOF'
+          El Mesero del Fin del Mundo — candidato 3.27 Pulido Técnico RC
+
+          Abrir index.html en un navegador moderno.
+          La copia numerada El_Mesero_del_Fin_Del_Mundo_3.27_Pulido_Tecnico_RC.html
+          es idéntica a index.html.
+          index.html.html se excluye por ser un artefacto legado antiguo.
+          La matriz de regresión manual sigue pendiente de ejecución completa.
+          EOF
+          (cd dist/package && sha256sum index.html El_Mesero_del_Fin_Del_Mundo_3.27_Pulido_Tecnico_RC.html > SHA256SUMS.txt)
+          cd dist
+          zip -qr El_Mesero_del_Fin_Del_Mundo_3.27_Pulido_Tecnico_RC.zip package
+          sha256sum El_Mesero_del_Fin_Del_Mundo_3.27_Pulido_Tecnico_RC.zip > El_Mesero_del_Fin_Del_Mundo_3.27_Pulido_Tecnico_RC.zip.sha256
+
+      - name: Publicar artefacto descargable
+        uses: actions/upload-artifact@v4
+        with:
+          name: El-Mesero-3.27-Pulido-Tecnico-RC
+          path: |
+            dist/El_Mesero_del_Fin_Del_Mundo_3.27_Pulido_Tecnico_RC.zip
+            dist/El_Mesero_del_Fin_Del_Mundo_3.27_Pulido_Tecnico_RC.zip.sha256
+          retention-days: 30
