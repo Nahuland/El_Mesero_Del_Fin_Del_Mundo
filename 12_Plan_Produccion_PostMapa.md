@@ -105,3 +105,72 @@
 - El destino de Don Aurelio sigue sin determinarse por el recetario.
 - La derrota del General no apaga Siesta ni resuelve la señal.
 - Mantener los ocho contactos y ocho finales existentes.
+
+---
+
+## Revisión de hoja de ruta — producción integral posterior a 3.27
+
+**Corrección de alcance:** 3.27 es una base funcional de sistemas y progresión, no el 95% del videojuego. No equivale a versión final ni a candidata de lanzamiento. El porcentaje global queda sin asignar hasta disponer de inventario y validación de todas las áreas.
+
+### Inventario vivo de producción
+
+| Área | Estado actual | Qué falta para poder cerrarla |
+|---|---|---|
+| Lógica y sistemas | IMPLEMENTADA EN PARTE / QA AUTOMÁTICO PARCIAL | Recorrido manual, regresiones completas, guardados heredados, balance y cierre de pendientes |
+| Contenido y narrativa | IMPLEMENTADA EN PARTE | Auditoría contra Guion Maestro, escenas/interacciones pendientes y comprobación de continuidad en partida completa |
+| Dirección de arte | PENDIENTE | Definir y aprobar lenguaje visual, paleta, escala, composición y guía de estilo |
+| Texturas y materiales | PENDIENTE | Crear e integrar texturas definitivas de terreno, caminos, edificios, interiores, objetos y superficies |
+| Personajes y criaturas | PENDIENTE / PLACEHOLDERS POR AUDITAR | Diseño final de Siete, elenco, NPC de relleno, enemigos, élites y jefes; sprites/modelos, siluetas, estados y animaciones |
+| Mapas y ambientación | PARCIAL | Sustituir geometría provisional y completar decoración, vegetación, mobiliario, iluminación, clima y efectos por región/interior |
+| Interfaz y experiencia | PARCIAL | Arte final de inicio, menús, HUD, diario, inventario, diálogos, pausa, opciones y accesibilidad |
+| Carga y rendimiento | PENDIENTE DE AUDITORÍA | Medición, carga asíncrona, precarga por zona, caché, liberación de recursos, atlas y pantallas de carga justificadas |
+| Audio | PENDIENTE DE AUDITORÍA | Inventario y producción/integración de música, ambiente y efectos |
+| Pruebas y estabilización | PARCIAL | 53 casos manuales, recorrido integral, inspección visual, dispositivos reales, rendimiento y migración de guardados |
+
+Los estados se actualizarán tarea por tarea. No se marcará como terminado ningún elemento hasta tener evidencia de aceptación.
+
+### Nueva secuencia de trabajo
+
+#### 3.28 — Auditoría técnica y pipeline visual (SIGUIENTE)
+- Auditar el HTML 3.27: renderizado, canvas, cámara, capas, dibujo de entidades, placeholders, CSS/UI y puntos de carga de recursos.
+- Inventariar qué elementos actuales son geometría provisional, qué recursos ya existen y qué falta producir.
+- Medir coste de renderizado y memoria en escenas representativas; no inventar cifras antes de medir.
+- Definir guía de dirección de arte y especificaciones de assets compatibles con la vista isométrica 2.5D.
+- Diseñar un gestor de recursos con manifiesto, carga asíncrona, precarga, caché y liberación; definir umbrales para pantallas de carga frente a transiciones continuas.
+- No alterar canon, coordenadas ni progresión narrativa durante esta fase salvo correcciones aprobadas.
+- Entregables: auditoría, inventario de assets, guía técnica/visual inicial, plan de rendimiento y pruebas.
+
+#### 3.29 — Vertical slice visual de La Estrella
+- Producir escenario completo del restaurante y su entorno inmediato con materiales definitivos.
+- Diseñar y animar visualmente a Siete, al menos un NPC existente y elementos interactivos representativos.
+- Completar iluminación, ambientación, efectos, UI y transiciones de esa zona.
+- Integrar los recursos mediante el pipeline aprobado y validar rendimiento en escritorio/móvil.
+- No expandir a todas las regiones hasta aprobar este estándar visual.
+
+#### 3.30 — Producción de arte por regiones
+- Extender el estándar aprobado a R1–R5 y todos los interiores.
+- Crear personajes principales, NPC de relleno, enemigos, variantes, jefes y animaciones.
+- Completar texturas, props, iluminación, vegetación, partículas y ambientación contextual.
+- Mantener un registro de assets por región, escena y estado de validación.
+
+#### 3.31 — Interfaz, audio y pulido de experiencia
+- Terminar menús, HUD, diario, inventario, diálogos, pausa, configuración y accesibilidad.
+- Integrar música, efectos y ambientes.
+- Revisar transiciones, feedback, legibilidad y consistencia audiovisual.
+
+#### 3.32 — Optimización y QA integral
+- Optimizar atlas, tamaño y formato de texturas, carga y descarga de recursos, memoria y renderizado.
+- Probar pantallas de carga y transiciones con escenarios de mayor complejidad.
+- Ejecutar matriz manual completa, revisión visual y pruebas en dispositivos reales.
+- Corregir errores y regresiones sin alterar canon.
+
+#### 3.33 — Candidato final y publicación
+- Solo iniciar cuando todas las áreas obligatorias estén validadas.
+- Empaquetar HTML y recursos, ZIP, checksums y documentación final.
+- Verificar publicación y versión servida, únicamente con autorización explícita.
+
+### Regla de descarte de pendientes
+Una tarea se quita de la lista activa solo cuando su estado pasa a VALIDADA. Las listas de trabajo deben conservar las tareas PENDIENTES, EN CURSO, IMPLEMENTADAS — SIN VALIDAR y BLOQUEADAS. Cada actualización de versión debe indicar cambios visibles, pruebas realizadas, limitaciones y pendientes restantes.
+
+### Regla de evaluación global
+No usar una cifra única como sustituto del inventario. Informar progreso por área y separar implementación lógica, producción visual, optimización y validación. El proyecto no se declarará terminado mientras haya placeholders relevantes, personajes/escenarios sin arte final, sistemas de carga sin validar o pruebas integrales pendientes.
