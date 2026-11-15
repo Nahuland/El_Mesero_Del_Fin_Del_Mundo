@@ -13,7 +13,7 @@
 
 ## QA automatizado
 
-<https://github.com/Nahuland/El_Mesero_Del_Fin_Del_Mundo/actions/runs/43744142112>
+<https://github.com/Nahuland/El_Mesero_Del_Fin_Del_Mundo/actions/runs/43744324561>
 
 Aprobado:
 - Sintaxis JavaScript y carga inicial.
@@ -37,6 +37,10 @@ Aprobado:
 - `24_Implementacion_3.27_Finales_6_y_7.md`
 - `REPORTE_QA_3.27_Pulido_Tecnico.md`
 - `.github/workflows/qa-3.27.yml`
+
+## Paquete candidato
+
+El workflow de QA genera, tras aprobar todas las pruebas, un ZIP de la rama con HTML principal y numerado, informes y matriz de regresión. Se excluye el archivo legado `index.html.html` para evitar distribuir una copia antigua como entrada del juego.
 
 ## Límites conocidos y siguiente etapa
 
