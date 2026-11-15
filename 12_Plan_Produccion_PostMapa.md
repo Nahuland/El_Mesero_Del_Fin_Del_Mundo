@@ -64,7 +64,7 @@
 - Final 8: desactivación del enlace externo desde la consola con registros de fábrica, Vuelo 9 y mando.
 - Se conserva `mesero30save` y `saveVersion:49`.
 
-**QA 3.26:** scripts compilados, aserciones estáticas y simulación aislada de las ocho condiciones aprobadas. En 3.27 se amplió la automatización: Chromium simula las ocho condiciones y las rutas críticas descritas en el informe 24. No se declara recorrido manual, guardado/carga real de navegador ni prueba física en móvil.
+**QA 3.26:** scripts compilados, aserciones estáticas y simulación aislada de las ocho condiciones aprobadas. En 3.27 se amplió la automatización: Chromium simula las ocho condiciones y las rutas críticas descritas en el informe 24. Se aprobó en Chromium el guardado de las nuevas banderas en localStorage, la recarga y la recuperación mediante Continuar. Siguen pendientes el recorrido manual, la migración de guardados antiguos y la prueba física en móvil.
 
 ### 3.27 — Pulido sistémico y experiencia
 **Estado parcial:** accesibilidad, perímetros interiores H1, corrección visual de La Estrella, combate telegráfico de Richars, arco jugable de Noa y Dante, registro de doctrina, resolución limitada del Sacerdote y tratamiento del Carnicero implementados. GitHub Actions valida coordenadas y retornos de los 11 interiores, el contrato 13/13 del Acto IV, modificadores tácticos, los ocho finales controles táctiles y arranque de partida en viewport móvil. Siguen pendientes recorrido manual, guardado/carga real, prueba física y perfilado en dispositivo.
