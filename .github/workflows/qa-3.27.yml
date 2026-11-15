@@ -220,6 +220,10 @@ jobs:
               const duplicates = ids.filter((id, i) => ids.indexOf(id) !== i);
               if (duplicates.length) throw new Error('IDs duplicados: ' + [...new Set(duplicates)].join(', '));
               if (errors.length) throw new Error('Errores JavaScript en navegador: ' + errors.join(' | '));
+              await page.locator('#newGame').click();
+              await page.waitForTimeout(350);
+              if (await page.locator('#menu').isVisible()) throw new Error('El menú no se oculta al iniciar partida en escritorio.');
+              if (!(await page.locator('#hud').isVisible())) throw new Error('El HUD no aparece al iniciar partida en escritorio.');
               const mobile = await browser.newPage({ viewport: { width:390, height:844 }, isMobile:true, hasTouch:true });
               const mobileErrors = [];
               mobile.on('pageerror', error => mobileErrors.push(error.message));
@@ -231,9 +235,13 @@ jobs:
               if (directionControls !== 8) throw new Error('Se esperaban 8 controles direccionales; encontrados: ' + directionControls);
               const touchTargetsValid = await mobile.locator('#mobileControls [data-dir]').evaluateAll(nodes => nodes.every(node => { const r=node.getBoundingClientRect(); return r.width>=44 && r.height>=44; }));
               if (!touchTargetsValid) throw new Error('Hay controles direccionales menores de 44px.');
+              await mobile.locator('#newGame').click();
+              await mobile.waitForTimeout(350);
+              if (await mobile.locator('#menu').isVisible()) throw new Error('El menú no se oculta al iniciar partida en móvil.');
+              if (!(await mobile.locator('#mobileControls').isVisible())) throw new Error('Los controles táctiles desaparecen al iniciar partida.');
               if (mobileErrors.length) throw new Error('Errores JS en viewport móvil: ' + mobileErrors.join(' | '));
               await mobile.close();
-                            console.log('OK: Chromium carga el menú, simula la estructura de mapas/interiores, el cierre 13/13 del Acto IV y las condiciones de los ocho finales, además de el arco de Noa y Dante, la secuencia de la Secta y el tratamiento del Carnicero; escritorio y viewport móvil pasan sin excepciones JS.');
+                            console.log('OK: Chromium inicia partida en escritorio y móvil, simula la estructura de mapas/interiores, el cierre 13/13 del Acto IV y las condiciones de los ocho finales, además de el arco de Noa y Dante, la secuencia de la Secta y el tratamiento del Carnicero; escritorio y viewport móvil pasan sin excepciones JS.');
             } finally {
               await browser.close();
             }
