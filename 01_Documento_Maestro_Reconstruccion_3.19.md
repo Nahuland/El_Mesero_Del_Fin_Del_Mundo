@@ -599,3 +599,7 @@ La producción visual puede enriquecer la puesta en escena, el diseño ambiental
 ### 20.6. Estado global corregido
 
 La base lógica cuenta con implementaciones importantes y QA automatizado parcial. El apartado visual definitivo, texturas, modelado/sprites finales, ambientación completa, pantallas/gestión de carga de recursos, audio y validación integral siguen pendientes o sin validar. Por tanto, el proyecto permanece en producción activa y no debe describirse como casi terminado.
+
+### Documentación de seguimiento visual 3.28
+- [Auditoría inicial del renderizado y pipeline visual](26_Auditoria_3.28_Renderizado_y_Pipeline_Visual.md)
+- [Catálogo inicial de assets y placeholders](27_Catalogo_Visual_Assets_3.28.md)
