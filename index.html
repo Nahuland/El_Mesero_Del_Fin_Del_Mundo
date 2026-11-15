@@ -1697,7 +1697,27 @@ function interact(){
   if(!state.city?.hospitalEvidence||!state.city?.metroShortcut||!state.city?.radioHeard||!state.city?.tomasTestimony){openDialogue('El Coro','🫀','El pulso se acelera cuando te acercás. No tenés información suficiente para intervenir sin convertir el lugar en una masacre. Necesitás el archivo y la muestra del Hospital, el registro del Metro, la advertencia de la radio y el testimonio de Tomás.');break}
   if(!state.city.guardianStarted){state.city.guardianStarted=true;state.city.guardianHP=120;openDialogue('El Coro','🫀','Las voces se superponen. Una pide que la despierten; otra, que la dejen dormir. La masa se desprende de la pared y adopta una forma humanoide alrededor del transductor. No es un monstruo que protege un tesoro: es el último sistema de contención, todavía obedeciendo una orden que nadie recuerda haber dado.',[{label:'Intentar desincronizarlo',run:()=>nestBossTurn()} ,{label:'Atacar antes de que se acerque',run:()=>nestBossTurn()}]);}
   else nestBossTurn();break;
- case'nestVictim':openDialogue('Registro de evacuación','📓','DÍA 4 DE CUARENTENA. «Nos dijeron que el Metro era seguro. Después empezaron a usar las voces de nuestras familias. Julián pidió que apagáramos el altavoz. El guardia dijo que la orden era mantenerlo encendido. Si alguien encuentra esto: no todos los que están abajo están muertos».' );break;
+ case'nestVictim':{
+  const c=state.city||(state.city={});
+  const teoSupports=state.act5?.contacts?.teo==='support';
+  if(teoSupports&&c.antidoteUsedForCarnicero&&c.guardianDefeated){
+   if(c.carniceroTreatmentResolved){
+    openDialogue('Teo · Nido','🏹','El Carnicero sigue bajo observación. El antídoto no borró la Fiebre Gris, pero la canción le devolvió unos instantes de lucidez. No sabemos si podrá sostener esa mejoría.');
+   }else{
+    openDialogue('Teo · Nido','🏹','La canción sigue detrás de los restos del transductor. No quiero fingir que el frasco va a curarlo. Pero si todavía puede reconocerla, quiero intentarlo. ¿Me acompañás?',[
+     {label:'Intentar el tratamiento con el antídoto',run:()=>{
+      c.carniceroTreatmentResolved=true;c.carniceroTreatmentOutcome='lucidez_temporal';
+      persistSave(true);updateHUD();
+      openDialogue('El Carnicero','🧑‍🍳','El frasco no elimina la Fiebre Gris. Durante unos segundos, el temblor cede y la canción deja de ser un ruido de guerra. Mirás a Teo y reconocés la melodía de la cocina. No hay promesa de recuperación: solo un momento de lucidez y la posibilidad de seguir cuidándote.');
+     }},
+     {label:'Esperar y no administrar el frasco todavía',run:()=>{}}
+    ]);
+   }
+  }else{
+   openDialogue('Registro de evacuación','📓','DÍA 4 DE CUARENTENA. «Nos dijeron que el Metro era seguro. Después empezaron a usar las voces de nuestras familias. Julián pidió que apagáramos el altavoz. El guardia dijo que la orden era mantenerlo encendido. Si alguien encuentra esto: no todos los que están abajo están muertos».');
+  }
+  break;
+ }
  case'catacombsInscription':
   openDialogue('Inscripción erosionada','🪨','La piedra está gastada por la humedad. Quedan líneas y marcas incompletas, pero no forman una frase que puedas reconstruir. No hay nada que permita fecharlas con seguridad.');break;
  case'catacombsDrain':
