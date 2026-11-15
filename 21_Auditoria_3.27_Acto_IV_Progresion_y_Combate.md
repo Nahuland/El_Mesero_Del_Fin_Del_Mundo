@@ -3,7 +3,7 @@
 **Rama:** `release/3.27-pulido-tecnico`  
 **Archivo inspeccionado:** `index.html`  
 **Método:** inspección estática del código y contraste con el plan de producción y la implementación 3.23.  
-**Estado:** auditoría estática; no equivale a una partida manual ni a una prueba de navegador.
+**Estado:** auditoría estática y QA automatizado de carga inicial en Chromium; no equivale a un recorrido manual completo ni a una prueba de guardado/carga real.
 
 ## 1. Cadena de cierre del Acto IV
 
@@ -48,11 +48,13 @@ La implementación actual contiene:
 - Daño base entrante por fase: 15, 20 y 25, con reducciones por sabotaje, Funes y orden de ocultamiento.
 - Richars es obligatorio, no se rinde y su derrota no apaga Siesta ni resuelve la señal externa.
 
-### Hallazgo de diseño
+### Implementación posterior — informe 22
 
-Las fases cambian el texto y el daño entrante, pero todavía no ejecutan patrones de ataque claramente diferenciados ni un aviso visual previo a cada golpe. La frase de fase 2 describe una embestida y la fase 3 un ataque de área, pero el sistema resuelve ambas como daño numérico inmediato. La preparación artillera también está representada como reducción de daño, no como un evento de apoyo visible.
+La carencia anterior quedó atendida en la implementación 3.27. El combate ahora anuncia nueve patrones distintos, tres por fase, antes de que el jugador elija. El patrón determina el daño previsto y el resultado informa el impacto y la integridad restante.
 
-**Prioridad recomendada:** antes de alterar valores, diseñar una señal telegráfica por fase y hacer que el tipo de ataque anunciado determine el daño. Mantener las opciones actuales de ataque, exposición y reparación; no convertir la preparación opcional en requisito.
+También se hacen visibles las consecuencias tácticas ya existentes: sabotaje de lanchas (-6), neutralización de Funes (-4) y orden de ocultamiento (-2). La reparación consume el turno y recibe el ataque anunciado. Se conserva la retirada, el jefe obligatorio y la imposibilidad de rendición o redención de Richars.
+
+**Estado:** cambios comprobados estáticamente y por el workflow de GitHub Actions; la matriz G01–G12 sigue pendiente de ejecución manual.
 
 ## 4. Accesos y espacios a comprobar
 
@@ -74,11 +76,12 @@ Quedan pendientes de prueba real:
 | Requisitos de cierre 13/13 | Confirmados estáticamente |
 | Opcionalidad Elba/Funes | Confirmada en código; recorrido pendiente |
 | Condición de acceso a Richars | Confirmada estáticamente |
-| Tres fases de combate | Implementadas como umbrales de daño/texto |
-| Patrones telegráficos por fase | Pendientes |
-| Apoyo artillado visible | Pendiente |
-| Ruta geográfica completa | Pendiente de recorrido |
-| Guardado/carga y regresión | Pendientes |
-| Prueba visual y móvil | No ejecutadas |
+| Tres fases y nueve patrones telegráficos | Implementados y comprobados estáticamente |
+| Apoyo opcional Elba/Funes/ocultamiento | Efectos comunicados en el briefing; modificadores comprobados estáticamente |
+| QA automatizado de sintaxis y progresión | Aprobado en GitHub Actions |
+| Carga inicial en Chromium | Aprobada; menú detectado y sin excepciones JS de página |
+| Ruta geográfica completa | Pendiente de recorrido de juego |
+| Guardado/carga real y matriz G01–G12 | Pendientes |
+| Prueba visual en móvil físico | No ejecutada |
 
-**Conclusión:** la estructura de progresión del Acto IV existe y su cierre está protegido por trece requisitos persistentes. El mayor pendiente de diseño identificado es hacer que las fases de Richars se distingan mecánicamente y que el apoyo opcional se comunique visualmente. No se modificó el HTML, la historia, el canon ni los guardados durante esta auditoría.
+**Conclusión:** la estructura de progresión del Acto IV existe y su cierre está protegido por trece requisitos persistentes. La diferenciación telegráfica de Richars y la comunicación de las ayudas opcionales ya están implementadas. El workflow de GitHub Actions valida sintaxis, presencia de los trece requisitos y carga inicial en Chromium. Esto no certifica el recorrido completo, la accesibilidad de cada punto, las transiciones ni el guardado/carga real. La siguiente etapa de contenido es completar los dos desenlaces aún bloqueados, siguiendo el guion maestro.
