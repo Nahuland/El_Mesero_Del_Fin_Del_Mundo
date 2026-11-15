@@ -57,7 +57,11 @@ jobs:
             "case'mil_hangarFlightLog'", "case'mil_fortressArchive'",
             "case'mil_fortressBoard':militaryAct4Review()",
             "if(!evidenceReady(m))", "if(!ensureMilitary().varelaDefeated)",
-            "if(!ensureMilitary().act4ReviewComplete)"
+            "if(!ensureMilitary().act4ReviewComplete)",
+            "cultReflectorProof", "cultSolarBrazier", "cultLunarBrazier", "cultPriest",
+            "cultBrazierOrderComplete", "cultPriestSurrendered",
+            "f.cultResolution='reconciled'",
+            "contacts[id]==='support'||contacts[id]==='negotiate'"
           ];
           for (const token of required) {
             if (!html.includes(token)) throw new Error('Falta comprobación: ' + token);
@@ -66,7 +70,7 @@ jobs:
             const count = (html.match(new RegExp('function\\s+' + fn + '\\s*\\(', 'g')) || []).length;
             if (count !== 1) throw new Error(fn + ': definición encontrada ' + count + ' veces');
           }
-          console.log('OK: sintaxis JavaScript, 13 requisitos Acto IV, rutas de evidencia, 9 patrones Richars, guardado v50 y persistencia.');
+          console.log('OK: sintaxis JavaScript, 13 requisitos Acto IV, 9 patrones Richars, secuencia de reconciliación de la Secta, guardado v50 y persistencia.');
           NODE
 
       - name: Instalar navegador para prueba smoke
