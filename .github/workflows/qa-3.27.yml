@@ -1,0 +1,83 @@
+name: QA automatico 3.27
+
+on:
+  push:
+    branches:
+      - release/3.27-pulido-tecnico
+    paths:
+      - 'index.html'
+      - '.github/workflows/qa-3.27.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qa-3-27:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtener código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validar JavaScript, guardado y combate Richars
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const vm = require('vm');
+          const html = fs.readFileSync('index.html', 'utf8');
+          const scripts = [...html.matchAll(/<script\\b[^>]*>([\\s\\S]*?)<\\/script>/gi)];
+          if (scripts.length !== 1) throw new Error('Se esperaba un único script inline principal.');
+          new vm.Script(scripts[0][1], { filename: 'index.html:inline-script' });
+          const required = [
+            'saveVersion:50', 'mesero30save',
+            'function militaryBossTurn()', 'function militaryBossAction(',
+            'Ráfaga de cobertura', 'Disparo de precisión', 'Fuego de supresión',
+            'Embestida blindada', 'Onda de choque', 'Ráfaga perforante',
+            'Descarga de área', 'Salva final', 'Presión directa',
+            'persistSave(true)'
+          ];
+          for (const token of required) {
+            if (!html.includes(token)) throw new Error('Falta comprobación: ' + token);
+          }
+          for (const fn of ['militaryBossTurn', 'militaryBossAction']) {
+            const count = (html.match(new RegExp('function\\s+' + fn + '\\s*\\(', 'g')) || []).length;
+            if (count !== 1) throw new Error(fn + ': definición encontrada ' + count + ' veces');
+          }
+          const ids = [...html.matchAll(/\\bid=["']([^"']+)["']/g)].map(m => m[1]);
+          const duplicates = ids.filter((id, i) => ids.indexOf(id) !== i);
+          if (duplicates.length) throw new Error('IDs HTML duplicados: ' + [...new Set(duplicates)].join(', '));
+          console.log('OK: sintaxis JavaScript, 9 patrones, guardado v50, persistencia y IDs únicos.');
+          NODE
+
+      - name: Instalar navegador para prueba smoke
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+
+      - name: Prueba de carga en Chromium
+        run: |
+          node <<'NODE'
+          const { chromium } = require('playwright');
+          const path = require('path');
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            try {
+              const page = await browser.newPage();
+              const errors = [];
+              page.on('pageerror', error => errors.push(error.message));
+              await page.goto('file://' + path.resolve('index.html'), { waitUntil: 'domcontentloaded' });
+              await page.waitForTimeout(1200);
+              if (!(await page.locator('body').count())) throw new Error('No se creó el body.');
+              if (!(await page.locator('#menu').count())) throw new Error('No aparece el menú inicial.');
+              if (errors.length) throw new Error('Errores JavaScript en navegador: ' + errors.join(' | '));
+              console.log('OK: Chromium carga el juego, encuentra el menú y no registra excepciones JS.');
+            } finally {
+              await browser.close();
+            }
+          })().catch(error => { console.error(error); process.exit(1); });
+          NODE
