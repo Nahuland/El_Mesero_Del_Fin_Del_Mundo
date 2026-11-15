@@ -99,7 +99,7 @@ const props=[
  {id:'terminal',x:11.5,y:9.5,type:'terminal',name:'Terminal',emoji:'💻'},
  {id:'door',x:19.35,y:10.2,type:'door',name:'Puerta de La Estrella',emoji:'🚪'},
  {id:'wreck1',x:15.5,y:7.5,type:'wreck'},
- {id:'lamp',x:18.3,y:10.2,type:'lamp'},
+ {id:'lamp',x:23.2,y:13.0,type:'lamp'},
  {id:'scrap1',x:27.3,y:8.4,type:'scrap',name:'Montón de chatarra',emoji:'⚙️'},
  {id:'deserter',x:30.2,y:13.2,type:'npc',name:'Desertor',emoji:'🦾'},
  {id:'gate',x:36.2,y:17.5,type:'gate',name:'Compuerta del patio industrial',emoji:'⛔'},
@@ -475,8 +475,11 @@ function drawGround(){
   diamond(x,y,c);
  }
  // Camino principal y ramales; el resto del mapa queda libre para futuras expansiones.
+ // La senda interior funciona como pasillo hacia la puerta este; fuera del edificio
+ // continúa como camino exterior, sin atravesar la huella de La Estrella.
  for(let x=Math.max(10,minX);x<Math.min(46,maxX);x++)for(let y=Math.max(8,minY);y<Math.min(15,maxY);y++){
-  if(Math.abs(y-(10+Math.sin(x*.42)*1.5))<1.45)diamond(x,y,(x%2?'#77715d':'#827963'));
+  const centerY=x<=22?10.2:10.2+Math.sin((x-22)*.22)*1.2;
+  if(Math.abs(y-centerY)<1.35)diamond(x,y,(x%2?'#77715d':'#827963'));
  }
  // Caminos de exploración largos hacia las zonas todavía no desarrolladas.
  for(let y=Math.max(10,minY);y<Math.min(80,maxY);y++)for(let x=Math.max(35,minX);x<Math.min(44,maxX);x++){
