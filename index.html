@@ -1301,8 +1301,58 @@ function militaryInteract(id){
 }
 function militaryFunesTurn(){const m=ensureMilitary();if(m.funesDefeated){openDialogue('Control del puente','🪖','Ramiro Funes ya no controla el puesto.');return;}openDialogue('Ramiro Funes · '+m.funesHP+'%','🪖','Funes bloquea el paso y exige que entregues las pruebas. No va a negociar.',[{label:'Golpe directo · 35 de daño / recibís 18',run:()=>militaryFunesAction(35,18)},{label:'Esquivar y contraatacar · 24 de daño / recibís 8',run:()=>militaryFunesAction(24,8)},{label:'Retirarse',run:()=>openDialogue('Siete','🤖','Puedo regresar con más recursos.')}]);}
 function militaryFunesAction(damage,incoming){const m=ensureMilitary();m.funesHP=Math.max(0,m.funesHP-damage);if(!m.funesHP){m.funesDefeated=true;m.bridgeSecured=true;m.faction='weakened';openDialogue('Ramiro Funes','🪖','Funes cae. El control del puente queda neutralizado; no hay acuerdo ni rendición.');updateHUD();return;}player.hp=Math.max(1,player.hp-incoming);updateHUD();openDialogue('Ramiro Funes · '+m.funesHP+'%','🪖','Funes responde con una ráfaga. Integridad de Siete: '+player.hp+'%.',[{label:'Seguir luchando',run:()=>militaryFunesTurn()},{label:'Retirarse',run:()=>openDialogue('Siete','🤖','Me repliego para reparar mis sistemas.')}]);}
-function militaryBossTurn(){const m=ensureMilitary();if(m.varelaDefeated){openDialogue('Richars Octavio','🛡️','El General fue derrotado.');return;}m.bossHP=Number(m.bossHP)||260;m.bossPhase=m.bossHP>174?1:(m.bossHP>87?2:3);const phase=m.bossPhase,base=[15,20,25][phase-1],phaseText=phase===1?'Fase 1 · Control del campo: Richars dispara desde posiciones protegidas.':phase===2?'Fase 2 · Blindaje de asalto: embiste y rompe coberturas.':'Fase 3 · Última orden: combina ataques de área con presión directa.';const canExpose=evidenceReady(m)&&!m.exposedWeakness,canRepair=player.scrap>=2&&!m.repairUsed;openDialogue('Richars Octavio · '+m.bossHP+'%','🛡️',phaseText+' El General no se rendirá. Elegí una acción.',[{label:'Ataque pesado · 46 de daño',run:()=>militaryBossAction(46,militaryIncoming(base+5))},{label:'Esquivar y contraatacar · 30 de daño',run:()=>militaryBossAction(30,militaryIncoming(Math.max(5,base-7)))},...(canExpose?[{label:'Exponer la cadena de órdenes · 58 de daño / una vez',run:()=>{m.exposedWeakness=true;militaryBossAction(58,militaryIncoming(base-5));}}]:[]),...(canRepair?[{label:'Reparación · 2 piezas / +25 integridad',run:()=>{player.scrap-=2;m.repairUsed=true;player.hp=Math.min(100,player.hp+25);updateHUD();militaryBossTurn();}}]:[]),{label:'Retirarse y prepararse',run:()=>openDialogue('Siete','🤖','Richars Octavio no va a cambiar. Volveré para terminar esto.')}]);}
-function militaryBossAction(damage,incoming){const m=ensureMilitary(),old=m.bossPhase;m.bossHP=Math.max(0,m.bossHP-damage);m.bossTurnCount++;m.bossPhase=m.bossHP>174?1:(m.bossHP>87?2:3);if(!m.bossHP){m.varelaDefeated=true;m.faction='defeated';state.flags.militaryFortressOpen=true;state.objective='Richars Octavio fue derrotado. Entra en la Fortaleza y examina la consola Siesta.';updateHUD();openDialogue('Richars Octavio','🛡️','Richars Octavio cae. No hay rendición ni clemencia: su régimen termina con él. La derrota no apaga la consola Siesta ni explica el origen de la señal.');persistSave(true);return;}player.hp=Math.max(1,player.hp-incoming);updateHUD();openDialogue('Richars Octavio · '+m.bossHP+'%','🛡️','El impacto alcanza el blindaje. Integridad de Siete: '+player.hp+'%.'+(m.bossPhase!==old?' Richars cambia su patrón de ataque.':''),[{label:'Continuar el combate',run:()=>militaryBossTurn()},{label:'Retirarse',run:()=>openDialogue('Siete','🤖','Me repliego. No voy a negociar con él.')}]);}
+function militaryBossTurn(){
+ const m=ensureMilitary();
+ if(m.varelaDefeated){openDialogue('Richars Octavio','🛡️','El General fue derrotado.');return;}
+ m.bossHP=Number(m.bossHP)||260;
+ m.bossPhase=m.bossHP>174?1:(m.bossHP>87?2:3);
+ const phase=m.bossPhase,base=[15,20,25][phase-1];
+ const patterns=[
+  [
+   {name:'Ráfaga de cobertura',icon:'🔴',warning:'Richars fija una línea de tiro y prepara una ráfaga frontal.',bonus:4},
+   {name:'Disparo de precisión',icon:'🎯',warning:'El visor del blindaje te sigue: prepara un disparo preciso.',bonus:7},
+   {name:'Fuego de supresión',icon:'🟠',warning:'Richars barre el terreno para obligarte a salir de cobertura.',bonus:2}
+  ],
+  [
+   {name:'Embestida blindada',icon:'⚠️',warning:'El blindaje baja el centro de gravedad: Richars va a embestir tu posición.',bonus:8},
+   {name:'Onda de choque',icon:'💥',warning:'Los servomotores cargan energía: el impacto alcanzará el área cercana.',bonus:4},
+   {name:'Ráfaga perforante',icon:'🔴',warning:'El cañón cambia a munición perforante y busca un impacto directo.',bonus:6}
+  ],
+  [
+   {name:'Descarga de área',icon:'☢️',warning:'Richars marca el suelo alrededor de Siete: prepara una descarga de área.',bonus:10},
+   {name:'Salva final',icon:'🚨',warning:'El General concentra toda la potencia disponible en una salva final.',bonus:12},
+   {name:'Presión directa',icon:'🎯',warning:'Richars abandona la cobertura y avanza con fuego directo.',bonus:7}
+  ]
+ ];
+ const attack=patterns[phase-1][m.bossTurnCount%3];
+ const heavyDamage=militaryIncoming(base+attack.bonus);
+ const dodgeDamage=militaryIncoming(Math.max(5,base+attack.bonus-7));
+ const canExpose=evidenceReady(m)&&!m.exposedWeakness;
+ const canRepair=player.scrap>=2&&!m.repairUsed;
+ const support=[];
+ if(m.gunboatsSabotaged)support.push('Elba inutilizó las lanchas: Richars no recibe apoyo artillado (-6 daño).');
+ if(m.funesDefeated)support.push('Funes perdió el Control del puente: Richars no puede coordinar ese fuego (-4 daño).');
+ if(m.evidence.coverupOrder)support.push('La orden interceptada permite anticipar parte de sus movimientos (-2 daño).');
+ const phaseLabel=phase===1?'FASE 1 · CONTROL DEL CAMPO':phase===2?'FASE 2 · BLINDAJE DE ASALTO':'FASE 3 · ÚLTIMA ORDEN';
+ const briefing=phaseLabel+'\n'+attack.icon+' ATAQUE TELEGRAFIADO: '+attack.name+'\n'+attack.warning+'\n\nDaño previsto si atacás sin esquivar: '+heavyDamage+'. Si esquivás y contraatacás: '+dodgeDamage+'.'+(support.length?'\n\nAPOYO Y PREPARACIÓN\n'+support.join('\n'):'\n\nAPOYO ENEMIGO: las lanchas siguen operativas y el Control del puente no ha sido neutralizado.');
+ openDialogue('Richars Octavio · '+m.bossHP+'%','🛡️',briefing,[{label:'Ataque pesado · 46 daño / recibís '+heavyDamage,run:()=>militaryBossAction(46,heavyDamage,attack.name)},{label:'Esquivar y contraatacar · 30 daño / recibís '+dodgeDamage,run:()=>militaryBossAction(30,dodgeDamage,attack.name)},...(canExpose?[{label:'Exponer la cadena de órdenes · 58 daño / recibís '+militaryIncoming(Math.max(3,base+attack.bonus-5)),run:()=>{m.exposedWeakness=true;militaryBossAction(58,militaryIncoming(Math.max(3,base+attack.bonus-5)),'Cadena de órdenes expuesta');}}]:[]),...(canRepair?[{label:'Reparación · 2 piezas / +25 integridad',run:()=>{player.scrap-=2;m.repairUsed=true;player.hp=Math.min(100,player.hp+25);updateHUD();militaryBossTurn();}}]:[]),{label:'Retirarse y prepararse',run:()=>openDialogue('Siete','🤖','Richars Octavio no va a cambiar. Volveré para terminar esto.')}]);
+}
+function militaryBossAction(damage,incoming,attackName){
+ const m=ensureMilitary(),old=m.bossPhase;
+ m.bossHP=Math.max(0,m.bossHP-damage);
+ m.bossTurnCount++;
+ m.bossPhase=m.bossHP>174?1:(m.bossHP>87?2:3);
+ if(!m.bossHP){
+  m.varelaDefeated=true;m.faction='defeated';state.flags.militaryFortressOpen=true;
+  state.objective='Richars Octavio fue derrotado. Entra en la Fortaleza y examina la consola Siesta.';
+  updateHUD();
+  openDialogue('Richars Octavio','🛡️','Richars Octavio cae. No hay rendición ni clemencia: su régimen termina con él. La derrota no apaga la consola Siesta ni explica el origen de la señal.');
+  persistSave(true);return;
+ }
+ player.hp=Math.max(1,player.hp-incoming);updateHUD();
+ const transition=m.bossPhase!==old?' Richars cambia al patrón de la siguiente fase.':'';
+ openDialogue('Richars Octavio · '+m.bossHP+'%','🛡️',(attackName||'El ataque anunciado')+' impacta. Siete recibe '+incoming+' de daño. Integridad restante: '+player.hp+'%.'+transition,[{label:'Leer el siguiente ataque',run:()=>militaryBossTurn()},{label:'Retirarse',run:()=>openDialogue('Siete','🤖','Me repliego. No voy a negociar con él.')}]);
+}
 
 
 function interact(){
