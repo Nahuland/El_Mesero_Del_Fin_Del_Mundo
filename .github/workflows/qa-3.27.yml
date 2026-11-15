@@ -7,6 +7,7 @@ on:
       - release/3.27-pulido-tecnico
     paths:
       - 'index.html'
+      - 'El_Mesero_del_Fin_Del_Mundo_3.27_Pulido_Tecnico_RC.html'
       - '.github/workflows/qa-3.27.yml'
   workflow_dispatch:
 
@@ -31,6 +32,8 @@ jobs:
           const fs = require('fs');
           const vm = require('vm');
           const html = fs.readFileSync('index.html', 'utf8');
+          const versionedHtml = fs.readFileSync('El_Mesero_del_Fin_Del_Mundo_3.27_Pulido_Tecnico_RC.html', 'utf8');
+          if (versionedHtml !== html) throw new Error('El HTML principal y la copia 3.27 RC no están sincronizados.');
           const start = html.indexOf('<script>');
           const end = html.indexOf('</script>', start);
           if (start < 0 || end < 0 || html.indexOf('<script>', end + 9) >= 0) throw new Error('Se esperaba un único script inline principal.');
@@ -78,7 +81,7 @@ jobs:
             const count = (html.match(new RegExp('function\\s+' + fn + '\\s*\\(', 'g')) || []).length;
             if (count !== 1) throw new Error(fn + ': definición encontrada ' + count + ' veces');
           }
-          console.log('OK: sintaxis JavaScript, Acto IV, 9 patrones Richars, reconciliación de la Secta, tratamiento del Carnicero y guardado v50.');
+          console.log('OK: HTML principal/RC sincronizados, sintaxis JavaScript, Acto IV, 9 patrones Richars, reconciliación de la Secta, tratamiento del Carnicero y guardado v50.');
           NODE
 
       - name: Instalar navegador para prueba smoke
