@@ -179,3 +179,6 @@ No usar una cifra única como sustituto del inventario. Informar progreso por á
 - [Auditoría del renderizado y pipeline visual](26_Auditoria_3.28_Renderizado_y_Pipeline_Visual.md)
 
 La inspección estática confirma que el prototipo actual dibuja el mundo con primitivas Canvas y emojis: no utiliza texturas de imagen, spritesheets ni gestor de recursos. El informe separa estos hallazgos de las métricas de rendimiento, que todavía deben medirse.
+- [Catálogo inicial de producción visual y placeholders](27_Catalogo_Visual_Assets_3.28.md)
+
+El catálogo separa las representaciones provisionales actuales del arte definitivo pendiente. Ningún recurso visual se considera validado todavía.
