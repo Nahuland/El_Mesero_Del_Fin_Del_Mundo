@@ -38,7 +38,7 @@ Las propuestas de orientación y fichas afectivas permanecen intactas y fuera de
 - Simulación del cierre 13/13 del Acto IV y bloqueo cuando falta un requisito.
 - Verificación de que Elba y Funes son consecuencias tácticas opcionales, no requisitos del expediente.
 - Puerta de evidencia del Vuelo 9 y cálculo de daño con modificadores tácticos.
-- Secuencia del Templo/Santuario: ubicación interior de puntos, Sol → Luna, confianza de Noa/Dante y rendición limitada.
+- R5: interacciones de Noa y Dante, registro de doctrina, refugio, ubicación interior de puntos, Sol → Luna, bloqueo sin confianza y rendición limitada.
 - Simulación de las condiciones de los ocho finales y de los bloqueos específicos de los finales 6 y 7.
 - Escena de Teo y el Carnicero, resultado de lucidez temporal y persistencia en `savePayload()`.
 - Chromium escritorio: carga de menú, IDs sin duplicados y sin excepciones JavaScript.
