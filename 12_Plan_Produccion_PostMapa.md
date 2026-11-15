@@ -174,3 +174,8 @@ Una tarea se quita de la lista activa solo cuando su estado pasa a VALIDADA. Las
 
 ### Regla de evaluación global
 No usar una cifra única como sustituto del inventario. Informar progreso por área y separar implementación lógica, producción visual, optimización y validación. El proyecto no se declarará terminado mientras haya placeholders relevantes, personajes/escenarios sin arte final, sistemas de carga sin validar o pruebas integrales pendientes.
+
+### Auditoría inicial 3.28
+- [Auditoría del renderizado y pipeline visual](26_Auditoria_3.28_Renderizado_y_Pipeline_Visual.md)
+
+La inspección estática confirma que el prototipo actual dibuja el mundo con primitivas Canvas y emojis: no utiliza texturas de imagen, spritesheets ni gestor de recursos. El informe separa estos hallazgos de las métricas de rendimiento, que todavía deben medirse.
