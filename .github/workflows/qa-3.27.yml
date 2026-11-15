@@ -123,7 +123,7 @@ jobs:
                   military.gunboatsSabotaged = true; military.funesDefeated = true;
                   const preparedDamageWorks = militaryIncoming(15) === 3;
                   state.act5 = { contacts: { mira:'support', ivan:'support', lia:'support', teo:'negotiate', noa:'reject', dante:'support', kai:'support', eva:'support' }, councilComplete:true, ending:null, transmitterDisabled:false };
-                  state.military = { siestaDecision:'destroy', gunboatsSabotaged:true, funesDefeated:true };
+                  state.military = { siestaDecision:'destroy', gunboatsSabotaged:true, funesDefeated:true, act4ReviewComplete:true };
                   state.bossPeace = true;
                   state.city = { resolution:'severed', records:true, sample:true, hospitalEvidence:true, suppliesChoice:'hospital', clinicAid:true, antidoteRecovered:true, antidoteUsedForCarnicero:false, guardianDefeated:false };
                   state.flags = {};
@@ -155,9 +155,7 @@ jobs:
                   close();
                   const treatmentSaved = state.city.carniceroTreatmentResolved === true && state.city.carniceroTreatmentOutcome === 'lucidez_temporal';
                   const saved = savePayload();
-                  const newFlagsPersisted = saved.state.flags.cultResolution === 'reconciled' && saved.state.city.carniceroTreatmentResolved === true;
-                  const saved = savePayload();
-                  const newFlagsPersisted = saved.state.flags.cultResolution === 'reconciled' && saved.state.city.carniceroTreatmentResolved === true && saved.state.military.act4ReviewComplete === true;
+                  const newFlagsPersisted = saved.state.flags.cultResolution === 'reconciled' && saved.state.city.carniceroTreatmentResolved === true && saved.state.military.act4ReviewComplete === true && saved.state.flags.act4Complete === true;
                   return { blockedAct4, act4BlockedUntilAll13, all13Present, optionalActionsRemainOptional, act4ClosureWorks, evidenceGateWorks, incomingDamageWorks, preparedDamageWorks, lunarFirstBlocked, priestBlockedWithoutTrust, surrenderChoice, final6Available, final6BlockedWithoutResolution, final7Available, final7BlockedAfterReservation, treatmentChoice, treatmentSaved, newFlagsPersisted };
                 }
               };
