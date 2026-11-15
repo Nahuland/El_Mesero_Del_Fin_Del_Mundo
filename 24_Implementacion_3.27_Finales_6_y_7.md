@@ -43,7 +43,7 @@ Esta alternativa no cambia las condiciones del Final 7 médico: reservar el fras
 
 ## QA automatizado realizado
 
-<badge>APROBADO · GitHub Actions</badge>
+**Resultado:** APROBADO · GitHub Actions
 
 Ejecución: [QA 3.27 — GitHub Actions](https://github.com/Nahuland/El_Mesero_Del_Fin_Del_Mundo/actions/runs/43742725807)
 
