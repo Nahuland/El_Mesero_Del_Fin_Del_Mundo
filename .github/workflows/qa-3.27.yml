@@ -41,7 +41,23 @@ jobs:
             'Ráfaga de cobertura', 'Disparo de precisión', 'Fuego de supresión',
             'Embestida blindada', 'Onda de choque', 'Ráfaga perforante',
             'Descarga de área', 'Salva final', 'Presión directa',
-            'persistSave(true)'
+            'persistSave(true)',
+            "function militaryAct4Checklist(m)",
+            "done:!!e.evacuation", "done:!!e.trenchOrders",
+            "done:!!e.flight9Manifest", "done:!!e.flight9Discrepancy",
+            "done:!!e.coverupOrder", "done:!!e.aurelioRecipe",
+            "done:!!m.nereaTestimony", "done:!!m.celinaBriefed",
+            "done:!!m.damianConfronted", "done:!!m.hangarLogRead",
+            "done:!!m.commandArchiveRead", "done:!!m.varelaDefeated",
+            "done:!!m.siestaDecision",
+            "case'poi_trincherasnorte':e.trenchOrders=true",
+            "case'poi_aerodromo':e.flight9Discrepancy=true",
+            "case'poi_puestoderadio':e.coverupOrder=true",
+            "case'mil_celina'", "case'mil_damian'",
+            "case'mil_hangarFlightLog'", "case'mil_fortressArchive'",
+            "case'mil_fortressBoard':militaryAct4Review()",
+            "if(!evidenceReady(m))", "if(!ensureMilitary().varelaDefeated)",
+            "if(!ensureMilitary().act4ReviewComplete)"
           ];
           for (const token of required) {
             if (!html.includes(token)) throw new Error('Falta comprobación: ' + token);
@@ -50,7 +66,7 @@ jobs:
             const count = (html.match(new RegExp('function\\s+' + fn + '\\s*\\(', 'g')) || []).length;
             if (count !== 1) throw new Error(fn + ': definición encontrada ' + count + ' veces');
           }
-          console.log('OK: sintaxis JavaScript, 9 patrones, guardado v50, persistencia y IDs únicos.');
+          console.log('OK: sintaxis JavaScript, 13 requisitos Acto IV, rutas de evidencia, 9 patrones Richars, guardado v50 y persistencia.');
           NODE
 
       - name: Instalar navegador para prueba smoke
@@ -74,6 +90,7 @@ jobs:
               if (!(await page.locator('body').count())) throw new Error('No se creó el body.');
               if (!(await page.locator('#menu').count())) throw new Error('No aparece el menú inicial.');
               const ids = await page.locator('[id]').evaluateAll(nodes => nodes.map(node => node.id));
+              const duplicates = ids.filter((id, i) => ids.indexOf(id) !== i);
               if (duplicates.length) throw new Error('IDs duplicados: ' + [...new Set(duplicates)].join(', '));
               if (errors.length) throw new Error('Errores JavaScript en navegador: ' + errors.join(' | '));
               console.log('OK: Chromium carga el juego, encuentra el menú y no registra excepciones JS.');
