@@ -129,3 +129,21 @@ Duplicar este bloque por cada caso FALLIDO:
 | F01 | Iniciar partida nueva y observar La Estrella desde dentro y desde el exterior. Recorrer el pasillo hacia la puerta este y seguir el camino hacia el este. | La senda interior se lee como pasillo de salida; el camino exterior comienza después de la fachada y no parece atravesar el edificio. | NO EJECUTADO |
 | F02 | Observar y rodear la farola situada junto al camino exterior. | La farola queda fuera de la huella del restaurante, no invade el vano de la puerta ni bloquea el paso. | NO EJECUTADO |
 | F03 | Acercarse a la puerta este desde el interior y desde el exterior, en diagonal y de frente. | La puerta sigue visible y la interacción/transición se mantiene funcional. | NO EJECUTADO |
+
+
+### G. Richars Octavio — combate telegráfico y preparación
+
+| ID | Escenario y pasos | Resultado esperado | Estado |
+|---|---|---|---|
+| G01 | Iniciar el combate con Richars sin sabotear las lanchas ni neutralizar a Funes. Leer el anuncio y alternar ataque pesado y esquiva durante tres turnos de la fase 1. | Cada turno anuncia uno de los tres patrones de fase 1 antes de elegir; el patrón rota y el daño aplicado coincide con el anunciado. | NO EJECUTADO |
+| G02 | Reducir la integridad de Richars hasta la fase 2 y repetir tres turnos. | Se anuncian Embestida blindada, Onda de choque y Ráfaga perforante; el cambio de fase se comunica. | NO EJECUTADO |
+| G03 | Reducir la integridad de Richars hasta la fase 3 y repetir tres turnos. | Se anuncian Descarga de área, Salva final y Presión directa; el daño coincide con el aviso. | NO EJECUTADO |
+| G04 | Repetir el combate tras sabotear las lanchas con Elba. | El diálogo informa que el apoyo artillado fue impedido y el daño entrante refleja la reducción de 6 puntos. | NO EJECUTADO |
+| G05 | Repetir tras neutralizar a Funes, sin sabotear las lanchas. | El diálogo informa que Richars perdió la coordinación desde el puente y el daño refleja la reducción de 4 puntos. | NO EJECUTADO |
+| G06 | Obtener la orden de ocultamiento y combatir. | El diálogo informa que la información permite anticipar movimientos y el daño refleja la reducción de 2 puntos. | NO EJECUTADO |
+| G07 | Reunir las tres pruebas del Vuelo 9 y usar Exponer la cadena de órdenes. | La opción aparece una sola vez, causa el daño previsto y no cambia los hechos narrativos establecidos. | NO EJECUTADO |
+| G08 | Repararse durante un ataque anunciado. | El coste de 2 piezas y la recuperación de 25 se aplican una sola vez; Richars ejecuta el ataque anunciado y el daño coincide con el mostrado. | NO EJECUTADO |
+| G09 | Retirarse del combate y volver después. | Richars conserva integridad, fase y continuidad del contador de patrones; el jugador puede reanudar el combate. | NO EJECUTADO |
+| G10 | Guardar durante el combate, recargar y continuar. | Se conservan integridad, turno/patrón, piezas, reparación usada y progreso; no se reinicia ni duplica una acción. | NO EJECUTADO |
+| G11 | Derrotar a Richars. | No hay rendición; se abre el acceso narrativo existente a la Fortaleza y Siesta permanece pendiente de decisión. | NO EJECUTADO |
+| G12 | Repetir una sesión en escritorio y otra en móvil. | Los avisos y opciones son legibles, los botones responden y no se solapan con el diálogo. | NO EJECUTADO |
