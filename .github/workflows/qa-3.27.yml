@@ -224,6 +224,7 @@ jobs:
               await page.waitForTimeout(350);
               if (await page.locator('#menu').isVisible()) throw new Error('El menú no se oculta al iniciar partida en escritorio.');
               if (!(await page.locator('#hud').isVisible())) throw new Error('El HUD no aparece al iniciar partida en escritorio.');
+              if (errors.length) throw new Error('Errores JS al iniciar partida de escritorio: ' + errors.join(' | '));
               const mobile = await browser.newPage({ viewport: { width:390, height:844 }, isMobile:true, hasTouch:true });
               const mobileErrors = [];
               mobile.on('pageerror', error => mobileErrors.push(error.message));
