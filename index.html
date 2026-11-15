@@ -1349,7 +1349,7 @@ function militaryBossAction(damage,incoming,attackName){
   openDialogue('Richars Octavio','🛡️','Richars Octavio cae. No hay rendición ni clemencia: su régimen termina con él. La derrota no apaga la consola Siesta ni explica el origen de la señal.');
   persistSave(true);return;
  }
- player.hp=Math.max(1,player.hp-incoming);updateHUD();
+ player.hp=Math.max(1,player.hp-incoming);updateHUD();persistSave(true);
  const transition=m.bossPhase!==old?' Richars cambia al patrón de la siguiente fase.':'';
  openDialogue('Richars Octavio · '+m.bossHP+'%','🛡️',(attackName||'El ataque anunciado')+' impacta. Siete recibe '+incoming+' de daño. Integridad restante: '+player.hp+'%.'+transition,[{label:'Leer el siguiente ataque',run:()=>militaryBossTurn()},{label:'Retirarse',run:()=>openDialogue('Siete','🤖','Me repliego. No voy a negociar con él.')}]);
 }
