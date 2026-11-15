@@ -76,3 +76,8 @@ La instrumentación de prueba expone el estado encapsulado solo dentro de una co
 - Recorrido manual completo y revisión en móvil físico.
 
 **Importante:** el QA automatizado sí ejecutó las interacciones y las condiciones en Chromium con estado simulado. No equivale a una partida completa ni a validación manual.
+
+
+## Paquete RC
+
+Tras aprobar QA, GitHub Actions generó el artefacto `El-Mesero-3.27-Pulido-Tecnico-RC` con el ZIP del proyecto y su checksum. Está disponible en la ejecución [43744433504](https://github.com/Nahuland/El_Mesero_Del_Fin_Del_Mundo/actions/runs/43744433504). No se publicó en Pages ni se integró en `main`.
