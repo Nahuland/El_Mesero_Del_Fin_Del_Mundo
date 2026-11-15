@@ -78,10 +78,10 @@ Quedan pendientes de prueba real:
 | Condición de acceso a Richars | Confirmada estáticamente |
 | Tres fases y nueve patrones telegráficos | Implementados y comprobados estáticamente |
 | Apoyo opcional Elba/Funes/ocultamiento | Efectos comunicados en el briefing; modificadores comprobados estáticamente |
-| QA automatizado de sintaxis y progresión | Aprobado en GitHub Actions |
+| QA automatizado de sintaxis, progresión 13/13 y condiciones de los ocho finales | Aprobado en GitHub Actions |
 | Carga inicial en Chromium | Aprobada; menú detectado y sin excepciones JS de página |
 | Ruta geográfica completa | Pendiente de recorrido de juego |
 | Guardado/carga real y matriz G01–G12 | Pendientes |
 | Prueba visual en móvil físico | No ejecutada |
 
-**Conclusión:** la estructura de progresión del Acto IV existe y su cierre está protegido por trece requisitos persistentes. La diferenciación telegráfica de Richars y la comunicación de las ayudas opcionales ya están implementadas. El workflow de GitHub Actions valida sintaxis, presencia de los trece requisitos y carga inicial en Chromium. Esto no certifica el recorrido completo, la accesibilidad de cada punto, las transiciones ni el guardado/carga real. La siguiente etapa de contenido es completar los dos desenlaces aún bloqueados, siguiendo el guion maestro.
+**Conclusión:** la estructura de progresión del Acto IV existe y su cierre está protegido por trece requisitos persistentes. La diferenciación telegráfica de Richars y la comunicación de las ayudas opcionales ya están implementadas. El workflow de GitHub Actions valida sintaxis, cierre 13/13 del Acto IV (incluida la opcionalidad de Elba/Funes), modificadores tácticos, secuencia de la Secta, escena del Carnicero y condiciones de los ocho finales; Chromium carga el juego y no registra excepciones JavaScript. Esto no certifica el recorrido completo, la accesibilidad de cada punto, las transiciones ni el guardado/carga real. La siguiente etapa de contenido es completar los dos desenlaces aún bloqueados, siguiendo el guion maestro.
