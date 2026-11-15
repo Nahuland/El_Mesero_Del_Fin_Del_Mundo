@@ -3,7 +3,7 @@
 **Rama:** `release/3.27-pulido-tecnico`  
 **Archivos inspeccionados:** `index.html`, `17_Guion_Maestro_Fase4_1_Continuidad.md`, `12_Plan_Produccion_PostMapa.md`  
 **Método:** contraste estático del código con el guion maestro y el plan de producción.  
-**Estado:** auditoría estática; no equivale a una partida manual.
+**Estado:** auditoría estática inicial; sus dos bloqueos de contenido ya fueron atendidos en la implementación 3.27 y el QA automatizado posterior.
 
 ## Resultado
 
@@ -51,3 +51,8 @@ El código ya contiene:
 - `index.html`: `finaleMetrics()`, `chooseEnding()`, `act5Choose()`, interacciones del Hospital y del antídoto.
 
 **Conclusión:** los dos finales existen en el catálogo y tienen parte de sus condiciones preparadas, pero sus escenas de resolución están incompletas. La siguiente implementación debe cerrar primero la secuencia de la Secta y la escena del Carnicero, con persistencia y pruebas de regresión.
+
+
+## Resolución posterior
+
+Los dos bloqueos descritos en esta auditoría se implementaron en `24_Implementacion_3.27_Finales_6_y_7.md`. El workflow [QA 3.27](https://github.com/Nahuland/El_Mesero_Del_Fin_Del_Mundo/actions/runs/43743119847) aprobó la secuencia de la Secta, las condiciones de los ocho finales y la escena del Carnicero en Chromium con estados preparados. La prueba manual de una partida completa sigue pendiente.
