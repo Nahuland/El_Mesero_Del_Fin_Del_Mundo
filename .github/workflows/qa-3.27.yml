@@ -1,4 +1,5 @@
 name: QA automatico 3.27
+# Correccion del smoke test: extrae el script inline sin regex
 
 on:
   push:
