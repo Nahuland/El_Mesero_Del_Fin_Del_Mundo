@@ -94,7 +94,7 @@ jobs:
               const errors = [];
               page.on('pageerror', error => errors.push(error.message));
               const html = fs.readFileSync('index.html', 'utf8');
-              const marker = 'updateHUD();\\n})();\\n</script>';
+              const marker = 'updateHUD();\n})();\n</script>';
               const at = html.lastIndexOf(marker);
               if (at < 0) throw new Error('No se encontró el cierre del script para instrumentar QA.');
               const bridge = `window.__qa = {
