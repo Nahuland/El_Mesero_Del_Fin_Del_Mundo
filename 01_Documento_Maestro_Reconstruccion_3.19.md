@@ -542,3 +542,60 @@ La implementación conserva coordenadas maestras, mesero30save y saveVersion:49 
 ## Actualización de producción — Versión 3.23
 
 Se incorporan los interiores instanciados `milHangar` y `milFortress`, con entradas y retornos físicos vinculados a los accesos exteriores de R4. Celina Borda aporta testimonio de logística y Damián Ferreyra testimonio de operaciones, ambos limitados a lo que administraron o coordinaron. El Hangar suma un libro de operaciones que corrobora la discrepancia del Vuelo 9; la Fortaleza suma un archivo de mando posterior a la derrota de Richars Octavio. La consola Siesta ofrece tres tratamientos iniciales persistentes: desconectar el núcleo, aislarlo con autorización compartida o conservar una copia de solo lectura. Ninguno equivale a un final ni explica el origen de la señal. Se conserva `mesero30save` y `saveVersion:49`; la migración añade campos sin borrar estado anterior. La validación estática pasa; las pruebas visuales, de recorrido y móvil siguen pendientes.
+
+---
+
+## 20. Regla permanente de alcance y finalización del videojuego
+
+**Esta sección prevalece sobre cualquier estimación anterior de porcentaje o cierre global.** La versión 3.27 representa una base funcional de lógica, progresión y sistemas; no significa que el videojuego esté cerca de su lanzamiento ni que su producción global esté al 95%. No se asignará un porcentaje global sin una auditoría completa de todas las áreas y evidencias verificables.
+
+### 20.1. Áreas obligatorias de producción
+
+El proyecto se seguirá mediante un inventario vivo, por área y por entregable:
+
+1. **Lógica y sistemas:** movimiento, interacción, combate, inventario, decisiones, guardado, carga y progresión.
+2. **Contenido y narrativa:** escenas, misiones, diálogos, personajes, consecuencias, finales y coherencia con el Guion Maestro Fase 4.
+3. **Arte visual y dirección de arte:** identidad visual, paleta, lenguaje de formas, composición, interfaz y consistencia entre regiones.
+4. **Texturas y materiales:** terrenos, caminos, paredes, edificios, interiores, objetos, vegetación, agua, metal, madera y superficies específicas.
+5. **Personajes y criaturas:** modelo/sprite definitivo del protagonista S-07/Siete, compañeros, NPC principales, NPC de relleno, enemigos comunes, élites y jefes; incluir estados, siluetas, animaciones y variantes necesarias.
+6. **Mapas y ambientación:** construcción visual completa de regiones e interiores, mobiliario, utilería, vegetación, iluminación, clima, partículas y elementos ambientales.
+7. **Interfaz y experiencia:** pantalla de inicio, menús, HUD, diario, inventario, diálogos, opciones, pausa, accesibilidad y feedback visual/sonoro.
+8. **Carga y rendimiento:** pantallas/transiciones de carga donde sean necesarias, carga asíncrona de zonas y paquetes de recursos, precarga, descarga de recursos fuera de uso, atlas, caché, límites de memoria y medición de tiempos de carga/FPS.
+9. **Audio:** música, efectos, voces si corresponden y ambiente espacial, respetando la identidad del proyecto.
+10. **Pruebas y estabilización:** recorrido manual integral, revisión visual, rendimiento, guardados heredados, navegadores, escritorio y dispositivos móviles reales.
+
+### 20.2. Estados de seguimiento
+
+Cada tarea tendrá uno de estos estados, sin saltos por inferencia:
+- **PENDIENTE:** todavía no implementada.
+- **EN CURSO:** tiene trabajo iniciado, pero no cumple aceptación.
+- **IMPLEMENTADA — SIN VALIDAR:** el código o recurso existe, pero falta comprobarlo en contexto.
+- **VALIDADA:** cumple sus criterios y existe evidencia de prueba adecuada.
+- **BLOQUEADA:** depende de una decisión, recurso o tarea previa.
+
+Una tarea solo se descarta de pendientes cuando está VALIDADA. La existencia de código provisional, placeholders, formas geométricas o referencias visuales no cuenta como arte final. Las pruebas automáticas no sustituyen la revisión visual ni el recorrido manual.
+
+### 20.3. Regla de porcentaje
+
+No volver a presentar el porcentaje de una fase técnica como porcentaje del videojuego completo. Si se informa progreso, se separará por área y se explicará qué se midió, qué falta y qué evidencia respalda el estado. No declarar 95%, final, RC de lanzamiento ni completo mientras falten áreas obligatorias de producción o validaciones críticas.
+
+### 20.4. Orden de producción visual y técnica
+
+El orden recomendado es:
+1. Auditar el renderizador actual, las entidades dibujadas, el sistema de cámara, el tamaño de canvas y el consumo de recursos.
+2. Definir dirección de arte y especificaciones de assets: resolución, escala, perspectiva, pivotes, paleta, formatos, nomenclatura y variantes.
+3. Diseñar la arquitectura de recursos: atlas/hojas, manifiesto, carga asíncrona, precarga por zona, caché y liberación segura; decidir qué zonas requieren pantalla de carga y cuáles pueden usar transición continua.
+4. Crear un vertical slice visual completo de La Estrella: escenario, materiales, protagonista, NPC, iluminación, UI, animación y audio básico.
+5. Validar legibilidad, rendimiento y consistencia en escritorio y móvil antes de extender el estándar a las cinco regiones.
+6. Producir en lotes el resto de mapas, interiores, personajes, enemigos, jefes, NPC de ambientación y animaciones.
+7. Completar audio, efectos, optimización, QA visual/manual y recorrido integral.
+
+Las pantallas de carga no se añadirán indiscriminadamente: se usarán donde el tamaño o complejidad de los recursos lo justifique. Deben comunicar progreso real y evitar congelamientos; las zonas pequeñas podrán mantener continuidad si el rendimiento lo permite.
+
+### 20.5. Límites de canon y preservación
+
+La producción visual puede enriquecer la puesta en escena, el diseño ambiental y la lectura de personajes, pero no puede inventar hechos, relaciones, símbolos doctrinales, motivaciones, identidades ni desenlaces. Todo diseño que pueda implicar información narrativa nueva se documentará como propuesta y requerirá aprobación antes de incorporarse al canon. Se preservan el mapa lógico, las coordenadas, las decisiones y los guardados existentes salvo que una corrección técnica justificada y documentada requiera cambios.
+
+### 20.6. Estado global corregido
+
+La base lógica cuenta con implementaciones importantes y QA automatizado parcial. El apartado visual definitivo, texturas, modelado/sprites finales, ambientación completa, pantallas/gestión de carga de recursos, audio y validación integral siguen pendientes o sin validar. Por tanto, el proyecto permanece en producción activa y no debe describirse como casi terminado.
