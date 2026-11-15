@@ -91,8 +91,10 @@ jobs:
           node <<'NODE'
           const { chromium } = require('playwright');
           const fs = require('fs');
+          const http = require('http');
           (async () => {
             const browser = await chromium.launch({ headless: true });
+            let server;
             try {
               const page = await browser.newPage();
               const errors = [];
@@ -202,13 +204,19 @@ jobs:
                   state.records = { siesta:true, signal:true };
                   const final8Signal = finaleMetrics().signal;
                   return { final1Restaurant, final2Solitary, final3Archive, final4Iron, final5Siesta, final8Signal, mapStructureValid, cultPropsPlaced, noaChoice, danteChoice, doctrineRead, blockedAct4, act4BlockedUntilAll13, all13Present, optionalActionsRemainOptional, act4ClosureWorks, evidenceGateWorks, incomingDamageWorks, preparedDamageWorks, lunarFirstBlocked, priestBlockedWithoutTrust, surrenderChoice, final6Available, final6BlockedWithoutResolution, final7Available, final7BlockedAfterReservation, treatmentChoice, treatmentSaved, newFlagsPersisted };
+                },
+                readLoadedState() {
+                  return { started:state.started, flags:{...(state.flags||{})}, city:{...(state.city||{})}, military:{...(state.military||{})} };
                 }
               };
               updateHUD();
               })();
               </script>`;
               const instrumentedHtml = html.slice(0, at) + bridge + html.slice(at + marker.length);
-              await page.setContent(instrumentedHtml, { waitUntil: 'domcontentloaded' });
+              server = http.createServer((req,res) => { res.writeHead(200, {'content-type':'text/html; charset=utf-8'}); res.end(instrumentedHtml); });
+              await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+              const testUrl = 'http://127.0.0.1:' + server.address().port + '/';
+              await page.goto(testUrl, { waitUntil: 'domcontentloaded' });
               await page.waitForTimeout(1200);
               if (!(await page.locator('body').count())) throw new Error('No se creó el body.');
               if (!(await page.locator('#menu').count())) throw new Error('No aparece el menú inicial.');
@@ -225,10 +233,27 @@ jobs:
               if (await page.locator('#menu').isVisible()) throw new Error('El menú no se oculta al iniciar partida en escritorio.');
               if (!(await page.locator('#hud').isVisible())) throw new Error('El HUD no aparece al iniciar partida en escritorio.');
               if (errors.length) throw new Error('Errores JS al iniciar partida de escritorio: ' + errors.join(' | '));
+              const stored = await page.evaluate(() => {
+                const raw = localStorage.getItem('mesero30save');
+                if (!raw) return null;
+                const save = JSON.parse(raw);
+                return { version:save.saveVersion, flags:save.state?.flags, city:save.state?.city, military:save.state?.military };
+              });
+              if (!stored || stored.version !== 50 || stored.flags?.cultResolution !== 'reconciled' || stored.flags?.cultNoaTrust !== true || stored.flags?.cultDanteTrust !== true || stored.city?.carniceroTreatmentResolved !== true || stored.military?.act4ReviewComplete !== true) {
+                throw new Error('El guardado real en localStorage no conserva las nuevas banderas: ' + JSON.stringify(stored));
+              }
+              await page.reload({ waitUntil:'domcontentloaded' });
+              await page.waitForTimeout(200);
+              await page.locator('#continueGame').click();
+              await page.waitForTimeout(300);
+              const loaded = await page.evaluate(() => window.__qa.readLoadedState());
+              if (!loaded.started || loaded.flags.cultResolution !== 'reconciled' || loaded.flags.cultNoaTrust !== true || loaded.flags.cultDanteTrust !== true || loaded.city.carniceroTreatmentResolved !== true || loaded.military.act4ReviewComplete !== true) {
+                throw new Error('El guardado real no se recupera al continuar: ' + JSON.stringify(loaded));
+              }
               const mobile = await browser.newPage({ viewport: { width:390, height:844 }, isMobile:true, hasTouch:true });
               const mobileErrors = [];
               mobile.on('pageerror', error => mobileErrors.push(error.message));
-              await mobile.setContent(instrumentedHtml, { waitUntil:'domcontentloaded' });
+              await mobile.goto(testUrl, { waitUntil:'domcontentloaded' });
               await mobile.waitForTimeout(250);
               if (!(await mobile.locator('#mobileControls').isVisible())) throw new Error('Los controles táctiles no aparecen en viewport móvil.');
               if (!(await mobile.locator('#mobileAct').isVisible())) throw new Error('No aparece el botón táctil de interacción.');
@@ -242,8 +267,9 @@ jobs:
               if (!(await mobile.locator('#mobileControls').isVisible())) throw new Error('Los controles táctiles desaparecen al iniciar partida.');
               if (mobileErrors.length) throw new Error('Errores JS en viewport móvil: ' + mobileErrors.join(' | '));
               await mobile.close();
-                            console.log('OK: Chromium inicia partida en escritorio y móvil, simula la estructura de mapas/interiores, el cierre 13/13 del Acto IV y las condiciones de los ocho finales, además de el arco de Noa y Dante, la secuencia de la Secta y el tratamiento del Carnicero; escritorio y viewport móvil pasan sin excepciones JS.');
+                            console.log('OK: Chromium inicia partida en escritorio y móvil, simula la estructura de mapas/interiores, el cierre 13/13 del Acto IV y las condiciones de los ocho finales, además de el arco de Noa y Dante, la secuencia de la Secta y el tratamiento del Carnicero; escritorio y viewport móvil pasan; localStorage guarda y recupera las banderas al continuar.');
             } finally {
+              if (server) await new Promise(resolve => server.close(resolve));
               await browser.close();
             }
           })().catch(error => { console.error(error); process.exit(1); });
