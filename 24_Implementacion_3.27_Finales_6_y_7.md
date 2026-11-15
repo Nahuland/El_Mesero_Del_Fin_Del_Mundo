@@ -48,7 +48,7 @@ Esta alternativa no cambia las condiciones del Final 7 médico: reservar el fras
 Ejecución: [QA 3.27 — GitHub Actions](https://github.com/Nahuland/El_Mesero_Del_Fin_Del_Mundo/actions/runs/43742725807)
 
 - Sintaxis del JavaScript principal: aprobada.
-- Contrato de progresión del Acto IV (13 requisitos y rutas de evidencia): aprobado.
+- Simulación del cierre 13/13 del Acto IV: bloquea la revisión si falta una prueba y la completa al reunirlas todas; las acciones opcionales de Elba y Funes no son requisito.
 - Nueve patrones de Richars y persistencia por turno: comprobados.
 - Chromium carga el menú inicial sin excepciones JavaScript y sin IDs duplicados.
 - Simulación real en Chromium de la secuencia Sol → Luna; Luna antes que Sol no completa el ritual.
@@ -58,7 +58,7 @@ Ejecución: [QA 3.27 — GitHub Actions](https://github.com/Nahuland/El_Mesero_D
 - La escena de Teo/Carnicero se ejecuta y persiste el resultado de lucidez temporal.
 - Las nuevas banderas se conservan en la estructura generada por `savePayload()`.
 
-La instrumentación de prueba expone el estado encapsulado solo dentro de una copia HTML en memoria durante Chromium; no se incorpora al juego.
+La instrumentación de prueba expone el estado encapsulado solo dentro de una copia HTML en memoria durante Chromium; no se incorpora al juego. La simulación ejecuta las funciones reales de interacción y cierre de expedientes con estados preparados; no recorre físicamente el mapa ni sustituye la partida manual.
 
 ## Validación manual pendiente
 
