@@ -33,8 +33,9 @@ Las propuestas de orientación y fichas afectivas permanecen intactas y fuera de
 
 ## QA automatizado ampliado — GitHub Actions
 
-- Workflow: [QA 3.27](https://github.com/Nahuland/El_Mesero_Del_Fin_Del_Mundo/actions/runs/43743284827).
+- Workflow: [QA 3.27](https://github.com/Nahuland/El_Mesero_Del_Fin_Del_Mundo/actions/runs/43743690669).
 - Estado: **APROBADO**.
+- Estructura del mapa: IDs únicos, coordenadas dentro de límites, referencias válidas y retornos en los 11 interiores.
 - Simulación del cierre 13/13 del Acto IV y bloqueo cuando falta un requisito.
 - Verificación de que Elba y Funes son consecuencias tácticas opcionales, no requisitos del expediente.
 - Puerta de evidencia del Vuelo 9 y cálculo de daño con modificadores tácticos.
