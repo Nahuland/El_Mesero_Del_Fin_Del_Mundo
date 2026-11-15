@@ -53,6 +53,7 @@ Esta alternativa no cambia las condiciones del Final 7 médico: reservar el fras
 Ejecución: [QA 3.27 — GitHub Actions](https://github.com/Nahuland/El_Mesero_Del_Fin_Del_Mundo/actions/runs/43742725807)
 
 - Sintaxis del JavaScript principal: aprobada.
+- Estructura del mapa: IDs de props únicos, coordenadas dentro de 420×300, referencias de interiores válidas y puerta de retorno presente en los 11 interiores.
 - Simulación del cierre 13/13 del Acto IV: bloquea la revisión si falta una prueba y la completa al reunirlas todas; las acciones opcionales de Elba y Funes no son requisito.
 - Nueve patrones de Richars y persistencia por turno: comprobados.
 - Chromium carga el menú inicial sin excepciones JavaScript y sin IDs duplicados.
