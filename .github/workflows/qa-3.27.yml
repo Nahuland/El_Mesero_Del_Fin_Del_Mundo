@@ -65,7 +65,8 @@ jobs:
             "case'nestVictim'", "c.carniceroTreatmentResolved=true",
             "c.carniceroTreatmentOutcome='lucidez_temporal'",
             "state.act5?.contacts?.teo==='support'",
-            "El Carnicero", "la canción le devolvió unos instantes de lucidez"
+            "El Carnicero", "la canción le devolvió unos instantes de lucidez",
+            "interior:'temple'", "interior:'sanctuary'"
           ];
           for (const token of required) {
             if (!html.includes(token)) throw new Error('Falta comprobación: ' + token);
@@ -99,6 +100,7 @@ jobs:
               if (at < 0) throw new Error('No se encontró el cierre del script para instrumentar QA.');
               const bridge = `window.__qa = {
                 runCultAndFinaleChecks() {
+                  const cultPropsPlaced = ['cultReflectorProof','cultSolarBrazier','cultLunarBrazier'].every(id => props.some(p => p.id === id && p.interior === 'temple')) && props.some(p => p.id === 'cultPriest' && p.interior === 'sanctuary');
                   state.military = {
                     evidence: { evacuation:true, trenchOrders:true, flight9Manifest:true, flight9Discrepancy:false, coverupOrder:true, aurelioRecipe:true },
                     nereaTestimony:true, celinaBriefed:true, damianConfronted:true,
@@ -158,7 +160,7 @@ jobs:
                   const treatmentSaved = state.city.carniceroTreatmentResolved === true && state.city.carniceroTreatmentOutcome === 'lucidez_temporal';
                   const saved = savePayload();
                   const newFlagsPersisted = saved.state.flags.cultResolution === 'reconciled' && saved.state.city.carniceroTreatmentResolved === true && saved.state.military.act4ReviewComplete === true && saved.state.flags.act4Complete === true;
-                  return { blockedAct4, act4BlockedUntilAll13, all13Present, optionalActionsRemainOptional, act4ClosureWorks, evidenceGateWorks, incomingDamageWorks, preparedDamageWorks, lunarFirstBlocked, priestBlockedWithoutTrust, surrenderChoice, final6Available, final6BlockedWithoutResolution, final7Available, final7BlockedAfterReservation, treatmentChoice, treatmentSaved, newFlagsPersisted };
+                  return { cultPropsPlaced, blockedAct4, act4BlockedUntilAll13, all13Present, optionalActionsRemainOptional, act4ClosureWorks, evidenceGateWorks, incomingDamageWorks, preparedDamageWorks, lunarFirstBlocked, priestBlockedWithoutTrust, surrenderChoice, final6Available, final6BlockedWithoutResolution, final7Available, final7BlockedAfterReservation, treatmentChoice, treatmentSaved, newFlagsPersisted };
                 }
               };
               updateHUD();
@@ -169,8 +171,8 @@ jobs:
               if (!(await page.locator('body').count())) throw new Error('No se creó el body.');
               if (!(await page.locator('#menu').count())) throw new Error('No aparece el menú inicial.');
               const endings = await page.evaluate(() => window.__qa.runCultAndFinaleChecks());
-              if (!endings.blockedAct4 || !endings.act4BlockedUntilAll13 || !endings.all13Present || !endings.optionalActionsRemainOptional || !endings.act4ClosureWorks || !endings.evidenceGateWorks || !endings.incomingDamageWorks || !endings.preparedDamageWorks || !endings.lunarFirstBlocked || !endings.priestBlockedWithoutTrust || !endings.surrenderChoice || !endings.final6Available || !endings.final6BlockedWithoutResolution || !endings.final7Available || !endings.final7BlockedAfterReservation || !endings.treatmentChoice || !endings.treatmentSaved || !endings.newFlagsPersisted) {
-                throw new Error('Falló la simulación del Acto IV, la Secta, finales 6/7 o tratamiento del Carnicero: ' + JSON.stringify(endings));
+              if (!endings.cultPropsPlaced || !endings.blockedAct4 || !endings.act4BlockedUntilAll13 || !endings.all13Present || !endings.optionalActionsRemainOptional || !endings.act4ClosureWorks || !endings.evidenceGateWorks || !endings.incomingDamageWorks || !endings.preparedDamageWorks || !endings.lunarFirstBlocked || !endings.priestBlockedWithoutTrust || !endings.surrenderChoice || !endings.final6Available || !endings.final6BlockedWithoutResolution || !endings.final7Available || !endings.final7BlockedAfterReservation || !endings.treatmentChoice || !endings.treatmentSaved || !endings.newFlagsPersisted) {
+                throw new Error('Falló la simulación del Acto IV, la ubicación de los puntos de la Secta, finales 6/7 o tratamiento del Carnicero: ' + JSON.stringify(endings));
               }
               const ids = await page.locator('[id]').evaluateAll(nodes => nodes.map(node => node.id));
               const duplicates = ids.filter((id, i) => ids.indexOf(id) !== i);
